@@ -1,0 +1,7 @@
+{
+  "dependencies": ["."],
+  "graphs": {
+    "ab_testing_agent": "./agent_graph_clean.py:build_graph"
+  },
+  "env": ".env"
+}

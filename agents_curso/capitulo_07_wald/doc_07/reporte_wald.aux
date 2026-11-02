@@ -1,0 +1,43 @@
+\relax 
+\providecommand\babel@aux[2]{}
+\@nameuse{bbl@beforestart}
+\catcode `"\active 
+\catcode `<\active 
+\catcode `>\active 
+\@nameuse{es@quoting}
+\providecommand\hyper@newdestlabel[2]{}
+\providecommand\HyField@AuxAddToFields[1]{}
+\providecommand\HyField@AuxAddToCoFields[2]{}
+\babel@aux{spanish}{}
+\@writefile{toc}{\contentsline {section}{\numberline {1}Introducción}{2}{section.1}\protected@file@percent }
+\newlabel{eq:loss-matrix}{{1}{2}{Convención de pérdida (Statlog)}{equation.1.1}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {2}Arquitectura del grafo (DAG)}{2}{section.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Grafo acíclico dirigido (DAG) del agente de Wald. Cada nodo es una función pura \texttt  {AgentState $\to $ AgentState}. Las variables que fluyen entre nodos se indican sobre las aristas.}}{2}{figure.1}\protected@file@percent }
+\newlabel{fig:dag}{{1}{2}{Grafo acíclico dirigido (DAG) del agente de Wald. Cada nodo es una función pura \texttt {AgentState $\to $ AgentState}. Las variables que fluyen entre nodos se indican sobre las aristas}{figure.1}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {3}Descripción de los nodos}{3}{section.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.1}Nodo 1: Observar (\texttt  {observar})}{3}{subsection.3.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.2}Nodo 2: Posterior (\texttt  {make\_posterior\_node})}{3}{subsection.3.2}\protected@file@percent }
+\newlabel{eq:moment-match}{{2}{3}{Nodo 2: Posterior (\texttt {make\_posterior\_node})}{equation.3.2}{}}
+\newlabel{eq:entropy}{{3}{3}{Nodo 2: Posterior (\texttt {make\_posterior\_node})}{equation.3.3}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.3}Nodo 3: Riesgo Bayesiano (\texttt  {riesgo\_bayes})}{3}{subsection.3.3}\protected@file@percent }
+\newlabel{eq:bayes-risk}{{4}{3}{Nodo 3: Riesgo Bayesiano (\texttt {riesgo\_bayes})}{equation.3.4}{}}
+\newlabel{eq:bayes-rule}{{5}{3}{Nodo 3: Riesgo Bayesiano (\texttt {riesgo\_bayes})}{equation.3.5}{}}
+\newlabel{eq:threshold}{{6}{3}{Nodo 3: Riesgo Bayesiano (\texttt {riesgo\_bayes})}{equation.3.6}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.4}Nodo 4: Riesgo Minimax (\texttt  {riesgo\_minimax})}{4}{subsection.3.4}\protected@file@percent }
+\newlabel{eq:worst-case}{{10}{4}{Nodo 4: Riesgo Minimax (\texttt {riesgo\_minimax})}{equation.3.10}{}}
+\newlabel{eq:minimax-rule}{{11}{4}{Nodo 4: Riesgo Minimax (\texttt {riesgo\_minimax})}{equation.3.11}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.5}Nodo 5: Meta-selector (\texttt  {meta\_selector})}{4}{subsection.3.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {4}Verificación empírica}{4}{section.4}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Árbol de decisión del meta-selector. $\tau _{\text  {esc}} = 0.65$, $\tau _{\text  {mm}} = 0.45$ con los parámetros actuales.}}{5}{figure.2}\protected@file@percent }
+\newlabel{fig:meta}{{2}{5}{Árbol de decisión del meta-selector. $\tau _{\text {esc}} = 0.65$, $\tau _{\text {mm}} = 0.45$ con los parámetros actuales}{figure.2}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces La coincidencia entre el umbral cerrado y el observado ($0.1665/0.1667$) verifica empíricamente el Teorema de Bayes.}}{5}{table.1}\protected@file@percent }
+\newlabel{tab:threshold}{{1}{5}{La coincidencia entre el umbral cerrado y el observado ($0.1665/0.1667$) verifica empíricamente el Teorema de Bayes}{table.1}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {5}Validación teórica (tests)}{5}{section.5}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces Pérdida total realizada sobre 200 solicitudes de test. Minimax supera a Bayes en esta ejecución (efecto de muestra finita).}}{6}{table.2}\protected@file@percent }
+\newlabel{tab:loss}{{2}{6}{Pérdida total realizada sobre 200 solicitudes de test. Minimax supera a Bayes en esta ejecución (efecto de muestra finita)}{table.2}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces Tabla de contingencia entre reglas. En 60 casos (30\%) discrepan: Bayes acepta donde minimax rechaza.}}{6}{table.3}\protected@file@percent }
+\newlabel{tab:confusion}{{3}{6}{Tabla de contingencia entre reglas. En 60 casos (30\%) discrepan: Bayes acepta donde minimax rechaza}{table.3}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {6}Configuración y parametrización}{6}{section.6}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {4}{\ignorespaces Parámetros editables del agente.}}{6}{table.4}\protected@file@percent }
+\newlabel{tab:params}{{4}{6}{Parámetros editables del agente}{table.4}{}}
+\gdef \@abspage@last{6}

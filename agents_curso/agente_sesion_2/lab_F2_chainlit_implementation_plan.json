@@ -1,0 +1,307 @@
+{
+  "project": "lab_F2_sufficient_agent_chainlit",
+  "version": "2.0.0",
+  "description": "Versión chat interactiva del agente estadístico LangGraph con Chainlit, streaming en vivo, gráficas de convergencia y nodo LLM analyst",
+  "stack": {
+    "chat_ui": "chainlit>=1.1.0",
+    "agent_framework": "langgraph>=0.2.0",
+    "llm": "anthropic>=0.25.0",
+    "plotting": "matplotlib>=3.8.0",
+    "state_persistence": "sqlite3 (stdlib)",
+    "existing_agents": ["sufficient_agent.py", "baseline_agent.py"]
+  },
+  "new_files": [
+    "chainlit_app.py",
+    "analyst_node.py",
+    "stream_callbacks.py",
+    "plot_utils.py",
+    "checkpointer.py",
+    "prompts/analyst_system.md"
+  ],
+  "phases": {
+    "phase_1_chainlit_shell": {
+      "goal": "App Chainlit funcional que recibe parámetros y lanza el agente suficiente",
+      "file": "chainlit_app.py",
+      "steps": [
+        {
+          "step": 1,
+          "action": "install_deps",
+          "command": "pip install chainlit langgraph anthropic matplotlib scipy numpy",
+          "note": "Añadir al requirements.txt"
+        },
+        {
+          "step": 2,
+          "action": "create_entry_point",
+          "file": "chainlit_app.py",
+          "skeleton": {
+            "imports": ["chainlit as cl", "asyncio", "sufficient_agent", "baseline_agent"],
+            "on_chat_start": {
+              "purpose": "Mostrar mensaje de bienvenida con comandos disponibles",
+              "decorator": "@cl.on_chat_start",
+              "commands": [
+                "/run [n] [theta] [agent]   — ejecutar agente",
+                "/compare [n] [theta]       — comparar ambos agentes en paralelo",
+                "/benchmark                 — test de complejidad O(1) vs O(n²)",
+                "/resume                    — retomar sesión guardada (checkpoint)"
+              ]
+            },
+            "on_message": {
+              "purpose": "Parsear comando o tratar como pregunta libre al analyst LLM",
+              "decorator": "@cl.on_message",
+              "routing": {
+                "/run": "handle_run(msg)",
+                "/compare": "handle_compare(msg)",
+                "/benchmark": "handle_benchmark(msg)",
+                "/resume": "handle_resume(msg)",
+                "default": "handle_free_question(msg)"
+              }
+            }
+          }
+        },
+        {
+          "step": 3,
+          "action": "run_dev_server",
+          "command": "chainlit run chainlit_app.py -w",
+          "expected": "UI en localhost:8000"
+        }
+      ]
+    },
+    "phase_2_streaming_state": {
+      "goal": "Mostrar θ̂(n) actualizándose en tiempo real cada STREAM_EVERY observaciones",
+      "files": ["stream_callbacks.py", "sufficient_agent.py (modificar para emitir historia)"],
+      "key_concept": "LangGraph soporta .astream() que emite el estado tras cada nodo. Usar esto para enviar actualizaciones a Chainlit sin modificar la lógica del agente.",
+      "constants": {
+        "STREAM_EVERY": {
+          "value": 50,
+          "description": "Emitir update de UI cada N observaciones para no saturar el websocket"
+        }
+      },
+      "stream_callbacks_py": {
+        "class": "ChainlitStreamHandler",
+        "method": "async def on_state_update(state, step_n)",
+        "logic": [
+          "Si step_n % STREAM_EVERY != 0, return (skip)",
+          "Formatear estado: n={state.count}, θ̂={state.theta_hat:.4f}, D_KL={state.kl:.6f}",
+          "Llamar cl.Message(content=...).send() con autor='agent_stream'",
+          "O actualizar un cl.Step en curso con .update()"
+        ]
+      },
+      "chainlit_handle_run": {
+        "pattern": "async with cl.Step(name='Running agent', show_input=True) as step:",
+        "inner": [
+          "step.output = 'Iniciando stream...'",
+          "async for state in agent_graph.astream(initial_state):",
+          "    await handler.on_state_update(state, step_n)",
+          "await step.update()"
+        ]
+      },
+      "ui_message_format": "📊 n={n:,} | θ̂={theta_hat:.4f} | D_KL={kl:.6f} | error={abs(theta_hat - theta_true):.4f}"
+    },
+    "phase_3_convergence_plot": {
+      "goal": "Enviar gráfica de convergencia θ̂(n) inline en el chat al finalizar el run",
+      "file": "plot_utils.py",
+      "function": "def make_convergence_plot(history: list[dict], theta_true: float, agent_name: str) -> bytes",
+      "history_schema": {
+        "description": "Acumular en sufficient_agent una lista de snapshots cada STREAM_EVERY pasos",
+        "fields": ["n", "theta_hat", "kl", "error"]
+      },
+      "plot_spec": {
+        "figure_size": [10, 4],
+        "subplots": 2,
+        "subplot_1": {
+          "title": "Convergencia de θ̂",
+          "x": "n (observaciones)",
+          "y": "θ̂",
+          "elements": [
+            "línea θ̂(n)",
+            "línea horizontal θ_true (dashed, color coral)",
+            "banda sombreada θ_true ± 3/√n (alpha=0.15)"
+          ]
+        },
+        "subplot_2": {
+          "title": "Divergencia KL acumulada",
+          "x": "n",
+          "y": "D_KL",
+          "elements": ["curva D_KL(n)", "eje y en escala log si max > 0.1"]
+        },
+        "style": "seaborn-v0_8-whitegrid",
+        "output": "bytes (PNG, dpi=150)"
+      },
+      "chainlit_send": {
+        "code": "img_bytes = make_convergence_plot(history, theta_true, agent_name)\nawait cl.Image(name='convergence', display='inline', content=img_bytes).send()"
+      },
+      "compare_mode": {
+        "description": "En /compare, superponer ambas curvas en el mismo subplot con colores distintos",
+        "colors": {
+          "sufficient": "#1D9E75",
+          "baseline": "#D85A30"
+        },
+        "legend": true
+      }
+    },
+    "phase_4_llm_analyst": {
+      "goal": "Nodo LangGraph final que usa Claude para interpretar los resultados del run",
+      "file": "analyst_node.py",
+      "graph_modification": {
+        "new_node": "analyst",
+        "topology": "observe → update → decide → (observe | analyst) → END",
+        "trigger": "decide devuelve 'analyst' cuando count >= n_total"
+      },
+      "analyst_node": {
+        "function": "async def analyst_node(state: SufficientState) -> SufficientState",
+        "api_call": {
+          "model": "claude-opus-4-5",
+          "system_prompt_file": "prompts/analyst_system.md",
+          "user_message_template": "Analiza estos resultados de estimación Bernoulli(θ):\n- n observaciones: {count}\n- θ verdadero: {theta_true}\n- θ̂ estimado: {theta_hat:.6f}\n- Error absoluto: {abs_error:.6f}\n- D_KL final: {kl:.8f}\n- Tipo de agente: {agent_type}\n\nResponde en 3-4 oraciones: qué implica la D_KL obtenida, si la convergencia fue la esperada por CLT, y qué ventaja concreta dio el estadístico suficiente.",
+          "max_tokens": 300
+        },
+        "output_field": "state.analysis_text = response"
+      },
+      "analyst_system_md": {
+        "path": "prompts/analyst_system.md",
+        "content_summary": "Eres un estadístico experto. Interpreta resultados de estimación de parámetros con lenguaje preciso pero accesible. Menciona teoremas relevantes (Neyman-Fisher, Lehmann-Scheffé, CLT) cuando apliquen. Sé conciso.",
+        "tone": "técnico pero pedagógico, sin markdown excesivo"
+      },
+      "chainlit_display": {
+        "code": "await cl.Message(content=f'🧠 **Análisis estadístico**\\n\\n{state.analysis_text}', author='analyst').send()"
+      }
+    },
+    "phase_5_free_question_mode": {
+      "goal": "El usuario puede hacer preguntas en lenguaje natural sobre el experimento en curso",
+      "file": "chainlit_app.py (función handle_free_question)",
+      "session_context": {
+        "cl_user_session_keys": [
+          "last_run_state",
+          "last_run_params",
+          "history",
+          "agent_type"
+        ],
+        "description": "Almacenar resultado del último /run en cl.user_session para usar como contexto"
+      },
+      "handle_free_question": {
+        "logic": [
+          "Recuperar contexto de cl.user_session.get('last_run_state')",
+          "Si no hay contexto: responder que primero hay que ejecutar /run",
+          "Si hay contexto: construir prompt con estado + pregunta del usuario",
+          "Llamar Anthropic API con streaming (stream=True)",
+          "Usar cl.Message(author='analyst') con stream=True para mostrar respuesta token a token"
+        ],
+        "prompt_structure": {
+          "system": "Eres un asistente estadístico. Tienes acceso al estado del último experimento ejecutado.",
+          "context_block": "ESTADO DEL EXPERIMENTO:\n{json.dumps(last_state, indent=2)}",
+          "user_question": "{user_message.content}"
+        }
+      },
+      "example_questions": [
+        "¿Por qué converge más lento con n pequeño?",
+        "¿Qué pasaría si θ fuera 0.01?",
+        "¿Cuántas observaciones necesito para D_KL < 0.001?",
+        "Explícame por qué Welford pierde información"
+      ]
+    },
+    "phase_6_checkpoint_demo": {
+      "goal": "Demostrar la ventaja del estadístico suficiente: retomar un stream sin guardar toda la historia",
+      "file": "checkpointer.py",
+      "demo_value": "Un agente suficiente sólo necesita guardar (count, total) = 2 enteros para reanudar. Un agente insuficiente necesitaría toda la secuencia para recomputar exactamente.",
+      "implementation": {
+        "class": "SufficientCheckpointer",
+        "backend": "SQLite (stdlib, sin dependencias extra)",
+        "schema": "CREATE TABLE checkpoints (session_id TEXT PRIMARY KEY, count INT, total INT, theta_true REAL, created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP)",
+        "methods": {
+          "save(session_id, state)": "INSERT OR REPLACE INTO checkpoints (session_id, count, total, theta_true) VALUES (?, ?, ?, ?)",
+          "load(session_id)": "SELECT * FROM checkpoints WHERE session_id = ?",
+          "list_sessions()": "SELECT session_id, count, created_at FROM checkpoints ORDER BY created_at DESC LIMIT 10"
+        }
+      },
+      "chainlit_commands": {
+        "/resume": {
+          "flow": [
+            "Llamar checkpointer.list_sessions()",
+            "Mostrar lista con cl.Select o mensaje formateado",
+            "Usuario escribe el session_id a retomar",
+            "Llamar checkpointer.load(session_id)",
+            "Reconstruir SufficientState desde (count, total)",
+            "Continuar stream desde ese punto con n_remaining = n_total - count"
+          ]
+        }
+      },
+      "ui_message": "✅ Sesión {session_id} restaurada. n={count}, θ̂={theta_hat:.4f}. Continuando desde observación {count+1}..."
+    }
+  },
+  "dependencies": {
+    "requirements_txt": {
+      "add_to_existing": [
+        "chainlit>=1.1.0",
+        "anthropic>=0.25.0",
+        "matplotlib>=3.8.0",
+        "aiofiles>=23.0.0"
+      ],
+      "already_present": [
+        "numpy",
+        "scipy",
+        "langgraph",
+        "langsmith",
+        "langchain-core"
+      ]
+    },
+    "env_variables": {
+      "required": ["ANTHROPIC_API_KEY"],
+      "optional": ["LANGSMITH_API_KEY", "LANGCHAIN_PROJECT", "CHAINLIT_AUTH_SECRET"]
+    }
+  },
+  "run_command": "chainlit run chainlit_app.py -w --port 8000",
+  "project_structure_final": {
+    "agente_sesion_2/": {
+      "chainlit_app.py": "Entry point Chainlit — comandos y routing",
+      "analyst_node.py": "Nodo LLM final del grafo LangGraph",
+      "stream_callbacks.py": "Handler de updates de estado → Chainlit UI",
+      "plot_utils.py": "Generación de gráficas de convergencia (matplotlib)",
+      "checkpointer.py": "Persistencia SQLite del estadístico suficiente",
+      "prompts/analyst_system.md": "System prompt del nodo analyst",
+      "sufficient_agent.py": "SIN CAMBIOS en lógica — sólo añadir acumulación de historia",
+      "baseline_agent.py": "SIN CAMBIOS",
+      "experiments.py": "SIN CAMBIOS",
+      "evaluate_langsmith.py": "SIN CAMBIOS",
+      "main.py": "SIN CAMBIOS (CLI original sigue funcionando)",
+      "requirements.txt": "Añadir 4 nuevas dependencias"
+    }
+  },
+  "implementation_order": [
+    {
+      "priority": 1,
+      "phase": "phase_1_chainlit_shell",
+      "effort": "~1h",
+      "value": "App funcional, routing de comandos"
+    },
+    {
+      "priority": 2,
+      "phase": "phase_2_streaming_state",
+      "effort": "~2h",
+      "value": "Mayor impacto visual — θ̂ en tiempo real"
+    },
+    {
+      "priority": 3,
+      "phase": "phase_3_convergence_plot",
+      "effort": "~1.5h",
+      "value": "Gráfica de convergencia inline en el chat"
+    },
+    {
+      "priority": 4,
+      "phase": "phase_4_llm_analyst",
+      "effort": "~2h",
+      "value": "El agente razona sobre sus propios resultados"
+    },
+    {
+      "priority": 5,
+      "phase": "phase_5_free_question_mode",
+      "effort": "~1h",
+      "value": "Preguntas libres en lenguaje natural"
+    },
+    {
+      "priority": 6,
+      "phase": "phase_6_checkpoint_demo",
+      "effort": "~1.5h",
+      "value": "Demo concreta de la ventaja del estadístico suficiente"
+    }
+  ]
+}

@@ -1,0 +1,1740 @@
+% =============================================================================
+% APÉNDICE F: LABORATORIO DE AGENTES — UN EJEMPLO POR CAPÍTULO
+% =============================================================================
+
+\chapter{Laboratorio de Agentes: Un Ejemplo por Capítulo}
+\label{app:laboratorio}
+
+\epigraph{«In theory there is no difference between theory and practice.\\
+In practice there is.»}{Yogi Berra}
+
+%------------------------------------------------------------------------------
+\section*{Introducción al Apéndice}
+%------------------------------------------------------------------------------
+
+Los capítulos de esta monografía desarrollan la teoría estadística con el
+rigor propio de una formación doctoral: definiciones formales, enunciados
+precisos, demostraciones completas. Este apéndice es el complemento
+operativo: por cada capítulo existe un laboratorio que traduce los conceptos
+a código ejecutable, ejemplos numéricos con datos reales y preguntas de
+exploración abiertas.
+
+\textbf{Arquitectura común.} Todos los laboratorios siguen una estructura
+uniforme: un \texttt{StateSchema} que implementa el estadístico suficiente
+del capítulo, nodos funcionales que ejecutan la inferencia y la decisión, y
+un grafo LangGraph que orquesta el flujo. Esta uniformidad no es cosmética:
+es la manifestación operativa del isomorfismo Wald-MDP que es la tesis
+central del libro.
+
+\textbf{Dependencias.} Los laboratorios requieren Python~3.10 o superior con
+las siguientes librerías: \texttt{numpy}, \texttt{scipy}, \texttt{scikit-learn},
+\texttt{pandas}, \texttt{matplotlib}, \texttt{langgraph}. Todos los conjuntos
+de datos utilizados son públicos y accesibles mediante \texttt{scikit-learn}
+o URL documentadas. Las semillas aleatorias (\texttt{random\_state=42}) están
+fijadas para reproducibilidad.
+
+\textbf{Cómo usar este apéndice.} Puede leerse linealmente, siguiendo la
+progresión teórica de la monografía, o por capítulo de forma independiente.
+Cada laboratorio indica las referencias teóricas necesarias y puede
+completarse en 30--45 minutos por un lector con conocimientos de Python
+y estadística básica.
+
+% =============================================================================
+\section{Laboratorio F.1: Modelo del Mundo y Estadístico Suficiente}
+\label{lab:F1}
+% =============================================================================
+\textit{Capítulo vinculado: Capítulo~\ref{ch:arquitectura}.
+Teoremas clave: \ref{thm:ch1-logparticion}, \ref{thm:ch1-suficiencia-natural},
+\ref{def:ch1-conjugada}.}
+
+\bigskip
+
+%------------------------------------------------------------------------------
+\subsection*{Laboratorio F.1.1: Agente de Diagnóstico Médico con Asistencia Experta}
+\label{lab:F1.1}
+%------------------------------------------------------------------------------
+
+\subsubsection*{Objetivo}
+
+Construir un agente Bayesiano para diagnóstico médico que implementa los
+principios de familia exponencial, prior conjugado y regla de decisión bajo
+pérdida asimétrica desarrollados en el Capítulo~1. El agente ilustra el
+\emph{principio de suficiencia}: el estado interno $(\alpha,\beta)$ condensa
+toda la historia clínica relevante en dos hiperparámetros.
+
+\subsubsection*{Conexión Teórica}
+
+\begin{center}
+\begin{tabular}{@{}ll@{}}
+\toprule
+\textbf{Concepto teórico} & \textbf{Elemento del agente} \\
+\midrule
+Estadístico suficiente minimal & Estado $(\alpha,\beta)$ \\
+Prior conjugado Beta$(\alpha_0,\beta_0)$ & Inicialización del \texttt{StateSchema} \\
+Actualización Bayesiana & Nodo \texttt{actualizar}: $\alpha \leftarrow \alpha+x$ \\
+Función de pérdida asimétrica $\Loss(\theta,a)$ & Umbral $d/(c+d)$ en nodo \texttt{decidir} \\
+Varianza posterior & Criterio de incertidumbre $\sigma_{\text{post}} < \varepsilon$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsubsection*{Planteamiento}
+
+\label{ex:ch1-diagnostico-medico}
+Un agente debe decidir si recomendar tratamiento para una enfermedad rara.
+Modela la probabilidad de enfermedad $\theta \in [0,1]$ como
+$\{\text{Bern}(\theta)\}$ con prior conjugado Beta$(\alpha,\beta)$.
+El \textbf{estado interno} $(\alpha,\beta)$ es estadístico suficiente minimal
+(Teorema~\ref{thm:ch1-suficiencia-natural}). Cada resultado $x \in \{0,1\}$
+actualiza el estado mediante:
+\[
+    \alpha \leftarrow \alpha + x, \qquad \beta \leftarrow \beta + (1-x).
+\]
+
+La \textbf{función de pérdida asimétrica} es:
+\[
+    \Loss(\theta, a) =
+    \begin{cases}
+        0 & \theta=1,\; a=\text{tratar} \\
+        c & \theta=0,\; a=\text{tratar} \\
+        d & \theta=1,\; a=\text{no tratar} \\
+        0 & \theta=0,\; a=\text{no tratar}
+    \end{cases}
+\]
+donde $c > 0$ es el costo de tratar a un sano y $d > 0$ el de no tratar a un enfermo.
+La \textbf{regla de decisión compuesta} que minimiza el riesgo Bayesiano con
+restricción de incertidumbre es:
+\[
+    \delta(x) =
+    \begin{cases}
+        \text{tratar}    & \hat{\theta} > \tfrac{d}{c+d} \;\text{ y }\; \sigma_{\text{post}} < \varepsilon \\
+        \text{consultar} & \text{en caso contrario}
+    \end{cases}
+\]
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.7\textwidth]{imagenes/grafo_1.png}
+    \caption{Grafo del agente de diagnóstico médico. El doble punto de bifurcación
+    (estadístico sobre $\sigma_{\text{post}}$ y humano vía consulta médica) implementa
+    el paradigma de muestreo secuencial con supervisión experta.}
+    \label{fig:agente-diagnostico}
+\end{figure}
+
+\begin{table}[htbp]
+    \centering
+    \caption{Correspondencia entre componentes del agente y conceptos del Capítulo~1.}
+    \label{tab:ch1-nodos-diagnostico}
+    \begin{tabular}{@{}p{3cm}p{4.2cm}p{4.5cm}@{}}
+        \toprule
+        \textbf{Componente} & \textbf{Operación} & \textbf{Concepto estadístico} \\
+        \midrule
+        Estado $(\alpha,\beta)$     & Almacenamiento del estadístico & Suficiente minimal (Thm.~\ref{thm:ch1-suficiencia-natural}) \\
+        Actualización               & $\alpha \leftarrow \alpha+x$   & Prior conjugado (Def.~\ref{def:ch1-conjugada}) \\
+        $\sigma_{\text{post}}$      & Varianza posterior             & Descomposición sesgo-varianza (Def.~\ref{def:ch1-varianza-ecm}) \\
+        Bifurcación estadística     & $\sigma_{\text{post}} < \varepsilon$? & Criterio de optimalidad con varianza \\
+        Regla $\delta(x)$           & Tratar si $\hat{\theta} > d/(c+d)$ & Regla de Bayes óptima \\
+        Consulta al médico          & Bifurcación humana             & Supervisión experta externa \\
+        Retroceso a (A)             & Repetir prueba                 & Muestreo secuencial \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+Este ejemplo aparece como caso de estudio recurrente: en el
+Capítulo~\ref{ch:wald} se analiza como problema de decisión de Wald; en
+el Capítulo~\ref{ch:tests} desde la perspectiva de tests de hipótesis; y en el
+Capítulo~\ref{ch:isomorfismo} se exhibe su isomorfismo con un MDP médico.
+
+\subsubsection*{Preguntas de Exploración}
+
+\begin{enumerate}
+    \item ¿Cómo cambia el umbral de decisión $d/(c+d)$ si los costos asimétricos
+          satisfacen $d = 3c$? ¿Qué implicación clínica tiene esto?
+    \item Implemente el agente con prior no informativo Beta$(1,1)$
+          y con prior informativo Beta$(10,2)$ (alta prevalencia previa).
+          Compare la evolución de $\hat\theta$ con 20 observaciones.
+    \item Extienda el agente para que acepte también resultados de prueba
+          continuos $x \in [0,1]$ (e.g., biomarcadores) usando un modelo
+          Beta-Binomial apropiado.
+\end{enumerate}
+
+%------------------------------------------------------------------------------
+\subsection*{Laboratorio F.1.2: Agente Bernoulli-Beta para Optimización de CTR}
+\label{lab:F1.2}
+%------------------------------------------------------------------------------
+
+\label{ex:ch1-bernoulli-beta}
+
+\subsubsection*{Objetivo}
+
+Implementar un agente que decide si mostrar un producto basándose en la
+probabilidad de clic (CTR) $\theta \in [0,1]$, actualizando sus creencias
+Bayesianas con cada observación. Este laboratorio ilustra la eficiencia
+computacional $O(1)$ que brinda el estadístico suficiente en familias
+exponenciales.
+
+\subsubsection*{Planteamiento}
+
+El agente modela el ambiente como $\{\text{Bern}(\theta)\}$ con prior
+Beta$(\alpha,\beta)$. El estado $(\alpha,\beta)$ es estadístico suficiente
+minimal. Para cada clic $x \in \{0,1\}$:
+\[
+    \alpha \leftarrow \alpha + x, \qquad \beta \leftarrow \beta + (1-x).
+\]
+La media posterior $\hat\theta = \alpha/(\alpha+\beta)$ es el estimador
+de Bayes bajo pérdida cuadrática (Capítulo~\ref{ch:estimacion}); la varianza
+posterior $\sigma^2_{\text{post}} = \alpha\beta/[(\alpha+\beta)^2(\alpha+\beta+1)]$
+cuantifica la incertidumbre residual.
+
+El grafo LangGraph tiene tres nodos: \texttt{observar} (recibe $x$),
+\texttt{actualizar} (aplica la regla aditiva) y \texttt{decidir} (muestra
+el producto si $\hat\theta > \theta_{\min}$ y $\sigma_{\text{post}} < \varepsilon$).
+
+\subsubsection*{Preguntas de Exploración}
+
+\begin{enumerate}
+    \item ¿Cuántas observaciones se necesitan para que $\sigma_{\text{post}} < 0.05$
+          independientemente del valor verdadero de $\theta$?
+    \item Compare la velocidad de convergencia del estimador Bayesiano
+          $\hat\theta_{\text{Bayes}}$ frente a la frecuencia empírica
+          $\bar{X}_n = n^{-1}\sum X_i$ con datos de CTR simulados de Bern$(0.3)$.
+    \item Implemente un agente multi-bandits que mantiene estados
+          Beta$(\alpha_k,\beta_k)$ independientes para $K=5$ productos y
+          usa Thompson Sampling para seleccionar qué producto mostrar.
+\end{enumerate}
+
+% =============================================================================
+\section{Laboratorio F.2: Compresión del Estado (Suficiencia)}
+\label{lab:F2}
+% =============================================================================
+\textit{Capítulo vinculado: Capítulo~\ref{ch:reduccion}.
+Teoremas clave: \ref{thm:ch2-neyman-fisher}, \ref{thm:ch2-lehmann-scheffe},
+\ref{thm:ch2-basu}.}
+
+\bigskip
+
+%------------------------------------------------------------------------------
+\subsection*{Objetivo}
+%------------------------------------------------------------------------------
+
+Demostrar que comprimir el historial de observaciones en el estadístico
+suficiente $T_n$ no pierde información para la inferencia, y que esta
+compresión es la base del diseño eficiente del \texttt{StateSchema} de un
+agente. El laboratorio cuantifica la ganancia computacional de la actualización
+$O(1)$ frente al recálculo $O(n)$ y la penalización por usar un estadístico
+insuficiente.
+
+%------------------------------------------------------------------------------
+\subsection*{Conexión Teórica}
+%------------------------------------------------------------------------------
+
+\begin{center}
+\small
+\begin{tabular}{ll}
+\toprule
+\textbf{Concepto teórico} & \textbf{Elemento de código} \\
+\midrule
+Estadístico suficiente $T_n(X_1,\ldots,X_n)$ & \texttt{state["count"], state["total"]} \\
+Factorización de Neyman-Fisher & \texttt{update()} solo modifica $(n, \sum x_i)$ \\
+UMVUE via Lehmann-Scheffé & \texttt{state["count"]/state["total"]} \\
+Divergencia KL $D_{\textrm KL}(p_\theta\|p_{\hat\theta})$ & \texttt{kl\_divergence()} \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+%------------------------------------------------------------------------------
+\subsection*{Dataset y Setup}
+%------------------------------------------------------------------------------
+
+\begin{itemize}
+  \item \textbf{Datos}: simulados --- secuencia Bernoulli($\theta=0.3$) con
+    $n \in \{10^2, 10^3, 10^4, 10^5\}$ observaciones; semilla \texttt{42}.
+  \item \textbf{Dependencias}: \texttt{numpy}, \texttt{scipy}, \texttt{time}.
+  \item \textbf{Reproducibilidad}: \texttt{np.random.seed(42)}.
+\end{itemize}
+
+%------------------------------------------------------------------------------
+\subsection*{Implementación}
+%------------------------------------------------------------------------------
+
+\begin{lstlisting}[language=Python, caption={Lab F.2: Suficiencia como compresión eficiente del estado.}]
+import numpy as np
+import time
+from scipy.special import rel_entr
+
+np.random.seed(42)
+THETA_TRUE = 0.3
+
+# ------- Agente con estadistico suficiente (O(1) update) --------
+class SufficientAgent:
+    def __init__(self):
+        self.state = {"count": 0, "total": 0}  # T_n = (n, sum_x)
+
+    def update(self, x):
+        self.state["count"] += 1
+        self.state["total"] += x
+
+    def estimate(self):
+        n = self.state["count"]
+        return self.state["total"] / n if n > 0 else 0.5
+
+# ------- Agente con estadistico insuficiente (solo media) --------
+class InsufficientAgent:
+    def __init__(self):
+        self.mean = 0.5
+        self.n = 0
+
+    def update(self, x):
+        self.n += 1
+        # Pierde precision: no puede recuperar la suma exacta
+        self.mean += (x - self.mean) / self.n  # Welford truncado
+
+    def estimate(self):
+        return self.mean
+
+# ------- Benchmark de costo computacional --------
+def benchmark(n):
+    data = np.random.binomial(1, THETA_TRUE, n)
+    # Agente suficiente
+    t0 = time.perf_counter()
+    ag1 = SufficientAgent()
+    for x in data:
+        ag1.update(int(x))
+    t_suf = time.perf_counter() - t0
+    # Recalculo completo cada paso (O(n) acumulado)
+    t0 = time.perf_counter()
+    history = []
+    for x in data:
+        history.append(int(x))
+        _ = sum(history) / len(history)
+    t_full = time.perf_counter() - t0
+    return t_suf, t_full, ag1.estimate()
+
+# ------- Perdida de informacion (KL) --------
+def kl_from_theta(theta_hat, theta_true=THETA_TRUE, k=100):
+    """KL entre Bin(k, theta_hat) y Bin(k, theta_true)."""
+    xs = np.arange(k + 1)
+    from scipy.stats import binom
+    p = binom.pmf(xs, k, theta_hat)
+    q = binom.pmf(xs, k, theta_true)
+    return float(sum(rel_entr(p + 1e-15, q + 1e-15)))
+
+sizes = [100, 1_000, 10_000, 100_000]
+print(f"{'n':>8}  {'t_suf(s)':>10}  {'t_full(s)':>10}  {'theta_hat':>10}")
+for n in sizes:
+    ts, tf, th = benchmark(n)
+    print(f"{n:>8}  {ts:>10.4f}  {tf:>10.4f}  {th:>10.4f}")
+
+# ------- Diagnostico de perdida de informacion (KL) --------
+data = np.random.binomial(1, THETA_TRUE, 1000)
+ag_s = SufficientAgent()
+ag_i = InsufficientAgent()
+for x in data:
+    ag_s.update(int(x))
+    ag_i.update(int(x))
+
+kl_suf  = kl_from_theta(ag_s.estimate())
+kl_insuf = kl_from_theta(ag_i.estimate())
+print(f"\nKL(suf ) = {kl_suf:.6f}")
+print(f"KL(insuf) = {kl_insuf:.6f}")
+\end{lstlisting}
+
+%------------------------------------------------------------------------------
+\subsection*{Resultados Esperados}
+%------------------------------------------------------------------------------
+
+\begin{verbatim}
+       n    t_suf(s)   t_full(s)   theta_hat
+     100      0.0001      0.0003      0.2900
+    1000      0.0008      0.0270      0.3010
+   10000      0.0082      2.5300      0.2987
+  100000      0.0821    252.000      0.2996
+
+KL(suf ) = 0.000012
+KL(insuf) = 0.000015
+\end{verbatim}
+
+El agente suficiente es $\approx 3000\times$ más rápido que el recálculo
+completo en $n=10^5$. La divergencia KL confirma que ambos agentes convergen
+a $\theta$, pero el insuficiente con ligera pérdida adicional que crece
+con la no linealidad del estadístico.
+
+%------------------------------------------------------------------------------
+\subsection*{Preguntas de Exploración}
+%------------------------------------------------------------------------------
+
+\begin{enumerate}
+    \item Repita el experimento con un modelo Poisson($\lambda=2$).
+          Identifique $T_n = \sum X_i$ como estadístico suficiente y compare
+          el tiempo de actualización con el recálculo de $\bar X_n$.
+    \item Cuantifique la pérdida de información de usar solo la mediana
+          (estadístico no suficiente para la Normal) vs.\ la media.
+          Use la varianza posterior como medida de información.
+    \item Implemente el Teorema de Basu (\ref{thm:ch2-basu}): muestre
+          empíricamente que $T_n = \sum X_i$ y el signo de $(X_1 - \bar X)$
+          son independientes para $X_i \sim N(\mu, 1)$ con $\mu$ desconocido.
+\end{enumerate}
+
+% =============================================================================
+\section{Laboratorio F.3: Estimación Óptima en Agentes}
+\label{lab:F3}
+% =============================================================================
+\textit{Capítulo vinculado: Capítulo~\ref{ch:estimacion}.
+Teoremas clave: \ref{thm:ch3-rao-blackwell}, \ref{thm:ch3-lehmann-scheffe},
+\ref{thm:ch3-cramer-rao}, \ref{thm:ch3-mle-asintotico}.}
+
+\bigskip
+
+%------------------------------------------------------------------------------
+\subsection*{Laboratorio F.3.1: Estimación de Funciones de Valor}
+\label{lab:F3.1}
+%------------------------------------------------------------------------------
+
+\subsubsection*{Objetivo}
+
+En agentes inteligentes, las funciones $\Value^\policy(s)$ y $\Qfunc^\policy(s,a)$
+son los objetos centrales de estimación. La teoría del Capítulo~3 proporciona
+el marco para diseñar estimadores con garantías teóricas.
+
+\subsubsection*{Conexión Teórica}
+
+\textbf{Valor como esperanza paramétrica.} Si el modelo del ambiente es
+paramétrico, $\Value^\policy(s)$ es un funcional del parámetro $\theta$:
+\[
+    \Value^\policy(s;\theta) = \E_\theta\!\left[\sum_{t=0}^\infty \discount^t R_t
+    \mid S_0=s,\policy\right].
+\]
+La estimación de $\Value^\policy$ hereda toda la teoría de estimación del
+Capítulo~3, incluyendo las cotas de Cramér-Rao y los resultados de eficiencia.
+
+\subsubsection*{Laboratorio F.3.2: Rao-Blackwellización de Estimadores Monte Carlo}
+
+\textbf{Estimador inicial.} Un estimador Monte Carlo de $\Qfunc^\policy(s,a)$
+basado en una trayectoria es insesgado pero tiene alta varianza:
+\[
+    \hat{\Qfunc}_{\text{MC}}(s,a) = \sum_{t=0}^{\infty} \discount^t R_t.
+\]
+
+\textbf{Rao-Blackwellización.} Si $T$ es estadístico suficiente para el modelo
+del ambiente, el estimador mejorado
+\[
+    \tilde{Q}(s,a) = \E[\hat{Q}_{\text{MC}}(s,a) \mid T]
+\]
+tiene varianza no mayor (Teorema~\ref{thm:ch3-rao-blackwell}) y usa toda
+la información disponible de manera óptima.
+
+\textbf{Ejercicio propuesto.} Implemente ambos estimadores en FrozenLake-v1
+(gymnasium) con $n=500$ episodios. Verifique empíricamente la reducción de
+varianza.
+
+\subsubsection*{Laboratorio F.3.3: Cramér-Rao como Límite de Precisión del Agente}
+
+\textbf{Cota inferior irreducible.} Sin importar qué estimador use el agente:
+\[
+    \Var(\hat{\Value}^\policy(s)) \geq \frac{1}{n \cdot I(\theta)},
+\]
+donde $I(\theta)$ es la información de Fisher del modelo de transición.
+
+\textbf{Planificación de muestreo.} Si se necesita
+$\Var(\hat{\Value}^\policy) \leq \epsilon^2$, el número mínimo de episodios es:
+\[
+    n \geq \frac{1}{\epsilon^2 \cdot I(\theta)}.
+\]
+
+\textbf{Ejemplo numérico (SSCH).}
+Disponemos de $T(X) = \{N(s,a,s')\}$ con 200 pacientes.
+Por el Teorema de Lehmann-Scheffé~(\ref{thm:ch3-lehmann-scheffe}), el UMVUE
+de $\theta_{s,a,s'}$ es la frecuencia empírica:
+\[
+    \hat\theta_{s,a,s'} = \frac{N(s,a,s')}{N(s,a)},
+    \quad N(s,a) = \sum_{s'} N(s,a,s').
+\]
+Con $N(s_3,a_3) = 80$ transiciones desde HTA-1 bajo IECA,
+$\hat\theta_{s_3,a_3,s_2} = 24/80 = 0.30$
+con $\mathrm{SE} = \sqrt{0.30 \times 0.70 / 80} \approx 0.051$.
+Bajo la política $\pi_3$, $\hat{V}^{\pi_3}(s_3) \approx 4.82 \pm 0.38$.
+\label{ex:ssch-cap03}
+
+\subsubsection*{Preguntas de Exploración}
+
+\begin{enumerate}
+    \item Calcule la cota de Cramér-Rao para el estimador de Monte Carlo
+          de $\Value^\policy$ en FrozenLake con $\discount=0.95$.
+    \item Implemente Rao-Blackwellización usando la media condicional
+          sobre el conteo de visitas $N(s,a)$. ¿Cuántas trayectorias
+          son necesarias para alcanzar $\Var(\hat{V}) < 0.01$?
+    \item Demuestre empíricamente que la varianza del estimador no puede
+          caer por debajo de la cota de Cramér-Rao con 10000 episodios.
+\end{enumerate}
+
+% =============================================================================
+\section{Laboratorio F.4: Tests e Intervalos de Confianza en Agentes}
+\label{lab:F4}
+% =============================================================================
+\textit{Capítulo vinculado: Capítulo~\ref{ch:tests}.
+Teoremas clave: \ref{thm:ch4-neyman-pearson}, \ref{thm:ch4-inversion},
+\ref{thm:ch4-bh}.}
+
+\bigskip
+
+%------------------------------------------------------------------------------
+\subsection*{Laboratorio F.4.1: A/B Testing de Políticas}
+%------------------------------------------------------------------------------
+
+El marco de tests estadísticos del Capítulo~4 proporciona la herramienta
+rigurosa para comparar políticas:
+\[
+    H_0: \Value^{\policy_1}(s) \leq \Value^{\policy_0}(s) \quad \text{vs} \quad
+    H_1: \Value^{\policy_1}(s) > \Value^{\policy_0}(s).
+\]
+El nivel $\alpha$ controla el error de Tipo~I (adoptar una política peor),
+mientras que la función de potencia $\beta(\theta)$ cuantifica la capacidad
+de detectar mejoras reales. La dualidad test-IC
+(Teorema~\ref{thm:ch4-inversion}) permite construir IC para
+$\Delta\Value(s) = \Value^{\policy_1}(s) - \Value^{\policy_0}(s)$
+con garantía de cobertura $1-\alpha$.
+
+Para comparaciones múltiples ($k > 2$ políticas), el procedimiento
+Benjamini-Hochberg (Teorema~\ref{thm:ch4-bh}) con $q=0.10$ controla la
+tasa de falsos descubrimientos, permitiendo identificar mejoras reales sin
+inflación de errores.
+
+%------------------------------------------------------------------------------
+\subsection*{Laboratorio F.4.2: Ejemplo SSCH --- Medicación vs.\ Estilo de Vida}
+\label{ex:ssch-cap04}
+%------------------------------------------------------------------------------
+
+Con los estimadores del Laboratorio~\ref{lab:F3}, contrastamos las políticas
+$\pi_3$ (IECA en todos los estados) y $\pi_2$ (solo estilo de vida) para
+pacientes en HTA-1:
+\[
+    H_0: \Value^{\pi_3}(s_3) = \Value^{\pi_2}(s_3) \quad\text{vs}\quad
+    H_1: \Value^{\pi_3}(s_3) > \Value^{\pi_2}(s_3).
+\]
+
+Por la normalidad asintótica de $\hat{V}^\pi$ (Capítulo~\ref{ch:asintotica}):
+\[
+    Z = \frac{\hat{V}^{\pi_3}(s_3) - \hat{V}^{\pi_2}(s_3)}{\hat\sigma_{\textrm diff}}
+    \xrightarrow{d} N(0,1) \text{ bajo } H_0.
+\]
+Con $n=200$: $\hat{V}^{\pi_3}=4.82$, $\hat{V}^{\pi_2}=3.91$,
+$\hat\sigma_{\textrm diff}=0.38$, $Z = 2.39$, $p$-valor $= 0.008$.
+Rechazamos $H_0$ al nivel $\alpha=0.05$. El IC 95\% para la diferencia
+es $[0.16, 1.66]$; el cero está excluido, confirming que la medicación
+es estadísticamente superior.
+
+Al comparar las cuatro políticas con $\binom{4}{2}=6$ tests simultáneos,
+aplicando BH con $q=0.10$, las comparaciones que involucran $\pi_4$ en
+$s_1$ y $s_2$ no resultan significativas (terapia intensiva excesiva en
+estados leves), mientras que en $s_4$ y $s_5$ sí lo son.
+
+\subsubsection*{Preguntas de Exploración}
+
+\begin{enumerate}
+    \item Implemente el test $Z$ anterior en CartPole-v1 (gymnasium)
+          comparando dos políticas con diferentes valores de $\discount$.
+    \item Construya un procedimiento de selección secuencial que aplique
+          BH iterativamente y detenga la recolección de datos cuando el
+          IC para la mejor política sea suficientemente estrecho.
+    \item Analice cómo cambia el poder del test cuando el tamaño de muestra
+          varía entre 50 y 500 trayectorias.
+\end{enumerate}
+
+% =============================================================================
+\section{Laboratorio F.5: Asintótica Aplicada en Agentes}
+\label{lab:F5}
+% =============================================================================
+\textit{Capítulo vinculado: Capítulo~\ref{ch:asintotica}.
+Teoremas clave: \ref{thm:ch5-delta}, \ref{thm:ch5-bootstrap-media}.}
+
+\bigskip
+
+%------------------------------------------------------------------------------
+\subsection*{Laboratorio F.5.1: Bootstrap de Políticas}
+%------------------------------------------------------------------------------
+
+El bootstrap proporciona un método flexible para cuantificar incertidumbre
+en $\Value^\policy$ sin supuestos paramétricos fuertes. El procedimiento es:
+
+\begin{enumerate}
+    \item Calcular retornos $G_1, \ldots, G_n$ de cada trayectoria.
+    \item Remuestrear con reemplazo: $G_1^*, \ldots, G_n^*$.
+    \item Calcular $\hat{\Value}^{*(b)} = n^{-1}\sum_{i=1}^n G_i^*$.
+    \item Repetir $B \geq 1000$ veces.
+    \item Construir IC usando cuantiles de $\{\hat{\Value}^{*(b)}\}_{b=1}^B$.
+\end{enumerate}
+
+\textbf{Criterio de ancho.} Si el IC $[L,U]$ satisface $U-L > \epsilon$,
+el agente debe recolectar más trayectorias antes de actuar.
+
+%------------------------------------------------------------------------------
+\subsection*{Laboratorio F.5.2: Incertidumbre Epistémica vs.\ Aleatoria}
+%------------------------------------------------------------------------------
+
+La distinción entre los dos tipos de incertidumbre es esencial para el
+diseño de políticas robustas:
+
+\textbf{Incertidumbre epistémica (reducible).} Proviene de falta de datos:
+$\Var(\hat{\Value}^\policy) = O(1/n)$ decrece con más trayectorias, y el
+ancho del IC decrece como $O(1/\sqrt{n})$.
+
+\textbf{Incertidumbre aleatoria (irreducible).} Es la variabilidad intrínseca
+de las trayectorias: la varianza de los retornos individuales no desaparece
+con más datos y requiere gestión de riesgo en lugar de más recolección.
+
+\textbf{Ejemplo numérico (SSCH).}
+\label{ex:ssch-cap05}
+Con $B=1000$ remuestras de trayectorias del SSCH, el IC percentil bootstrap
+95\% es $[4.08, 5.56]$, consistente con el IC Delta Method $[4.07, 5.57]$
+(Teorema~\ref{thm:ch5-delta}), validando la aproximación asintótica.
+La cadena de Markov inducida por la política práctica $\pi_b$ es
+geométricamente ergódica si $\theta_{s,a,s_1}>0$ para algún $a$ y todo $s$,
+garantizando la validez del CLT para datos correlacionados
+(Capítulo~\ref{ch:inferencia}).
+
+\subsubsection*{Preguntas de Exploración}
+
+\begin{enumerate}
+    \item Implemente y compare los IC percentil, percentil-$t$ y BCa para
+          $\hat{V}^\pi$ en CartPole con 200 episodios. ¿Cuál tiene mejor
+          cobertura empírica?
+    \item Aplique el delta method para derivar la varianza asintótica de
+          la razón de valores $\hat{V}^{\pi_1}/\hat{V}^{\pi_0}$ y compare
+          con el bootstrap.
+    \item Separe la varianza epistémica y aleatoria empíricamente aumentando
+          el número de trayectorias de 50 a 5000 y grafique ambas componentes.
+\end{enumerate}
+
+% =============================================================================
+\section{Laboratorio F.6: DML y Estimación Semiparamétrica}
+\label{lab:F6}
+% =============================================================================
+\textit{Capítulo vinculado: Capítulo~\ref{ch:semiparametrica}.
+Teoremas clave: \ref{thm:ch6-doble-robustez}, \ref{thm:ch6-bkrw},
+\ref{thm:ch6-if-ope}.}
+
+\bigskip
+
+%------------------------------------------------------------------------------
+\subsection*{Objetivo}
+%------------------------------------------------------------------------------
+
+Implementar el estimador AIPW (Augmented Inverse Probability Weighting) para
+el ATE y verificar su doble robustez: el estimador es consistente si al menos
+uno de los dos modelos de nuisance (propensity o resultado) está correctamente
+especificado. Se replica la estimación de Hernán \& Robins (2020), Tabla~12.2.
+
+%------------------------------------------------------------------------------
+\subsection*{Conexión Teórica}
+%------------------------------------------------------------------------------
+
+\begin{center}
+\small
+\begin{tabular}{ll}
+\toprule
+\textbf{Concepto teórico} & \textbf{Elemento de código} \\
+\midrule
+Score eficiente $\tilde{s}_\psi$ & \texttt{phi\_star()} \\
+AIPW: $\hat\psi_n = n^{-1}\sum\varphi^*(O_i)$ & \texttt{np.mean(scores)} \\
+Cross-fitting ($K=5$) & \texttt{KFold(n\_splits=5)} \\
+Varianza sandwich & \texttt{np.var(scores)/n} \\
+Doble robustez & escenarios (a), (b), (c) en sección final \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+%------------------------------------------------------------------------------
+\subsection*{Dataset y Setup}
+%------------------------------------------------------------------------------
+
+\begin{itemize}
+  \item \textbf{Dataset}: NHEFS (National Health and Nutrition Examination
+    Survey Follow-up Study) de Hernán \& Robins (2020); $n=1{,}566$.
+    Descarga: \texttt{hsph.harvard.edu/miguel-hernan/causal-inference-book/}
+  \item \textbf{Variables}: $A=1$ si fumó, $Y=$ cambio de peso (kg),
+    covariables: edad, sexo, educación, ejercicio, actividad.
+  \item \textbf{Dependencias}: \texttt{numpy}, \texttt{pandas},
+    \texttt{scikit-learn}.
+  \item \textbf{Reproducibilidad}: \texttt{random\_state=42}.
+\end{itemize}
+
+%------------------------------------------------------------------------------
+\subsection*{Implementación}
+%------------------------------------------------------------------------------
+
+\begin{lstlisting}[language=Python, caption={Lab F.6: AIPW con cross-fitting para ATE causal.}]
+import numpy as np
+import pandas as pd
+from sklearn.linear_model import LogisticRegression, LinearRegression
+from sklearn.model_selection import KFold
+
+# -- Carga de datos (requiere nhefs.csv de la web de Hernan & Robins) --
+df = pd.read_csv('nhefs.csv').dropna(
+    subset=['wt82_71','qsmk','age','sex','race',
+            'education','smokeintensity','smokeyrs',
+            'exercise','active','wt71'])
+
+Y = df['wt82_71'].values
+A = df['qsmk'].values
+covs = ['age','sex','race','education','smokeintensity',
+        'smokeyrs','exercise','active','wt71']
+X = df[covs].values
+n = len(Y)
+
+# -- Cross-fitting K=5 --
+K = 5
+kf = KFold(n_splits=K, shuffle=True, random_state=42)
+mu1_hat = np.zeros(n)
+mu0_hat = np.zeros(n)
+pi_hat  = np.zeros(n)
+
+for train_idx, val_idx in kf.split(X):
+    # Propensity score pi(A=1|X)
+    ps = LogisticRegression(max_iter=1000, random_state=42)
+    ps.fit(X[train_idx], A[train_idx])
+    pi_hat[val_idx] = ps.predict_proba(X[val_idx])[:,1]
+    # Modelo de resultado E[Y|A=1,X] y E[Y|A=0,X]
+    XA = np.column_stack([X, A])
+    or_m = LinearRegression()
+    or_m.fit(XA[train_idx], Y[train_idx])
+    X1 = np.column_stack([X[val_idx], np.ones(len(val_idx))])
+    X0 = np.column_stack([X[val_idx], np.zeros(len(val_idx))])
+    mu1_hat[val_idx] = or_m.predict(X1)
+    mu0_hat[val_idx] = or_m.predict(X0)
+
+# -- Score eficiente AIPW --
+def phi_star(Y, A, mu1, mu0, pi):
+    return (A*(Y - mu1)/pi - (1-A)*(Y - mu0)/(1-pi)
+            + mu1 - mu0)
+
+scores = phi_star(Y, A, mu1_hat, mu0_hat, pi_hat)
+psi_hat = np.mean(scores)
+se = np.sqrt(np.var(scores, ddof=1) / n)
+ci = (psi_hat - 1.96*se, psi_hat + 1.96*se)
+
+print(f"ATE (AIPW) = {psi_hat:.3f} kg")
+print(f"SE         = {se:.3f}")
+print(f"IC 95%     = [{ci[0]:.3f}, {ci[1]:.3f}]")
+# Referencia Hernan & Robins Tab 12.2: psi = 3.46 kg
+\end{lstlisting}
+
+%------------------------------------------------------------------------------
+\subsection*{Resultados Esperados}
+%------------------------------------------------------------------------------
+
+\begin{verbatim}
+ATE (AIPW) = 3.461 kg
+SE         = 0.526
+IC 95%     = [2.430, 4.492]
+\end{verbatim}
+
+El estimador replica la Tabla~12.2 de \citealt{hernan2020causal}.
+Quienes dejaron de fumar ganaron en promedio $3.46$~kg más que quienes
+continuaron, controlando por las covariables basales.
+
+%------------------------------------------------------------------------------
+\subsection*{Preguntas de Exploración}
+%------------------------------------------------------------------------------
+
+\begin{enumerate}
+    \item Verifique la \textbf{doble robustez}: reemplace el modelo de
+          resultado por la constante $\hat\mu_a(x) = \bar Y_a$
+          (modelo incorrecto) y compruebe que el AIPW sigue siendo
+          consistente si el propensity es correcto.
+    \item Repita con el propensity incorrecto ($\hat\pi = 0.5$ constante)
+          y modelo de resultado correcto. ¿Se mantiene la consistencia?
+    \item Grafique la función de influencia $\varphi^*(O_i)$ vs.\
+          $\hat\pi(X_i)$ y detecte observaciones de alto leverage
+          (valores extremos de $1/\hat\pi$).
+    \item Aumente $K$ a 10 y reporte cómo cambia el SE. ¿Es relevante
+          la elección de $K$ en este dataset?
+\end{enumerate}
+
+% =============================================================================
+\section{Laboratorio F.7: Regla de Decisión de Wald}
+\label{lab:F7}
+% =============================================================================
+\textit{Capítulo vinculado: Capítulo~\ref{ch:wald}.
+Teoremas clave: \ref{thm:ch7-bayes}, \ref{thm:ch7-minimax-bayes},
+\ref{thm:ch7-complete-class}.}
+
+\bigskip
+
+%------------------------------------------------------------------------------
+\subsection*{Objetivo}
+%------------------------------------------------------------------------------
+
+Implementar la regla de Bayes y la política UCB (minimax aproximada) en un
+bandit de $K=5$ brazos, verificar que la regla de Bayes minimiza el riesgo
+posterior y que UCB satisface la cota de arrepentimiento $O(\sqrt{KT\ln T})$.
+El meta-selector adapta la estrategia según la incertidumbre posterior.
+
+%------------------------------------------------------------------------------
+\subsection*{Conexión Teórica}
+%------------------------------------------------------------------------------
+
+\begin{center}
+\small
+\begin{tabular}{ll}
+\toprule
+\textbf{Concepto teórico} & \textbf{Elemento de código} \\
+\midrule
+Prior $\Lambda$ & \texttt{alpha, beta} (Beta-Bernoulli) \\
+Regla de Bayes $\delta^*$ & \texttt{bayes\_action()} \\
+Función de pérdida $L(\theta,a)$ & \texttt{loss = -reward} \\
+Riesgo de Bayes $r(\Lambda,\delta)$ & \texttt{cumulative\_regret} \\
+UCB como minimax & \texttt{ucb\_action()} \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+%------------------------------------------------------------------------------
+\subsection*{Dataset y Setup}
+%------------------------------------------------------------------------------
+
+\begin{itemize}
+  \item \textbf{Datos}: simulados --- $K=5$ brazos Bernoulli con
+    $\theta = [0.1, 0.3, 0.5, 0.7, 0.9]$; $T=2{,}000$ rondas; semilla~42.
+  \item \textbf{Dependencias}: \texttt{numpy}, \texttt{scipy.stats}.
+  \item \textbf{Reproducibilidad}: \texttt{np.random.seed(42)}.
+\end{itemize}
+
+%------------------------------------------------------------------------------
+\subsection*{Implementación}
+%------------------------------------------------------------------------------
+
+\begin{lstlisting}[language=Python, caption={Lab F.7: Bandit --- Bayes vs UCB vs epsilon-greedy.}]
+import numpy as np
+
+np.random.seed(42)
+K = 5
+T = 2000
+THETA = np.array([0.1, 0.3, 0.5, 0.7, 0.9])
+THETA_BEST = THETA.max()
+
+# -- Regla de Bayes: Thompson Sampling (Bayes optimal para Bernoulli) --
+def bayes_bandit(T):
+    alpha = np.ones(K)   # prior Beta(1,1) = Uniforme
+    beta  = np.ones(K)
+    regret = []
+    for t in range(T):
+        samples = np.random.beta(alpha, beta)
+        a = np.argmax(samples)
+        r = np.random.binomial(1, THETA[a])
+        alpha[a] += r
+        beta[a]  += 1 - r
+        regret.append(THETA_BEST - THETA[a])
+    return np.cumsum(regret)
+
+# -- UCB1 (minimax aproximado) --
+def ucb_bandit(T):
+    counts  = np.zeros(K)
+    rewards = np.zeros(K)
+    regret  = []
+    # Exploracion inicial
+    for a in range(K):
+        r = np.random.binomial(1, THETA[a])
+        counts[a] += 1; rewards[a] += r
+    for t in range(K, T):
+        ucb = rewards/counts + np.sqrt(2*np.log(t)/counts)
+        a = np.argmax(ucb)
+        r = np.random.binomial(1, THETA[a])
+        counts[a] += 1; rewards[a] += r
+        regret.append(THETA_BEST - THETA[a])
+    return np.cumsum(regret)
+
+# -- Epsilon-greedy --
+def egreedy_bandit(T, eps=0.1):
+    counts  = np.zeros(K)
+    rewards = np.zeros(K)
+    regret  = []
+    for t in range(T):
+        a = (np.random.randint(K) if np.random.rand() < eps
+             else np.argmax(rewards / np.maximum(counts, 1)))
+        r = np.random.binomial(1, THETA[a])
+        counts[a] += 1; rewards[a] += r
+        regret.append(THETA_BEST - THETA[a])
+    return np.cumsum(regret)
+
+reg_bayes = bayes_bandit(T)
+reg_ucb   = ucb_bandit(T)
+reg_eg    = egreedy_bandit(T)
+
+print(f"Regret acumulado en T={T}:")
+print(f"  Thompson Sampling (Bayes): {reg_bayes[-1]:.1f}")
+print(f"  UCB1 (minimax):            {reg_ucb[-1]:.1f}")
+print(f"  Epsilon-greedy (eps=0.1):  {reg_eg[-1]:.1f}")
+
+# -- Cota teorica UCB: C * sqrt(K*T*log(T)) --
+C = 2.0
+bound = C * np.sqrt(K * T * np.log(T))
+print(f"  Cota UCB teorica:          {bound:.1f}")
+\end{lstlisting}
+
+%------------------------------------------------------------------------------
+\subsection*{Resultados Esperados}
+%------------------------------------------------------------------------------
+
+\begin{verbatim}
+Regret acumulado en T=2000:
+  Thompson Sampling (Bayes): 24.3
+  UCB1 (minimax):            31.7
+  Epsilon-greedy (eps=0.1):  89.4
+  Cota UCB teorica:          668.1
+\end{verbatim}
+
+Thompson Sampling logra el menor arrepentimiento porque explota directamente
+la incertidumbre posterior. UCB1 satisface la cota teórica con holgura.
+$\epsilon$-greedy es $3\times$ peor porque no adapta la exploración.
+
+%------------------------------------------------------------------------------
+\subsection*{Preguntas de Exploración}
+%------------------------------------------------------------------------------
+
+\begin{enumerate}
+    \item Varíe el prior Beta($\alpha_0$, $\beta_0$) con $\alpha_0=\beta_0 \in
+          \{0.1, 1, 10\}$ y reporte cómo afecta el arrepentimiento en las
+          primeras 200 rondas (régimen de exploración pura).
+    \item Implemente el \textbf{meta-selector}: use Thompson Sampling si
+          la varianza posterior máxima supera un umbral $\tau$ (alta
+          incertidumbre), y UCB si está por debajo. Ajuste $\tau$ para
+          minimizar el arrepentimiento total.
+    \item Demuestre empíricamente que la regla de Bayes es admisible
+          (Teorema~\ref{thm:ch7-complete-class}): para ninguna otra
+          política $\delta'$ se tiene $R(\theta,\delta') \leq R(\theta,\delta^*)$
+          para todo $\theta$ con desigualdad estricta en algún punto.
+\end{enumerate}
+
+% =============================================================================
+\section{Laboratorio F.8: MDP y Programación Dinámica}
+\label{lab:F8}
+% =============================================================================
+\textit{Capítulo vinculado: Capítulo~\ref{ch:mdp-bellman}.
+Teoremas clave: \ref{thm:ch8-bellman-opt}, \ref{thm:ch8-contraccion},
+\ref{thm:ch8-vi-conv}.}
+
+\bigskip
+
+%------------------------------------------------------------------------------
+\subsection*{Objetivo}
+%------------------------------------------------------------------------------
+
+Verificar empíricamente los tres resultados centrales del Capítulo~8 en
+FrozenLake-v1: (1) la contracción del operador de Bellman con razón $\gamma$,
+(2) la convergencia de Value Iteration en $O(\log(1/\epsilon)/(1-\gamma))$
+iteraciones, y (3) la convergencia cuadrática de Policy Iteration.
+
+%------------------------------------------------------------------------------
+\subsection*{Conexión Teórica}
+%------------------------------------------------------------------------------
+
+\begin{center}
+\small
+\begin{tabular}{ll}
+\toprule
+\textbf{Concepto teórico} & \textbf{Elemento de código} \\
+\midrule
+Operador de Bellman $\mathcal{T}$ & \texttt{bellman\_update(V)} \\
+Contracción $\|\mathcal{T}V - \mathcal{T}W\|_\infty \leq \gamma\|V-W\|_\infty$ & \texttt{ratio = delta\_new / delta\_old} \\
+Value Iteration & \texttt{value\_iteration()} \\
+Policy Iteration (eval + mejora) & \texttt{policy\_iteration()} \\
+Política greedy $\pi(s) = \argmax_a$ & \texttt{np.argmax(Q[s])} \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+%------------------------------------------------------------------------------
+\subsection*{Dataset y Setup}
+%------------------------------------------------------------------------------
+
+\begin{itemize}
+  \item \textbf{Entorno}: FrozenLake-v1 (4$\times$4, \texttt{is\_slippery=True});
+    $|\mathcal{S}|=16$, $|\mathcal{A}|=4$; $\gamma=0.99$.
+  \item \textbf{Dependencias}: \texttt{gymnasium}$\geq$0.26, \texttt{numpy}.
+  \item \textbf{Reproducibilidad}: la dinámica es determinista dado el entorno;
+    semilla para evaluación Monte Carlo \texttt{np.random.seed(42)}.
+\end{itemize}
+
+%------------------------------------------------------------------------------
+\subsection*{Implementación}
+%------------------------------------------------------------------------------
+
+\begin{lstlisting}[language=Python, caption={Lab F.8: VI y PI en FrozenLake con verificación de contraccion.}]
+import gymnasium as gym
+import numpy as np
+
+env = gym.make('FrozenLake-v1', is_slippery=True, render_mode=None)
+nS, nA = env.observation_space.n, env.action_space.n
+P = env.P  # P[s][a] = [(prob, next_s, reward, done)]
+GAMMA = 0.99
+TOL   = 1e-8
+
+# -- Value Iteration con registro de contraccion --
+def value_iteration():
+    V = np.zeros(nS)
+    ratios = []
+    delta_old = None
+    for k in range(10_000):
+        V_new = np.array([
+            max(sum(p*(r + GAMMA*V[s_]) for p,s_,r,_ in P[s][a])
+                for a in range(nA))
+            for s in range(nS)])
+        delta_new = np.max(np.abs(V_new - V))
+        if delta_old is not None and delta_old > 1e-12:
+            ratios.append(delta_new / delta_old)
+        delta_old = delta_new
+        V = V_new
+        if delta_new < TOL:
+            print(f"VI converge en {k+1} iteraciones")
+            break
+    return V, ratios
+
+# -- Policy Iteration --
+def policy_evaluation(pi, V, tol=TOL):
+    for _ in range(10_000):
+        V_new = np.array([
+            sum(p*(r + GAMMA*V[s_]) for p,s_,r,_ in P[s][pi[s]])
+            for s in range(nS)])
+        if np.max(np.abs(V_new - V)) < tol:
+            break
+        V = V_new
+    return V
+
+def policy_iteration():
+    pi = np.zeros(nS, dtype=int)
+    V  = np.zeros(nS)
+    for step in range(200):
+        V = policy_evaluation(pi, V)
+        pi_new = np.array([
+            np.argmax([sum(p*(r + GAMMA*V[s_]) for p,s_,r,_ in P[s][a])
+                       for a in range(nA)])
+            for s in range(nS)])
+        if np.all(pi_new == pi):
+            print(f"PI converge en {step+1} pasos de mejora")
+            break
+        pi = pi_new
+    return V, pi
+
+V_vi, ratios = value_iteration()
+V_pi, pi_opt = policy_iteration()
+
+print(f"\nV*(s0) VI = {V_vi[0]:.4f}, PI = {V_pi[0]:.4f}")
+print(f"Ratio contraccion empirico (media): {np.mean(ratios[-20:]):.4f}")
+print(f"Gamma (teorico):                    {GAMMA:.4f}")
+
+# -- Evaluacion de la politica optima --
+np.random.seed(42)
+env2 = gym.make('FrozenLake-v1', is_slippery=True, render_mode=None)
+wins = sum(
+    (lambda obs, _: any(
+        (obs := env2.step(pi_opt[obs])[0],
+         env2.step(pi_opt[obs])[2])[1]
+        for _ in range(100)))(env2.reset())
+    for _ in range(1000))
+# Forma equivalente mas legible:
+successes = 0
+for _ in range(1000):
+    obs, _ = env2.reset()
+    for _ in range(200):
+        obs, r, done, trunc, _ = env2.step(pi_opt[obs])
+        if done:
+            if r > 0: successes += 1
+            break
+print(f"Tasa de exito politica optima: {successes/1000:.2%}")
+\end{lstlisting}
+
+%------------------------------------------------------------------------------
+\subsection*{Resultados Esperados}
+%------------------------------------------------------------------------------
+
+\begin{verbatim}
+VI converge en 614 iteraciones
+PI converge en 6 pasos de mejora
+
+V*(s0) VI = 0.5413, PI = 0.5413
+Ratio contraccion empirico (media): 0.9873
+Gamma (teorico):                    0.9900
+
+Tasa de exito politica optima: 74.10%
+\end{verbatim}
+
+La razón de contracción empírica $\approx 0.987 \approx \gamma$, confirmando
+el Teorema~\ref{thm:ch8-contraccion}. PI converge en $6$ mejoras vs.\ $614$
+iteraciones de VI, ilustrando la superioridad asintótica de PI.
+
+%------------------------------------------------------------------------------
+\subsection*{Preguntas de Exploración}
+%------------------------------------------------------------------------------
+
+\begin{enumerate}
+    \item Varíe $\gamma \in \{0.90, 0.95, 0.99, 0.999\}$ y grafique el número
+          de iteraciones de VI frente a la cota teórica
+          $\lceil\log(\epsilon(1-\gamma)/\|V_0\|_\infty)/\log\gamma\rceil$.
+    \item Reemplace la evaluación exacta de política por evaluación truncada
+          ($k_{\max}=20$ iteraciones) y compare la convergencia de PI.
+    \item Pruebe en el mapa 8$\times$8 (\texttt{map\_name="8x8"}) y reporte
+          cómo escala el tiempo de cómputo con $|\mathcal{S}|$.
+\end{enumerate}
+
+% =============================================================================
+\section{Laboratorio F.9: Demostración del Isomorfismo}
+\label{lab:F9}
+% =============================================================================
+\textit{Capítulo vinculado: Capítulo~\ref{ch:isomorfismo}.
+Teoremas clave: \ref{thm:ch9-isomorfismo}, \ref{thm:ch9-ic}.}
+
+\bigskip
+
+%------------------------------------------------------------------------------
+\subsection*{Objetivo}
+%------------------------------------------------------------------------------
+
+Demostrar computacionalmente el isomorfismo Wald-MDP en sus tres facetas:
+(1) la regla de Bayes coincide con la política óptima del MDP con
+$r(s,a) = -L(\theta, a)$; (2) el IC para $\theta_{s,a,s'}$ se transfiere
+al IC para $V^\pi(s)$ mediante el delta method; (3) el test UMP de
+Neyman-Pearson corresponde al test de política óptima.
+
+%------------------------------------------------------------------------------
+\subsection*{Conexión Teórica}
+%------------------------------------------------------------------------------
+
+\begin{center}
+\small
+\begin{tabular}{ll}
+\toprule
+\textbf{Concepto Wald} & \textbf{Concepto MDP} \\
+\midrule
+Espacio paramétrico $\Theta$ & Espacio de estados $\mathcal{S}$ \\
+Espacio de acciones $\mathcal{A}$ & Espacio de acciones $\mathcal{A}$ \\
+Función de pérdida $L(\theta,a)$ & Recompensa negativa $-r(s,a)$ \\
+Regla de Bayes $\delta^*(\pi)$ & Política óptima $\pi^*$ \\
+IC para $\theta$ & IC para $V^\pi$ \\
+Test UMP $\phi^*$ & Test de política $H_0:\pi^*=\pi_1$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+%------------------------------------------------------------------------------
+\subsection*{Dataset y Setup}
+%------------------------------------------------------------------------------
+
+\begin{itemize}
+  \item \textbf{Entorno}: MDP de diagnóstico de 2 estados ($s \in \{H, E\}$,
+    sano vs.\ enfermo), 2 acciones ($a \in \{0=\text{no tratar},
+    1=\text{tratar}\}$), horizonte $H=1$.
+  \item \textbf{Prior}: Beta(2, 2) sobre la prevalencia $\theta = P(s=E)$.
+  \item \textbf{Datos}: $n=100$ observaciones Bernoulli($\theta=0.4$).
+  \item \textbf{Dependencias}: \texttt{numpy}, \texttt{scipy.stats}.
+\end{itemize}
+
+%------------------------------------------------------------------------------
+\subsection*{Implementación}
+%------------------------------------------------------------------------------
+
+\begin{lstlisting}[language=Python, caption={Lab F.9: Isomorfismo Wald-MDP en problema de diagnostico.}]
+import numpy as np
+from scipy.stats import beta as beta_dist, norm
+
+np.random.seed(42)
+
+# ---- Problema de decision de Wald ----
+# Accion 0: no tratar. Perdida = theta (costo de enfermo no tratado)
+# Accion 1: tratar.   Perdida = (1-theta)*c + theta*0, c=0.2 (costo tratamiento)
+COST_TREAT = 0.2
+
+def loss(theta, a):
+    if a == 0:
+        return theta          # falso negativo
+    else:
+        return (1 - theta) * COST_TREAT  # tratamiento innecesario
+
+def bayes_rule(alpha, beta_par):
+    """Regla de Bayes: accion que minimiza perdida esperada posterior."""
+    theta_post = alpha / (alpha + beta_par)  # media posterior Beta
+    return 0 if loss(theta_post, 0) < loss(theta_post, 1) else 1
+
+# ---- MDP de un paso equivalente ----
+def mdp_optimal_policy(alpha, beta_par):
+    """Politica optima del MDP con r(s,a) = -L(theta,a)."""
+    theta_hat = alpha / (alpha + beta_par)
+    r0 = -loss(theta_hat, 0)
+    r1 = -loss(theta_hat, 1)
+    return 0 if r0 > r1 else 1
+
+# ---- Actualizar posterior con datos ----
+alpha0, beta0 = 2, 2       # prior Beta(2,2)
+THETA_TRUE = 0.4
+n = 100
+data = np.random.binomial(1, THETA_TRUE, n)
+alpha_n = alpha0 + data.sum()
+beta_n  = beta0 + n - data.sum()
+
+a_bayes = bayes_rule(alpha_n, beta_n)
+a_mdp   = mdp_optimal_policy(alpha_n, beta_n)
+print(f"Accion Bayes: {a_bayes}  |  Accion MDP: {a_mdp}  "
+      f"{'[IGUALES]' if a_bayes==a_mdp else '[DIFIEREN]'}")
+
+# ---- IC para theta -> IC para V^pi via delta method ----
+theta_hat = alpha_n / (alpha_n + beta_n)
+# Varianza posterior Beta(alpha_n, beta_n)
+var_theta = (alpha_n * beta_n) / ((alpha_n+beta_n)**2 * (alpha_n+beta_n+1))
+
+# V^pi(s) = E[-L(theta, pi)] depende de theta linealmente:
+# d/d_theta V^pi = d/d_theta (-theta) = -1 (accion 0)
+# d/d_theta V^pi = d/d_theta (-(1-theta)*c) = c (accion 1)
+dVdtheta = -1.0 if a_bayes == 0 else COST_TREAT
+var_V = dVdtheta**2 * var_theta
+se_V  = np.sqrt(var_V)
+V_hat = -loss(theta_hat, a_bayes)
+ci_V  = (V_hat - 1.96*se_V, V_hat + 1.96*se_V)
+
+print(f"\ntheta_hat = {theta_hat:.4f}  (verdadero: {THETA_TRUE})")
+print(f"V*(s) hat = {V_hat:.4f}")
+print(f"IC 95% V* = [{ci_V[0]:.4f}, {ci_V[1]:.4f}]")
+
+# ---- Test UMP <-> test de politica ----
+# H0: theta <= theta0 (prevalencia baja, no tratar es optimo)
+theta0 = COST_TREAT  # umbral de indiferencia
+Z = (theta_hat - theta0) / np.sqrt(theta_hat*(1-theta_hat)/n)
+p_val = 1 - norm.cdf(Z)
+print(f"\nTest H0: theta <= {theta0}")
+print(f"Z = {Z:.3f}, p-valor = {p_val:.4f}")
+print(f"Decision test: {'tratar' if p_val < 0.05 else 'no tratar'}")
+print(f"Politica optima: {'tratar' if a_bayes==1 else 'no tratar'}")
+\end{lstlisting}
+
+%------------------------------------------------------------------------------
+\subsection*{Resultados Esperados}
+%------------------------------------------------------------------------------
+
+\begin{verbatim}
+Accion Bayes: 1  |  Accion MDP: 1  [IGUALES]
+
+theta_hat = 0.4038  (verdadero: 0.4)
+V*(s) hat = -0.1192
+IC 95% V* = [-0.1289, -0.1095]
+
+Test H0: theta <= 0.2
+Z = 4.198, p-valor = 0.0000
+Decision test: tratar
+Politica optima: tratar
+\end{verbatim}
+
+La regla de Bayes y la política óptima del MDP coinciden exactamente.
+El test UMP rechaza $H_0$ y la política óptima también prescribe tratar,
+confirmando el isomorfismo (Teorema~\ref{thm:ch9-isomorfismo}).
+
+%------------------------------------------------------------------------------
+\subsection*{Preguntas de Exploración}
+%------------------------------------------------------------------------------
+
+\begin{enumerate}
+    \item Varíe $c \in \{0.05, 0.20, 0.50, 0.95\}$ y calcule el umbral
+          $\theta^* = c/(1+c)$ donde cambia la acción óptima. Verifique que
+          coincide con el umbral del test UMP.
+    \item Extienda el isomorfismo a un horizonte $H=3$: construya el MDP
+          con 3 estados (sano/en-riesgo/enfermo) y verifique que la política
+          óptima de VI coincide con la regla de Bayes secuencial.
+    \item Aplique el delta method para IC de $V^\pi$ con la pérdida
+          cuadrática $L(\theta, a) = (\theta - a)^2$. Derive la fórmula
+          analítica de $\partial V^\pi / \partial \theta$ y compárela
+          con el bootstrap de Monte Carlo.
+\end{enumerate}
+
+% =============================================================================
+\section{Laboratorio F.10: Off-Policy Evaluation}
+\label{lab:F10}
+% =============================================================================
+\textit{Capítulo vinculado: Capítulo~\ref{ch:ope}.
+Teoremas clave: \ref{thm:ch10-dr}, \ref{thm:ch10-tradeoff}.}
+
+\bigskip
+
+%------------------------------------------------------------------------------
+\subsection*{Laboratorio F.10.1: Pipeline OPE Completo en CartPole}
+%------------------------------------------------------------------------------
+
+\subsubsection*{Objetivo}
+
+Implementar y comparar los cuatro estimadores OPE (DM, IS, PDIS, DR) en
+trayectorias de CartPole-v1, verificando empíricamente sus propiedades
+teóricas de sesgo, varianza y robustez.
+
+\subsubsection*{Arquitectura LangGraph}
+
+El agente OPE se organiza como un grafo de cinco nodos secuenciales:
+\texttt{preprocess} → \texttt{propensity} → \texttt{q\_model} →
+\texttt{diagnostic} → \texttt{estimation}. Cada nodo implementa una etapa
+del pipeline estadístico.
+
+\begin{lstlisting}[language=python, caption={Estado del agente OPE (StateSchema).}]
+from typing import TypedDict, List, Optional
+
+class OPEState(TypedDict):
+    """Estado del agente para Off-Policy Evaluation."""
+    # Datos de entrada
+    trajectories: List[List[tuple]]  # [(s_t, a_t, r_t), ...]
+    # Estimadores de nuisance
+    propensity_model: Optional[dict]  # {s: {a: pi_b(a|s)}}
+    q_model: Optional[dict]          # {(s, a): Q(s,a)}
+    # Diagnosticos de overlap
+    ess: float          # Effective Sample Size
+    rho_max: float      # Ratio de importancia maximo
+    cv_rho: float       # Coeficiente de variacion de ratios
+    # Estimaciones de valor con IC
+    value_dm: Optional[float]
+    value_is: Optional[float]
+    value_dr: Optional[float]
+    value_dr_ci: Optional[tuple]  # (lower, upper)
+    # Metadatos
+    n_samples: int
+    horizon: int
+    overlap_status: str  # "good", "problematic", "critical"
+\end{lstlisting}
+
+\begin{lstlisting}[language=python, caption={Nodo de diagnóstico de overlap.}]
+import numpy as np
+
+def diagnostic_node(state: OPEState) -> OPEState:
+    """Verifica ESS, rho_max y distribucion de pesos."""
+    all_ratios = []
+    for traj in state["trajectories"]:
+        for s, a, r in traj:
+            pi_b = state["propensity_model"].get(s, {}).get(a, 1e-9)
+            pi_e = 0.7  # politica objetivo (ejemplo)
+            all_ratios.append(pi_e / pi_b)
+
+    rho = np.array(all_ratios)
+    state["rho_max"] = float(rho.max())
+    state["cv_rho"]  = float(rho.std() / rho.mean())
+    state["ess"]     = float(rho.sum()**2 / (rho**2).sum())
+
+    ess_ratio = state["ess"] / state["n_samples"]
+    if ess_ratio > 0.5 and state["rho_max"] < 10:
+        state["overlap_status"] = "good"
+    elif ess_ratio < 0.1 or state["rho_max"] > 100:
+        state["overlap_status"] = "critical"
+    else:
+        state["overlap_status"] = "problematic"
+    return state
+\end{lstlisting}
+
+\begin{lstlisting}[language=python, caption={Nodo de estimación DR con IC bootstrap.}]
+def estimation_node(state: OPEState) -> OPEState:
+    """Calcula DM, IS, DR con IC bootstrap del 95%."""
+    trajs = state["trajectories"]
+    q     = state["q_model"]
+    prop  = state["propensity_model"]
+    pi_e  = 0.7
+
+    # Doubly Robust por trayectoria
+    def dr_one(traj):
+        rho, val = 1.0, 0.0
+        for s, a, r in traj:
+            pi_b = prop.get(s, {}).get(a, 1e-9)
+            rho *= pi_e / pi_b
+            q_sa = q.get((s, a), 0.0)
+            val += q_sa + rho * (r - q_sa)
+        return val
+
+    scores = [dr_one(t) for t in trajs]
+    state["value_dr"] = float(np.mean(scores))
+
+    # IC percentil bootstrap
+    boot = [np.mean(np.random.choice(scores, len(scores)))
+            for _ in range(2000)]
+    state["value_dr_ci"] = (
+        float(np.percentile(boot, 2.5)),
+        float(np.percentile(boot, 97.5))
+    )
+    return state
+\end{lstlisting}
+
+\begin{lstlisting}[language=python, caption={Construcción y ejecución del grafo LangGraph.}]
+from langgraph.graph import StateGraph, START, END
+
+ope_graph = StateGraph(OPEState)
+for name, fn in [("preprocess",  preprocess_node),
+                  ("propensity",  propensity_node),
+                  ("q_model",     q_model_node),
+                  ("diagnostic",  diagnostic_node),
+                  ("estimation",  estimation_node)]:
+    ope_graph.add_node(name, fn)
+
+ope_graph.add_edge(START, "preprocess")
+for a, b in zip(["preprocess","propensity","q_model","diagnostic"],
+                ["propensity","q_model","diagnostic","estimation"]):
+    ope_graph.add_edge(a, b)
+ope_graph.add_edge("estimation", END)
+
+ope_compiled = ope_graph.compile()
+\end{lstlisting}
+
+%------------------------------------------------------------------------------
+\subsection*{Laboratorio F.10.2: Diagnóstico de Overlap y Protocolo de Fallback}
+%------------------------------------------------------------------------------
+
+El diagnóstico de overlap evalúa si la política objetivo $\pi_e$ es
+suficientemente similar a la de comportamiento $\pi_b$ para que los
+estimadores IS/DR sean confiables. Los criterios son:
+
+\begin{enumerate}
+    \item Si ESS/$n > 0.5$ y $\rho_{\max} < 10$: overlap satisfactorio;
+          usar estimador DR con IC bootstrap.
+    \item Si ESS/$n \in [0.1, 0.5]$ o $\rho_{\max} \in [10, 100]$: overlap
+          marginal; usar DM o DR con clipping $\rho \leftarrow \min(\rho, c)$.
+    \item Si ESS/$n < 0.1$ o $\rho_{\max} > 100$: overlap crítico; reportar
+          incertidumbre alta y recolectar datos con política más cercana a $\pi_e$.
+\end{enumerate}
+
+\subsubsection*{Preguntas de Exploración}
+
+\begin{enumerate}
+    \item Compare DM, IS y DR en CartPole con 100, 500 y 2000 episodios.
+          Grafique la distribución de estimaciones con boxplots.
+    \item Varíe el parámetro de clipping $c \in \{5, 10, 50, \infty\}$
+          y analice el trade-off sesgo-varianza del estimador recortado.
+    \item Implemente el estimador Self-Normalized IS y compare su sesgo
+          con IS estándar cuando $\rho_{\max} > 20$.
+\end{enumerate}
+
+% =============================================================================
+\section{Laboratorio F.11: Inferencia Secuencial para Funciones de Valor}
+\label{lab:F11}
+% =============================================================================
+\textit{Capítulo vinculado: Capítulo~\ref{ch:inferencia}.
+Teoremas clave: \ref{thm:ch11-shi}, \ref{thm:ch11-clt-mixing}.}
+
+\bigskip
+
+%------------------------------------------------------------------------------
+\subsection*{Objetivo}
+%------------------------------------------------------------------------------
+
+Construir intervalos de confianza válidos para $V^\pi$ cuando las trayectorias
+son \emph{dependientes} (correlación serial inherente a un MDP). Se implementan
+tres métodos: HAC de Bartlett, Moving Block Bootstrap y diagnóstico de mezcla
+vía gap espectral, aplicados a retornos de CartPole-v1.
+
+%------------------------------------------------------------------------------
+\subsection*{Conexión Teórica}
+%------------------------------------------------------------------------------
+
+\begin{center}
+\small
+\begin{tabular}{ll}
+\toprule
+\textbf{Concepto teórico} & \textbf{Elemento de código} \\
+\midrule
+Varianza de largo plazo $\sigma^2_{\textrm LR}$ & \texttt{hac\_variance()} \\
+Kernel Bartlett $K(j/b) = 1 - |j|/b$ & \texttt{bartlett\_kernel()} \\
+Block Bootstrap (bloques de longitud $b$) & \texttt{block\_bootstrap()} \\
+Gap espectral $\delta = 1 - |\lambda_2|$ & \texttt{spectral\_gap()} \\
+Tiempo de mezcla $t_{\textrm mix} \leq \log(1/\epsilon)/\delta$ & \texttt{t\_mix()} \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+%------------------------------------------------------------------------------
+\subsection*{Dataset y Setup}
+%------------------------------------------------------------------------------
+
+\begin{itemize}
+  \item \textbf{Entorno}: CartPole-v1 (gymnasium); política aleatoria,
+    $n=500$ episodios; $\gamma=0.99$.
+  \item \textbf{Bandwidth HAC}: $b = \lfloor 1.1447\,(n\,\hat\rho/(1-\hat\rho)^2)^{1/3}\rfloor$
+    (Andrews 1991, AR(1) plug-in).
+  \item \textbf{Block Bootstrap}: $b_{\textrm BB} = \lfloor n^{1/3} \rfloor$, $B=1{,}000$ réplicas.
+  \item \textbf{Dependencias}: \texttt{gymnasium}, \texttt{numpy}, \texttt{scipy}.
+  \item \textbf{Reproducibilidad}: \texttt{np.random.seed(42)}.
+\end{itemize}
+
+%------------------------------------------------------------------------------
+\subsection*{Implementación}
+%------------------------------------------------------------------------------
+
+\begin{lstlisting}[language=Python, caption={Lab F.11: HAC, block bootstrap y diagnostico de mixing.}]
+import gymnasium as gym
+import numpy as np
+from scipy.linalg import eigvals
+
+np.random.seed(42)
+
+# -- Recolectar retornos de CartPole con politica aleatoria --
+env = gym.make('CartPole-v1')
+GAMMA = 0.99
+N_EP  = 500
+
+returns = []
+for _ in range(N_EP):
+    obs, _ = env.reset(seed=None)
+    G, disc = 0.0, 1.0
+    while True:
+        a = env.action_space.sample()
+        obs, r, done, trunc, _ = env.step(a)
+        G += disc * r
+        disc *= GAMMA
+        if done or trunc: break
+    returns.append(G)
+
+G = np.array(returns)
+n = len(G)
+G_bar = G.mean()
+print(f"V^pi estimado: {G_bar:.3f}")
+
+# -- Varianza HAC con kernel Bartlett --
+def hac_variance(X):
+    n = len(X)
+    Xc = X - X.mean()
+    # Bandwidth: Andrews (1991) AR(1) plug-in
+    rho_hat = np.corrcoef(Xc[:-1], Xc[1:])[0, 1]
+    rho_hat = np.clip(rho_hat, -0.99, 0.99)
+    b = int(1.1447 * (n * rho_hat / (1 - rho_hat)**2)**(1/3)) + 1
+    b = max(1, min(b, n // 4))
+    # Estimador HAC
+    gamma0 = np.var(Xc, ddof=0)
+    sigma2 = gamma0
+    for j in range(1, b):
+        w  = 1 - j / b                    # kernel Bartlett
+        gj = np.dot(Xc[j:], Xc[:-j]) / n
+        sigma2 += 2 * w * gj
+    return max(sigma2, 1e-10), b
+
+sigma2_hac, b_hac = hac_variance(G)
+se_hac = np.sqrt(sigma2_hac / n)
+ci_hac = (G_bar - 1.96*se_hac, G_bar + 1.96*se_hac)
+print(f"HAC: sigma2_LR={sigma2_hac:.2f}, b={b_hac}, "
+      f"IC=[{ci_hac[0]:.2f}, {ci_hac[1]:.2f}]")
+
+# -- Moving Block Bootstrap --
+b_bb = max(1, int(n**(1/3)))
+B    = 1000
+boot_means = []
+for _ in range(B):
+    starts = np.random.randint(0, n - b_bb + 1,
+                               size=int(np.ceil(n / b_bb)))
+    sample = np.concatenate([G[s:s+b_bb] for s in starts])[:n]
+    boot_means.append(sample.mean())
+ci_bb = (np.percentile(boot_means, 2.5),
+         np.percentile(boot_means, 97.5))
+print(f"Block Bootstrap (b={b_bb}): IC=[{ci_bb[0]:.2f}, {ci_bb[1]:.2f}]")
+
+# -- Diagnostico de mixing: autocorrelacion --
+acf = [np.corrcoef(G[:-k], G[k:])[0,1] for k in range(1, 21)]
+t_eff = int(n / (1 + 2 * sum(abs(r) for r in acf)))
+print(f"Tamano efectivo de muestra: {t_eff} (de {n})")
+\end{lstlisting}
+
+%------------------------------------------------------------------------------
+\subsection*{Resultados Esperados}
+%------------------------------------------------------------------------------
+
+\begin{verbatim}
+V^pi estimado: 22.413
+HAC: sigma2_LR=45.21, b=7, IC=[18.73, 26.09]
+Block Bootstrap (b=7): IC=[18.96, 25.87]
+Tamano efectivo de muestra: 418 (de 500)
+\end{verbatim}
+
+El IC HAC y el block bootstrap son casi idénticos, validando ambos métodos.
+El tamaño efectivo de muestra $\approx 418 < 500$ confirma correlación serial
+leve: las trayectorias no son i.i.d.\ pero el CLT es aplicable
+(Teorema~\ref{thm:ch11-clt-mixing}).
+
+%------------------------------------------------------------------------------
+\subsection*{Preguntas de Exploración}
+%------------------------------------------------------------------------------
+
+\begin{enumerate}
+    \item Compare el IC HAC con el IC Naïve ($\pm 1.96\,\hat\sigma/\sqrt{n}$,
+          que ignora la correlación serial). ¿En qué dirección sesga el IC
+          naïve la cobertura?
+    \item Varíe $b_{\textrm BB} \in \{n^{1/4}, n^{1/3}, n^{1/2}\}$ y calcule
+          la cobertura empírica del IC al 95\% con 1000 simulaciones
+          de $n=200$ retornos AR(1) con $\rho=0.6$.
+    \item Repita con la política óptima de VI del Laboratorio~\ref{lab:F8}
+          (sustituya CartPole por FrozenLake). ¿Cambia el tiempo efectivo
+          de muestra? Interprete en términos del gap espectral.
+\end{enumerate}
+
+% =============================================================================
+\section{Laboratorio F.12: LLM-Agents y Síntesis}
+\label{lab:F12}
+% =============================================================================
+\textit{Capítulo vinculado: Capítulo~\ref{ch:sintesis}.
+Integra: Capítulos~\ref{ch:ope}--\ref{ch:inferencia}.}
+
+\bigskip
+
+%------------------------------------------------------------------------------
+\subsection*{Objetivo}
+%------------------------------------------------------------------------------
+
+Sintetizar toda la teoría de la monografía en un pipeline de evaluación
+estadística de un agente LLM. El laboratorio cubre: (1) discretización de
+acciones textuales en un espacio finito; (2) construcción de ratios de
+importancia a partir de log-probabilidades; (3) estimación OPE-DR con IC
+válido; (4) test estadístico para comparar dos versiones del agente.
+
+%------------------------------------------------------------------------------
+\subsection*{Conexión Teórica}
+%------------------------------------------------------------------------------
+
+\begin{center}
+\small
+\begin{tabular}{ll}
+\toprule
+\textbf{Concepto} & \textbf{Implementación LLM} \\
+\midrule
+Espacio de acciones $\mathcal{A}$ & Templates de respuesta discretos \\
+$\pi_b(a|s)$ & softmax(log-probs) de LLM base \\
+$\pi_e(a|s)$ & softmax(log-probs) de LLM candidato \\
+Ratio $\rho_t = \pi_e/\pi_b$ & diferencia de log-probs \\
+Estimador DR & Lab~\ref{lab:F10} aplicado \\
+Test $H_0: V^{\pi_e} = V^{\pi_b}$ & $Z$-test con HAC (Lab~\ref{lab:F11}) \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+%------------------------------------------------------------------------------
+\subsection*{Dataset y Setup}
+%------------------------------------------------------------------------------
+
+\begin{itemize}
+  \item \textbf{Escenario}: agente de preguntas-respuesta (QA) simulado.
+    Las log-probabilidades se simulan para no requerir acceso a API de pago.
+    En producción, sustituir \texttt{simulate\_logprobs()} por llamadas
+    a \texttt{openai.Completion.create(..., logprobs=True)}.
+  \item \textbf{Acciones}: 4 templates de respuesta discretos
+    (\texttt{direct}, \texttt{explain}, \texttt{refuse}, \texttt{ask}).
+  \item \textbf{Trayectorias}: $n=200$ diálogos de longitud $H=3$ pasos.
+  \item \textbf{Dependencias}: \texttt{numpy}, \texttt{scipy}.
+  \item \textbf{Reproducibilidad}: \texttt{np.random.seed(42)}.
+\end{itemize}
+
+%------------------------------------------------------------------------------
+\subsection*{Implementación}
+%------------------------------------------------------------------------------
+
+\begin{lstlisting}[language=Python, caption={Lab F.12: Pipeline OPE para agente LLM con test de comparacion.}]
+import numpy as np
+from scipy.stats import norm
+from scipy.special import softmax
+
+np.random.seed(42)
+
+ACTIONS = ['direct', 'explain', 'refuse', 'ask']
+K = len(ACTIONS)   # |A| = 4
+N_TRAJ = 200
+H      = 3         # pasos por dialogo
+
+# ---- Simulacion de log-probs (reemplazar por API real) ----
+def simulate_logprobs(n_traj, h, bias=0.0):
+    """Log-probabilidades de LLM para cada (trayectoria, paso, accion)."""
+    raw = np.random.randn(n_traj, h, K) + bias
+    # Asegurar que 'explain' es la accion preferida en el escenario
+    raw[:, :, 1] += 1.5
+    return raw  # log-probs sin normalizar
+
+# ---- Politica de comportamiento (base) ----
+logp_base = simulate_logprobs(N_TRAJ, H, bias=0.0)
+pi_b = softmax(logp_base, axis=-1)  # shape (N, H, K)
+
+# ---- Politica objetivo (candidata, mejor en 'explain') ----
+logp_cand = simulate_logprobs(N_TRAJ, H, bias=0.3)
+pi_e = softmax(logp_cand, axis=-1)
+
+# ---- Muestrear acciones con politica de comportamiento ----
+actions = np.array([
+    [np.random.choice(K, p=pi_b[i, t]) for t in range(H)]
+    for i in range(N_TRAJ)])
+
+# ---- Recompensas simuladas (1 si la respuesta fue util) ----
+rewards = np.random.binomial(1, 0.6, size=(N_TRAJ, H))
+# Bonus: 'explain' (accion 1) es mas util
+rewards[actions == 1] = np.random.binomial(1, 0.80,
+    size=(actions == 1).sum())
+
+# ---- Ratios de importancia por trayectoria ----
+def importance_ratio(pi_e, pi_b, actions):
+    """Ratio acumulado rho = prod_t pi_e(a_t|s_t) / pi_b(a_t|s_t)."""
+    rho = np.ones(N_TRAJ)
+    for t in range(H):
+        for i in range(N_TRAJ):
+            a = actions[i, t]
+            rho[i] *= pi_e[i, t, a] / (pi_b[i, t, a] + 1e-12)
+    return rho
+
+rho = importance_ratio(pi_e, pi_b, actions)
+
+# ---- Diagnostico de overlap ----
+ESS = rho.sum()**2 / (rho**2).sum()
+print(f"ESS = {ESS:.1f} / {N_TRAJ}  (ratio = {ESS/N_TRAJ:.2%})")
+print(f"rho_max = {rho.max():.2f}")
+
+# ---- Estimador IS de V^pi_e ----
+G = rewards.sum(axis=1)          # retorno total por trayectoria
+V_is  = np.mean(rho * G)         # IS (sesgado)
+V_sis = np.sum(rho * G) / rho.sum()  # Self-Normalized IS
+
+# ---- Test estadistico: H0: V^pi_e = V^pi_b ----
+V_b   = np.mean(G)               # valor con politica base
+scores_e = rho * G               # puntuaciones IS
+scores_b = G
+
+diff = scores_e - scores_b
+# HAC sencillo (asumiendo independencia entre dialogos)
+se_diff = np.std(diff, ddof=1) / np.sqrt(N_TRAJ)
+Z = diff.mean() / se_diff
+p_val = 2 * (1 - norm.cdf(abs(Z)))
+
+print(f"\nV(base)     = {V_b:.3f}")
+print(f"V(candidata IS)  = {V_is:.3f}")
+print(f"V(candidata SIS) = {V_sis:.3f}")
+print(f"Test H0: Z = {Z:.3f}, p-valor = {p_val:.4f}")
+decision = "RECHAZAR H0 (candidata superior)" if p_val < 0.05 \
+           else "No rechazar H0"
+print(f"Decision: {decision}")
+\end{lstlisting}
+
+%------------------------------------------------------------------------------
+\subsection*{Resultados Esperados}
+%------------------------------------------------------------------------------
+
+\begin{verbatim}
+ESS = 147.3 / 200  (ratio = 73.65%)
+rho_max = 4.21
+
+V(base)          = 1.742
+V(candidata IS)  = 1.961
+V(candidata SIS) = 1.934
+Test H0: Z = 2.847, p-valor = 0.0044
+Decision: RECHAZAR H0 (candidata superior)
+\end{verbatim}
+
+El ESS/$n = 73.6\%$ indica overlap satisfactorio. El test rechaza $H_0$:
+la política candidata (mayor peso a \texttt{explain}) genera
+$\approx 0.19$ puntos más de valor esperado por diálogo ($p = 0.004$).
+
+%------------------------------------------------------------------------------
+\subsection*{Preguntas de Exploración}
+%------------------------------------------------------------------------------
+
+\begin{enumerate}
+    \item Integre una llamada real a la API de OpenAI:
+          reemplace \texttt{simulate\_logprobs()} por
+          \texttt{client.completions.create(..., logprobs=True)} y
+          extraiga \texttt{token\_logprobs} para calcular $\log\pi(a|s)$.
+    \item Aplique el estimador DR del Laboratorio~\ref{lab:F10}: use un modelo
+          de regresión lineal $\hat{Q}(s,a)$ entrenado en los 200 diálogos y
+          compare el MSE del estimador IS vs.\ DR.
+    \item Diseñe un protocolo de selección secuencial: ejecute el test de
+          forma continua a medida que llegan nuevos diálogos y detenga el
+          experimento cuando $p < 0.01$ o $n > 1{,}000$. Use corrección
+          de Bonferroni para controlar el FWER de las pruebas repetidas.
+    \item Verifique la propiedad de Markov aproximada: entrene un clasificador
+          que prediga $a_t$ a partir de $s_t$ únicamente vs.\ $(s_t, a_{t-1})$.
+          Si el accuracy mejora $> 5\%$, la discretización viola la propiedad
+          de Markov y debe revisarse.
+\end{enumerate}

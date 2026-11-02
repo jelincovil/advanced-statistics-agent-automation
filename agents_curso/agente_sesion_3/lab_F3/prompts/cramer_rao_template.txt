@@ -1,0 +1,25 @@
+## Análisis de Cota de Cramér-Rao
+
+**Experimento:** FrozenLake-v1 (4x4, is_slippery=True)
+**Episodios:** {n_collected}
+**γ =** {gamma}
+
+### Información de Fisher (media)
+I(θ̂) = 1 / (θ̂(1−θ̂)) = {mean_fisher:.4f}
+
+### Cota de Cramér-Rao (media)
+CR = 1 / (N(s,a) · I(θ̂)) = {mean_cr_bound:.6f}
+
+### Verificación empírica
+- Var_RB promedio: {mean_var_rb:.6f}
+- Ratio Var_RB / CR_bound: {ratio:.3f}  (debe ser ≥ 1 teóricamente)
+- Tasa de violaciones numéricas: {violation_rate:.1%}
+
+### Sample planning: n_min para Var(V̂) ≤ ε²
+| ε    | n_min    |
+|------|----------|
+| 0.10 | {n_min_01:,} |
+| 0.05 | {n_min_005:,} |
+| 0.01 | {n_min_001:,} |
+
+Interpreta estos resultados conectando los números con la teoría de estimación.

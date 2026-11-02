@@ -1,0 +1,33 @@
+\begin{longtable}{@{}lllll@{}}
+\toprule
+Dataset & $V_{\text{true}}$ & $\hat{V}$ & IC (95\%) & ¿Cubre? \\\midrule
+\endhead
+iid_normal             &  5.00 &  4.94 & [ 4.686,  5.180] & \ok \\\\
+iid_chisquare          &  3.00 &  3.12 & [ 2.780,  3.496] & \ok \\\\
+iid_tstudent           &  0.00 & -0.02 & [-0.249,  0.217] & \ok \\\\
+iid_uniforme           &  5.00 &  4.94 & [ 4.554,  5.333] & \ok \\\\
+iid_exponencial        &  2.00 &  1.93 & [ 1.678,  2.192] & \ok \\\\
+iid_lognormal          &  1.65 &  1.47 & [ 1.242,  1.750] & \ok \\\\
+iid_bernoulli          &  0.70 &  0.71 & [ 0.672,  0.752] & \ok \\\\
+ar1_rho02              &  5.00 &  4.96 & [ 4.894,  5.035] & \ok \\\\
+ar1_rho05              &  5.00 &  4.96 & [ 4.841,  5.078] & \ok \\\\
+ar1_rho08              &  5.00 &  5.25 & [ 5.030,  5.486] & \fail \\\\
+ar1_rho095             &  5.00 &  4.58 & [ 3.902,  5.282] & \ok \\\\
+ma1_theta05            &  5.00 &  4.96 & [ 4.877,  5.040] & \ok \\\\
+ma2                    &  5.00 &  4.96 & [ 4.892,  5.033] & \ok \\\\
+arma11                 &  5.00 &  4.87 & [ 4.668,  5.112] & \ok \\\\
+markov_2estados        &  4.00 &  3.87 & [ 3.550,  4.195] & \ok \\\\
+markov_4estados        &  5.00 &  5.13 & [ 4.706,  5.574] & \ok \\\\
+random_walk            &  0.00 & -5.19 & [-6.247, -4.139] & \fail \\\\
+delta_method           &  4.80 &  4.79 & [ 4.634,  4.951] & \ok \\\\
+mdp_recompensas_correlacionadas &  4.80 &  8.59 & [ 8.456,  8.725] & \fail \\\\
+policy_gradient        &  3.00 &  2.97 & [ 2.799,  3.148] & \ok \\\\
+muestra_pequena        &  5.00 &  4.93 & [ 4.277,  5.564] & \ok \\\\
+mixtura_bimodal        &  5.00 &  4.97 & [ 4.301,  5.616] & \ok \\\\
+garch                  &  5.00 &  4.97 & [ 4.917,  5.033] & \ok \\\\
+switching              &  5.00 &  4.09 & [ 3.345,  4.917] & \fail \\\\
+arfima                 &  5.00 &  4.82 & [ 4.661,  4.973] & \fail \\\\
+estable                &  5.00 &  5.00 & [ 4.746,  5.199] & \ok \\\\
+importance_sampling    &  3.00 &  2.92 & [ 2.862,  2.969] & \fail \\\\
+periodico              &  5.00 &  4.96 & [ 4.881,  5.058] & \ok \\\\
+\bottomrule\end{longtable}

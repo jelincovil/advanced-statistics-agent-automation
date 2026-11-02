@@ -1,0 +1,126 @@
+\documentclass[12pt,a4paper]{article}
+
+% --- Paquetes básicos ---
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish]{babel}
+\usepackage{amsmath,amssymb}
+\usepackage{geometry}
+\geometry{margin=2.5cm}
+
+% --- Metadatos ---
+\title{\textbf{Ejemplo SSCH -- Laboratorio F.4.2:}\\ Medicación vs.\ Estilo de Vida\\ desde la Teoría de Decisión de Wald}
+\author{Curso de Inferencia Estadística para Agentes Inteligentes}
+\date{\today}
+
+\begin{document}
+	\maketitle
+	
+	\section{El entorno clínico: estados, recompensas y políticas}
+	
+	El \textbf{Sistema de Soporte Clínico para Hipertensión (SSCH)} es un modelo de decisión médica que sigue la estructura de un \textbf{proceso de decisión de Markov (MDP)}. Sus elementos básicos son:
+	
+	\paragraph{Estados \(s_i\)} – representan la condición de presión arterial del paciente, según las guías ACC/AHA 2017:
+	\begin{itemize}
+		\item \(s_1\): normotensión (PA < 120/80 mmHg).
+		\item \(s_2\): presión elevada (120‑129/<80 mmHg).
+		\item \(s_3\): hipertensión grado 1 (130‑139/80‑89 mmHg).
+		\item \(s_4\): hipertensión grado 2 (\(\ge 140/90\) mmHg).
+		\item \(s_5\): crisis hipertensiva (\(\ge 180/120\) mmHg).
+	\end{itemize}
+	
+	\paragraph{Acciones} – intervenciones mensuales que el clínico (o el agente) puede aplicar:
+	\begin{itemize}
+		\item \(a_1\): vigilancia activa (solo monitoreo).
+		\item \(a_2\): cambios de estilo de vida (dieta, ejercicio).
+		\item \(a_3\): \textbf{medicación IECA} (Inhibidor de la Enzima Convertidora de Angiotensina), fármaco de primera línea para hipertensión.
+		\item \(a_4\): terapia combinada intensiva (IECA más otros antihipertensivos).
+	\end{itemize}
+	
+	\paragraph{Recompensa \(r(s,a)\)} – es el \textbf{beneficio clínico neto} que se obtiene al aplicar la acción \(a\) en el estado \(s\). Valores altos indican mejor salud, valores negativos indican deterioro o riesgo. Por ejemplo, para el estado \(s_3\) (HTA‑1) las recompensas del capítulo son:
+	\[
+	r(s_3,a_2) = 0.3,\qquad r(s_3,a_3) = 0.6.
+	\]
+	Así, la medicación (\(a_3\)) aporta el doble de beneficio clínico en HTA‑1 que solo el cambio de estilo de vida (\(a_2\)).
+	
+	\paragraph{Política \(\pi\)} – es una regla que asigna a cada estado una acción. Se sigue siempre la misma en cada visita. En el ejemplo comparamos dos políticas deterministas:
+	\begin{itemize}
+		\item \(\pi_2\): aplicar \textbf{siempre} cambios de estilo de vida (\(a_2\)).
+		\item \(\pi_3\): aplicar \textbf{siempre} medicación IECA (\(a_3\)).
+	\end{itemize}
+	
+	\paragraph{Valor de una política \(V^\pi(s)\)} – es la recompensa total esperada a largo plazo si el paciente empieza en el estado \(s\) y se sigue la política \(\pi\) de manera indefinida:
+	\[
+	V^\pi(s) = \mathbb{E}\!\left[ \sum_{t=0}^{\infty} r(S_t, A_t) \;\middle|\; S_0 = s,\; A_t = \pi(S_t) \right].
+	\]
+	
+	\section{La pregunta clínica como problema de decisión de Wald}
+	
+	Queremos decidir si la medicación supera al estilo de vida en el estado inicial \(s_3\). Definimos el parámetro desconocido
+	\[
+	\Delta = V^{\pi_3}(s_3) - V^{\pi_2}(s_3).
+	\]
+	Las hipótesis son \(H_0: \Delta \le 0\) (la medicación no es mejor) frente a \(H_1: \Delta > 0\) (sí lo es).
+	
+	El \textbf{problema de decisión de Wald} tiene dos acciones:
+	\begin{itemize}
+		\item \(a_0\): mantener \(\pi_2\) (no rechazar \(H_0\)).
+		\item \(a_1\): adoptar \(\pi_3\) (rechazar \(H_0\)).
+	\end{itemize}
+	
+	Los errores clínicos posibles y sus costos se traducen en una \textbf{función de pérdida asimétrica}:
+	\[
+	L(\Delta, a) =
+	\begin{cases}
+		0, & \text{si } \Delta \le 0,\; a = a_0 \quad\text{(acierto: no se introduce un fármaco inútil)} \\
+		0, & \text{si } \Delta > 0,\; a = a_1 \quad\text{(acierto: se prescribe el mejor tratamiento)} \\
+		w_I = 5, & \text{si } \Delta \le 0,\; a = a_1 \quad\text{(Error Tipo I: adoptar un medicamento que no mejora)} \\
+		w_{II} = 1, & \text{si } \Delta > 0,\; a = a_0 \quad\text{(Error Tipo II: perder una mejora real)}
+	\end{cases}
+	\]
+	Aquí \(w_I\) es mayor que \(w_{II}\) porque equivocarse al medicar a un paciente sin beneficio puede causar efectos secundarios y costos sin contrapartida, mientras que no detectar una mejora solo retrasa un mejor tratamiento.
+	
+	\section{Datos observados y regla de decisión óptima}
+	
+	\textbf{¿De dónde provienen las observaciones?}  
+	En un estudio clínico real, se reclutan \(n = 200\) pacientes recién diagnosticados con hipertensión grado 1 (estado \(s_3\)). Durante 24 meses se registran mensualmente sus niveles de presión arterial (el estado alcanzado) y el tipo de intervención que recibieron. Debido a la práctica clínica habitual, algunos pacientes siguieron predominantemente cambios de estilo de vida (\(a_2\)) y otros recibieron IECA (\(a_3\)). Con estos datos observacionales se estiman, mediante modelos de regresión y cadenas de Markov, las probabilidades de transición \(P(s'|s,a)\) y las recompensas esperadas \(r(s,a)\), respetando la estructura del MDP.
+	
+	Una vez estimado el modelo, se calcula el valor de cada política resolviendo las ecuaciones de Bellman, y su diferencia. Para cuantificar la incertidumbre, se aplica un método de bootstrap que genera 5000 réplicas del conjunto de pacientes, reestimando el modelo y la diferencia en cada réplica. La desviación estándar de estas diferencias bootstrap da \(\hat{\sigma}_{\text{diff}}\).
+	
+	Los resultados obtenidos (consistentes con el enunciado del laboratorio) son:
+	\[
+	\hat{V}^{\pi_3} = 4.82,\quad \hat{V}^{\pi_2} = 3.91,\quad \hat{\sigma}_{\text{diff}} = 0.38.
+	\]
+	La diferencia observada es \(0.91\) y el estadístico de prueba es
+	\[
+	Z = \frac{0.91}{0.38} \approx 2.39.
+	\]
+	Bajo normalidad asintótica, \(Z\) sigue aproximadamente una distribución \(N(\Delta/\sigma_{\text{diff}}, 1)\).
+	
+	\textbf{Regla de decisión bayesiana (Wald).}  
+	Para aplicar la \textbf{regla de Bayes} que minimiza el riesgo esperado, asumimos un prior no informativo \(\pi_0 = \pi_1 = 0.5\) y consideramos como alternativa puntual el valor observado \(\Delta = 0.91\). Calculamos el cociente de verosimilitudes
+	\[
+	\Lambda = \exp\!\left(Z\cdot\frac{0.91}{0.38} - \frac{1}{2}\left(\frac{0.91}{0.38}\right)^2\right) \approx 17.4.
+	\]
+	El umbral bayesiano es \(\frac{\pi_0 w_I}{\pi_1 w_{II}} = \frac{0.5\times 5}{0.5\times 1} = 5\).
+	
+	Como \(\Lambda = 17.4 > 5\), \textbf{se rechaza \(H_0\) y se adopta la política \(\pi_3\) (medicación IECA).}
+	
+	El test frecuentista clásico con nivel \(\alpha = 0.05\) rechaza si \(Z > 1.645\); como \(2.39 > 1.645\) también conduce a la misma decisión.
+	
+	\section{Isomorfismo con el MDP clínico}
+	
+	La regla de decisión \(\delta\) que elige entre \(\pi_2\) y \(\pi_3\) es en realidad una \textbf{meta‑política} para un MDP de un solo paso:
+	\begin{itemize}
+		\item El estado de la naturaleza es el verdadero \(\Delta\).
+		\item Las acciones son las dos políticas candidatas.
+		\item La recompensa equivale a la negativa de la pérdida clínica.
+	\end{itemize}
+	El \textbf{riesgo frecuentista} \(R(\Delta, \delta)\) mide la pérdida esperada; su negativo es el valor esperado de la decisión. Por ejemplo:
+	\begin{itemize}
+		\item Bajo \(H_0\) (\(\Delta = 0\)): \(R \approx 0.25 \Rightarrow \text{valor} = -0.25\).
+		\item Bajo la alternativa (\(\Delta = 0.91\)): \(R \approx 0.226 \Rightarrow \text{valor} = -0.226\).
+	\end{itemize}
+	Minimizar el riesgo de Wald equivale a \textbf{maximizar el valor esperado} del MDP; por lo tanto, la inferencia estadística resulta ser el núcleo matemático que permite a un agente inteligente elegir la mejor política clínica bajo incertidumbre.
+	
+\end{document}

@@ -1,0 +1,1065 @@
+@prefix : <http://ontology.langgraph-cmdp.org/2026/03#> .
+@prefix lg: <http://ontology.langgraph-cmdp.org/langgraph#> .
+@prefix causal: <http://ontology.langgraph-cmdp.org/causal#> .
+@prefix sl: <http://ontology.langgraph-cmdp.org/statistical-learning#> .
+@prefix bib: <http://ontology.langgraph-cmdp.org/bibliography#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+
+# =============================================================================
+# ONTOLOGY METADATA
+# =============================================================================
+
+<http://ontology.langgraph-cmdp.org/2026/03>
+    rdf:type owl:Ontology ;
+    dc:title "LangGraph Agent to Causal MDP Ontology"@en ;
+    dc:description """
+        Formal ontology mapping LangGraph agent architecture to Causal Markov 
+        Decision Processes (C-MDP). This ontology establishes the mathematical 
+        correspondence between:
+        
+        - LangGraph State ↔ Belief State S in C-MDP
+        - LangGraph Nodes/Tools ↔ Causal Interventions do(X)
+        - Conditional Edges ↔ Policy Function π(a|s)
+        - State Transitions ↔ Causal Transition Kernel P(s'|s, do(a))
+        
+        The formalization follows Pearl's Causal Calculus (2009), Bochman's 
+        Causal Production Systems (2018), and the LangGraph framework (2024).
+    """@en ;
+    dc:creator "Formal Agent Systems Laboratory" ;
+    dc:date "2026-03-22"^^xsd:date ;
+    owl:versionInfo "1.0.0" .
+
+
+# =============================================================================
+# BIBLIOGRAPHIC REFERENCES
+# =============================================================================
+
+bib:Pearl2009
+    rdf:type bib:AcademicReference ;
+    dc:creator "Judea Pearl" ;
+    dc:title "Causality: Models, Reasoning, and Inference" ;
+    dc:date "2009"^^xsd:gYear ;
+    dc:publisher "Cambridge University Press" ;
+    bib:isbn "978-0521895606" ;
+    rdfs:comment """
+        Foundational text for causal calculus. Defines the do-operator:
+        P(Y | do(X=x)) ≠ P(Y | X=x) in general.
+        
+        Key theorems used in this ontology:
+        - Theorem 3.4.1 (Adjustment for Direct Causes)
+        - do-calculus rules (Rule 1, 2, 3)
+    """@en .
+
+bib:Bochman2018
+    rdf:type bib:AcademicReference ;
+    dc:creator "Alexander Bochman" ;
+    dc:title "Causal Production Systems and Nonmonotonic Reasoning" ;
+    dc:date "2018"^^xsd:gYear ;
+    dc:publisher "Springer" ;
+    bib:doi "10.1007/978-3-319-61660-5" ;
+    rdfs:comment """
+        Establishes causal production inference systems. Key concept:
+        Production rules P: A → B represent causal mechanisms where
+        intervention on A produces B, distinct from mere correlation.
+        
+        Applied here: LangGraph edges as causal production rules.
+    """@en .
+
+bib:Puterman2005
+    rdf:type bib:AcademicReference ;
+    dc:creator "Martin L. Puterman" ;
+    dc:title "Markov Decision Processes: Discrete Stochastic Dynamic Programming" ;
+    dc:date "2005"^^xsd:gYear ;
+    dc:publisher "Wiley-Interscience" ;
+    bib:isbn "978-0471727828" ;
+    rdfs:comment """
+        Canonical reference for MDP theory. Provides:
+        - Bellman equations: V*(s) = max_a [r(s,a) + γ Σ P(s'|s,a) V*(s')]
+        - Policy iteration convergence theorems
+        - Value iteration convergence theorems
+    """@en .
+
+bib:LangGraph2024
+    rdf:type bib:AcademicReference ;
+    dc:creator "LangChain Team" ;
+    dc:title "LangGraph: A Framework for Building Stateful, Multi-Actor Applications with LLMs" ;
+    dc:date "2024"^^xsd:gYear ;
+    bib:url <https://langchain-ai.github.io/langgraph/> ;
+    rdfs:comment """
+        Framework for constructing agent workflows as directed graphs.
+        Key components: StateGraph, nodes, conditional edges, state channels.
+    """@en .
+
+bib:WangDuan2024
+    rdf:type bib:AcademicReference ;
+    dc:creator "Jialin Wang, Zhihua Duan" ;
+    dc:title "Agent AI with LangGraph: A Modular Framework for Enhancing Machine Translation Using Large Language Models" ;
+    dc:date "2024"^^xsd:gYear ;
+    bib:arxiv "2412.03801" ;
+    rdfs:comment """
+        Demonstrates modular agent design with LangGraph for translation tasks.
+        Establishes IntentAgent → TranslationAgent routing patterns.
+    """@en .
+
+bib:ShiEtAl2022
+    rdf:type bib:AcademicReference ;
+    dc:creator "Chengchun Shi, Sheng Zhang, Wenbin Lu, Rui Song" ;
+    dc:title "Statistical Inference of the Value Function for Reinforcement Learning in Infinite-Horizon Settings" ;
+    dc:date "2022"^^xsd:gYear ;
+    dc:publisher "Journal of the Royal Statistical Society Series B" ;
+    bib:volume "84(3)" ;
+    bib:pages "765-793" ;
+    bib:doi "10.1111/rssb.12465" ;
+    rdfs:comment """
+        Statistical inference for value functions. Provides:
+        - Asymptotic normality: √n(V̂ - V*) →d N(0, σ²)
+        - Confidence intervals for policy evaluation
+        - Sieve estimation methods for Q-functions
+    """@en .
+
+
+# =============================================================================
+# BIBLIOGRAPHIC PROPERTY DEFINITIONS
+# =============================================================================
+
+bib:AcademicReference
+    rdf:type owl:Class ;
+    rdfs:label "Academic Reference"@en ;
+    rdfs:comment "A scholarly publication cited in this ontology."@en .
+
+bib:doi
+    rdf:type owl:DatatypeProperty ;
+    rdfs:domain bib:AcademicReference ;
+    rdfs:range xsd:string ;
+    rdfs:label "DOI"@en .
+
+bib:isbn
+    rdf:type owl:DatatypeProperty ;
+    rdfs:domain bib:AcademicReference ;
+    rdfs:range xsd:string ;
+    rdfs:label "ISBN"@en .
+
+bib:arxiv
+    rdf:type owl:DatatypeProperty ;
+    rdfs:domain bib:AcademicReference ;
+    rdfs:range xsd:string ;
+    rdfs:label "arXiv identifier"@en .
+
+bib:url
+    rdf:type owl:ObjectProperty ;
+    rdfs:domain bib:AcademicReference ;
+    rdfs:label "URL"@en .
+
+bib:volume
+    rdf:type owl:DatatypeProperty ;
+    rdfs:domain bib:AcademicReference ;
+    rdfs:range xsd:string .
+
+bib:pages
+    rdf:type owl:DatatypeProperty ;
+    rdfs:domain bib:AcademicReference ;
+    rdfs:range xsd:string .
+
+
+# =============================================================================
+# CORE CAUSAL MDP CLASSES
+# Mathematical Foundation: C-MDP = (S, A, P_do, R, γ, G)
+# where G is a causal graph over state variables
+# =============================================================================
+
+causal:CausalMDP
+    rdf:type owl:Class ;
+    rdfs:label "Causal Markov Decision Process"@en ;
+    rdfs:comment """
+        A Causal MDP extends standard MDPs with causal structure.
+        
+        FORMAL DEFINITION:
+        C-MDP = (S, A, P_do, R, γ, G) where:
+        - S: State space (belief states)
+        - A: Action space (causal interventions)
+        - P_do: Causal transition kernel P(s' | s, do(a))
+        - R: Reward function R(s, a, s')
+        - γ ∈ [0,1): Discount factor
+        - G: Causal DAG over state variables
+        
+        KEY DISTINCTION from standard MDP (Pearl, 2009):
+        P(s' | s, do(a)) ≠ P(s' | s, a) in general
+        The do-operator represents intervention, not conditioning.
+        
+        Reference: Pearl (2009), Ch. 4; Bareinboim & Pearl (2016)
+    """@en ;
+    :hasReference bib:Pearl2009 ;
+    :hasReference bib:Puterman2005 .
+
+causal:StateSpace
+    rdf:type owl:Class ;
+    rdfs:label "State Space S"@en ;
+    rdfs:comment """
+        The state space S of the C-MDP.
+        
+        MATHEMATICAL DEFINITION:
+        S = S₁ × S₂ × ... × Sₙ (product of state variable domains)
+        
+        In LangGraph: S corresponds to the TypedDict state schema.
+        Each key in the state dict is a state variable Sᵢ.
+        
+        BELIEF STATE INTERPRETATION:
+        s ∈ S represents the agent's belief state b(s) = P(s | history)
+        where history = (o₁, a₁, o₂, a₂, ..., oₜ)
+    """@en .
+
+causal:ActionSpace
+    rdf:type owl:Class ;
+    rdfs:label "Action Space A"@en ;
+    rdfs:comment """
+        The action space A of the C-MDP.
+        
+        MATHEMATICAL DEFINITION:
+        A = {a₁, a₂, ..., aₘ} (finite action set)
+        
+        CAUSAL INTERPRETATION (Pearl, 2009):
+        Each action aᵢ corresponds to an intervention do(Xⱼ = xⱼ)
+        on some variable(s) Xⱼ in the causal graph G.
+        
+        In LangGraph: A = {node functions ∪ tool calls}
+    """@en .
+
+causal:CausalIntervention
+    rdf:type owl:Class ;
+    rdfs:label "Causal Intervention do(X)"@en ;
+    rdfs:comment """
+        A causal intervention in the sense of Pearl's do-calculus.
+        
+        FORMAL DEFINITION (Pearl, 2009, Def. 3.2.1):
+        do(X = x) denotes an intervention that:
+        1. Sets variable X to value x
+        2. Removes all arrows INTO X in the causal graph G
+        3. Leaves all other structural equations unchanged
+        
+        POST-INTERVENTION DISTRIBUTION:
+        P(Y | do(X = x)) = Σ_z P(Y | X=x, PA=z) P(PA=z)
+        where PA are parents of X not affected by intervention
+        
+        BOCHMAN'S PRODUCTION INTERPRETATION (2018):
+        do(X) triggers a causal production rule X → effects(X)
+        This is irreversible: we cannot "undo" an intervention.
+    """@en ;
+    :hasReference bib:Pearl2009 ;
+    :hasReference bib:Bochman2018 .
+
+causal:CausalTransitionKernel
+    rdf:type owl:Class ;
+    rdfs:label "Causal Transition Kernel P_do"@en ;
+    rdfs:comment """
+        The causal transition kernel P(s' | s, do(a)).
+        
+        FORMAL DEFINITION:
+        P_do: S × A → Δ(S)
+        P_do(s' | s, do(a)) = probability of reaching s' from s 
+                              under intervention do(a)
+        
+        KEY PROPERTY (Causal Markov Assumption):
+        P(s' | s, do(a)) depends only on:
+        - Current state s
+        - Intervention a
+        - Causal structure G
+        NOT on the history of how we reached s.
+        
+        DIFFERENCE FROM OBSERVATIONAL:
+        P(s' | s, do(a)) ≠ P(s' | s, a)
+        The right side conditions on a, the left intervenes on a.
+        
+        In LangGraph: Determined by LLM probability P_LLM(output | input, context)
+    """@en .
+
+causal:CausalGraph
+    rdf:type owl:Class ;
+    rdfs:label "Causal DAG G"@en ;
+    rdfs:comment """
+        The causal directed acyclic graph over state variables.
+        
+        FORMAL DEFINITION:
+        G = (V, E) where:
+        - V = {X₁, ..., Xₙ} are state variables
+        - E ⊆ V × V are directed edges (causal relationships)
+        - (Xᵢ, Xⱼ) ∈ E means Xᵢ is a direct cause of Xⱼ
+        
+        STRUCTURAL CAUSAL MODEL (Pearl, 2009):
+        Each variable Xⱼ has structural equation:
+        Xⱼ := fⱼ(PA(Xⱼ), Uⱼ)
+        where PA(Xⱼ) are parents and Uⱼ is exogenous noise.
+        
+        In LangGraph: G is implicitly defined by the StateGraph edges.
+    """@en .
+
+
+# =============================================================================
+# LANGGRAPH FRAMEWORK CLASSES
+# Mapping: LangGraph Architecture → C-MDP Components
+# =============================================================================
+
+lg:StateGraph
+    rdf:type owl:Class ;
+    rdfs:subClassOf causal:CausalMDP ;
+    rdfs:label "LangGraph StateGraph"@en ;
+    rdfs:comment """
+        The core LangGraph StateGraph class.
+        
+        CORRESPONDENCE TO C-MDP:
+        StateGraph ≅ C-MDP with:
+        - State schema (TypedDict) ↔ State space S
+        - Nodes ↔ Action space A (as interventions)
+        - Edges ↔ Causal production rules (Bochman, 2018)
+        - Conditional edges ↔ Policy π(a|s)
+        
+        FORMAL MAPPING:
+        Let G_LG = (N, E, S, s₀, F) be a LangGraph where:
+        - N: set of nodes
+        - E: edges (including conditional)
+        - S: state schema
+        - s₀: initial state (entry point)
+        - F: final states (END nodes)
+        
+        Then the induced C-MDP is:
+        M_G = (S, A=N, P_do, R, γ, G_causal)
+        
+        Reference: LangGraph Documentation (2024)
+    """@en ;
+    :hasReference bib:LangGraph2024 .
+
+lg:AgentState
+    rdf:type owl:Class ;
+    rdfs:subClassOf causal:StateSpace ;
+    rdfs:label "LangGraph Agent State"@en ;
+    rdfs:comment """
+        The TypedDict state class in LangGraph.
+        
+        FORMAL CORRESPONDENCE:
+        AgentState : TypedDict ↔ S = ∏ᵢ Sᵢ (product space)
+        
+        Each key kᵢ in the TypedDict corresponds to a state variable Xᵢ
+        with domain Sᵢ = type(kᵢ).
+        
+        BELIEF STATE INTERPRETATION:
+        The AgentState at time t represents:
+        b(sₜ) = P(sₜ | o₁:ₜ, a₁:ₜ₋₁)
+        
+        This is a SUFFICIENT STATISTIC for decision-making
+        (by Markov property of the C-MDP).
+        
+        EXAMPLE (from Wang & Duan, 2024):
+        class TranslationState(TypedDict):
+            input_text: str        # X₁ ∈ Σ* (string space)
+            detected_lang: str     # X₂ ∈ {en, fr, jp, ...}
+            translated_text: str   # X₃ ∈ Σ*
+            intent: str            # X₄ ∈ IntentSpace
+    """@en ;
+    :hasReference bib:WangDuan2024 .
+
+lg:Node
+    rdf:type owl:Class ;
+    rdfs:subClassOf causal:CausalIntervention ;
+    rdfs:label "LangGraph Node"@en ;
+    rdfs:comment """
+        A node in the LangGraph StateGraph.
+        
+        FORMAL DEFINITION:
+        A node n: S → S is a function that transforms state.
+        
+        CAUSAL INTERPRETATION:
+        Executing node n corresponds to intervention do(n):
+        - The node function fₙ is a structural equation
+        - Inputs are read from state (parents in causal graph)
+        - Outputs are written to state (children in causal graph)
+        
+        PRODUCTION RULE (Bochman, 2018):
+        Node n induces production rule:
+        state_in → state_out via fₙ
+        
+        This is IRREVERSIBLE in the causal sense:
+        we cannot "unexecute" a node to recover prior state.
+        
+        MATHEMATICAL CORRESPONDENCE:
+        n(s) ↔ s' where P(s' | s, do(n)) = δ(s' = fₙ(s))
+        (deterministic intervention)
+        
+        For stochastic nodes (LLM calls):
+        P(s' | s, do(n)) = P_LLM(output | input, prompt)
+    """@en ;
+    :hasReference bib:Bochman2018 .
+
+lg:ToolNode
+    rdf:type owl:Class ;
+    rdfs:subClassOf lg:Node ;
+    rdfs:label "LangGraph Tool Node"@en ;
+    rdfs:comment """
+        A node that executes an external tool.
+        
+        CAUSAL INTERPRETATION:
+        Tool execution is an intervention on the EXTERNAL world:
+        do(tool_call) affects both:
+        - Internal state (agent's beliefs)
+        - External state (world state, databases, APIs)
+        
+        STRUCTURAL EQUATION:
+        (s'_internal, s'_external) = f_tool(s_internal, s_external)
+        
+        This introduces CONFOUNDING if external state affects
+        both tool input and output through paths not mediated
+        by the tool itself.
+        
+        REFERENCE: Pearl (2009), Ch. 11 on external validity
+    """@en .
+
+lg:LLMNode
+    rdf:type owl:Class ;
+    rdfs:subClassOf lg:Node ;
+    rdfs:label "LangGraph LLM Node"@en ;
+    rdfs:comment """
+        A node that invokes a Large Language Model.
+        
+        STATISTICAL LEARNING FOUNDATION:
+        The LLM defines a conditional distribution:
+        P_LLM(output | input, context, θ)
+        where θ are the model parameters.
+        
+        CAUSAL TRANSITION KERNEL:
+        For LLM node n:
+        P(s' | s, do(n)) = P_LLM(s'[output_key] | s[input_keys], prompt)
+        
+        This is the PRIMARY source of stochasticity in the C-MDP.
+        
+        KEY PROPERTY:
+        The LLM's learned distribution P_LLM approximates:
+        P(Y | X) from training data
+        
+        BUT when used as intervention:
+        P(s' | s, do(LLM)) uses P_LLM as a mechanism,
+        not as observational conditional.
+    """@en ;
+    :hasStatisticalPrior sl:LLMDistribution .
+
+lg:ConditionalEdge
+    rdf:type owl:Class ;
+    rdfs:label "LangGraph Conditional Edge"@en ;
+    rdfs:comment """
+        A conditional edge that routes based on state.
+        
+        FORMAL DEFINITION:
+        A conditional edge is a function:
+        route: S → N ∪ {END}
+        that selects the next node based on current state.
+        
+        POLICY INTERPRETATION:
+        The conditional edge IMPLEMENTS the policy π:
+        π(a | s) = 1 if route(s) = a, 0 otherwise
+        (deterministic policy)
+        
+        For stochastic routing:
+        π(a | s) = P(route(s) = a)
+        
+        MATHEMATICAL CORRESPONDENCE:
+        Let edges = {e₁, ..., eₖ} with conditions {c₁, ..., cₖ}
+        Then:
+        π(eᵢ | s) = 𝟙[cᵢ(s) = True ∧ ∀j<i: cⱼ(s) = False]
+        
+        This is a GREEDY POLICY with respect to the condition ordering.
+        
+        EXAMPLE (Wang & Duan, 2024):
+        def route_by_intent(state):
+            intent = state['intent']
+            return {
+                'en': 'translateToEN',
+                'fr': 'translateToFrench', 
+                'jp': 'translateToJP'
+            }.get(intent, 'end')
+        
+        This defines:
+        π(translateToEN | s) = 𝟙[s.intent = 'en']
+        π(translateToFrench | s) = 𝟙[s.intent = 'fr']
+        etc.
+    """@en ;
+    :implementsPolicy causal:Policy ;
+    :hasReference bib:WangDuan2024 .
+
+lg:Edge
+    rdf:type owl:Class ;
+    rdfs:label "LangGraph Edge"@en ;
+    rdfs:comment """
+        An unconditional edge between nodes.
+        
+        FORMAL DEFINITION:
+        An edge (n₁, n₂) specifies that after executing n₁,
+        the agent deterministically proceeds to n₂.
+        
+        POLICY INTERPRETATION:
+        This is a DEGENERATE policy:
+        π(n₂ | s, after_n₁) = 1
+        π(other | s, after_n₁) = 0
+        
+        CAUSAL PRODUCTION (Bochman, 2018):
+        The edge represents a causal production rule:
+        completion(n₁) → execute(n₂)
+        
+        This is the MECHANISM by which node completion
+        causes the next node to execute.
+    """@en .
+
+lg:EntryPoint
+    rdf:type owl:Class ;
+    rdfs:subClassOf lg:Node ;
+    rdfs:label "LangGraph Entry Point"@en ;
+    rdfs:comment """
+        The designated entry point of the StateGraph.
+        
+        FORMAL DEFINITION:
+        The entry point n₀ satisfies:
+        ∀ trajectories τ: τ[0] = n₀
+        
+        INITIAL STATE DISTRIBUTION:
+        The entry point, combined with initial state s₀,
+        defines the initial distribution:
+        μ₀(s) = δ(s = s₀) (deterministic)
+        
+        Or for stochastic initialization:
+        μ₀(s) = P(s | input)
+    """@en .
+
+lg:EndNode
+    rdf:type owl:Class ;
+    rdfs:label "LangGraph END Node"@en ;
+    rdfs:comment """
+        A terminal node that ends execution.
+        
+        FORMAL DEFINITION:
+        END is an absorbing state:
+        P(s' = END | s = END, a) = 1 for all a
+        
+        VALUE FUNCTION AT END:
+        V*(END) = 0 (by convention)
+        
+        This ensures the Bellman equation is well-defined:
+        V*(s) = max_a [R(s,a) + γ Σ P(s'|s,a) V*(s')]
+        terminates at END nodes.
+    """@en .
+
+
+# =============================================================================
+# STATISTICAL LEARNING CLASSES
+# Foundation for LLM-based transition probabilities
+# =============================================================================
+
+sl:StatisticalModel
+    rdf:type owl:Class ;
+    rdfs:label "Statistical Model"@en ;
+    rdfs:comment """
+        A statistical model P = {P_θ : θ ∈ Θ}.
+        
+        FORMAL DEFINITION (Casella & Berger, 2002):
+        A statistical model is a family of probability distributions
+        indexed by parameter θ in parameter space Θ.
+        
+        In C-MDP context:
+        The statistical model governs the transition kernel P_do.
+    """@en .
+
+sl:LLMDistribution
+    rdf:type owl:Class ;
+    rdfs:subClassOf sl:StatisticalModel ;
+    rdfs:label "LLM Probability Distribution"@en ;
+    rdfs:comment """
+        The probability distribution defined by a Large Language Model.
+        
+        FORMAL DEFINITION:
+        P_LLM(y | x; θ) = ∏ᵢ P(yᵢ | y₁:ᵢ₋₁, x; θ)
+        (autoregressive factorization)
+        
+        PARAMETERS:
+        θ = trained weights of the LLM (billions of parameters)
+        
+        TRAINING OBJECTIVE:
+        θ* = argmin_θ E_{(x,y)~D} [-log P_LLM(y | x; θ)]
+        (maximum likelihood on training data D)
+        
+        KEY STATISTICAL PROPERTIES:
+        - P_LLM is a consistent estimator of P_data as |D| → ∞
+        - P_LLM exhibits in-context learning: P(y | x, examples)
+        - P_LLM approximates conditional distributions from training
+        
+        CAUSAL CAVEAT:
+        P_LLM learns ASSOCIATIONAL relationships from data.
+        Using P_LLM as a causal mechanism requires assuming:
+        1. The training data reflects causal relationships, OR
+        2. We only need associational predictions
+        
+        Reference: Statistical learning theory (Vapnik, 1995)
+    """@en ;
+    :hasReference bib:ShiEtAl2022 .
+
+sl:TransitionProbability
+    rdf:type owl:Class ;
+    rdfs:label "Transition Probability"@en ;
+    rdfs:comment """
+        The transition probability in the C-MDP.
+        
+        FORMAL DEFINITION:
+        P(s' | s, a): S × A → Δ(S)
+        
+        For LangGraph with LLM nodes:
+        P(s' | s, do(n)) = P_LLM(s'.output | s.input, prompt_n)
+        
+        STATISTICAL INFERENCE (Shi et al., 2022):
+        We can estimate P from observed trajectories:
+        P̂(s' | s, a) = N(s, a, s') / N(s, a)
+        
+        Under mixing conditions, P̂ → P as n → ∞.
+    """@en .
+
+sl:Prior
+    rdf:type owl:Class ;
+    rdfs:label "Statistical Prior"@en ;
+    rdfs:comment """
+        A prior distribution over model parameters.
+        
+        FORMAL DEFINITION:
+        π(θ) = prior belief about θ before observing data
+        
+        BAYESIAN UPDATE:
+        π(θ | data) ∝ P(data | θ) π(θ)
+        
+        In LangGraph context:
+        The LLM's training encodes an implicit prior over
+        response distributions given inputs.
+        
+        CAUSAL BAYES (Pearl, 2009):
+        Prior over causal structures G:
+        P(G) = prior belief about which DAG is correct
+    """@en .
+
+
+# =============================================================================
+# POLICY AND VALUE FUNCTION CLASSES
+# Formalizing the decision-theoretic aspects
+# =============================================================================
+
+causal:Policy
+    rdf:type owl:Class ;
+    rdfs:label "Policy π"@en ;
+    rdfs:comment """
+        A policy mapping states to actions.
+        
+        FORMAL DEFINITION:
+        π: S → Δ(A)
+        π(a | s) = probability of taking action a in state s
+        
+        TYPES:
+        - Deterministic: π(s) ∈ A (single action)
+        - Stochastic: π(· | s) ∈ Δ(A) (distribution over actions)
+        - Markovian: π depends only on current state
+        - History-dependent: π depends on full history
+        
+        In LangGraph:
+        Conditional edges implement DETERMINISTIC MARKOVIAN policies.
+        
+        OPTIMALITY (Puterman, 2005):
+        π* = argmax_π V^π(s) for all s
+        
+        BELLMAN OPTIMALITY:
+        π*(s) = argmax_a [R(s,a) + γ Σ P(s'|s,a) V*(s')]
+    """@en ;
+    :hasReference bib:Puterman2005 .
+
+causal:ValueFunction
+    rdf:type owl:Class ;
+    rdfs:label "Value Function V^π"@en ;
+    rdfs:comment """
+        The value function for a policy π.
+        
+        FORMAL DEFINITION:
+        V^π(s) = E_π [Σ_{t=0}^∞ γ^t R(sₜ, aₜ) | s₀ = s]
+        
+        BELLMAN EQUATION:
+        V^π(s) = Σ_a π(a|s) [R(s,a) + γ Σ_{s'} P(s'|s,a) V^π(s')]
+        
+        STATISTICAL INFERENCE (Shi et al., 2022):
+        We can construct confidence intervals for V^π:
+        V̂^π ± z_{α/2} × SE(V̂^π)
+        
+        where SE is estimated via bootstrap or asymptotic formula.
+        
+        CAUSAL INTERPRETATION:
+        V^π(s) = expected cumulative reward under INTERVENTION
+        of following policy π, starting from state s.
+    """@en ;
+    :hasReference bib:ShiEtAl2022 ;
+    :hasReference bib:Puterman2005 .
+
+causal:QFunction
+    rdf:type owl:Class ;
+    rdfs:label "Q-Function Q^π"@en ;
+    rdfs:comment """
+        The action-value function for a policy π.
+        
+        FORMAL DEFINITION:
+        Q^π(s, a) = E_π [Σ_{t=0}^∞ γ^t R(sₜ, aₜ) | s₀ = s, a₀ = a]
+        
+        RELATIONSHIP TO V:
+        V^π(s) = Σ_a π(a|s) Q^π(s, a)
+        Q^π(s, a) = R(s, a) + γ Σ_{s'} P(s'|s,a) V^π(s')
+        
+        CAUSAL INTERPRETATION:
+        Q^π(s, a) = expected return when we INTERVENE to take
+        action a in state s, then follow π thereafter.
+        
+        This is the INTERVENTIONAL expectation:
+        Q^π(s, a) = E[Return | s, do(a), then π]
+    """@en .
+
+
+# =============================================================================
+# OBJECT PROPERTIES
+# Defining relationships between classes
+# =============================================================================
+
+:hasState
+    rdf:type owl:ObjectProperty ;
+    rdfs:domain lg:StateGraph ;
+    rdfs:range lg:AgentState ;
+    rdfs:label "has state"@en ;
+    rdfs:comment "Links a StateGraph to its state schema."@en .
+
+:hasNode
+    rdf:type owl:ObjectProperty ;
+    rdfs:domain lg:StateGraph ;
+    rdfs:range lg:Node ;
+    rdfs:label "has node"@en ;
+    rdfs:comment "Links a StateGraph to its constituent nodes."@en .
+
+:hasEdge
+    rdf:type owl:ObjectProperty ;
+    rdfs:domain lg:StateGraph ;
+    rdfs:range lg:Edge ;
+    rdfs:label "has edge"@en ;
+    rdfs:comment "Links a StateGraph to its edges."@en .
+
+:hasConditionalEdge
+    rdf:type owl:ObjectProperty ;
+    rdfs:domain lg:StateGraph ;
+    rdfs:range lg:ConditionalEdge ;
+    rdfs:label "has conditional edge"@en ;
+    rdfs:comment "Links a StateGraph to its conditional routing edges."@en .
+
+:hasStatisticalPrior
+    rdf:type owl:ObjectProperty ;
+    rdfs:domain lg:Node ;
+    rdfs:range sl:StatisticalModel ;
+    rdfs:label "has statistical prior"@en ;
+    rdfs:comment """
+        Links a node to its underlying statistical model.
+        
+        FORMAL MEANING:
+        If node n hasStatisticalPrior M, then the transition
+        probability P(s' | s, do(n)) is determined by M.
+        
+        For LLM nodes:
+        n hasStatisticalPrior P_LLM
+        means P(s' | s, do(n)) = P_LLM(s'.output | s.input)
+    """@en .
+
+:implementsPolicy
+    rdf:type owl:ObjectProperty ;
+    rdfs:domain lg:ConditionalEdge ;
+    rdfs:range causal:Policy ;
+    rdfs:label "implements policy"@en ;
+    rdfs:comment """
+        Links a conditional edge to the policy it implements.
+        
+        FORMAL MEANING:
+        If edge e implementsPolicy π, then:
+        π(a | s) = P(e routes to node a | state s)
+    """@en .
+
+:hasTransitionKernel
+    rdf:type owl:ObjectProperty ;
+    rdfs:domain causal:CausalMDP ;
+    rdfs:range causal:CausalTransitionKernel ;
+    rdfs:label "has transition kernel"@en ;
+    rdfs:comment "Links a C-MDP to its causal transition kernel."@en .
+
+:hasCausalGraph
+    rdf:type owl:ObjectProperty ;
+    rdfs:domain causal:CausalMDP ;
+    rdfs:range causal:CausalGraph ;
+    rdfs:label "has causal graph"@en ;
+    rdfs:comment "Links a C-MDP to its underlying causal DAG."@en .
+
+:sourceNode
+    rdf:type owl:ObjectProperty ;
+    rdfs:domain lg:Edge ;
+    rdfs:range lg:Node ;
+    rdfs:label "source node"@en ;
+    rdfs:comment "The source node of an edge."@en .
+
+:targetNode
+    rdf:type owl:ObjectProperty ;
+    rdfs:domain lg:Edge ;
+    rdfs:range lg:Node ;
+    rdfs:label "target node"@en ;
+    rdfs:comment "The target node of an edge."@en .
+
+:causesTransitionTo
+    rdf:type owl:ObjectProperty ;
+    rdfs:domain lg:Node ;
+    rdfs:range lg:Node ;
+    rdfs:label "causes transition to"@en ;
+    rdfs:comment """
+        Causal production relationship between nodes.
+        
+        BOCHMAN INTERPRETATION:
+        n₁ causesTransitionTo n₂ means:
+        completion(n₁) is a CAUSE of execution(n₂)
+        
+        This is NOT mere temporal sequence, but causal production.
+    """@en ;
+    :hasReference bib:Bochman2018 .
+
+:hasReference
+    rdf:type owl:ObjectProperty ;
+    rdfs:range bib:AcademicReference ;
+    rdfs:label "has reference"@en ;
+    rdfs:comment "Links an entity to its bibliographic reference."@en .
+
+:intervensOn
+    rdf:type owl:ObjectProperty ;
+    rdfs:domain causal:CausalIntervention ;
+    rdfs:range causal:StateSpace ;
+    rdfs:label "intervenes on"@en ;
+    rdfs:comment """
+        Links an intervention to the state variables it modifies.
+        
+        FORMAL MEANING:
+        If intervention I intervenesOn variable X, then
+        executing I sets X via do(X = value).
+    """@en .
+
+
+# =============================================================================
+# DATATYPE PROPERTIES
+# Scalar attributes of classes
+# =============================================================================
+
+:discountFactor
+    rdf:type owl:DatatypeProperty ;
+    rdfs:domain causal:CausalMDP ;
+    rdfs:range xsd:decimal ;
+    rdfs:label "discount factor γ"@en ;
+    rdfs:comment """
+        The discount factor γ ∈ [0, 1) of the MDP.
+        
+        MATHEMATICAL ROLE:
+        γ ensures convergence of infinite-horizon value:
+        V^π(s) = Σ_{t=0}^∞ γ^t E[R_t] < ∞ when R is bounded
+        
+        INTERPRETATION:
+        - γ close to 0: myopic (short-term focus)
+        - γ close to 1: far-sighted (long-term focus)
+    """@en .
+
+:stateVariableName
+    rdf:type owl:DatatypeProperty ;
+    rdfs:domain causal:StateSpace ;
+    rdfs:range xsd:string ;
+    rdfs:label "state variable name"@en .
+
+:nodeFunctionName
+    rdf:type owl:DatatypeProperty ;
+    rdfs:domain lg:Node ;
+    rdfs:range xsd:string ;
+    rdfs:label "node function name"@en .
+
+:routingCondition
+    rdf:type owl:DatatypeProperty ;
+    rdfs:domain lg:ConditionalEdge ;
+    rdfs:range xsd:string ;
+    rdfs:label "routing condition"@en ;
+    rdfs:comment """
+        The condition expression that determines routing.
+        
+        FORMAL REPRESENTATION:
+        A predicate c: S → {True, False}
+        The edge is taken iff c(s) = True.
+    """@en .
+
+
+# =============================================================================
+# INSTANCE EXAMPLES
+# Concrete instances demonstrating the ontology
+# =============================================================================
+
+:TranslationAgentGraph
+    rdf:type lg:StateGraph ;
+    rdfs:label "Translation Agent Graph"@en ;
+    rdfs:comment """
+        Example LangGraph for multilingual translation (Wang & Duan, 2024).
+        
+        STRUCTURE:
+        IntentAgent → {TranslateEN, TranslateFR, TranslateJP} → END
+        
+        C-MDP MAPPING:
+        - S = {input_text, detected_lang, intent, translated_text}
+        - A = {analyze_intent, translate_en, translate_fr, translate_jp}
+        - Policy: route by detected intent
+    """@en ;
+    :hasState :TranslationState ;
+    :hasNode :IntentAgentNode ;
+    :hasNode :TranslateENNode ;
+    :hasNode :TranslateFRNode ;
+    :hasNode :TranslateJPNode ;
+    :hasConditionalEdge :IntentRoutingEdge ;
+    :discountFactor "0.99"^^xsd:decimal ;
+    :hasReference bib:WangDuan2024 .
+
+:TranslationState
+    rdf:type lg:AgentState ;
+    rdfs:label "Translation Agent State"@en ;
+    :stateVariableName "input_text" ;
+    :stateVariableName "detected_lang" ;
+    :stateVariableName "intent" ;
+    :stateVariableName "translated_text" ;
+    rdfs:comment """
+        State schema for translation agent.
+        
+        MATHEMATICAL STRUCTURE:
+        S = Σ* × Lang × Intent × Σ*
+        where:
+        - Σ* = string space
+        - Lang = {en, fr, jp, de, ...}
+        - Intent = {translateToEN, translateToFR, translateToJP, ...}
+    """@en .
+
+:IntentAgentNode
+    rdf:type lg:LLMNode ;
+    rdfs:label "Intent Analysis Node"@en ;
+    :nodeFunctionName "analyze_intent" ;
+    :hasStatisticalPrior sl:LLMDistribution ;
+    :intervensOn :TranslationState ;
+    rdfs:comment """
+        Analyzes input text to determine translation intent.
+        
+        CAUSAL MECHANISM:
+        do(IntentAgent) sets state['intent'] based on input.
+        
+        STRUCTURAL EQUATION:
+        intent := f_LLM(input_text)
+        
+        TRANSITION PROBABILITY:
+        P(intent | input_text, do(IntentAgent)) = P_LLM(intent | input_text)
+    """@en .
+
+:TranslateENNode
+    rdf:type lg:LLMNode ;
+    rdfs:label "English Translation Node"@en ;
+    :nodeFunctionName "translate_to_english" ;
+    :hasStatisticalPrior sl:LLMDistribution ;
+    rdfs:comment """
+        Translates text to English.
+        
+        CAUSAL MECHANISM:
+        do(TranslateEN) sets state['translated_text'] to English version.
+        
+        STRUCTURAL EQUATION:
+        translated_text := f_LLM_EN(input_text, source_lang)
+    """@en .
+
+:TranslateFRNode
+    rdf:type lg:LLMNode ;
+    rdfs:label "French Translation Node"@en ;
+    :nodeFunctionName "translate_to_french" ;
+    :hasStatisticalPrior sl:LLMDistribution .
+
+:TranslateJPNode
+    rdf:type lg:LLMNode ;
+    rdfs:label "Japanese Translation Node"@en ;
+    :nodeFunctionName "translate_to_japanese" ;
+    :hasStatisticalPrior sl:LLMDistribution .
+
+:IntentRoutingEdge
+    rdf:type lg:ConditionalEdge ;
+    rdfs:label "Intent-Based Routing"@en ;
+    :routingCondition "state['intent']" ;
+    :implementsPolicy :IntentBasedPolicy ;
+    :sourceNode :IntentAgentNode ;
+    rdfs:comment """
+        Routes to appropriate translator based on intent.
+        
+        POLICY IMPLEMENTATION:
+        π(TranslateEN | s) = 𝟙[s.intent = 'en']
+        π(TranslateFR | s) = 𝟙[s.intent = 'fr']
+        π(TranslateJP | s) = 𝟙[s.intent = 'jp']
+        π(END | s) = 𝟙[s.intent ∉ {en, fr, jp}]
+        
+        This is a DETERMINISTIC policy induced by the routing function.
+    """@en .
+
+:IntentBasedPolicy
+    rdf:type causal:Policy ;
+    rdfs:label "Intent-Based Deterministic Policy"@en ;
+    rdfs:comment """
+        Deterministic policy that routes based on detected intent.
+        
+        FORMAL DEFINITION:
+        π(a | s) = 𝟙[a = route_by_intent(s)]
+        
+        where route_by_intent is the conditional edge function.
+    """@en .
+
+
+# =============================================================================
+# INFERENCE RULES (SWRL-style, for reference)
+# =============================================================================
+
+# These rules formalize the causal semantics of the ontology.
+# While Turtle doesn't support SWRL directly, we document the rules here.
+
+# RULE 1: Node execution causes state transition
+# lg:Node(?n) ∧ lg:AgentState(?s) ∧ :executes(?n, ?s) 
+#   → ∃?s'. causal:CausalTransition(?s, ?n, ?s')
+
+# RULE 2: Conditional edge implements policy
+# lg:ConditionalEdge(?e) ∧ lg:AgentState(?s) ∧ :evaluates(?e, ?s, ?target)
+#   → causal:PolicyAction(?s, ?target)
+
+# RULE 3: LLM node has stochastic transition
+# lg:LLMNode(?n) ∧ :hasStatisticalPrior(?n, ?p)
+#   → sl:TransitionProbability(?n) = ?p
+
+
+# =============================================================================
+# END OF ONTOLOGY
+# =============================================================================
+
+# Summary of key correspondences:
+#
+# | LangGraph Concept      | C-MDP Concept               | Pearl/Bochman         |
+# |------------------------|-----------------------------|-----------------------|
+# | StateGraph             | C-MDP M = (S,A,P,R,γ,G)     | Causal Model          |
+# | AgentState (TypedDict) | State Space S               | Endogenous Variables  |
+# | Node                   | Action a ∈ A                | Intervention do(X)    |
+# | Node function          | Structural equation         | Causal mechanism      |
+# | Edge                   | Transition P(s'|s,a)        | Causal production     |
+# | Conditional Edge       | Policy π(a|s)               | Decision function     |
+# | LLM call probability   | P_LLM(output|input)         | Statistical model     |
+# | Entry point            | Initial state s₀            | Initial conditions    |
+# | END node               | Terminal/absorbing state    | Termination           |
+#
+# References:
+# - Pearl, J. (2009). Causality: Models, Reasoning, and Inference. Cambridge.
+# - Bochman, A. (2018). Causal Production Systems. Springer.
+# - Puterman, M.L. (2005). Markov Decision Processes. Wiley.
+# - Wang & Duan (2024). Agent AI with LangGraph. arXiv:2412.03801.
+# - Shi et al. (2022). Statistical Inference of the Value Function. JRSSB.

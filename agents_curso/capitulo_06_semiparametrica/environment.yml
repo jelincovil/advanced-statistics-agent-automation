@@ -1,0 +1,11 @@
+name: cap06_semiparametrica
+channels: [defaults]
+dependencies:
+  - python=3.10
+  - pip
+  - pip:
+    - numpy>=1.24
+    - scipy>=1.10
+    - langgraph>=0.2
+    - langchain-openai>=0.1
+    - chainlit>=1.0

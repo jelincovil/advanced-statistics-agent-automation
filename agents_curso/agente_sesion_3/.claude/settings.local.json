@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(mkdir -p /home/enrique/Escritorio/Statistical_learning_agent/main_agents/agente_sesion_3/lab_F3/agent/nodes)",
+      "Bash(mkdir -p /home/enrique/Escritorio/Statistical_learning_agent/main_agents/agente_sesion_3/lab_F3/prompts)",
+      "Bash(python -c ' *)",
+      "Bash(pip install *)",
+      "Bash(python *)"
+    ]
+  }
+}

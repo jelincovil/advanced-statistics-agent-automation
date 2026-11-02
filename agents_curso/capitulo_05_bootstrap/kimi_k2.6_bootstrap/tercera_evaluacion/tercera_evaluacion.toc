@@ -1,0 +1,14 @@
+\babel@toc {spanish}{}\relax 
+\contentsline {section}{\numberline {1}Resumen Ejecutivo}{2}{section.1}%
+\contentsline {subsection}{\numberline {1.1}Interpretación}{2}{subsection.1.1}%
+\contentsline {section}{\numberline {2}Impacto de Cada Mejora}{3}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Mejora A: Hall-Horowitz --- $\ell $ óptimo}{3}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}Mejora B: Diagnóstico de Memoria Larga}{3}{subsection.2.2}%
+\contentsline {subsection}{\numberline {2.3}Mejora C: Bootstrap Ponderado}{3}{subsection.2.3}%
+\contentsline {subsection}{\numberline {2.4}Mejora D: Test de Hill}{3}{subsection.2.4}%
+\contentsline {subsection}{\numberline {2.5}Mejora E: Periodicidad}{4}{subsection.2.5}%
+\contentsline {section}{\numberline {3}Resultados Detallados}{5}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Análisis de Fallas Persistentes}{6}{subsection.3.1}%
+\contentsline {section}{\numberline {4}Conclusiones}{7}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Estado Final del Agente}{7}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Trabajo Futuro}{7}{subsection.4.2}%

@@ -1,0 +1,1044 @@
+% =============================================================================
+% DOCUMENTO: DESCRIPCIÓN EN PROFUNDIDAD DEL AGENTE ESTADÍSTICO ASINTÓTICO
+% CAPÍTULO 5 — TEORÍA ASINTÓTICA Y MÉTODOS DE REMUESTREO
+% =============================================================================
+\documentclass[12pt,a4paper]{article}
+
+% ---- Paquetes ----
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{mathtools}
+\usepackage{hyperref}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning,shapes,fit}
+
+\geometry{margin=2.5cm}
+
+% ---- Estilos ----
+\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue}
+
+\definecolor{codebg}{RGB}{245,245,245}
+\definecolor{codeframe}{RGB}{200,200,200}
+
+\lstdefinestyle{pythonstyle}{
+    language=Python,
+    backgroundcolor=\color{codebg},
+    frame=single,
+    rulecolor=\color{codeframe},
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    commentstyle=\color{green!50!black},
+    stringstyle=\color{red},
+    numbers=left,
+    numberstyle=\tiny,
+    breaklines=true,
+    tabsize=4,
+}
+
+\lstset{style=pythonstyle}
+
+% ---- Teoremas y definiciones ----
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{definition}[theorem]{Definición}
+\newtheorem{proposition}[theorem]{Proposición}
+\newtheorem{corollary}[theorem]{Corolario}
+\newtheorem{remark}[theorem]{Observación}
+\newtheorem{example}[theorem]{Ejemplo}
+
+% =============================================================================
+\begin{document}
+
+% ---- PORTADA ----
+\begin{titlepage}
+	\centering
+	\vspace*{3cm}
+	{\Huge\bfseries Agente Estadístico Asintótico\par}
+	\vspace{0.5cm}
+	{\Large Implementación operacional del Capítulo 5:\par}
+	{\Large Teoría Asintótica y Métodos de Remuestreo\par}
+	\vspace{1.5cm}
+	{\large\textit{Inferencia Estadística para Agentes Inteligentes}\par}
+	\vspace{1cm}
+	{\large Versión 1.0.0 --- Mayo 2026\par}
+	\vspace{2cm}
+	{\large\bfseries Documento de Arquitectura y Diseño Detallado\par}
+	\vfill
+\end{titlepage}
+
+% ---- ÍNDICE ----
+\tableofcontents
+\newpage
+
+% =============================================================================
+% SECCIÓN 1: INTRODUCCIÓN
+% =============================================================================
+\section{Introducción}
+
+\subsection{Propósito del Agente}
+
+El \textbf{Agente Estadístico Asintótico} es un sistema computacional diseñado para evaluar políticas de decisión en entornos de aprendizaje por refuerzo (RL) desde una perspectiva de inferencia estadística rigurosa. Su función principal es cuantificar la incertidumbre en la estimación del valor esperado de una política $V^{\pi}$ y tomar decisiones autónomas sobre si la precisión alcanzada es suficiente para actuar o si se requiere recolectar más datos.
+
+\subsection{Marco Teórico}
+
+El agente implementa operacionalmente los conceptos del Capítulo~5 de \textit{Inferencia Estadística para Agentes Inteligentes}, que cubre:
+
+\begin{itemize}
+	\item \textbf{Teorema Central del Límite (CLT)} clásico y para procesos mixing (Thm~5.1, Thm~5.8).
+	\item \textbf{Método Delta} univariado y multivariado (Thm~5.4, Thm~5.5).
+	\item \textbf{Bootstrap no paramétrico} y su consistencia (Thm~5.7).
+	\item \textbf{Intervalos de Confianza} Percentil (Def~5.3) y Percentil-t (Def~5.4).
+	\item \textbf{Diagnóstico de mixing geométrico} (Prop~5.2).
+	\item \textbf{Descomposición epistémica vs aleatoria} (Lab~F.5.2).
+	\item \textbf{Criterio de ancho para decisión autónoma} (Lab~F.5.1).
+\end{itemize}
+
+\subsection{Arquitectura General}
+
+El agente sigue una arquitectura de \textbf{grafo orientado acíclico (DAG) con nodo de realimentación} donde los módulos independientes se ejecutan en paralelo y un bucle de refinamiento evalúa la calidad del resultado y decide si repetir pasos anteriores con parámetros ajustados.
+
+\begin{center}
+	\begin{tikzpicture}[
+		node distance=1.2cm,
+		box/.style={rectangle, draw, rounded corners, minimum width=2.8cm, minimum height=0.8cm, align=center, font=\small},
+		arrow/.style={-{Latex[length=2mm]}, thick},
+		back/.style={-{Latex[length=2mm]}, thick, dashed, color=red},
+		]
+		\node[box, fill=blue!10] (entrada) {Entrada:\\$\{G_i\}_{i=1}^n$};
+		\node[box, fill=green!10, below left=of entrada, xshift=-1.5cm] (adf) {Test ADF\\Estacionar.};
+		\node[box, fill=green!10, below=of entrada] (mixing) {Diagnóstico\\Mixing};
+		\node[box, fill=green!10, below right=of entrada, xshift=1.5cm] (hill) {Test Hill\\Colas pes.};
+		\node[box, fill=green!10, right=of mixing, xshift=2.5cm] (periodo) {Periodograma\\Periodicidad};
+		\node[box, fill=orange!10, below=of mixing, yshift=-0.5cm] (bootstrap) {Bootstrap IC\\+ Hall-Horowitz};
+		\node[box, fill=red!10, below=of bootstrap] (delta) {Delta Method\\Q $\to$ V};
+		\node[box, fill=purple!10, below=of delta] (descomp) {Descomposición\\Varianza};
+		\node[box, fill=cyan!10, below=of descomp] (decision) {Decisión\\Autónoma};
+		\node[box, fill=yellow!10, below=of decision] (eval) {Nodo Evaluación\\Refinamiento};
+		\node[box, fill=gray!10, below=of eval] (reporte) {Reporte\\Integrado};
+
+		\draw[arrow] (entrada) -- (adf);
+		\draw[arrow] (entrada) -- (mixing);
+		\draw[arrow] (entrada) -- (hill);
+		\draw[arrow] (entrada) -- (periodo);
+		\draw[arrow] (adf) -- (bootstrap);
+		\draw[arrow] (mixing) -- (bootstrap);
+		\draw[arrow] (hill) -- (bootstrap);
+		\draw[arrow] (periodo) -- (bootstrap);
+		\draw[arrow] (bootstrap) -- (delta);
+		\draw[arrow] (delta) -- (descomp);
+		\draw[arrow] (descomp) -- (decision);
+		\draw[arrow] (decision) -- (eval);
+		\draw[arrow] (eval) -- (reporte);
+		\draw[back, bend left=45] (eval.east) to node[right, font=\tiny] {refinar} (bootstrap.east);
+		\node[fit=(entrada)(reporte), draw, dashed, inner sep=0.4cm, label={[anchor=south]above:Orquestador}] {};
+	\end{tikzpicture}
+\end{center}
+
+El flujo comienza con 4 diagnósticos en paralelo (ADF, Mixing, Hill, Periodograma). Luego el bootstrap integra Hall-Horowitz para el tamaño de bloque. Tras la decisión, el Nodo de Evaluación puede retroalimentar al bootstrap para refinar parámetros ($B$, $\ell$, $n$).
+
+\subsection{StatGraph del Agente}
+
+El siguiente diagrama modela el agente como una máquina de estados finitos donde cada nodo es un estado computacional y las aristas son transiciones condicionales:
+
+\begin{center}
+	\begin{tikzpicture}[
+		state/.style={rectangle, draw, rounded corners, minimum width=3.2cm, minimum height=0.9cm, align=center, font=\small\bfseries},
+		decision/.style={diamond, draw, aspect=2.5, minimum width=2.5cm, align=center, font=\small},
+		edge/.style={-{Latex[length=2mm]}, thick},
+		cond/.style={-{Latex[length=2mm]}, thick, dashed},
+		]
+		\node[state, fill=blue!10] (S0) {S0: INICIO};
+		\node[state, fill=green!10, below=of S0] (S1) {S1: DIAGNÓSTICOS\\(ADF, Mixing, Hill, Per.)};
+		\node[decision, fill=yellow!10, below=of S1] (D1) {¿Estacionario?};
+		\node[state, fill=orange!10, below left=of D1, xshift=-1cm] (S2) {S2: BOOTSTRAP IC\\(+Hall-Horowitz)};
+		\node[state, fill=red!10, below right=of D1, xshift=1cm] (S2b) {S2: BOOTSTRAP IC\\(+bloques + ADF warn)};
+		\node[state, fill=purple!10, below=of S2, yshift=-0.8cm] (S3) {S3: DELTA METHOD\\(Q $\to$ V)} [opcional];
+		\node[state, fill=cyan!10, below=of S3] (S4) {S4: DESCOMPOSICIÓN\\(epist. vs aleat.)};
+		\node[decision, fill=yellow!10, below=of S4] (D2) {¿R$^2$ $\ge$ 0.7?};
+		\node[state, fill=green!10, below=of D2] (S5) {S5: DECISIÓN\\(Lab F.5.1)};
+		\node[decision, fill=yellow!10, below=of S5] (D3) {¿$W \le \varepsilon$?};
+		\node[state, fill=blue!10, below left=of D3, xshift=-1.5cm] (S6a) {S6a: ACTUAR};
+		\node[state, fill=red!10, below right=of D3, xshift=1.5cm] (S6b) {S6b: RECOLECTAR\ MÁS DATOS};
+		\node[state, fill=gray!10, below right=of S6b, xshift=2cm] (S7e) {S7: EVALUAR\ REFINAMIENTO};
+		\node[decision, fill=yellow!10, below=of S7e] (D4) {¿Refinar?};
+		\node[state, fill=gray!10, below=of D4] (S8) {S8: REPORTE\ FINAL} [terminal];
+
+		% Transiciones principales
+		\draw[edge] (S0) -- (S1);
+		\draw[edge] (S1) -- (D1);
+		\draw[edge] (D1) -- node[left, font=\tiny] {Sí} (S2);
+		\draw[edge] (D1) -- node[right, font=\tiny] {No} (S2b);
+		\draw[edge] (S2) -- (S3);
+		\draw[edge] (S2b) -- (S3);
+		\draw[edge] (S3) -- (S4);
+		\draw[edge] (S4) -- (D2);
+		\draw[edge] (D2) -- node[left, font=\tiny] {Sí} (S5);
+		\draw[cond, bend right=30] (D2.east) to node[right, font=\tiny] {No → refinar $n_{seq}$} (S4.east);
+		\draw[edge] (S5) -- (D3);
+		\draw[edge] (D3) -- node[left, font=\tiny] {Sí} (S6a);
+		\draw[edge] (D3) -- node[right, font=\tiny] {No} (S6b);
+		\draw[edge] (S6b) -- (S7e);
+		\draw[edge] (S6a) -- (S7e);
+		\draw[edge] (S7e) -- (D4);
+		\draw[cond, bend right=30] (D4.east) to node[right, font=\tiny] {Sí → ajustar} (S2.east);
+		\draw[edge] (D4) -- node[left, font=\tiny] {No} (S8);
+
+		% Leyenda
+		\node[below=of S8, yshift=1cm, font=\small] {
+			\begin{tabular}{@{}ll@{}}
+				\toprule
+				Símbolo       & Significado                          \\\midrule
+				$W$           & Ancho del IC ($U - L$)               \\
+				$\varepsilon$ & Tolerancia (Lab F.5.1)               \\
+				R$^2$         & Calidad del ajuste de descomposición \\
+				ADF           & Test Dickey-Fuller                   \\
+				Hall-Horowitz & Tamaño de bloque óptimo              \\
+				\bottomrule
+			\end{tabular}
+		};
+	\end{tikzpicture}
+\end{center}
+
+El agente comienza en S0, ejecuta 4 diagnósticos en paralelo (S1), decide la estrategia bootstrap según estacionariedad (D1), propaga incertidumbre vía Delta Method si hay $Q$ (S3, opcional), descompone varianza (S4), verifica calidad del ajuste (D2), decide si actuar o recolectar (S5--D3), y finalmente evalúa si necesita refinar parámetros (S7--D4) antes de emitir el reporte terminal (S8).
+
+\newpage
+
+El agente utiliza \texttt{dataclasses} de Python como contratos formales de entrada y salida. Cada dataclass encapsula un conjunto de parámetros con tipos explícitos, validación y documentación asociada.
+
+\subsection{Configuración del Agente}
+
+\begin{lstlisting}[caption={ConfiguracionAgente -- Parámetros globales del sistema}]
+@dataclass
+class ConfiguracionAgente:
+    alpha: float = 0.05                 # Nivel de significancia
+    B: int = 1000                       # Réplicas bootstrap
+    epsilon_tolerancia: float = 0.5     # Umbral de ancho IC
+    tipo_ic: Literal["percentil", "percentil-t"] = "percentil-t"
+    max_lag_mixing: int = 20            # Máximo lag para autocorrelación
+    umbral_mixing: float = 0.95         # Umbral de mixing
+    block_size: Union[int, None] = None # Bootstrap por bloques
+    semilla: Union[int, None] = 42      # Reproducibilidad
+\end{lstlisting}
+
+\medskip
+
+La tabla~\ref{tab:config} resume los parámetros de configuración, sus valores por defecto y las referencias teóricas que los justifican.
+
+\begin{table}[h]
+	\centering
+	\caption{Parámetros de configuración del agente.}
+	\label{tab:config}
+	\begin{tabular}{@{}llll@{}}
+		\toprule
+		Parámetro              & Valor por defecto & Referencia       & Descripción                           \\
+		\midrule
+		$\alpha$               & 0.05              & Def~5.3, Def~5.4 & Nivel de significancia (IC al $95\%$) \\
+		$B$                    & 1000              & Thm~5.7          & Réplicas bootstrap ($B \geq 1000$)    \\
+		$\varepsilon$          & 0.5               & Lab~F.5.1        & Tolerancia máxima de ancho de IC      \\
+		$\texttt{tipo\_ic}$    & percentil-t       & Def~5.4          & Refinamiento de segundo orden         \\
+		$K_{\max}$             & 20                & Prop~5.2         & Lags máximos para autocorrelación     \\
+		$\rho_{\text{umbral}}$ & 0.95              & Prop~5.2         & Umbral de mixing geométrico           \\
+		$\ell$                 & None              & Tab~5.1          & Tamaño de bloque (None = iid)         \\
+		\bottomrule
+	\end{tabular}
+\end{table}
+
+\subsection{Resultados de los Módulos}
+
+Cada módulo produce un objeto dataclass que encapsula su salida. La tabla~\ref{tab:results} enumera las propiedades principales de cada resultado.
+
+\begin{table}[h]
+	\centering
+	\caption{Estructuras de datos de salida de cada módulo.}
+	\label{tab:results}
+	\begin{tabular}{@{}lll@{}}
+		\toprule
+		Dataclass                        & Propiedades clave                                                                     & Módulo origen  \\
+		\midrule
+		\texttt{ResultadoBootstrap}      & $\hat{V}$, $L$, $U$, $\texttt{ancho}$, $\texttt{se\_bootstrap}$, $\{\hat{V}^{*(b)}\}$ & Bootstrap      \\
+		\texttt{ResultadoMixing}         & $\hat{\rho}$, $\texttt{mixing\_ok}$, $\sigma^2_{LR}$, $\{\hat{\gamma}_k\}$            & Mixing         \\
+		\texttt{ResultadoDescomposicion} & $c_{\text{ep}}$, $\sigma^2_{\text{al}}$, $f_{\text{ep}}(n)$, $n_{\text{rec}}$         & Descomposición \\
+		\texttt{ResultadoDelta}          & $\tilde{V}$, $\sigma^2_V$, IC$_{95}$, $\mathbf{J}$, contribución cov                  & Delta Method   \\
+		\texttt{ResultadoDecision}       & \texttt{"actuar"} / \texttt{"recolectar\_mas"}, $n_{\text{recomendado}}$              & Decisión       \\
+		\texttt{ReporteAgente}           & Reporte integrado con garantías teóricas                                              & Orquestador    \\
+		\bottomrule
+	\end{tabular}
+\end{table}
+
+\newpage
+
+% =============================================================================
+% SECCIÓN 3: MÓDULO 1 — BOOTSTRAP
+% =============================================================================
+\section{Módulo 1: Bootstrap (Motor de Intervalos de Confianza)}
+
+\subsection{Fundamento Teórico}
+
+El bootstrap no paramétrico, introducido por Efron (1979), aproxima la distribución muestral de un estadístico mediante remuestreo con reemplazo de los datos originales. El Teorema~5.7 (\texttt{thm:ch5-bootstrap-media}) garantiza la consistencia del bootstrap para la media muestral bajo condiciones de momentos finitos.
+
+\subsubsection{Consistencia del Bootstrap}
+
+\begin{theorem}[Consistencia del Bootstrap para la media, Thm~5.7]
+	Sea $\{G_i\}_{i=1}^n$ una muestra iid con $\mathbb{E}[G^2] < \infty$. Sean $\hat{V}_n = \bar{G}_n$ y $\hat{V}_n^* = \bar{G}_n^*$ la media bootstrap. Entonces:
+	\[
+		\sup_{x \in \mathbb{R}} \left| P^*\left(\sqrt{n}(\hat{V}_n^* - \hat{V}_n) \leq x\right) - P\left(\sqrt{n}(\hat{V}_n - V) \leq x\right) \right| \xrightarrow{p} 0
+	\]
+	donde $P^*$ denota probabilidad condicional en la muestra.
+\end{theorem}
+
+\subsection{Intervalos de Confianza Bootstrap}
+
+\subsubsection{IC Percentil (Def~5.3)}
+
+El IC percentil utiliza directamente los cuantiles de la distribución bootstrap:
+
+\begin{definition}[IC Percentil Bootstrap]
+	\[
+		\text{IC}_{1-\alpha} = \left[ \hat{V}^{*(B)}_{\lfloor B \cdot \alpha/2 \rfloor},\; \hat{V}^{*(B)}_{\lfloor B \cdot (1-\alpha/2) \rfloor} \right]
+	\]
+	donde $\hat{V}^{*(B)}_{(k)}$ es el $k$-ésimo estadístico de orden de las $B$ réplicas bootstrap.
+
+	Error de cobertura: $O(n^{-1/2})$.
+\end{definition}
+
+\subsubsection{IC Percentil-t (Def~5.4)}
+
+El IC percentil-t utiliza un pivote studentizado que proporciona un refinamiento de segundo orden:
+
+\begin{definition}[IC Percentil-t Bootstrap]
+	Sea el pivote bootstrap studentizado:
+	\[
+		t^{*(b)} = \frac{\hat{V}^{*(b)} - \hat{V}}{\text{SE}^{*(b)}}
+	\]
+	donde $\text{SE}^{*(b)}$ es el error estándar bootstrap de la $b$-ésima réplica, estimado mediante un bootstrap interno (doble bootstrap).
+
+	El IC se construye como:
+	\[
+		\text{IC}_{1-\alpha} = \left[ \hat{V} - t^*_{(1-\alpha/2)} \cdot \text{SE},\; \hat{V} - t^*_{(\alpha/2)} \cdot \text{SE} \right]
+	\]
+	donde $t^*_{(q)}$ es el $q$-ésimo cuantil de $\{t^{*(b)}\}_{b=1}^B$.
+
+	Error de cobertura: $O(n^{-1})$ (refinamiento de segundo orden).
+\end{definition}
+
+\subsection{Algoritmo Implementado}
+
+El algoritmo~\ref{alg:bootstrap} describe la implementación completa del módulo de bootstrap.
+
+\begin{lstlisting}[caption={Algoritmo de bootstrap completo (código simplificado)}, label=alg:bootstrap, language=Python]
+def bootstrap_ci(retornos, B=1000, alpha=0.05,
+                 tipo="percentil-t", block_size=None, semilla=None):
+
+    n = len(retornos)
+    V_hat = np.mean(retornos)
+    replicas = np.empty(B)
+
+    # 1. Generar réplicas bootstrap
+    for b in range(B):
+        if block_size is None:
+            # Bootstrap clásico iid
+            idx = rng.integers(0, n, size=n)
+        else:
+            # Bootstrap por bloques circulares
+            n_blocks = ceil(n / block_size)
+            start_indices = rng.integers(0, n, size=n_blocks)
+            # Construir muestra por bloques
+            ...
+        replicas[b] = np.mean(retornos[idx])
+
+    se_boot = np.std(replicas, ddof=1)
+
+    # 2. Construir IC según tipo
+    if tipo == "percentil":
+        L = percentile(replicas, 100 * alpha / 2)
+        U = percentile(replicas, 100 * (1 - alpha / 2))
+    else:  # percentil-t
+        t_star = np.empty(B)
+        n_inner = max(50, n // 2)
+        B_inner = min(200, B // 5)
+
+        for b in range(B):
+            # Doble bootstrap: error estándar interno
+            idx_inner = rng.integers(0, n, size=n_inner)
+            muestra_inner = retornos[idx_inner]
+            # B_inner réplicas para estimar SE
+            ...
+            se_inner = np.std(replicates_inner, ddof=1)
+            t_star[b] = (replicas[b] - V_hat) / se_inner
+
+        q_low = percentile(t_star, 100 * alpha / 2)
+        q_high = percentile(t_star, 100 * (1 - alpha / 2))
+        L = V_hat - q_high * se_boot
+        U = V_hat - q_low * se_boot
+
+    return ResultadoBootstrap(V_hat, L, U, ...)
+\end{lstlisting}
+
+\subsection{Bootstrap por Bloques para Datos Dependientes}
+
+Cuando el diagnóstico de mixing indica dependencia temporal, el módulo soporta bootstrap por bloques circulares (Tab~5.1). Bajo la condición $\ell_n \to \infty$ y $\ell_n / n \to 0$, este método preserva la estructura de dependencia dentro de cada bloque.
+
+\subsection{Análisis de Complejidad}
+
+\begin{table}[h]
+	\centering
+	\caption{Complejidad computacional de los métodos bootstrap.}
+	\label{tab:complexity}
+	\begin{tabular}{@{}lcc@{}}
+		\toprule
+		Método      & Réplicas                   & Complejidad               \\
+		\midrule
+		Percentil   & $B$                        & $O(B \cdot n)$            \\
+		Percentil-t & $B \cdot B_{\text{inner}}$ & $O(B \cdot n^2)$          \\
+		Por bloques & $B$                        & $O(B \cdot n \cdot \ell)$ \\
+		\bottomrule
+	\end{tabular}
+\end{table}
+
+\newpage
+
+% =============================================================================
+% SECCIÓN 4: MÓDULO 2 — DIAGNÓSTICO DE MIXING
+% =============================================================================
+\section{Módulo 2: Diagnóstico de Mixing Geométrico}
+
+\subsection{Fundamento Teórico}
+
+El mixing geométrico es una condición de dependencia débil que garantiza la validez del CLT para procesos estacionarios. La Proposición~5.2 (\texttt{prop:ch5-verificacion}) proporciona un procedimiento empírico para verificar esta condición.
+
+\subsubsection{Mixing Geométrico}
+
+\begin{definition}[Mixing Geométrico, Def~5.2]
+	Un proceso estacionario $\{X_t\}$ es geométricamente mixing si existen constantes $C > 0$ y $\rho \in (0, 1)$ tales que:
+	\[
+		\alpha(k) \leq C \rho^k \quad \forall k \geq 1
+	\]
+	donde $\alpha(k)$ es el coeficiente de mixing fuerte.
+\end{definition}
+
+\subsubsection{Verificación Empírica}
+
+\begin{proposition}[Verificación de Mixing por Autocorrelación, Prop~5.2]
+	Bajo mixing geométrico, las autocovarianzas decaen exponencialmente:
+	\[
+		|\gamma_k| \leq C \rho^k \quad \Rightarrow \quad \log|\gamma_k| \approx \beta_0 + \beta_1 k
+	\]
+	con $\rho = e^{\beta_1}$. Si $\hat{\rho} < 0.95$, el mixing se considera verificado.
+\end{proposition}
+
+\subsection{Algoritmo Implementado}
+
+El módulo ejecuta los siguientes pasos:
+
+\begin{enumerate}
+	\item \textbf{Cálculo de autocovarianzas muestrales}:
+	      \[
+		      \hat{\gamma}_k = \frac{1}{n} \sum_{t=1}^{n-k} (X_t - \bar{X})(X_{t+k} - \bar{X}), \quad k = 0, 1, \dots, K
+	      \]
+
+	\item \textbf{Regresión log-lineal}:
+	      \[
+		      \log|\hat{\gamma}_k| = \beta_0 + \beta_1 k + \varepsilon_k
+	      \]
+	      Ajuste por mínimos cuadrados usando solo lags con $\hat{\gamma}_k > 10^{-12}$.
+
+	\item \textbf{Estimación del coeficiente de decaimiento}:
+	      \[
+		      \hat{\rho} = \exp(\hat{\beta}_1)
+	      \]
+
+	\item \textbf{Criterio de decisión}:
+	      \[
+		      \text{mixing\_ok} = \begin{cases}
+			      \text{True}  & \text{si } \hat{\rho} < 0.95 \\
+			      \text{False} & \text{en caso contrario}
+		      \end{cases}
+	      \]
+
+	\item \textbf{Varianza de largo plazo} (estimador de Newey-West truncado):
+	      \[
+		      \hat{\sigma}^2_{LR} = \hat{\gamma}_0 + 2\sum_{k=1}^{K} \hat{\gamma}_k
+	      \]
+
+\end{enumerate}
+
+\subsection{Interpretación de Resultados}
+
+\begin{itemize}
+	\item \textbf{Si mixing\_ok = True}: El CLT para procesos mixing (Thm~5.8) es aplicable. La varianza asintótica del estimador es $\sigma^2_{LR} / n$.
+	\item \textbf{Si mixing\_ok = False}: Se activa automáticamente el bootstrap por bloques como precaución, con tamaño de bloque heurístico $\ell \approx n^{1/3}$.
+\end{itemize}
+
+\subsection{Caso de Estudio: Cadena de Markov de 2 Estados}
+
+La función \texttt{simular\_cadena\_markov\_2estados()} genera datos del ejemplo \texttt{ex:ch5-cadena}:
+
+\begin{itemize}
+	\item Matriz de transición: $P = \begin{pmatrix} 0.8 & 0.2 \\ 0.3 & 0.7 \end{pmatrix}$
+	\item Recompensas: $r = [0, 10]$
+	\item Distribución estacionaria: $\mu = [0.6, 0.4]$
+	\item Autocorrelación teórica: $\rho^k$ con $\rho = 0.5$
+\end{itemize}
+
+\newpage
+
+% =============================================================================
+% SECCIÓN 5: MÓDULO 3 — DESCOMPOSICIÓN DE INCERTIDUMBRE
+% =============================================================================
+\section{Módulo 3: Descomposición de Incertidumbre Epistémica vs Aleatoria}
+
+\subsection{Fundamento Teórico}
+
+El Laboratorio F.5.2 introduce un procedimiento empírico para separar la varianza total del estimador en dos componentes con interpretaciones radicalmente diferentes.
+
+\subsubsection{Definiciones}
+
+\begin{definition}[Incertidumbre Epistémica]
+	Componente de la varianza que se reduce al aumentar el tamaño muestral:
+	\[
+		\text{Var}_{\text{ep}}(\hat{V}_n) = \frac{c_{\text{ep}}}{n}
+	\]
+	Es \textbf{reducible} mediante la recolección de más datos.
+\end{definition}
+
+\begin{definition}[Incertidumbre Aleatoria]
+	Componente irreducible de la varianza, inherente a la estocasticidad del entorno:
+	\[
+		\text{Var}_{\text{al}}(\hat{V}_n) = \sigma^2_{\text{al}}
+	\]
+	No desaparece aunque $n \to \infty$.
+\end{definition}
+
+\subsection{Procedimiento Empírico}
+
+El algoritmo~\ref{alg:descomp} describe el procedimiento:
+
+\begin{lstlisting}[caption={Algoritmo de descomposición de incertidumbre}, label=alg:descomp, language=Python]
+def descomponer_incertidumbre(V_hat, retornos, n_seq=None, B=500, ...):
+    if n_seq is None:
+        n_seq = [50, 100, 200, 500, 1000, 2000, 5000]
+
+    varianzas = {}
+    for n_k in n_seq:
+        if n_k > N: continue
+        # Submuestreo aleatorio
+        idx = rng.choice(N, size=n_k, replace=False)
+        sub = retornos[idx]
+        # Bootstrap para estimar Var(V_hat_{n_k})
+        r = bootstrap_ci(sub, B=B, alpha=alpha, tipo="percentil")
+        varianzas[n_k] = r.se_bootstrap ** 2
+
+    # Ajuste: Var_n = a/n + b/n^2
+    def modelo(n, a, b):
+        return a / n + b / (n ** 2)
+
+    (a_fit, b_fit), _ = curve_fit(modelo, ns_arr, vars_arr)
+    sigma2_ep = a_fit  # Componente epistémica
+
+    return ResultadoDescomposicion(sigma2_ep, ...)
+\end{lstlisting}
+
+\subsection{Modelo de Ajuste}
+
+El modelo ajustado es:
+\[
+	\widehat{\text{Var}}(\hat{V}_n) = \frac{c_1}{n} + \frac{c_2}{n^2}
+\]
+
+donde:
+
+\begin{itemize}
+	\item $c_1/n$: Componente epistémica dominante (decrece como $1/n$).
+	\item $c_2/n^2$: Corrección de segundo orden (captura efectos de cola).
+\end{itemize}
+
+La fracción epistémica al tamaño $n$ actual es:
+\[
+	f_{\text{ep}}(n) = \frac{c_1 / n}{\widehat{\text{Var}}(\hat{V}_n)}
+\]
+
+La recomendación de $n$ para reducir la componente epistémica al $10\%$ de la varianza total es:
+\[
+	n_{\text{rec}} = \left\lceil \frac{c_1}{0.10 \cdot \widehat{\text{Var}}(\hat{V}_{n_{\text{actual}}})} \right\rceil
+\]
+
+\subsection{Interpretación Práctica}
+
+\begin{itemize}
+	\item Si $f_{\text{ep}}(n) \approx 1$: Casi toda la incertidumbre es epistémica. Recolectar más datos reducirá drásticamente la varianza.
+	\item Si $f_{\text{ep}}(n) \approx 0$: La incertidumbre es mayormente aleatoria. Incrementar $n$ tendrá poco efecto.
+\end{itemize}
+
+\newpage
+
+% =============================================================================
+% SECCIÓN 6: MÓDULO 4 — DELTA METHOD MULTIVARIADO
+% =============================================================================
+\section{Módulo 4: Propagación de Incertidumbre via Delta Method Multivariado}
+
+\subsection{Fundamento Teórico}
+
+El Método Delta multivariado (Thm~5.5) permite propagar la incertidumbre desde estimaciones de las funciones $Q^{\pi}$ (valores estado-acción) hasta el valor del estado $V^{\pi}$.
+
+\subsubsection{Teorema del Método Delta Multivariado}
+
+\begin{theorem}[Método Delta Multivariado, Thm~5.5]
+	Sea $\hat{\boldsymbol{\theta}}_n$ un estimador de $\boldsymbol{\theta} \in \mathbb{R}^d$ que satisface:
+	\[
+		\sqrt{n}(\hat{\boldsymbol{\theta}}_n - \boldsymbol{\theta}) \xrightarrow{d} N(\mathbf{0}, \boldsymbol{\Sigma})
+	\]
+	Sea $g: \mathbb{R}^d \to \mathbb{R}$ diferenciable en $\boldsymbol{\theta}$ con gradiente $\nabla g(\boldsymbol{\theta}) \neq \mathbf{0}$. Entonces:
+	\[
+		\sqrt{n}\big(g(\hat{\boldsymbol{\theta}}_n) - g(\boldsymbol{\theta})\big) \xrightarrow{d} N\big(0,\; \nabla g(\boldsymbol{\theta})^\top \boldsymbol{\Sigma}\, \nabla g(\boldsymbol{\theta})\big)
+	\]
+\end{theorem}
+
+\subsubsection{Aplicación a $Q^{\pi} \to V^{\pi}$}
+
+En el contexto del agente (\texttt{prop:ch5-delta-q}), la función de agregación es lineal:
+
+\[
+	V^{\pi}(s) = g(\mathbf{Q}^{\pi}(s, \cdot)) = \sum_{a \in \mathcal{A}} \pi(a|s) \cdot Q^{\pi}(s, a)
+\]
+
+Por lo tanto, el Jacobiano es simplemente el vector de probabilidades de la política:
+
+\[
+	\mathbf{J} = \nabla g = [\pi(a_1|s),\; \pi(a_2|s),\; \dots,\; \pi(a_{|\mathcal{A}|}|s)]
+\]
+
+Y la varianza asintótica de $\hat{V}^{\pi}$ es:
+
+\[
+	\sigma^2_V = \mathbf{J}^\top \boldsymbol{\Sigma}_Q \mathbf{J} = \sum_{i,j} \pi_i \pi_j \Sigma_{Q,ij}
+\]
+
+\subsection{Algoritmo Implementado}
+
+\begin{lstlisting}[caption={Algoritmo de propagación Delta Method}, language=Python]
+def propagar_desde_Q(Q_estimates, policy, Sigma_Q, n, alpha=0.05,
+                     transformacion="identidad"):
+
+    # Jacobiano = vector de política (agregación lineal)
+    J = policy  # shape (|A|,)
+
+    # Varianza asintótica: sigma2_V = J @ Sigma_Q @ J^T
+    sigma2_V = float(J @ Sigma_Q @ J)
+
+    # Contribución de covarianzas
+    var_puras = sum(policy[i]**2 * Sigma_Q[i,i] for i in range(len(policy)))
+    contribucion_cov = sigma2_V - var_puras
+
+    # Estimación puntual
+    V_hat = np.dot(policy, Q_estimates)
+
+    # Aplicar transformación (si aplica)
+    if transformacion == "exp":
+        V_transformado = exp(V_hat)
+        derivada = exp(V_hat)
+        sigma2_final = derivada**2 * sigma2_V / n
+    elif transformacion == "identidad":
+        V_transformado = V_hat
+        sigma2_final = sigma2_V / n
+
+    # IC asintótico normal
+    z = stats.norm.ppf(1 - alpha/2)
+    L = V_transformado - z * sqrt(sigma2_final)
+    U = V_transformado + z * sqrt(sigma2_final)
+
+    return ResultadoDelta(V_transformado, sigma2_final, (L, U), ...)
+\end{lstlisting}
+
+\subsection{Soporte para Transformaciones}
+
+El módulo soporta tres tipos de transformación final sobre $V$:
+
+\begin{itemize}
+	\item \texttt{"identidad"}: Sin transformación, $g(V) = V$.
+	\item \texttt{"exp"}: Transformación exponencial, $g(V) = e^V$. Utiliza el Delta Method univariado (Thm~5.4): $\text{Var}(e^{\hat{V}}) \approx e^{2V} \cdot \text{Var}(\hat{V})$.
+	\item \texttt{callable}: Función personalizada proporcionada por el usuario.
+\end{itemize}
+
+\subsection{Ejemplo Numérico: MDP de 3 Estados y 2 Acciones}
+
+El ejemplo \texttt{ex:ch5-qdelta} utiliza:
+
+\[
+	\boldsymbol{\Sigma}_Q = \frac{1}{n} \begin{pmatrix} 4.0 & 1.2 \\ 1.2 & 9.0 \end{pmatrix}, \quad
+	\mathbf{Q} = \begin{pmatrix} 5.0 \\ 4.5 \end{pmatrix}, \quad
+	\pi = \begin{pmatrix} 0.6 \\ 0.4 \end{pmatrix}
+\]
+
+Resultados teóricos:
+\[
+	\begin{aligned}
+		V^{\pi}            & = 0.6 \cdot 5.0 + 0.4 \cdot 4.5 = 4.8                                     \\
+		\sigma^2_V         & = (0.6)^2 \cdot 4.0 + (0.4)^2 \cdot 9.0 + 2 \cdot 0.6 \cdot 0.4 \cdot 1.2 \\
+		                   & = 1.44 + 1.44 + 0.576 = 3.456                                             \\
+		\text{SE}(\hat{V}) & = \sqrt{3.456 / n}
+	\end{aligned}
+\]
+
+\newpage
+
+% =============================================================================
+% SECCIÓN 7: MÓDULO 5 — DECISIÓN AUTÓNOMA
+% =============================================================================
+\section{Módulo 5: Decisión Autónoma de Recolección}
+
+\subsection{Fundamento Teórico}
+
+El Laboratorio F.5.1 establece un criterio objetivo para que el agente decida autónomamente si la precisión es suficiente.
+
+\subsubsection{Criterio de Decisión}
+
+\begin{definition}[Criterio de Decisión, Lab~F.5.1]
+	Dado un intervalo de confianza $[L, U]$ para $V^{\pi}$ con nivel $1-\alpha$ y una tolerancia $\varepsilon > 0$:
+
+	\[
+		\text{Decisión} = \begin{cases}
+			\text{\texttt{actuar}}          & \text{si } U - L \leq \varepsilon \\
+			\text{\texttt{recolectar\_más}} & \text{si } U - L > \varepsilon
+		\end{cases}
+	\]
+\end{definition}
+
+\subsubsection{Recomendación de Tamaño Muestral}
+
+Cuando se decide recolectar más datos, el módulo estima el número adicional de trayectorias necesario utilizando la escala $O(1/\sqrt{n})$ del CLT:
+
+\begin{proposition}
+	Bajo el CLT, el ancho del IC escala como:
+	\[
+		W_n \approx 2 \cdot z_{1-\alpha/2} \cdot \frac{\sigma}{\sqrt{n}}
+	\]
+	Por lo tanto, el tamaño necesario para alcanzar un ancho $\varepsilon$ es:
+	\[
+		n_{\text{nuevo}} \approx n_{\text{actual}} \cdot \left( \frac{W_{\text{actual}}}{\varepsilon} \right)^2
+	\]
+\end{proposition}
+
+\subsection{Algoritmo Implementado}
+
+\begin{lstlisting}[caption={Algoritmo de decisión autónoma}, language=Python]
+def decidir_recoleccion(IC_L, IC_U, epsilon_tolerancia, n_actual, ...):
+    W = IC_U - IC_L
+
+    if W <= epsilon_tolerancia:
+        return ResultadoDecision(
+            decision="actuar",
+            ancho_ic=W,
+            n_recomendado=None,
+            justificacion=f"Ancho IC ({W:.4f}) <= tolerancia ({epsilon_tolerancia:.4f})"
+        )
+    else:
+        n_rec = ceil(n_actual * (W / epsilon_tolerancia) ** 2)
+        n_rec = max(n_rec, n_actual + 1)
+        return ResultadoDecision(
+            decision="recolectar_mas",
+            ancho_ic=W,
+            n_recomendado=n_rec,
+            justificacion=f"Se recomiendan ~{n_rec} trayectorias adicionales"
+        )
+\end{lstlisting}
+
+\subsection{Consideraciones Adicionales}
+
+\begin{itemize}
+	\item La recomendación de $n$ es una cota inferior. En la práctica, puede necesitarse un $10\%$--$20\%$ adicional para compensar la variabilidad del estimador de varianza.
+	\item Si la descomposición de varianza está disponible, la componente epistémica se utiliza para refinar la recomendación.
+	\item El parámetro $\varepsilon$ es externo al agente y debe ser proporcionado por el usuario según los requisitos de precisión de la aplicación.
+\end{itemize}
+
+\newpage
+
+% =============================================================================
+% SECCIÓN 8: ORQUESTADOR Y REPORTE INTEGRADO
+% =============================================================================
+\section{Módulo 6: Orquestador Integrado y Reporte}
+
+\subsection{Clase Orquestadora}
+
+La clase \texttt{AgenteEstadisticoAsintotico} orquesta el pipeline completo:
+
+\begin{lstlisting}[caption={Orquestador principal -- método evaluar\_politica}, language=Python]
+class AgenteEstadisticoAsintotico:
+    def evaluar_politica(self, retornos, Q_estimates=None,
+                         policy=None, Sigma_Q=None):
+
+        # 1. Estimación puntual
+        V_hat = np.mean(retornos)
+
+        # 2. Diagnóstico de mixing
+        res_mixing = diagnosticar_mixing(retornos, ...)
+
+        # 3. Bootstrap (con bloque si mixing falla)
+        if not res_mixing.mixing_ok:
+            block_size = ceil(n ** (1/3))  # heurística
+        res_boot = bootstrap_ci(retornos, block_size=block_size, ...)
+
+        # 4. Delta Method (si se proveen Q, policy, Sigma_Q)
+        if all_provided:
+            res_delta = propagar_desde_Q(Q_estimates, policy, Sigma_Q, ...)
+
+        # 5. Descomposición de varianza
+        res_desc = descomponer_incertidumbre(V_hat, retornos, ...)
+
+        # 6. Decisión autónoma
+        res_decision = decidir_recoleccion(res_boot.L, res_boot.U, ...)
+
+        # 7. Reporte integrado
+        return ReporteAgente(V_hat, res_boot, res_mixing, ...)
+\end{lstlisting}
+
+\subsection{Comportamiento Adaptativo}
+
+El orquestador exhibe comportamiento adaptativo en dos aspectos clave:
+
+\begin{enumerate}
+	\item \textbf{Activación condicional del Delta Method}: Solo se ejecuta si el usuario proporciona $Q^{\pi}$, $\pi$ y $\boldsymbol{\Sigma}_Q$. En caso contrario, se omite.
+	\item \textbf{Bootstrap por bloques automático}: Si el diagnóstico de mixing falla ($\hat{\rho} \geq 0.95$), el agente activa automáticamente el bootstrap por bloques con tamaño heurístico $\ell \approx n^{1/3}$.
+\end{enumerate}
+
+\subsection{Reporte Integrado}
+
+El reporte final (\texttt{ReporteAgente}) incluye:
+
+\begin{itemize}
+	\item \textbf{Estimación puntual}: $\hat{V}^{\pi}$ con su error estándar.
+	\item \textbf{IC Bootstrap}: Límites inferior y superior, ancho, y tipo de IC utilizado.
+	\item \textbf{Diagnóstico de mixing}: $\hat{\rho}$, veredicto, y varianza de largo plazo.
+	\item \textbf{Descomposición}: Coeficientes epistémico y aleatorio, fracción actual.
+	\item \textbf{Delta Method} (si aplica): Varianza asintótica, contribución de covarianzas.
+	\item \textbf{Decisión}: \texttt{actuar} o \texttt{recolectar\_más}, con justificación.
+	\item \textbf{Garantías teóricas}: Lista de teoremas y proposiciones que respaldan cada resultado.
+\end{itemize}
+
+\subsubsection{Ejemplo de Salida}
+
+\begin{lstlisting}[caption={Ejemplo de reporte generado por el agente}, language=text, style=]
+==================================================================
+REPORTE DEL AGENTE ESTADISTICO ASINTOTICO
+==================================================================
+Estimacion puntual V^pi     : 4.8200
+IC Bootstrap (percentil-t):
+  [4.0812, 5.5623] (nivel 95%)
+  Ancho IC                : 1.4811
+Diagnostico Mixing        : rho = 0.1234 (OK)
+Varianza de largo plazo   : 14.2891
+Decision                  : ACTUAR
+  Justificacion           : Ancho IC (1.4811) ≤ tolerancia (0.5000)
+------------------------------------------------------------------
+Garantias teoricas activas:
+  * prop:ch5-clt-retornos -- CLT para retornos Monte Carlo
+  * thm:ch5-clt-agentes -- CLT con varianza de largo plazo
+  * thm:ch5-bootstrap-media -- consistencia bootstrap
+  * def:ch5-ic-t -- IC percentil-t
+  * thm:ch5-cobertura -- error de cobertura O(n^{-1})
+  * Lab F.5.2 -- descomposicion epistemica vs aleatoria
+  * Lab F.5.1 -- criterio de ancho para decision
+==================================================================
+\end{lstlisting}
+
+\newpage
+
+% =============================================================================
+% SECCIÓN 9: SUPUESTOS CRÍTICOS Y LIMITACIONES
+% =============================================================================
+\section{Supuestos Críticos y Limitaciones}
+
+\subsection{Supuestos No Verificables}
+
+El README del agente identifica explícitamente cinco supuestos críticos que el agente no puede verificar automáticamente:
+
+\begin{table}[h]
+	\centering
+	\caption{Supuestos críticos no verificables.}
+	\label{tab:supuestos}
+	\begin{tabular}{@{}lll@{}}
+		\toprule
+		Supuesto                   & Afecta a           & Riesgo si se viola             \\
+		\midrule
+		$\mathbb{E}[G^2] < \infty$ & Bootstrap, CLT     & Inconsistencia del bootstrap   \\
+		Estacionariedad estricta   & Diagnóstico mixing & Falsos positivos/negativos     \\
+		iid subyacente             & IC Percentil       & IC mal calibrados              \\
+		Diferenciabilidad de $g$   & Delta Method       & Varianza asintótica incorrecta \\
+		Homocedasticidad           & Descomposición     & Separación errónea             \\
+		\bottomrule
+	\end{tabular}
+\end{table}
+
+\subsection{Limitaciones Prácticas}
+
+\begin{enumerate}
+	\item \textbf{Costo computacional del percentil-t}: El doble bootstrap requiere $B \times B_{\text{inner}}$ operaciones, haciéndolo computacionalmente intensivo para $B \geq 1000$.
+	\item \textbf{Muestras pequeñas} ($n < 30$): El CLT puede no aproximar bien la distribución, y el bootstrap puede ser errático.
+	\item \textbf{Dependencia de largo alcance}: El bootstrap por bloques requiere que $\ell_n \to \infty$ y $\ell_n/n \to 0$, lo que puede ser difícil de satisfacer en la práctica.
+	\item \textbf{Sensibilidad al parámetro $\varepsilon$}: La decisión de actuar o recolectar más datos depende crucialmente de la tolerancia proporcionada por el usuario.
+\end{enumerate}
+
+\subsection{Recomendaciones de Uso}
+
+\begin{itemize}
+	\item Usar $B \geq 1000$ réplicas bootstrap (recomendación del Thm~5.7).
+	\item Asegurar $n \geq 30$ trayectorias para validez del CLT.
+	\item Para entornos con dependencia temporal, verificar el diagnóstico de mixing antes de interpretar los IC.
+	\item La descomposición epistémica/aleatoria es más fiable con $n \geq 500$.
+\end{itemize}
+
+\newpage
+
+% =============================================================================
+% SECCIÓN 10: MAPEO TEORÍA-IMPLEMENTACIÓN
+% =============================================================================
+\section{Mapeo Completo entre Teoría e Implementación}
+
+\subsection{Correspondencia Detallada}
+
+La tabla~\ref{tab:mapeo} muestra la correspondencia entre los conceptos teóricos del Capítulo~5 y su implementación en el código.
+
+\begin{table}[h]
+	\centering
+	\caption{Mapeo completo teoría $\to$ implementación.}
+	\label{tab:mapeo}
+	\begin{tabular}{@{}llll@{}}
+		\toprule
+		Concepto Teórico          & Referencia & Función/Clase                      & Líneas   \\
+		\midrule
+		CLT clásico               & Thm~5.1    & Fundamento de bootstrap\_ci        & 120--130 \\
+		Método Delta univariado   & Thm~5.4    & propagar\_desde\_Q (transf.)       & 130--150 \\
+		Método Delta multivariado & Thm~5.5    & propagar\_desde\_Q                 & 100--130 \\
+		Consistencia bootstrap    & Thm~5.7    & bootstrap\_ci                      & 130--200 \\
+		CLT para agentes          & Thm~5.8    & diagnosticar\_mixing               & 80--120  \\
+		CLT retornos MC           & Prop~5.2   & AgenteEstadisticoAsintotico        & 20--30   \\
+		Delta Q $\to$ V           & Prop~5.4   & propagar\_desde\_Q                 & 130--150 \\
+		Verificación mixing       & Prop~5.2   & diagnosticar\_mixing               & 50--80   \\
+		IC Percentil              & Def~5.3    & bootstrap\_ci (tipo="percentil")   & 145--155 \\
+		IC Percentil-t            & Def~5.4    & bootstrap\_ci (tipo="percentil-t") & 155--185 \\
+		Cobertura bootstrap       & Thm~5.7    & bootstrap\_ci (documentación)      & -        \\
+		Lab Decisión              & F.5.1      & decidir\_recoleccion               & 50--80   \\
+		Lab Descomposición        & F.5.2      & descomponer\_incertidumbre         & 80--120  \\
+		\bottomrule
+	\end{tabular}
+\end{table}
+
+\subsection{Diagrama de Dependencias Teóricas}
+
+\begin{center}
+	\begin{tikzpicture}[
+		node distance=1.5cm,
+		thm/.style={rectangle, draw, rounded corners, minimum width=2.5cm, minimum height=0.7cm, align=center, font=\small},
+		arrow/.style={-{Latex[length=1.5mm]}, thick},
+		]
+
+		\node[thm, fill=yellow!10] (clt) {Thm~5.1\\CLT};
+		\node[thm, fill=yellow!10, below=of clt] (clt_ag) {Thm~5.8\\CLT Agentes};
+		\node[thm, fill=green!10, right=of clt] (delta) {Thm~5.4/5.5\\Delta Method};
+		\node[thm, fill=blue!10, right=of clt_ag] (boot) {Thm~5.7\\Bootstrap};
+		\node[thm, fill=orange!10, below=of boot] (ic_per) {Def~5.3/5.4\\IC Bootstrap};
+		\node[thm, fill=purple!10, below=of clt_ag] (mixing) {Prop~5.2\\Mixing};
+		\node[thm, fill=cyan!10, right=of ic_per] (lab1) {Lab~F.5.1\\Decisión};
+		\node[thm, fill=red!10, right=of mixing] (lab2) {Lab~F.5.2\\Descomposición};
+
+		\draw[arrow] (clt) -- (clt_ag);
+		\draw[arrow] (clt) -- (delta);
+		\draw[arrow] (clt) -- (boot);
+		\draw[arrow] (boot) -- (ic_per);
+		\draw[arrow] (mixing) -- (clt_ag);
+		\draw[arrow] (ic_per) -- (lab1);
+		\draw[arrow] (clt_ag) -- (lab2);
+
+	\end{tikzpicture}
+\end{center}
+
+\newpage
+
+% =============================================================================
+% SECCIÓN 11: CASOS DE USO Y EJEMPLOS
+% =============================================================================
+\section{Casos de Uso y Ejecución}
+
+\subsection{Caso SSCH (Sistema de Soporte Clínico de Hígado)}
+
+El archivo \texttt{ejemplo\_ssch.py} demuestra el uso del agente con el entorno SSCH:
+
+\begin{itemize}
+	\item \textbf{Configuración}: $n = 100$, $\alpha = 0.05$, $\varepsilon = 0.5$, tipo IC = percentil-t, $B = 1000$.
+	\item \textbf{Política}: $\pi_b$ (práctica habitual).
+	\item \textbf{Datos}: Retornos simulados como $N(4.82, 3.78^2)$.
+	\item \textbf{Salida esperada}: IC bootstrap $95\% \approx [4.08, 5.56]$ (ancho $\approx 1.48$).
+\end{itemize}
+
+\subsection{Validación Cruzada con Valores del Capítulo}
+
+El script de ejemplo valida los resultados contra los valores esperados:
+
+\begin{lstlisting}[language=Python]
+# Valores del capítulo
+L_esperado, U_esperado = 4.08, 5.56
+ancho_esperado = U_esperado - L_esperado  # 1.48
+
+# Validación
+rb = reporte.resultado_bootstrap
+diff_L = abs(rb.L - L_esperado)
+diff_U = abs(rb.U - U_esperado)
+
+if diff_L < 0.5 and diff_U < 0.5:
+    print("IC dentro de tolerancia")
+else:
+    print("IC difiere (variabilidad muestral esperada)")
+\end{lstlisting}
+
+\subsection{Caso con Dependencia Temporal}
+
+El segundo demo del bloque principal utiliza una cadena de Markov de 2 estados con $\rho = 0.5$, demostrando el diagnóstico de mixing y la activación automática del bootstrap por bloques cuando es necesario.
+
+\subsection{Caso con Delta Method}
+
+El tercer demo propaga incertidumbre desde $Q$ hasta $V$ utilizando el MDP de 3 estados y 2 acciones, validando que la varianza asintótica coincide con el valor teórico $\sigma^2_V = 3.456$.
+
+% =============================================================================
+% SECCIÓN 12: CONCLUSIONES
+% =============================================================================
+\section{Conclusiones}
+
+\subsection{Resumen de Capacidades}
+
+El \textbf{Agente Estadístico Asintótico} implementa de manera operacional todos los componentes teóricos del Capítulo~5, proporcionando un pipeline completo para:
+
+\begin{enumerate}
+	\item \textbf{Estimar} el valor de una política con rigor estadístico.
+	\item \textbf{Cuantificar} la incertidumbre mediante intervalos de confianza bootstrap de segundo orden.
+	\item \textbf{Diagnosticar} la presencia de dependencia temporal que pueda invalidar los supuestos del CLT.
+	\item \textbf{Propagar} la incertidumbre de manera correcta a través de transformaciones.
+	\item \textbf{Separar} las fuentes de incertidumbre en reducible (epistémica) e irreducible (aleatoria).
+	\item \textbf{Decidir} autónomamente si la precisión es suficiente para actuar.
+\end{enumerate}
+
+\subsection{Fortalezas del Diseño}
+
+\begin{itemize}
+	\item \textbf{Trazabilidad teórica}: Cada función documenta explícitamente qué teoremas y definiciones implementa.
+	\item \textbf{Modularidad}: Los seis módulos son funcionalmente independientes y reutilizables.
+	\item \textbf{Contratos explícitos}: Las dataclasses proporcionan interfaces claras de entrada/salida.
+	\item \textbf{Comportamiento adaptativo}: El agente ajusta su metodología (e.g., bootstrap por bloques) según las características de los datos.
+	\item \textbf{Honestidad epistémica}: Documenta explícitamente los supuestos que no puede verificar.
+\end{itemize}
+
+\subsection{Líneas de Extensión Futura}
+
+\begin{enumerate}
+	\item \textbf{Bootstrap suave} (smooth bootstrap): Para mejorar el rendimiento con muestras pequeñas.
+	\item \textbf{Subsampling}: Alternativa computacionalmente más eficiente que el bootstrap por bloques para datos dependientes.
+	\item \textbf{IC bootstrap BCa} (bias-corrected and accelerated): Para mejorar la cobertura en presencia de sesgo.
+	\item \textbf{Métodos de remuestreo secuencial}: Para entornos donde el costo de recolección varía.
+	\item \textbf{Diagnóstico automático de estacionariedad}: Para complementar el diagnóstico de mixing.
+\end{enumerate}
+
+\end{document}

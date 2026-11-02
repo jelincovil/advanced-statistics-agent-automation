@@ -1,0 +1,89 @@
+{
+  "updated": "2026-10-30",
+  "typst_version": "0.15.1",
+  "deck_count": 13,
+  "reconstructed_count": 2,
+  "draft_count": 11,
+  "total_pdf_pages": 527,
+  "note": "ZIP general antiguo; ver ESTADO_RECONSTRUCCION.md",
+  "decks": [
+    {
+      "deck": "01_introduccion",
+      "status": "reconstruida",
+      "pages": 35,
+      "source_sha256": "08bb19a216c467149dc8988c26c81dc422bc1da5072e43b66c749f94a8622a4a"
+    },
+    {
+      "deck": "02_dos_tradiciones",
+      "status": "reconstruida",
+      "pages": 41,
+      "source_sha256": "b3358a361edcf8c735e907e4ec0d15540a8383e442bbbbb85ca2241373b6cef3"
+    },
+    {
+      "deck": "03_wald",
+      "status": "borrador",
+      "pages": 41,
+      "source_sha256": "c390cae4ab5aba8e9e5621ee8ee07afe4f8cf5106f9f9d55e36c6d363bbe88a4"
+    },
+    {
+      "deck": "04_mdp",
+      "status": "borrador",
+      "pages": 41,
+      "source_sha256": "e21fdcddd63e13758823173e349ecc39dba9ab78311aae15efaeabb2cddc8273"
+    },
+    {
+      "deck": "05_herramientas",
+      "status": "borrador",
+      "pages": 41,
+      "source_sha256": "398efeb590b58a8924367ccefd527a12ac98ebf4abab15ddbce43807e9591f5b"
+    },
+    {
+      "deck": "06_representacion",
+      "status": "borrador",
+      "pages": 41,
+      "source_sha256": "25a34dc024e5843c371f04569f1860df3f80f5f28d122b1908c80912cc56ef09"
+    },
+    {
+      "deck": "07_fallos",
+      "status": "borrador",
+      "pages": 41,
+      "source_sha256": "51b76e5273e2cd1fa6d06cbf89770c01e38802939904e2616930d6a5de4f3a18"
+    },
+    {
+      "deck": "08_ope",
+      "status": "borrador",
+      "pages": 41,
+      "source_sha256": "2661228eaaf6637d6e32275b8b0fa6011d32d04df1e7b2c903496751e44348a7"
+    },
+    {
+      "deck": "09_intervalos",
+      "status": "borrador",
+      "pages": 41,
+      "source_sha256": "73420341e053a8f31bec8545f227a4acb90e72357e85f70e5f24ef74670bde9f"
+    },
+    {
+      "deck": "10_verificacion",
+      "status": "borrador",
+      "pages": 41,
+      "source_sha256": "ed26bcf0e4f69234c8e12bbd50dc21fb5f73cffc152dff76b989023f3e0eb4a7"
+    },
+    {
+      "deck": "11_casos",
+      "status": "borrador",
+      "pages": 41,
+      "source_sha256": "2f1a58d416e6d85422d205ee9ac024d5d26b8ca175d720732647f213e01fa73c"
+    },
+    {
+      "deck": "12_despliegue",
+      "status": "borrador",
+      "pages": 41,
+      "source_sha256": "e55304e5bd1e01c33be4f88f82f4d7457a1be2de3b0c2d4b2e0ce169cc1bc1f4"
+    },
+    {
+      "deck": "13_problemas",
+      "status": "borrador",
+      "pages": 41,
+      "source_sha256": "a6338c848aba19b1dbcb357a6e1540743b922d2dce1ac3d205e7f07b3ff5062a"
+    }
+  ]
+}

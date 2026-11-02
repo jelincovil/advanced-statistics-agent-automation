@@ -1,0 +1,898 @@
+% =============================================================================
+% CAPÍTULO 4: TESTS DE HIPÓTESIS E INTERVALOS DE CONFIANZA
+% Neyman-Pearson, UMP, UMPU, Dualidad Test-IC, Múltiples Comparaciones
+% =============================================================================
+
+\chapter{Tests de Hipótesis e Intervalos de Confianza}
+\label{ch:tests}
+
+\epigraph{«No test based on a theory of probability can by itself provide
+	any valuable evidence of the truth or falsehood of a hypothesis.»}
+{Jerzy Neyman \& Egon Pearson, 1933}
+
+Los tres capítulos anteriores construyeron el arsenal del estadístico: modelos
+paramétricos y familias exponenciales, estadísticos suficientes que comprimen la
+información sin pérdida, y estimadores UMVUE que minimizan la varianza bajo
+insesgadez. La cota de Cramér--Rao del Capítulo~\ref{ch:estimacion} estableció un
+límite fundamental: ningún procedimiento insesgado puede estimar $\theta$ con
+varianza inferior a $\mathcal{I}(\theta)^{-1}$. Pero conocer ese límite no basta;
+un agente inteligente raramente necesita la \emph{estimación} de $\theta$ como fin
+en sí mismo. Lo que necesita es \emph{actuar}: decidir si adoptar una política nueva
+$\pi_1$, si detener la recolección de datos, si declarar que un tratamiento supera
+al estándar. Toda esta maquinaria ha \emph{estimado}; ahora el agente necesita
+\emph{decidir}.
+
+La transición de la estimación a la decisión no es arbitraria. En el marco de
+Wald que formalizaremos en el Capítulo~\ref{ch:wald}, estimar y contrastar hipótesis
+son instancias del mismo problema: minimizar el riesgo esperado bajo una función de
+pérdida. Un test de hipótesis es una regla de decisión $\delta:\mathcal{X}\to\{a_0,a_1\}$
+con pérdida 0--1; un estimador UMVUE es una regla que minimiza el riesgo cuadrático.
+Lo que distingue al test es que su espacio de acciones es binario y su función de
+pérdida asigna costos asimétricos a los dos tipos de error. Esta asimetría ---peor
+equivocarse rechazando cuando $H_0$ es cierta que no detectar cuando es falsa, o
+viceversa en diagnóstico médico--- es la que justifica toda la construcción de
+Neyman y Pearson.
+
+Para el diseñador de agentes inteligentes, el aparato de tests de hipótesis
+responde preguntas concretas: ¿es la política $\pi_1$ significativamente mejor que
+$\pi_0$? ¿debe el tratamiento~A preferirse sobre el~B? ¿cuánta evidencia se requiere
+para rechazar la hipótesis de equivalencia entre dos políticas? Las garantías
+que obtenemos ---control de error Tipo~I en $\alpha$, potencia $1-\beta$ contra
+alternativas específicas--- se traducen directamente en garantías operacionales
+para el agente.
+
+\subsection*{Contexto Histórico y Motivación}
+
+La teoría de tests de hipótesis es uno de los capítulos más controvertidos y fascinantes de la estadística del siglo~XX. La controversia entre Fisher (1925) y Neyman-Pearson (1933) no es meramente histórica~--- refleja dos filosofías distintas de la inferencia. Fisher veía el valor $p$ como una medida de evidencia contra la hipótesis nula, mientras que Neyman y Pearson formalizaron el test como un problema de decisión con dos tipos de error, cada uno con su propio costo. Esta distinción filosófica tiene consecuencias prácticas directas para el diseño de agentes inteligentes.
+
+El Lema de Neyman-Pearson (1933) es un resultado de elegancia matemática excepcional: demuestra que, para hipótesis simples, el test óptimo se basa únicamente en el cociente de verosimilitudes. Este resultado no es solo teórico~--- es la base de todos los tests modernos, desde el test de razón de verosimilitudes hasta los tests de Wald y Score. La extensión a hipótesis compuestas (tests UMP y UMPU) requiere condiciones adicionales de monotonicidad, pero la estructura fundamental permanece: el test óptimo es una función de la verosimilitud.
+
+Para el diseñador de agentes inteligentes, esta historia es esencial. Un agente que debe decidir si continuar recolectando datos o actuar ahora está enfrentando el dilema que Neyman-Pearson formalizaron como balance entre errores Tipo~I (rechazar falsamente una hipótesis verdadera) y Tipo~II (no rechazar una hipótesis falsa). El nivel de significancia $\alpha$ no es un umbral arbitrario~--- es el costo que estamos dispuestos a pagar por cometer un error Tipo~I, y el poder del test $1-\beta$ es la probabilidad de detectar una alternativa cuando existe.
+
+El aparato de tests de hipótesis convierte estas preguntas cualitativas en procedimientos formales con garantías cuantificadas sobre los errores de decisión. El Lema de Neyman-Pearson construye el test más potente para hipótesis simples mediante la razón de verosimilitudes; los teoremas sobre tests UMP y UMPU lo extienden a hipótesis compuestas bajo condiciones de monotonicidad. La dualidad test-intervalo de confianza revela que ambos objetos son matemáticamente equivalentes: invertir un test produce un intervalo de confianza, y todo intervalo de confianza es la región de no rechazo de algún test.
+
+La conexión con el isomorfismo que desarrollamos en este capítulo es especialmente iluminadora. Un test de hipótesis es una regla de decisión de Wald con función de pérdida 0-1: se actúa correctamente o se comete error de Tipo~I o Tipo~II. Esta identificación, que haremos explícita en la subsección final, no es solo pedagógica: anticipa el Capítulo~\ref{ch:wald}, donde la función de pérdida general de Wald unificará toda la teoría de decisión estadística~--- incluyendo los tests de hipótesis como caso particular.
+
+\section{Contenido Teórico}
+\label{sec:ch4-teoria}
+
+% -----------------------------------------------------------------------------
+\subsection{Formulación del Problema de Tests de Hipótesis}
+\label{sec:ch4-neyman-pearson}
+% -----------------------------------------------------------------------------
+
+\begin{definition}[Hipótesis Estadísticas]
+	\label{def:ch4-hipotesis}
+	Sea $\mathcal{P} = \{P_\theta : \theta \in \ParamSpace\}$ un modelo
+	paramétrico. Un \emph{test de hipótesis} contrasta:
+	\[
+		H_0: \theta \in \ParamSpace_0 \quad \text{versus} \quad H_1: \theta \in \ParamSpace_1
+	\]
+	donde $\ParamSpace_0 \cup \ParamSpace_1 \subseteq \ParamSpace$ y típicamente
+	$\ParamSpace_0 \cap \ParamSpace_1 = \emptyset$. $H_0$ es la \emph{hipótesis nula},
+	$H_1$ la \emph{alternativa}. Si $\ParamSpace_0 = \{\theta_0\}$, $H_0$ es
+	\emph{simple}; de lo contrario es \emph{compuesta}.
+\end{definition}
+
+Mientras que la definición anterior es constructiva, la siguiente es axiomática.
+
+\begin{definition}[Test y Región Crítica]
+	\label{def:ch4-test}
+	Un \emph{test} (no aleatorizado) es una \emph{función de decisión}
+	$\delta: \SampleSpace \to \{0, 1\}$, que asigna a cada observación
+	una de las dos acciones disponibles:
+	\begin{itemize}
+		\item $\delta(x) = 1$: rechazar $H_0$ (tomar la acción $a_1$)
+		\item $\delta(x) = 0$: no rechazar $H_0$ (tomar la acción $a_0$)
+	\end{itemize}
+	La \emph{región crítica} es $C = \{x \in \mathcal{X}: \delta(x) = 1\}$.
+
+	Un \emph{test aleatorizado} es $\delta: \SampleSpace \to [0, 1]$ donde
+	$\delta(x)$ es la probabilidad de rechazar $H_0$ dado $X = x$.
+	La notación $\delta$ subraya que un test es, en esencia, una regla de
+	decisión en el sentido de Wald (véase \S\ref{sec:ch4-wald}): mapea datos
+	en acciones bajo incertidumbre paramétrica.
+\end{definition}
+
+La siguiente definición complementa a la anterior caracterizando el concepto desde otra perspectiva.
+
+\begin{definition}[Errores Tipo I y II]
+	\label{def:ch4-errores}
+	\begin{center}
+		\begin{tabular}{@{}lcc@{}}
+			\toprule
+			\textbf{Decisión} & $H_0$ verdadera         & $H_1$ verdadera              \\
+			\midrule
+			No rechazar $H_0$ & Correcta                & Error Tipo II ($\beta$)      \\
+			Rechazar $H_0$    & Error Tipo I ($\alpha$) & Correcta (Poder = $1-\beta$) \\
+			\bottomrule
+		\end{tabular}
+	\end{center}
+\end{definition}
+
+La siguiente definición complementa a la anterior caracterizando el concepto desde otra perspectiva.
+
+\begin{definition}[Función de Potencia]
+	\label{def:ch4-potencia}
+	La \emph{función de potencia} de una función de decisión $\delta$ es:
+	\[
+		\beta_\delta(\theta) = \E_\theta[\delta(X)] = P_\theta(\text{rechazar } H_0)
+	\]
+	Para $\theta \in \ParamSpace_0$: probabilidad de error Tipo I.
+	Para $\theta \in \ParamSpace_1$: \emph{poder} del test.
+\end{definition}
+
+Mientras que la definición anterior es constructiva, la siguiente es axiomática.
+
+\begin{definition}[Tamaño y Nivel]
+	\label{def:ch4-tamano}
+	El \emph{tamaño} de una función de decisión $\delta$ es $\alpha_\delta = \sup_{\theta \in \ParamSpace_0} \beta_\delta(\theta)$.
+	Un test tiene \emph{nivel} $\alpha$ si $\alpha_\delta \leq \alpha$.
+\end{definition}
+
+Esta definición prepara el terreno para el resultado central que sigue.
+
+\begin{theorem}[Lema de Neyman-Pearson]
+	\label{thm:ch4-neyman-pearson}
+	Para el test de $H_0: \theta = \theta_0$ versus $H_1: \theta = \theta_1$,
+	sea $\Lambda(x) = \frac{f(x|\theta_1)}{f(x|\theta_0)}$ el \emph{cociente
+		de verosimilitudes}. Para cualquier $\alpha \in (0,1)$, existe una función
+	de decisión $\delta^*$ de la forma:
+	\[
+		\delta^*(x) = \begin{cases}
+			1      & \text{si } \Lambda(x) > k \\
+			\gamma & \text{si } \Lambda(x) = k \\
+			0      & \text{si } \Lambda(x) < k
+		\end{cases}
+	\]
+	donde $k \geq 0$ y $\gamma \in [0,1]$ satisfacen
+	$\E_{\theta_0}[\delta^*(X)] = \alpha$.
+
+	Este test $\delta^*$ es el \emph{test más potente} (MP) de nivel $\alpha$:
+	para cualquier otro test $\delta$ con $\E_{\theta_0}[\delta(X)] \leq \alpha$:
+	\[
+		\E_{\theta_1}[\delta^*(X)] \geq \E_{\theta_1}[\delta(X)]
+	\]
+\end{theorem}
+
+La demostración que sigue hace explícitas las condiciones bajo las cuales
+el resultado es válido, conectándolo con el marco del isomorfismo.
+
+\begin{proof}
+	Sea $\delta$ cualquier test con nivel $\leq \alpha$. Definimos
+	$D = \delta^*(x) - \delta(x)$.
+
+	En $\{x : \Lambda(x) > k\}$: $\delta^*(x) = 1$, así que $D \geq 0$.
+	En $\{x : \Lambda(x) < k\}$: $\delta^*(x) = 0$, así que $D \leq 0$.
+
+	Por construcción: $D(x) \cdot (\Lambda(x) - k) \geq 0$ para todo $x$.
+
+	Por lo tanto:
+	\begin{align*}
+		\E_{\theta_1}[D] - k \cdot \E_{\theta_0}[D]
+		 & = \int D(x) f(x|\theta_1)\, dx - k \int D(x) f(x|\theta_0)\, dx \\
+		 & = \int D(x) (\Lambda(x) - k) f(x|\theta_0)\, dx \geq 0
+	\end{align*}
+
+	Como $\E_{\theta_0}[\delta^*] = \alpha$ y $\E_{\theta_0}[\delta] \leq \alpha$,
+	tenemos $\E_{\theta_0}[D] \geq 0$.
+
+	Si $k > 0$: $\E_{\theta_1}[D] \geq k \cdot \E_{\theta_0}[D] \geq 0$.
+	Si $k = 0$: $\E_{\theta_1}[D] \geq 0$ directamente.
+\end{proof}
+
+\begin{example}[Test MP para Normal]
+	\label{ex:ch4-mp-normal}
+	Sea $X_1, \ldots, X_n \overset{iid}{\sim} N(\mu, \sigma^2)$ con $\sigma^2$
+	conocida. Para $H_0: \mu = \mu_0$ versus $H_1: \mu = \mu_1 > \mu_0$:
+	\[
+		\Lambda(\mathbf{x}) = \exp\left\{\frac{(\mu_1 - \mu_0)}{\sigma^2}\sum x_i -
+		\frac{n(\mu_1^2 - \mu_0^2)}{2\sigma^2}\right\}
+	\]
+
+	$\Lambda(\mathbf{x}) > k$ equivale a $\bar{x} > c$ para algún $c$. El test
+	MP rechaza cuando $\bar{X} > \mu_0 + z_{1-\alpha} \cdot \frac{\sigma}{\sqrt{n}}$.
+\end{example}
+
+% -----------------------------------------------------------------------------
+\subsection{Tests Uniformemente Más Potentes}
+\label{sec:ch4-ump}
+% -----------------------------------------------------------------------------
+
+\begin{definition}[Test UMP]
+	\label{def:ch4-ump}
+	Una función de decisión $\delta^*$ es \emph{uniformemente más potente} (UMP) de nivel $\alpha$ si:
+	\begin{enumerate}
+		\item $\sup_{\theta \in \ParamSpace_0} \E_\theta[\delta^*] \leq \alpha$
+		\item Para todo $\theta \in \ParamSpace_1$ y todo test $\delta$ de nivel $\alpha$:
+		      $\E_\theta[\delta^*] \geq \E_\theta[\delta]$
+	\end{enumerate}
+\end{definition}
+
+Esta definición prepara el terreno para el resultado central que sigue.
+
+\begin{theorem}[Existencia de UMP en Familias MLR]
+	\label{thm:ch4-mlr}
+	Sea $\mathcal{P}$ una familia con \emph{cociente de verosimilitudes monótono}
+	(MLR) en $T(X)$:
+	\[
+		\frac{f(x|\theta_2)}{f(x|\theta_1)} \text{ es no decreciente en } T(x)
+		\text{ para } \theta_2 > \theta_1
+	\]
+
+	Para $H_0: \theta \leq \theta_0$ versus $H_1: \theta > \theta_0$, el test
+	UMP de nivel $\alpha$ rechaza cuando $T(X) > c$, donde $c$ satisface
+	$P_{\theta_0}(T > c) = \alpha$.
+\end{theorem}
+
+\begin{proofsketch}
+	Para cada $\theta_1 > \theta_0$, el test de Neyman-Pearson rechaza para
+	$\Lambda(x)$ grande, que por MLR equivale a $T(x)$ grande. Como la región
+	crítica $\{T > c\}$ no depende de $\theta_1$, el mismo test es MP para
+	todos los $\theta_1 > \theta_0$.
+
+	Ver \citet{lehmann2005testing}, Capítulo 3. \verdem{dem:ch4-mlr}
+\end{proofsketch}
+
+\begin{corollary}
+	\label{cor:ch4-exp-mlr}
+	Las familias exponenciales de un parámetro tienen MLR en el estadístico
+	natural, y admiten tests UMP para hipótesis unilaterales.
+\end{corollary}
+
+% -----------------------------------------------------------------------------
+\subsection{Tests UMPU}
+\label{sec:ch4-umpu}
+% -----------------------------------------------------------------------------
+
+Para hipótesis bilaterales, típicamente no existen tests UMP.
+
+\begin{definition}[Test Insesgado y UMPU]
+	\label{def:ch4-umpu}
+	Una función de decisión $\delta$ de nivel $\alpha$ es \emph{insesgada} si
+	$\beta_\delta(\theta) \geq \alpha$ para todo $\theta \in \ParamSpace_1$.
+
+	Una función de decisión $\delta^*$ es \emph{UMPU} si es UMP dentro de la clase de tests
+	insesgados de nivel $\alpha$.
+\end{definition}
+
+Esta definición prepara el terreno para el resultado central que sigue.
+
+\begin{theorem}[UMPU para Hipótesis Bilateral]
+	\label{thm:ch4-umpu}
+	Sea $f(x|\theta) = c(\theta) h(x) \exp\{\eta(\theta) T(x)\}$ con $\eta(\theta)$
+	estrictamente creciente. Para $H_0: \theta = \theta_0$ vs $H_1: \theta \neq \theta_0$,
+	la función de decisión UMPU de nivel $\alpha$ rechaza cuando $T(x) < c_1$ o $T(x) > c_2$,
+	donde $c_1, c_2$ se determinan por las condiciones de nivel e insesgadez.
+\end{theorem}
+
+% -----------------------------------------------------------------------------
+\subsection{Dualidad Test-Intervalo de Confianza}
+\label{sec:ch4-dualidad}
+% -----------------------------------------------------------------------------
+
+\begin{definition}[Intervalo de Confianza]
+	\label{def:ch4-ic}
+	Un \emph{intervalo de confianza} de nivel $1-\alpha$ para $\theta$ es un
+	intervalo aleatorio $[L(X), U(X)]$ tal que:
+	\[
+		P_\theta(\theta \in [L(X), U(X)]) \geq 1 - \alpha \quad \forall \theta \in \ParamSpace
+	\]
+\end{definition}
+
+Esta definición prepara el terreno para el resultado central que sigue.
+
+\begin{theorem}[Inversión de Tests]
+	\label{thm:ch4-inversion}
+	Sea $\{\delta_{\theta_0} : \theta_0 \in \ParamSpace\}$ una familia de funciones
+	de decisión de nivel $\alpha$ para $H_0: \theta = \theta_0$. Entonces:
+	\[
+		C(X) = \{\theta_0 : \delta_{\theta_0}(X) = 0\}
+	\]
+	es una región de confianza de nivel $1-\alpha$.
+\end{theorem}
+
+La demostración que sigue hace explícitas las condiciones bajo las cuales
+el resultado es válido, conectándolo con el marco del isomorfismo.
+
+\begin{proof}
+	Para cualquier $\theta^* \in \ParamSpace$:
+	\[
+		P_{\theta^*}(\theta^* \in C(X)) = P_{\theta^*}(\delta_{\theta^*}(X) = 0)
+		= 1 - P_{\theta^*}(\delta_{\theta^*}(X) = 1) \geq 1 - \alpha
+	\]
+	ya que $\delta_{\theta^*}$ tiene nivel $\alpha$ para $H_0: \theta = \theta^*$.
+\end{proof}
+
+\begin{corollary}[IC a partir de Test Z]
+	\label{cor:ch4-ic-z}
+	Para $X_1, \ldots, X_n \overset{iid}{\sim} N(\mu, \sigma^2)$ con $\sigma^2$
+	conocida, invirtiendo el test bilateral de nivel $\alpha$:
+	\[
+		IC_{1-\alpha} = \left[\bar{X} - z_{1-\alpha/2} \cdot \frac{\sigma}{\sqrt{n}}, \,
+			\bar{X} + z_{1-\alpha/2} \cdot \frac{\sigma}{\sqrt{n}}\right]
+	\]
+\end{corollary}
+
+% -----------------------------------------------------------------------------
+\subsection{Múltiples Comparaciones}
+\label{sec:ch4-multiples}
+% -----------------------------------------------------------------------------
+
+Cuando se realizan múltiples tests, la probabilidad de al menos un error
+Tipo I aumenta.
+
+\begin{definition}[FWER y FDR]
+	\label{def:ch4-fwer-fdr}
+	El \emph{Family-Wise Error Rate} es:
+	\[
+		\text{FWER} = P(\text{al menos un falso positivo})
+	\]
+
+	Sea $V$ el número de falsos positivos y $R$ el total de rechazos. El
+	\emph{False Discovery Rate} es:
+	\[
+		\text{FDR} = \E\left[\frac{V}{R \vee 1}\right]
+	\]
+\end{definition}
+
+La proposición siguiente caracteriza las consecuencias inmediatas de esta definición.
+
+\begin{proposition}[Problema de Multiplicidad]
+	\label{prop:ch4-multiplicidad}
+	Si se realizan $m$ tests independientes de nivel $\alpha$, y todas las
+	$H_0$ son verdaderas:
+	\[
+		\text{FWER} = 1 - (1-\alpha)^m \approx m\alpha \text{ para } \alpha \text{ pequeño}
+	\]
+\end{proposition}
+
+El siguiente resultado extiende la proposición anterior a un contexto más general.
+
+\begin{theorem}[Corrección de Bonferroni]
+	\label{thm:ch4-bonferroni}
+	Sean $p_1, p_2, \ldots, p_m$ los p-valores observados en los $m$ tests
+	individuales, donde $p_i = P_{\theta \in \ParamSpace_0}(T_i \geq t_i^{\text{obs}})$
+	es la probabilidad, bajo $H_{0,i}$, de obtener un estadístico tan o más
+	extremo que el observado $t_i^{\text{obs}}$ en el $i$-ésimo test.
+	Para controlar FWER $\leq \alpha$ en los $m$ tests, se rechaza $H_{0,i}$
+	solo si $p_i \leq \alpha/m$.
+\end{theorem}
+
+La demostración que sigue hace explícitas las condiciones bajo las cuales
+el resultado es válido, conectándolo con el marco del isomorfismo.
+
+\begin{proof}
+	Por la desigualdad de Boole:
+	\[
+		\text{FWER} = P\left(\bigcup_{i \in I_0} \{p_i \leq \alpha/m\}\right)
+		\leq \sum_{i \in I_0} P(p_i \leq \alpha/m) = |I_0| \cdot \frac{\alpha}{m} \leq \alpha
+	\]
+	donde $I_0$ es el conjunto de hipótesis nulas verdaderas.
+\end{proof}
+
+\begin{example}[Pruebas Múltiples en SSCH con Corrección de Bonferroni]
+\label{ex:ch4-bonferroni-ssch}
+En el Sistema de Soporte Clínico para Hipertensión, queremos comparar la efectividad de 4 tratamientos diferentes ($m=4$). Para cada tratamiento, probamos:
+\begin{itemize}
+	\item $H_{0,i}$: El tratamiento $i$ no mejora la presión arterial
+	\item $H_{1,i}$: El tratamiento $i$ mejora la presión arterial
+	      \end{itemize}
+
+\textbf{Valores p observados:}
+\begin{itemize}
+	\item Tratamiento 1: $p_1 = 0.03$
+	\item Tratamiento 2: $p_2 = 0.01$
+	\item Tratamiento 3: $p_3 = 0.08$
+	\item Tratamiento 4: $p_4 = 0.04$
+\end{itemize}
+
+\textbf{Sin corrección ($\alpha = 0.05$):}
+\begin{itemize}
+	\item Rechazamos $H_{0,1}$, $H_{0,2}$, $H_{0,4}$ (todos con $p < 0.05$)
+	\item FWER $\approx 1 - (1-0.05)^4 = 0.185$ (18.5\% de probabilidad de al menos un falso positivo)
+\end{itemize}
+
+\textbf{Con corrección de Bonferroni ($\alpha/m = 0.0125$):}
+\begin{itemize}
+	\item Solo rechazamos $H_{0,2}$ (único con $p < 0.0125$)
+	\item FWER $\leq 0.05$ (controlado)
+\end{itemize}
+
+\textbf{Interpretación:} Sin corrección, concluiríamos erróneamente que 3 tratamientos son efectivos. Con Bonferroni, solo el tratamiento 2 (con el valor p más pequeño) se considera significativo, protegiéndonos contra falsos positivos.
+\end{example}
+
+El ejemplo motiva la formalización que sigue.
+
+\begin{theorem}[Procedimiento de Holm]
+	\label{thm:ch4-holm}
+	Sea $p_{(1)} \leq p_{(2)} \leq \cdots \leq p_{(m)}$ los p-valores ordenados.
+	El procedimiento de Holm:
+	\begin{enumerate}
+		\item Sea $k = \min\{i : p_{(i)} > \alpha/(m-i+1)\}$
+		\item Rechazar $H_{0,(1)}, \ldots, H_{0,(k-1)}$
+	\end{enumerate}
+	Controla FWER $\leq \alpha$ y es uniformemente más potente que Bonferroni.
+\end{theorem}
+
+Mientras que el teorema previo establece existencia, el siguiente garantiza unicidad.
+
+\begin{theorem}[Benjamini-Hochberg para FDR]
+	\label{thm:ch4-bh}
+	Sea $p_{(1)} \leq \cdots \leq p_{(m)}$ los p-valores ordenados. Definir:
+	\[
+		k = \max\left\{i : p_{(i)} \leq \frac{i \cdot \alpha}{m}\right\}
+	\]
+	Rechazar $H_{0,(1)}, \ldots, H_{0,(k)}$. Este procedimiento controla
+	FDR $\leq \alpha$ bajo independencia o dependencia positiva (PRDS).
+\end{theorem}
+
+\begin{proofsketch}
+	La demostración de \citet{benjamini1995controlling} procede por inducción
+	sobre el número de hipótesis nulas verdaderas, mostrando
+	$\E[V/R] \leq m_0 \alpha / m \leq \alpha$ donde $m_0$ es el número de
+	nulas verdaderas. \verdem{dem:ch4-bh}
+\end{proofsketch}
+
+% -----------------------------------------------------------------------------
+\subsection{Conexión con Teoría de Decisión de Wald}
+\label{sec:ch4-wald}
+% -----------------------------------------------------------------------------
+
+\begin{proposition}[Test como Regla de Decisión]
+	\label{prop:ch4-test-decision}
+	Un test de $H_0$ vs $H_1$ es una regla de decisión
+	$\decrule: \SampleSpace \to \{a_0, a_1\}$ con pérdida 0-1 ponderada:
+	\[
+		\Loss(\theta, a) = \begin{cases}
+			0      & \text{si } \theta \in \ParamSpace_0 \text{ y } a = a_0                         \\
+			0      & \text{si } \theta \in \ParamSpace_1 \text{ y } a = a_1                         \\
+			w_I    & \text{si } \theta \in \ParamSpace_0 \text{ y } a = a_1 \text{ (Error Tipo I)}  \\
+			w_{II} & \text{si } \theta \in \ParamSpace_1 \text{ y } a = a_0 \text{ (Error Tipo II)}
+		\end{cases}
+	\]
+\end{proposition}
+
+La identificación de la Proposición~\ref{prop:ch4-test-decision} no es
+meramente notacional: coloca los tests de hipótesis dentro del marco unificado
+de Wald que desarrollaremos en el Capítulo~\ref{ch:wald}. En ese marco,
+una \emph{regla de decisión} $\delta: \mathcal{X} \to \mathcal{A}$ se evalúa
+por su \emph{riesgo}:
+\[
+	R(\theta, \delta) = \E_\theta[\Loss(\theta, \delta(X))].
+\]
+Para la función de pérdida 0-1 ponderada de la proposición anterior, el riesgo
+descompone exactamente en los dos tipos de error:
+\[
+	R(\theta, \delta) = \begin{cases}
+		w_I \cdot \beta_\delta(\theta)       & \theta \in \ParamSpace_0 \\
+		w_{II} \cdot (1 - \beta_\delta(\theta)) & \theta \in \ParamSpace_1
+	\end{cases}
+\]
+Minimizar el riesgo bajo $H_0$ es minimizar el error Tipo~I; maximizar el
+poder bajo $H_1$ es minimizar el error Tipo~II. El Lema de Neyman-Pearson
+(Teorema~\ref{thm:ch4-neyman-pearson}) resuelve precisamente este problema
+para hipótesis simples: la función de decisión $\delta^*$ basada en el cociente
+$\Lambda(x)$ es admisible ---no puede mejorarse simultáneamente en ambos tipos
+de error--- y minimiza el riesgo bayes bajo cualquier prior que asigne masa
+positiva a $\theta_0$ y $\theta_1$.
+
+\textbf{Riesgo de Bayes y nivel de significancia.} Cuando se impone un prior
+$(\pi_0, \pi_1) = (P(\theta \in \ParamSpace_0), P(\theta \in \ParamSpace_1))$,
+el riesgo de Bayes de $\delta$ es:
+\[
+	r(\pi, \delta) = \pi_0 \, w_I \, \beta_\delta(\theta_0)
+	+ \pi_1 \, w_{II} \, (1 - \beta_\delta(\theta_1)).
+\]
+La regla de Bayes óptima rechaza $H_0$ cuando
+$\Lambda(x) > \frac{\pi_0 \, w_I}{\pi_1 \, w_{II}}$, recuperando la forma
+del Lema de Neyman-Pearson con $k = \pi_0 w_I / (\pi_1 w_{II})$. El nivel
+frecuentista $\alpha$ puede interpretarse, en este lenguaje, como la cota
+máxima que el decisor tolera para el riesgo bajo $H_0$: fijar $\alpha$ equivale
+a imponer una restricción de desigualdad sobre el riesgo parcial del Error
+Tipo~I.
+
+\textbf{Enlace con decisiones secuenciales.} La formulación de Wald anticipa
+naturalmente el problema de \emph{cuándo decidir}. Un agente que acumula
+observaciones $X_1, X_2, \ldots$ puede, en cada paso $n$, elegir entre tres
+acciones: aceptar $H_0$, rechazar $H_0$, o continuar recolectando datos.
+Esta es la estructura del \emph{Sequential Probability Ratio Test} (SPRT) de
+Wald (1945): en cada instante $n$, el agente evalúa el cociente acumulado
+$\Lambda_n = \prod_{i=1}^n \frac{f(X_i|\theta_1)}{f(X_i|\theta_0)}$ y aplica
+la regla:
+\[
+	\delta_n(X_1,\ldots,X_n) = \begin{cases}
+		a_1       & \text{si } \Lambda_n \geq B \\
+		a_0       & \text{si } \Lambda_n \leq A \\
+		\text{continuar} & \text{si } A < \Lambda_n < B
+	\end{cases}
+\]
+donde los umbrales $A \approx \beta/(1-\alpha)$ y $B \approx (1-\beta)/\alpha$
+se eligen para controlar simultáneamente los errores Tipo~I y Tipo~II. El SPRT
+es óptimo en el sentido de minimizar el tamaño de muestra esperado entre todas
+las reglas que controlan ambos errores al nivel prescrito. Este resultado
+conecta el presente capítulo con el Capítulo~\ref{ch:wald}, donde la teoría
+de decisión de Wald formaliza el problema de parada óptima, y con el
+Capítulo~\ref{ch:asintotica}, donde los tests basados en $\Lambda_n$
+tienen distribución asintótica conocida bajo condiciones de regularidad para
+cadenas de Markov. Para el diseñador de agentes, el SPRT es el prototipo
+de una política de exploración eficiente: recolecta exactamente los datos
+necesarios para decidir con las garantías prescritas.
+
+% -----------------------------------------------------------------------------
+\subsection{Tests de Hipótesis Bayesianos}
+\label{sec:ch4-bayes}
+% -----------------------------------------------------------------------------
+
+El paradigma frecuentista fija $\alpha$ antes de observar los datos y controla
+el error Tipo~I en el largo plazo. El paradigma bayesiano aborda el mismo problema
+desde otra dirección: dado el posterior $\pi(\theta|x)$, ¿cuánta evidencia aportan
+los datos en favor de $H_1$ frente a $H_0$? La respuesta se codifica en el
+\emph{factor de Bayes}, que puede interpretarse como la actualización multiplicativa
+que los datos producen sobre la razón de probabilidades a priori.
+
+\begin{definition}[Factor de Bayes]
+  \label{def:ch4-bayes-factor}
+  Sean $H_0: \theta \in \Theta_0$ y $H_1: \theta \in \Theta_1$ hipótesis
+  mutuamente excluyentes y exhaustivas, con priors marginales $\pi_0 = P(\theta
+  \in \Theta_0)$ y $\pi_1 = 1 - \pi_0$. El \emph{factor de Bayes} a favor de $H_1$
+  sobre $H_0$ es:
+  \[
+    \BF_{10}(x) \;=\; \frac{m_1(x)}{m_0(x)},
+    \qquad
+    m_j(x) = \int_{\Theta_j} f(x|\theta)\,\pi(\theta|H_j)\,d\theta,
+  \]
+  donde $m_j$ es la verosimilitud marginal (evidencia) bajo $H_j$ y
+  $\pi(\theta|H_j)$ es el prior sobre $\theta$ condicional a $H_j$.
+
+  Equivalentemente, el factor de Bayes actualiza las razones de probabilidad:
+  \[
+    \underbrace{\frac{P(H_1|x)}{P(H_0|x)}}_{\text{razón posterior}}
+    \;=\; \BF_{10}(x) \;\times\;
+    \underbrace{\frac{\pi_1}{\pi_0}}_{\text{razón a priori}}.
+  \]
+\end{definition}
+
+El siguiente ejemplo aclara la definición con un caso concreto.
+
+\begin{example}[Factor de Bayes en el SSCH: Comparación de dos tratamientos]
+\label{ex:ch4-bf-ssch}
+En el SSCH, el agente debe decidir si el tratamiento $A$ (nuevo) supera al
+tratamiento $B$ (estándar) en términos de la probabilidad de transición al estado
+de salud $s_3$ (controlado). Sean $y_A \sim \text{Binomial}(n_A, p_A)$ y
+$y_B \sim \text{Binomial}(n_B, p_B)$ los conteos de pacientes que alcanzan $s_3$.
+Bajo priors $\text{Beta}(\alpha_0, \beta_0)$ independientes para $p_A$ y $p_B$, y
+la hipótesis $H_0: p_A \leq p_B$ vs.\ $H_1: p_A > p_B$, el factor de Bayes admite
+una expresión cerrada que puede calcularse en $O(1)$ por observación. Con
+$n_A = n_B = 50$, $y_A = 32$, $y_B = 20$ y priors uniformes, $\BF_{10} \approx
+12.4$, lo que constituye evidencia ``fuerte'' según la escala de
+Jeffreys~\cite{kass1995bayes} a favor de la superioridad del tratamiento $A$.
+\end{example}
+
+La siguiente proposición desarrolla este punto.
+
+\begin{proposition}[Regla de Bayes para contraste de hipótesis con pérdida 0--1]
+\label{thm:ch4-bayes-decision}
+Bajo la función de pérdida 0--1 con costos asimétricos $w_I$ y $w_{II}$, la
+regla de Bayes rechaza $H_0$ si y solo si:
+\[
+  \BF_{10}(x) \;>\; \frac{w_I}{w_{II}} \cdot \frac{\pi_0}{\pi_1}.
+\]
+En particular, si $w_I = w_{II}$ y $\pi_0 = \pi_1 = 1/2$, se rechaza $H_0$ cuando
+$\BF_{10} > 1$, es decir, cuando los datos favorecen a $H_1$ sobre $H_0$.
+\end{proposition}
+
+\begin{proofsketch}
+La pérdida esperada posterior de aceptar $H_0$ es $w_{II} \cdot P(H_1|x)$; la
+de rechazar $H_0$ es $w_I \cdot P(H_0|x)$. La regla de Bayes elige la acción con
+menor pérdida esperada, lo que conduce directamente a la desigualdad.
+\end{proofsketch}
+
+\begin{exercise}[Factor de Bayes para el SSCH]
+\label{ex:ch4-ej-bf}
+Utilizando los datos del ejemplo anterior y priors $\text{Beta}(1,1)$:
+\begin{enumerate}[label=(\alph*)]
+  \item Calcule el factor de Bayes $\BF_{10}$ para $H_1: p_A > p_B$ vs.\
+        $H_0: p_A \leq p_B$.
+  \item Si la pérdida por error Tipo~I (adoptar un tratamiento inferior) es 5
+        veces la del error Tipo~II (no detectar uno superior), ¿rechazaría $H_0$?
+  \item Compare su decisión con la que obtendría usando un test frecuentista
+        de una cola con $\alpha = 0.05$.
+\end{enumerate}
+\end{exercise}
+
+% =============================================================================
+% SECCIÓN 3: APLICACIÓN A AGENTES
+% =============================================================================
+
+\section{Aplicación Conceptual a Agentes Inteligentes}
+\label{sec:ch4-langgraph}
+
+% -----------------------------------------------------------------------------
+\subsection{A/B Testing de Políticas}
+\label{sec:ch4-ab-testing}
+% -----------------------------------------------------------------------------
+
+El marco de tests proporciona la metodología rigurosa para comparar políticas:
+\[
+	H_0: \Value^{\policy_1}(s) \leq \Value^{\policy_0}(s) \quad \text{vs} \quad
+	H_1: \Value^{\policy_1}(s) > \Value^{\policy_0}(s)
+\]
+
+\textbf{Control del Error Tipo I.} Rechazar $H_0$ erróneamente significa
+adoptar una política peor. El nivel $\alpha$ controla esta probabilidad
+de «falsa mejora».
+
+\textbf{Poder y Error Tipo II.} No rechazar cuando $\policy_1$ es
+genuinamente mejor significa perder una oportunidad. El poder $1-\beta$
+cuantifica la capacidad de detectar mejoras reales.
+
+\textbf{Balance $\alpha$-$\beta$.} La elección refleja las prioridades:
+estabilidad (bajo $\alpha$) versus adaptabilidad (alto poder).
+
+% -----------------------------------------------------------------------------
+\subsection{Intervalos de Confianza para Diferencias de Valor}
+\label{sec:ch4-ic-delta}
+% -----------------------------------------------------------------------------
+
+La dualidad test-IC permite construir IC para:
+\[
+	\Delta \Value(s) = \Value^{\policy_1}(s) - \Value^{\policy_0}(s)
+\]
+
+\textbf{Interpretación operacional.} Si el IC es $[L, U]$:
+\begin{itemize}
+	\item $L > 0$: evidencia de que $\policy_1$ es mejor
+	\item $U < 0$: evidencia de que $\policy_0$ es mejor
+	\item $0 \in [L, U]$: no hay evidencia suficiente
+\end{itemize}
+
+El ancho del IC refleja la incertidumbre en la comparación.
+
+% -----------------------------------------------------------------------------
+\subsection{Comparación de Múltiples Políticas}
+\label{sec:ch4-multiples-politicas}
+% -----------------------------------------------------------------------------
+
+Con $k > 2$ políticas candidatas, surge el problema de multiplicidad.
+
+\textbf{Control FWER (Bonferroni, Holm).} Apropiado cuando cualquier
+falso positivo tiene consecuencias graves. Agente conservador.
+
+\textbf{Control FDR (Benjamini-Hochberg).} Apropiado cuando se toleran
+algunos falsos positivos a cambio de mayor poder. Agente exploratorio.
+
+\textbf{Procedimiento BH en agentes.} Para evaluar muchas variantes
+(hiperparámetros, arquitecturas), el control FDR permite identificar
+múltiples mejoras sin inflación excesiva de errores.
+
+En el contexto del SSCH, los dos paradigmas son complementarios. El agente puede
+adoptar una perspectiva \emph{frecuentista-secuencial}: acumular trayectorias y
+controlar el error Tipo~I mediante tests de Wald o tests de rango secuenciales
+(sequential probability ratio tests, SPRT), garantizando que la probabilidad de
+declarar efectivo un tratamiento inútil no supere $\alpha$ independientemente de
+cuándo se detiene la recolección. Alternativamente, el agente puede adoptar una
+perspectiva \emph{bayesiana}: mantener en el estado interno los hiperparámetros
+del posterior sobre las tasas de transición ---como aprendimos en el
+Capítulo~\ref{ch:inferencia-basica}--- y calcular el factor de Bayes
+(Definición~\ref{def:ch4-bayes-factor}) en cada consulta médica, decidiendo adoptar
+el tratamiento cuando $\BF_{10}$ supera el umbral dictado por la pérdida asimétrica
+$w_I/w_{II}$ (Teorema~\ref{thm:ch4-bayes-decision}). Esta arquitectura bayesiana
+es $O(1)$ por observación y no requiere fijar $\alpha$ a priori, lo que la hace
+especialmente adecuada para agentes que operan en tiempo real con recursos
+computacionales limitados \verlanggraph.
+
+% -----------------------------------------------------------------------------
+\subsection*{Hilo longitudinal: SSCH}
+% -----------------------------------------------------------------------------
+
+\begin{example}[SSCH --- ¿Es la Medicación Estadísticamente Superior al Cambio de Estilo de Vida?]
+	\label{ex:ssch-cap04}
+
+	Con los estimadores del Ejemplo~\ref{ex:ssch-cap03}, contrastamos las
+	políticas $\pi_3$ (IECA en todos los estados) y $\pi_2$ (solo estilo
+	de vida) para pacientes en HTA-1.
+
+	\textbf{Test de hipótesis.}
+	\[
+		H_0: V^{\pi_3}(s_3) = V^{\pi_2}(s_3) \quad\text{vs}\quad
+		H_1: V^{\pi_3}(s_3) > V^{\pi_2}(s_3).
+	\]
+	Por la normalidad asintótica de $\hat{V}^\pi$ (Capítulo~\ref{ch:asintotica}):
+	\[
+		Z = \frac{\hat{V}^{\pi_3}(s_3) - \hat{V}^{\pi_2}(s_3)}{\hat\sigma_{\mathrm{diff}}}
+		\xrightarrow{d} N(0,1) \text{ bajo } H_0.
+	\]
+	Con $n=200$: $\hat{V}^{\pi_3}=4.82$, $\hat{V}^{\pi_2}=3.91$,
+	$\hat\sigma_{\mathrm{diff}}=0.38$, $Z = 2.39$, $p$\mbox{-valor} $= 0.008$.
+	Rechazamos $H_0$ al nivel $\alpha = 0.05$.
+
+	\textbf{Intervalo de confianza.} Por la dualidad test-IC
+	(Teorema~\ref{thm:ch4-inversion}), el IC 95\,\% para la diferencia es
+	$[0.91 - 1.96 \times 0.38,\; 0.91 + 1.96 \times 0.38] = [0.16, 1.66]$;
+	el cero está excluido.
+
+	\textbf{Comparación de las cuatro políticas.} Al comparar $\pi_1,\ldots,\pi_4$
+	con $\binom{4}{2} = 6$ tests simultáneos, aplicamos Benjamini-Hochberg
+	con $q = 0.10$. Las comparaciones que involucran $\pi_4$ en $s_1$ y $s_2$
+	no resultan significativas (la terapia intensiva es excesiva en estados
+	leves), mientras que en $s_4$ y $s_5$ sí lo son.
+\end{example}
+
+% -----------------------------------------------------------------------------
+\subsection{Trazabilidad: Del Teorema al Componente}
+\label{sec:ch4-trazabilidad}
+% -----------------------------------------------------------------------------
+
+\begin{table}[htbp]
+	\centering
+	\caption{Trazabilidad Capítulo~\ref{ch:tests}: Teorema $\to$ Componente del Agente}
+	\label{tab:ch4-trazabilidad}
+	\begin{tabular}{@{}p{4.5cm}p{5.5cm}p{3cm}@{}}
+		\toprule
+		\textbf{Resultado Teórico}                                          & \textbf{Componente del Agente} & \textbf{Garantía} \\
+		\midrule
+		Neyman-Pearson (Thm.~\ref{thm:ch4-neyman-pearson})                  &
+		Regla óptima para comparar 2 políticas                              & Máximo poder                                       \\
+		Test UMP (Thm.~\ref{thm:ch4-mlr})                                   &
+		Detección de mejoras unilaterales                                   & UMP garantizado                                    \\
+		Dualidad Test-IC (Thm.~\ref{thm:ch4-inversion})                     &
+		IC para diferencias de valor                                        & Cobertura $1-\alpha$                               \\
+		Bonferroni/Holm (Thms.~\ref{thm:ch4-bonferroni},\ref{thm:ch4-holm}) &
+		Control FWER en comparaciones múltiples                             & Sin falsos positivos                               \\
+		Benjamini-Hochberg (Thm.~\ref{thm:ch4-bh})                          &
+		Selección entre muchas políticas                                    & Control FDR                                        \\
+		Función de potencia (Def.~\ref{def:ch4-potencia})                   &
+		Evaluación de capacidad de detección                                & Poder cuantificado                                 \\
+		\bottomrule
+	\end{tabular}
+\end{table}
+
+\subsection*{Conexión con el Capítulo~\ref{ch:asintotica}}
+
+Hemos completado el programa de tests de hipótesis: el Lema de Neyman-Pearson
+nos da el test más potente para hipótesis simples; los teoremas sobre tests UMP
+y UMPU extienden este resultado a hipótesis compuestas; la dualidad test-intervalo
+de confianza revela que ambos objetos son matemáticamente equivalentes; y los
+factores de Bayes ofrecen una alternativa bayesiana natural para agentes que
+actualizan sus creencias en tiempo real. Pero todos estos resultados comparten
+una limitación: su validez exacta depende de supuestos distribucionales que la
+práctica rara vez satisface plenamente. En el diseño de agentes, los modelos son
+complejos, los horizontes son largos y las distribuciones de las trayectorias no
+tienen forma cerrada.
+
+El Capítulo~\ref{ch:asintotica} aborda esta limitación con la teoría asintótica.
+El Teorema Central del Límite ---en su versión clásica y en su extensión funcional
+de Donsker--- establece la convergencia a un proceso gaussiano cuando el número de
+observaciones crece. El Delta Method propaga esta convergencia a través de
+transformaciones suaves, permitiendo derivar la distribución asintótica de
+funcionales no lineales de estimadores. El Bootstrap de Efron completa el tríptico
+como alternativa computacional cuando la distribución exacta del Delta Method es
+intractable.
+
+Para el agente inteligente, esta transición es esencial. Las funciones de valor
+$\Value^\policy$ son funcionales de distribuciones de trayectorias que exhiben
+dependencia temporal: la observación en el paso $t$ no es independiente de la del
+paso $t+1$. Las condiciones de mixing que estudiaremos en el
+Capítulo~\ref{ch:asintotica} son exactamente las hipótesis bajo las cuales el CLT
+se extiende a cadenas de Markov ---y que necesitaremos de nuevo en el
+Capítulo~\ref{ch:inferencia} para construir intervalos de confianza válidos para
+$\Value^\pi$ con datos observacionales. El test de razón de verosimilitudes, el
+lema de Neyman-Pearson y los factores de Bayes convergen asintóticamente: cuando
+$n \to \infty$, el test de Wald, el test score y el LRT son equivalentes, y
+$\BF_{10}$ bajo priors locales converge a una función del LRT. Esta convergencia
+de paradigmas es una de las lecciones más profundas de la estadística moderna.
+
+El lector que complete el Capítulo~\ref{ch:asintotica} comprenderá que la teoría
+asintótica no es una aproximación conveniente, sino una extensión necesaria de la
+inferencia exacta a los regímenes donde los modelos son complejos y los datos son
+dependientes ---el mundo real de los agentes inteligentes.
+
+% =============================================================================
+% SECCIÓN 4: EJERCICIOS
+% =============================================================================
+
+\section{Ejercicios}
+\label{sec:ch4-ejercicios}
+
+\begin{exercise}[Lema de Neyman-Pearson]
+	\label{ex:ch4-ej1}
+	Sea $X \sim \text{Exponencial}(\lambda)$. Para $H_0: \lambda = 1$ vs
+	$H_1: \lambda = 2$:
+	\begin{enumerate}[label=(\alph*)]
+		\item Derive el cociente de verosimilitudes $\Lambda(x)$.
+		\item Muestre que el test MP rechaza para $X < c$.
+		\item Encuentre $c$ para nivel $\alpha = 0.05$.
+		\item Calcule el poder del test.
+	\end{enumerate}
+\end{exercise}
+
+\begin{exercise}[Test UMP]
+	\label{ex:ch4-ej2}
+	Sea $X_1, \ldots, X_n \overset{iid}{\sim} \text{Poisson}(\lambda)$.
+	\begin{enumerate}[label=(\alph*)]
+		\item Muestre que la familia tiene MLR en $T = \sum X_i$.
+		\item Derive el test UMP de nivel $\alpha$ para $H_0: \lambda \leq \lambda_0$
+		      vs $H_1: \lambda > \lambda_0$.
+		\item ¿Existe un test UMP para $H_0: \lambda = \lambda_0$ vs
+		      $H_1: \lambda \neq \lambda_0$? Justifique.
+	\end{enumerate}
+\end{exercise}
+
+\begin{exercise}[Dualidad Test-IC]
+	\label{ex:ch4-ej3}
+	Para $X_1, \ldots, X_n \overset{iid}{\sim} N(\mu, \sigma^2)$ con $\sigma^2$
+	desconocida:
+	\begin{enumerate}[label=(\alph*)]
+		\item Derive el test t de nivel $\alpha$ para $H_0: \mu = \mu_0$.
+		\item Use inversión de tests para derivar el IC $1-\alpha$ para $\mu$.
+		\item Verifique que este es el IC t clásico.
+	\end{enumerate}
+\end{exercise}
+
+\begin{exercise}[Múltiples Comparaciones]
+	\label{ex:ch4-ej4}
+	Un agente compara 10 políticas contra una base. Los p-valores son:
+	0.001, 0.01, 0.02, 0.03, 0.04, 0.06, 0.08, 0.12, 0.25, 0.50.
+	\begin{enumerate}[label=(\alph*)]
+		\item Aplique Bonferroni con $\alpha = 0.05$. ¿Cuáles rechaza?
+		\item Aplique Holm. ¿Cuáles rechaza?
+		\item Aplique Benjamini-Hochberg. ¿Cuáles rechaza?
+		\item Compare los resultados e interprete para el agente.
+	\end{enumerate}
+\end{exercise}
+
+\begin{exercise}[Diseño de Poder]
+	\label{ex:ch4-ej5}
+	Un agente quiere detectar una diferencia $\Delta \Value = 0.5$ entre
+	políticas, con $\sigma = 2$, nivel $\alpha = 0.05$ y poder $1-\beta = 0.80$.
+	\begin{enumerate}[label=(\alph*)]
+		\item Calcule el tamaño de efecto $\delta = \Delta \Value / \sigma$.
+		\item Calcule el tamaño de muestra necesario por grupo.
+		\item Si solo puede recolectar $n = 50$ trayectorias por política,
+		      ¿cuál es el poder real?
+		\item ¿Qué $\Delta \Value$ mínimo puede detectar con $n = 50$ y
+		      poder 0.80?
+	\end{enumerate}
+\end{exercise}
+
+% =============================================================================
+% SECCIÓN 5: LECTURAS PROPUESTAS
+% =============================================================================
+
+\section{Lecturas Propuestas}
+\label{sec:ch4-lecturas}
+
+\subsection*{Lecturas Obligatorias}
+
+\begin{enumerate}
+	\item \textbf{\citet{lehmann2005testing}}, \emph{Testing Statistical
+		      Hypotheses}, 3rd ed.
+	      \begin{itemize}
+		      \item Capítulo 3: Uniformly Most Powerful Tests
+		      \item Capítulo 4: Unbiasedness (UMPU)
+	      \end{itemize}
+
+	\item \textbf{\citet{casella2002statistical}}, \emph{Statistical Inference}, 2nd ed.
+	      \begin{itemize}
+		      \item Capítulo 8: Hypothesis Testing
+		      \item Capítulo 9: Interval Estimation
+	      \end{itemize}
+\end{enumerate}
+
+\subsection*{Lecturas Complementarias}
+
+\begin{enumerate}
+	\item \textbf{\citet{benjamini1995controlling}}, ``Controlling the False
+	      Discovery Rate,'' \emph{JRSS-B}.
+
+	\item \textbf{Holm, S.} (1979). ``A Simple Sequentially Rejective Multiple
+	      Test Procedure,'' \emph{Scand.\ J.\ Statist.}
+
+	\item \textbf{\citet{thomas2015high}}, ``High Confidence Off-Policy
+	      Evaluation,'' \emph{AAAI}.
+\end{enumerate}
+
+% =============================================================================
+% FIN DEL CAPÍTULO 4
+% =============================================================================

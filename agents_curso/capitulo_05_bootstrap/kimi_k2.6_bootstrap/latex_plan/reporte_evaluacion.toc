@@ -1,0 +1,32 @@
+\babel@toc {spanish}{}\relax 
+\contentsline {section}{\numberline {1}Introducción}{2}{section.1}%
+\contentsline {subsection}{\numberline {1.1}Objetivo Medible del Agente}{2}{subsection.1.1}%
+\contentsline {subsection}{\numberline {1.2}Arquitectura del Evaluador}{2}{subsection.1.2}%
+\contentsline {section}{\numberline {2}Descripción de los 22 Datasets}{2}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Categoría A: Distribuciones iid (7 datasets)}{2}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}Categoría B: Procesos AR(p) (4 datasets)}{3}{subsection.2.2}%
+\contentsline {subsection}{\numberline {2.3}Categoría C: Procesos MA(q) y ARMA (3 datasets)}{3}{subsection.2.3}%
+\contentsline {subsection}{\numberline {2.4}Categoría D: Procesos de mixing extremos (3 datasets)}{4}{subsection.2.4}%
+\contentsline {subsection}{\numberline {2.5}Categoría E: Escenarios RL realistas (3 datasets)}{4}{subsection.2.5}%
+\contentsline {subsection}{\numberline {2.6}Categoría F: Casos límite (2 datasets)}{5}{subsection.2.6}%
+\contentsline {section}{\numberline {3}Resultados de la Evaluación}{5}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Evaluación Monte Carlo de Cobertura (Fase 1)}{5}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}Evaluación del Diagnóstico de Mixing (Fase 2)}{5}{subsection.3.2}%
+\contentsline {subsection}{\numberline {3.3}Evaluación por Dataset (Fase 3)}{6}{subsection.3.3}%
+\contentsline {subsection}{\numberline {3.4}Métricas Globales}{6}{subsection.3.4}%
+\contentsline {subsection}{\numberline {3.5}Análisis de Fallas}{6}{subsection.3.5}%
+\contentsline {subsubsection}{\numberline {3.5.1}Datos con dependencia temporal (B8-B10, C12-C14, D16)}{6}{subsubsection.3.5.1}%
+\contentsline {subsubsection}{\numberline {3.5.2}Random Walk (D17)}{7}{subsubsection.3.5.2}%
+\contentsline {subsubsection}{\numberline {3.5.3}MDP correlacionado (E19)}{7}{subsubsection.3.5.3}%
+\contentsline {section}{\numberline {4}Mejoras Propuestas}{7}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Mejora 1: Detección Automática de Dependencia para el IC}{7}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Mejora 2: Bootstrap por Bloques con Selección Automática de $\ell $}{8}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3}Mejora 3: Umbral Adaptativo para el Diagnóstico de Mixing}{8}{subsection.4.3}%
+\contentsline {subsection}{\numberline {4.4}Mejora 4: IC Percentil-t como Predeterminado}{8}{subsection.4.4}%
+\contentsline {subsection}{\numberline {4.5}Mejora 5: Detección de No Estacionariedad}{8}{subsection.4.5}%
+\contentsline {subsection}{\numberline {4.6}Mejora 6: Descomposición de Varianza con Validación Cruzada}{9}{subsection.4.6}%
+\contentsline {subsection}{\numberline {4.7}Mejora 7: Catálogo de Datasets en el Propio Agente}{9}{subsection.4.7}%
+\contentsline {section}{\numberline {5}Conclusiones}{9}{section.5}%
+\contentsline {subsection}{\numberline {5.1}Estado del Agente}{9}{subsection.5.1}%
+\contentsline {subsection}{\numberline {5.2}Recomendaciones de Uso}{10}{subsection.5.2}%
+\contentsline {subsection}{\numberline {5.3}Líneas de Trabajo Futuro}{10}{subsection.5.3}%

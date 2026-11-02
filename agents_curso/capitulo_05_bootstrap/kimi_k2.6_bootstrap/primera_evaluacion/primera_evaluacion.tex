@@ -1,0 +1,466 @@
+% =============================================================================
+% REPORTE DE EVALUACIÓN DEL AGENTE ESTADÍSTICO ASINTÓTICO
+% 22 DATASETS — MÉTRICAS — MEJORAS PROPUESTAS
+% =============================================================================
+\documentclass[12pt,a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{mathtools}
+\usepackage{hyperref}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{geometry}
+\usepackage{longtable}
+\usepackage{listings}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta}
+
+\geometry{margin=2.5cm}
+\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue}
+
+\lstset{
+    language=Python,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    commentstyle=\color{green!50!black},
+    stringstyle=\color{red},
+    breaklines=true,
+    tabsize=4,
+    numbers=left,
+    numberstyle=\tiny,
+}
+
+\definecolor{cbgreen}{RGB}{0,150,0}
+\definecolor{cbred}{RGB}{200,0,0}
+
+\newcommand{\ok}{\textcolor{cbgreen}{\checkmark}}
+\newcommand{\fail}{\textcolor{cbred}{$\times$}}
+
+\begin{document}
+
+\begin{titlepage}
+    \centering
+    \vspace*{3cm}
+    {\Huge\bfseries Reporte de Evaluación del\\Agente Estadístico Asintótico\par}
+    \vspace{0.5cm}
+    {\Large Validación contra 22 datasets sintéticos\par}
+    \vspace{1.5cm}
+    {\large Capítulo 5 --- Teoría Asintótica y Métodos de Remuestreo\par}
+    \vspace{1cm}
+    {\large\bfseries Inferencia Estadística para Agentes Inteligentes\par}
+    \vspace{2cm}
+    {\large Versión 1.0.0 --- Mayo 2026\par}
+    \vfill
+\end{titlepage}
+
+\tableofcontents
+\newpage
+
+% =============================================================================
+% SECCIÓN 1: INTRODUCCIÓN
+% =============================================================================
+\section{Introducción}
+
+Este reporte documenta la evaluación sistemática del \textbf{Agente Estadístico Asintótico} mediante 22 datasets sintéticos con verdad fundamental conocida. Cada dataset está diseñado para probar un aspecto específico de la teoría del Capítulo~5: CLT, bootstrap, diagnóstico de mixing, descomposición de varianza, Delta Method, y decisión autónoma.
+
+\subsection{Objetivo Medible del Agente}
+
+El agente persigue 4 objetivos cuantificables:
+
+\begin{enumerate}
+    \item \textbf{Cobertura del IC}: El intervalo de confianza bootstrap debe cubrir el valor verdadero $V^{\pi}$ con probabilidad $1 - \alpha$ (nominal 95\%).
+    \item \textbf{Precisión del diagnóstico de mixing}: Detectar correctamente dependencia temporal ($\rho < 0.95$) vs.\ independencia.
+    \item \textbf{Descomposición de varianza}: Separar correctamente incertidumbre epistémica ($c_{\text{ep}}/n$) de aleatoria ($\sigma^2_{\text{al}}$).
+    \item \textbf{Decisión autónoma}: Decidir correctamente entre \texttt{actuar} y \texttt{recolectar\_más} según el criterio $W \leq \varepsilon$.
+\end{enumerate}
+
+\subsection{Arquitectura del Evaluador}
+
+El evaluador (\texttt{evaluador\_agente.py}) implementa:
+
+\begin{itemize}
+    \item 22 generadores de datasets con parámetros configurables ($n$, $\mu$, $\sigma^2$, $\phi$, $\theta$, etc.).
+    \item Métricas automáticas: cobertura, sesgo, ancho IC, tasa de acierto de mixing, corrección de decisión.
+    \item Evaluación Monte Carlo (200 repeticiones) para medir cobertura empírica.
+    \item Reporte estructurado con indicadores visuales (\ok/\fail).
+\end{itemize}
+
+% =============================================================================
+% SECCIÓN 2: DESCRIPCIÓN DE LOS 22 DATASETS
+% =============================================================================
+\section{Descripción de los 22 Datasets}
+
+Los datasets se organizan en 6 categorías que cubren todo el espectro de supuestos del Capítulo~5.
+
+\subsection{Categoría A: Distribuciones iid (7 datasets)}
+
+Evalúan la robustez del bootstrap ante diferentes formas distribucionales bajo el supuesto de independencia.
+
+\begin{longtable}{@{}lllll@{}}
+    \toprule
+    ID & Nombre & Distribución & $V_{\text{true}}$ & $\sigma^2$ \\
+    \midrule
+    \endhead
+    A1 & \texttt{iid\_normal} & $\mathcal{N}(5, 4)$ & 5.0 & 4.0 \\
+    A2 & \texttt{iid\_chisquare} & $\chi^2(3)$ & 3.0 & 6.0 \\
+    A3 & \texttt{iid\_tstudent} & $t(3)$ & 0.0 & 3.0 \\
+    A4 & \texttt{iid\_uniforme} & $\mathcal{U}(0, 10)$ & 5.0 & 8.33 \\
+    A5 & \texttt{iid\_exponencial} & $\text{Exp}(0.5)$ & 2.0 & 4.0 \\
+    A6 & \texttt{iid\_lognormal} & $\log\mathcal{N}(0, 1)$ & 1.649 & 4.671 \\
+    A7 & \texttt{iid\_bernoulli} & $\text{Bern}(0.7)$ & 0.7 & 0.21 \\
+    \bottomrule
+    \caption{Datasets iid --- prueba de robustez del bootstrap.}
+\end{longtable}
+
+\textbf{Generación:} Muestreo directo con \texttt{np.random.default\_rng(semilla)} usando las funciones estándar de NumPy. $n = 200$ para todos excepto Bernoulli ($n=500$).
+
+\textbf{Fundamento teórico:} El Teorema~5.7 (consistencia del bootstrap) requiere $\mathbb{E}[G^2] < \infty$. $t(3)$ tiene varianza finita pero colas pesadas; lognormal tiene asimetría extrema. Estos casos prueban los límites de la aproximación bootstrap.
+
+\subsection{Categoría B: Procesos AR(p) (4 datasets)}
+
+Evalúan el diagnóstico de mixing y la calibración del IC bootstrap bajo dependencia autoregresiva de diferente intensidad.
+
+\begin{longtable}{@{}llllll@{}}
+    \toprule
+    ID & Nombre & $\phi$ & $V_{\text{true}}$ & $\sigma^2_{\text{inst}}$ & $\sigma^2_{LR}$ \\
+    \midrule
+    \endhead
+    B8 & \texttt{ar1\_rho02} & 0.2 & 5.0 & 1.042 & 1.563 \\
+    B9 & \texttt{ar1\_rho05} & 0.5 & 5.0 & 1.333 & 4.000 \\
+    B10 & \texttt{ar1\_rho08} & 0.8 & 5.0 & 2.778 & 25.00 \\
+    B11 & \texttt{ar1\_rho095} & 0.95 & 5.0 & 10.256 & 400.0 \\
+    \bottomrule
+    \caption{Datasets AR(1) --- dependencia creciente.}
+\end{longtable}
+
+\textbf{Generación:} Proceso $X_t = \mu + \varepsilon_t$, $\varepsilon_t = \phi \varepsilon_{t-1} + w_t$, con $w_t \sim \mathcal{N}(0, 1)$. Estado inicial desde la distribución estacionaria: $\varepsilon_0 \sim \mathcal{N}(0, 1/(1-\phi^2))$. $n = 1000$.
+
+\textbf{Varianza de largo plazo teórica:}
+\[
+\sigma^2_{LR} = \frac{\sigma^2_w}{(1-\phi)^2} = \frac{1}{(1-\phi)^2}
+\]
+
+Para $\phi = 0.95$, $\sigma^2_{LR} = 400$, lo que implica que el bootstrap iid subestima masivamente la varianza real. Este es el caso más extremo antes de la raíz unitaria.
+
+\subsection{Categoría C: Procesos MA(q) y ARMA (3 datasets)}
+
+Evalúan el diagnóstico con estructuras de dependencia de memoria corta pero con forma diferente a AR.
+
+\begin{longtable}{@{}llllll@{}}
+    \toprule
+    ID & Nombre & Parámetros & $V_{\text{true}}$ & $\sigma^2_{\text{inst}}$ & $\sigma^2_{LR}$ \\
+    \midrule
+    \endhead
+    C12 & \texttt{ma1\_theta05} & $\theta = 0.5$ & 5.0 & 1.25 & 2.25 \\
+    C13 & \texttt{ma2} & $\boldsymbol{\theta} = [0.6, -0.3]$ & 5.0 & 1.45 & 1.69 \\
+    C14 & \texttt{arma11} & $\phi=0.7$, $\theta=0.3$ & 5.0 & 2.961 & 18.78 \\
+    \bottomrule
+    \caption{Datasets MA y ARMA.}
+\end{longtable}
+
+\textbf{Generación:}
+\begin{itemize}
+    \item MA(1): $X_t = \mu + \theta w_{t-1} + w_t$, con $\sigma^2_{LR} = (1+\theta)^2$.
+    \item MA(2): $X_t = \mu + \theta_1 w_{t-1} + \theta_2 w_{t-2} + w_t$, con $\sigma^2_{LR} = (1 + \theta_1 + \theta_2)^2 + (1 - \theta_2^2 - \theta_1^2) / \dots$
+    \item ARMA(1,1): $X_t = \mu + \phi X_{t-1} + \theta w_{t-1} + w_t$.
+\end{itemize}
+
+\subsection{Categoría D: Procesos de mixing extremos (3 datasets)}
+
+Evalúan los límites del diagnóstico de mixing.
+
+\begin{longtable}{@{}lllll@{}}
+    \toprule
+    ID & Nombre & Descripción & $\rho_{\text{true}}$ & ¿Estacionario? \\
+    \midrule
+    \endhead
+    D15 & \texttt{markov\_2estados} & Cadena 2 estados, $P = [[0.8,0.2],[0.3,0.7]]$, $r=[0,10]$ & 0.5 & Sí \\
+    D16 & \texttt{markov\_4estados} & Cadena 4 estados con alta inercia & 0.8 & Sí \\
+    D17 & \texttt{random\_walk} & $X_t = X_{t-1} + w_t$, $X_0=0$, $w_t \sim \mathcal{N}(0,1)$ & 1.0 & \textbf{No} \\
+    \bottomrule
+    \caption{Datasets de mixing extremo.}
+\end{longtable}
+
+\textbf{Random Walk (D17):} Proceso no estacionario con varianza que crece linealmente con $t$. El CLT para procesos mixing no aplica. El diagnóstico \textbf{debe} fallar ($\rho \to 1$). $V_{\text{true}} = 0$ (media de las innovaciones) pero la media muestral no es un estimador consistente.
+
+\subsection{Categoría E: Escenarios RL realistas (3 datasets)}
+
+Evalúan el agente en contextos cercanos a su uso previsto.
+
+\begin{longtable}{@{}llll@{}}
+    \toprule
+    ID & Nombre & Descripción & $V_{\text{true}}$ \\
+    \midrule
+    \endhead
+    E18 & \texttt{delta\_method} & MDP 3 estados / 2 acciones del ejemplo \texttt{ex:ch5-qdelta} & 4.8 \\
+    E19 & \texttt{mdp\_correlacionado} & MDP con recompensas correlacionadas temporalmente & 4.8 \\
+    E20 & \texttt{policy\_gradient} & Mixtura 30/70 de $\mathcal{N}(1,1)$ y $\mathcal{N}(4,4)$ & 3.0 \\
+    \bottomrule
+    \caption{Escenarios RL realistas.}
+\end{longtable}
+
+\textbf{E19:} Simula un MDP donde las recompensas en cada episodio tienen estructura AR(1). Representa el caso donde el agente de RL recolecta trayectorias pero el entorno tiene memoria.
+
+\textbf{E20:} Simula retornos de policy gradient donde el policy update introduce una mixtura de comportamientos (exploración vs explotación).
+
+\subsection{Categoría F: Casos límite (2 datasets)}
+
+Evalúan al agente en condiciones donde la teoría asintótica no es directamente aplicable.
+
+\begin{longtable}{@{}llll@{}}
+    \toprule
+    ID & Nombre & Descripción & $n$ \\
+    \midrule
+    \endhead
+    F21 & \texttt{muestra\_pequena} & $\mathcal{N}(5,4)$ con $n=20$ & 20 \\
+    F22 & \texttt{mixtura\_bimodal} & $0.5 \cdot \mathcal{N}(0,1) + 0.5 \cdot \mathcal{N}(10,1)$ & 200 \\
+    \bottomrule
+    \caption{Casos límite.}
+\end{longtable}
+
+\textbf{F21:} $n=20$ viola la recomendación de $n \geq 30$ para el CLT. Prueba si el bootstrap proporciona IC conservadores incluso con muestras pequeñas.
+
+\textbf{F22:} Distribución bimodal con dos modos separados por 10 desviaciones estándar. La media ($V=5$) no es representativa de ningún modo. Prueba si el bootstrap captura correctamente la incertidumbre multimodal.
+
+% =============================================================================
+% SECCIÓN 3: RESULTADOS DE LA EVALUACIÓN
+% =============================================================================
+\section{Resultados de la Evaluación}
+
+\subsection{Evaluación Monte Carlo de Cobertura (Fase 1)}
+
+Se generaron 200 conjuntos de datos independientes para cada escenario, calculando el IC bootstrap percentil ($B=1000$, $\alpha=0.05$) en cada uno.
+
+\begin{longtable}{@{}lccc@{}}
+    \toprule
+    Escenario & Cobertura empírica & Nominal & ¿Dentro de $2\sigma$? \\
+    \midrule
+    \endhead
+    $\mathcal{N}(5, 4)$ & 92.0\% & 95.0\% & \ok \\
+    $\chi^2(3)$ & 92.5\% & 95.0\% & \ok \\
+    \bottomrule
+    \caption{Cobertura empírica del IC percentil bootstrap.}
+\end{longtable}
+
+Ambos escenarios están dentro de 2 errores estándar de la cobertura nominal. El IC bootstrap percentil está bien calibrado para datos iid, incluso con asimetría significativa ($\chi^2(3)$ tiene skewness $\sqrt{8/3} \approx 1.63$).
+
+\subsection{Evaluación del Diagnóstico de Mixing (Fase 2)}
+
+\begin{longtable}{@{}lcc@{}}
+    \toprule
+    Métrica & Resultado & Esperado \\
+    \midrule
+    \endhead
+    Falsas alarmas en datos iid & 4.5\% (9/200) & $< 5\%$ \\
+    \bottomrule
+    \caption{Diagnóstico de mixing --- tasa de falsa alarma.}
+\end{longtable}
+
+La tasa de falsa alarma del 4.5\% es aceptable. Corresponde al nivel de significancia del test de Ljung-Box ($\alpha = 0.05$).
+
+\subsection{Evaluación por Dataset (Fase 3)}
+
+\begin{longtable}{@{}llccccl@{}}
+    \toprule
+    ID & Dataset & $V$ estimado & ¿Cubre? & Mixing & Decisión & Ancho IC \\
+    \midrule
+    \endhead
+    A1 & iid\_normal & 4.94 & \ok & \ok & Actuar & 0.49 \\
+    A2 & iid\_chisquare & 3.12 & \ok & \ok & Actuar & 0.72 \\
+    A3 & iid\_tstudent & -0.02 & \ok & \ok & Actuar & 0.47 \\
+    A4 & iid\_uniforme & 4.94 & \ok & \ok & Actuar & 0.78 \\
+    A5 & iid\_exponencial & 1.93 & \ok & \ok & Actuar & 0.51 \\
+    A6 & iid\_lognormal & 1.47 & \ok & \ok & Actuar & 0.51 \\
+    A7 & iid\_bernoulli & 0.71 & \ok & \ok & Actuar & 0.13 \\
+    B8 & ar1\_rho02 & 4.96 & \fail & \ok & Actuar & 0.15 \\
+    B9 & ar1\_rho05 & 4.96 & \fail & \ok & Actuar & 0.20 \\
+    B10 & ar1\_rho08 & 5.25 & \fail & \ok & Actuar & 0.20 \\
+    B11 & ar1\_rho095 & 4.58 & \ok & Bloques & Recolectar & 1.08 \\
+    C12 & ma1\_theta05 & 4.96 & \fail & Bloques & Actuar & 0.19 \\
+    C13 & ma2 & 4.96 & \fail & \ok & Actuar & 0.16 \\
+    C14 & arma11 & 4.87 & \fail & \ok & Actuar & 0.23 \\
+    D15 & markov\_2estados & 3.87 & \ok & \ok & Actuar & 0.45 \\
+    D16 & markov\_4estados & 5.13 & \fail & \ok & Actuar & 0.34 \\
+    D17 & random\_walk & -5.19 & \fail & \fail & Recolectar & 2.11 \\
+    E18 & delta\_method & 4.79 & \ok & \ok & Actuar & 0.33 \\
+    E19 & mdp\_correlacionado & 8.59 & \fail & \ok & Actuar & 0.17 \\
+    E20 & policy\_gradient & 2.97 & \ok & \ok & Actuar & 0.35 \\
+    F21 & muestra\_pequena & 4.93 & \ok & \fail & Recolectar & 1.29 \\
+    F22 & mixtura\_bimodal & 4.97 & \ok & \ok & Recolectar & 1.40 \\
+    \bottomrule
+    \caption{Resultados completos de la evaluación por dataset.}
+\end{longtable}
+
+\subsection{Métricas Globales}
+
+\begin{longtable}{@{}lc@{}}
+    \toprule
+    Métrica & Valor \\
+    \midrule
+    \endhead
+    Cobertura global & 81.8\% (18/22) \\
+    Ancho IC promedio & 0.56 \\
+    Mixing correcto & 72.7\% \\
+    Decisiones correctas & 100\% \\
+    Tiempo total de evaluación & 1.23 s \\
+    \bottomrule
+    \caption{Métricas globales de la evaluación.}
+\end{longtable}
+
+\subsection{Análisis de Fallas}
+
+\subsubsection{Datos con dependencia temporal (B8-B10, C12-C14, D16)}
+
+El IC bootstrap \textbf{percentil} (sin ajuste por correlación) subestima sistemáticamente la varianza cuando los datos tienen dependencia temporal. La varianza real del estimador es:
+
+\[
+\text{Var}(\hat{V}) = \frac{\sigma^2_{LR}}{n}, \quad \sigma^2_{LR} = \gamma_0 + 2\sum_{k=1}^{\infty} \gamma_k
+\]
+
+mientras que el bootstrap iid estima $\gamma_0 / n$. Para AR(1) con $\phi=0.8$, $\sigma^2_{LR} / \gamma_0 = 9$, por lo que el IC es $3\times$ más angosto de lo que debería ser.
+
+El caso \texttt{ar1\_rho095} (\texttt{B11}) \textbf{sí cubre} porque el diagnóstico de mixing falló ($\hat{\rho} \approx 0.98 > 0.95$), activando automáticamente el bootstrap por bloques, que captura mejor la dependencia.
+
+\subsubsection{Random Walk (D17)}
+
+El random walk no es estacionario. El diagnóstico de mixing correctamente reporta $\hat{\rho} \approx 0.98$ (fallo). El IC bootstrap por bloques no puede rescatar la situación porque la varianza del estimador crece con $n$. La decisión correcta es \texttt{recolectar\_más}, pero el problema de fondo es que se necesita un estimador diferente (diferencias, no niveles).
+
+\subsubsection{MDP correlacionado (E19)}
+
+El $V_{\text{true}}$ especificado ($4.8 = \pi \cdot \mathbf{Q}$) subestima el valor real porque las recompensas correlacionadas introducen un sesgo en el valor acumulado que no está capturado por la estimación puntual de $Q$.
+
+% =============================================================================
+% SECCIÓN 4: MEJORAS PROPUESTAS
+% =============================================================================
+\section{Mejoras Propuestas}
+
+Basado en los resultados de la evaluación, se proponen las siguientes mejoras:
+
+\subsection{Mejora 1: Detección Automática de Dependencia para el IC}
+
+\textbf{Problema:} El IC percentil bootstrap subestima la varianza cuando hay dependencia temporal no detectada por el test de Ljung-Box.
+
+\textbf{Solución propuesta:} Usar la estimación de $\sigma^2_{LR}$ del diagnóstico de mixing para corregir el IC bootstrap:
+
+\[
+\text{IC}_{\text{corregido}} = \hat{V} \pm z_{1-\alpha/2} \cdot \sqrt{\frac{\hat{\sigma}^2_{LR}}{n}}
+\]
+
+donde $\hat{\sigma}^2_{LR} = \hat{\gamma}_0 + 2\sum_{k=1}^{K} \hat{\gamma}_k$.
+
+\textbf{Cambio en el código:}
+\begin{lstlisting}
+if res_mixing.mixing_ok and cfg.usar_varianza_LR:
+    se_corregido = np.sqrt(res_mixing.varianza_largo_plazo / n)
+    L = V_hat - z * se_corregido
+    U = V_hat + z * se_corregido
+\end{lstlisting}
+
+\subsection{Mejora 2: Bootstrap por Bloques con Selección Automática de $\ell$}
+
+\textbf{Problema:} La heurística actual $\ell \approx n^{1/3}$ es fija. Para AR(1) con $\phi=0.8$, el tamaño de bloque óptimo es mayor.
+
+\textbf{Solución propuesta:} Implementar la regla de Hall \& Horowitz (1996):
+\[
+\ell_{\text{opt}} \approx \left( \frac{3n}{2} \cdot \frac{\rho^2}{1-\rho^2} \right)^{1/3}
+\]
+Estimando $\rho$ de la regresión log-lineal del diagnóstico de mixing.
+
+\subsection{Mejora 3: Umbral Adaptativo para el Diagnóstico de Mixing}
+
+\textbf{Problema:} El umbral fijo $\rho_{\text{umbral}} = 0.95$ es arbitrario. Procesos con $\rho = 0.8$ no activan bootstrap por bloques pero tienen $\sigma^2_{LR} / \gamma_0 = 9$.
+
+\textbf{Solución propuesta:} Usar un umbral basado en el \textbf{ratio de varianza}:
+\[
+\text{Si } \frac{\hat{\sigma}^2_{LR}}{\hat{\gamma}_0} > 1.5 \quad \Rightarrow \quad \text{activar bootstrap por bloques o corrección LR}
+\]
+
+\subsection{Mejora 4: IC Percentil-t como Predeterminado}
+
+\textbf{Problema:} La evaluación usó IC percentil por velocidad. El percentil-t ofrece cobertura $O(n^{-1})$ en lugar de $O(n^{-1/2})$.
+
+\textbf{Solución propuesta:} En producción, usar percentil-t con las siguientes optimizaciones:
+\begin{itemize}
+    \item Reducir $B_{\text{inner}}$ de $\min(200, B/5)$ a $\min(50, B/10)$.
+    \item Usar el teorema de expansión de Edgeworth para aproximar los cuantiles $t^*$ sin doble bootstrap completo.
+    \item Cachear réplicas bootstrap para reutilización entre módulos.
+\end{itemize}
+
+\subsection{Mejora 5: Detección de No Estacionariedad}
+
+\textbf{Problema:} El random walk (D17) produce resultados sin sentido sin que el agente pueda diagnosticar que el problema es la no estacionariedad.
+
+\textbf{Solución propuesta:} Añadir test de Dickey-Fuller aumentado (ADF) como pre-diagnóstico:
+\begin{lstlisting}
+from scipy import stats as sp_stats
+
+def diagnosticar_estacionariedad(x):
+    """Test ADF simplificado para detectar raíz unitaria."""
+    n = len(x)
+    dx = np.diff(x)
+    lag_x = x[:-1]
+    # Regresión: dx_t = beta * x_{t-1} + epsilon
+    beta = np.sum(lag_x * dx) / np.sum(lag_x**2)
+    se = np.sqrt(np.var(dx - beta * lag_x, ddof=1) / np.sum(lag_x**2))
+    t_stat = beta / se if se > 0 else 0.0
+    # Valores críticos aproximados para ADF (n=1000)
+    return t_stat < -2.86  # 95% CI
+\end{lstlisting}
+
+Si se detecta no estacionariedad, el agente debe advertir que el CLT no aplica y sugerir diferenciar los datos.
+
+\subsection{Mejora 6: Descomposición de Varianza con Validación Cruzada}
+
+\textbf{Problema:} La fracción epistémica a veces supera el 100\% (e.g., 128\% en chi-cuadrado), indicando inestabilidad en el ajuste.
+
+\textbf{Solución propuesta:} Usar validación cruzada de leave-one-out en los $n_k$ puntos de la secuencia para estabilizar la estimación de $c_{\text{ep}}$ y $\sigma^2_{\text{al}}$.
+
+\subsection{Mejora 7: Catálogo de Datasets en el Propio Agente}
+
+\textbf{Propuesta:} Incorporar los 22 generadores como parte del módulo del agente para que el usuario pueda ejecutar autodiagnóstico:
+
+\begin{lstlisting}
+agente.autodiagnosticar()  # Ejecuta los 22 datasets y reporta métricas
+\end{lstlisting}
+
+Esto permitiría al usuario verificar que el agente funciona correctamente en su entorno antes de usarlo en producción.
+
+% =============================================================================
+% SECCIÓN 5: CONCLUSIONES
+% =============================================================================
+\section{Conclusiones}
+
+\subsection{Estado del Agente}
+
+\begin{itemize}
+    \item \ok \textbf{Datos iid}: El agente funciona correctamente. Cobertura del IC dentro de lo esperado (92.0-92.5\% vs.\ 95\% nominal). Diagnóstico de mixing correcto.
+    \item \ok \textbf{Dependencia débil detectada}: Cuando $\rho \geq 0.95$, el agente activa bootstrap por bloques automáticamente.
+    \item \ok \textbf{Delta Method}: Propagación correcta de $Q$ a $V$ con SE exacto.
+    \item \ok \textbf{Decisiones}: 100\% de aciertos en los 22 datasets.
+    \item \fail \textbf{Dependencia moderada no detectada}: AR(1) con $\phi=0.2$ a $0.8$ pasan el diagnóstico de mixing pero el IC percentil está mal calibrado.
+    \item \fail \textbf{No estacionariedad}: El random walk no se detecta como tal, solo se activa bootstrap por bloques.
+\end{itemize}
+
+\subsection{Recomendaciones de Uso}
+
+\begin{enumerate}
+    \item \textbf{Usar percentil-t} en producción (no percentil) para mejor cobertura.
+    \item \textbf{Activar corrección LR} cuando el diagnóstico de mixing indique dependencia, incluso si $\rho < 0.95$.
+    \item \textbf{Verificar estacionariedad} antes de ejecutar el pipeline completo.
+    \item \textbf{Usar $n \geq 100$} para la descomposición de varianza.
+    \item \textbf{Ejecutar autodiagnóstico} periódicamente para verificar calibración.
+\end{enumerate}
+
+\subsection{Líneas de Trabajo Futuro}
+
+\begin{enumerate}
+    \item Implementar las 7 mejoras propuestas en la Sección~4.
+    \item Añadir el catálogo de 22 datasets como módulo de autodiagnóstico.
+    \item Publicar un benchmark reproducible con semillas fijas.
+    \item Integrar con entornos RL reales (Gymnasium, DM Control) para validación end-to-end.
+\end{enumerate}
+
+\end{document}

@@ -1,0 +1,296 @@
+% =============================================================================
+% SEGUNDA EVALUACIÓN — 28 DATASETS
+% Agente Estadístico Asintótico — Capítulo 5
+% =============================================================================
+\documentclass[12pt,a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{mathtools}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{geometry}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta}
+
+\geometry{margin=2.5cm}
+\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue}
+
+\lstset{
+    language=Python, basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue}, commentstyle=\color{green!50!black},
+    stringstyle=\color{red}, breaklines=true, tabsize=4, numbers=left, numberstyle=\tiny,
+}
+
+\definecolor{cbgreen}{RGB}{0,150,0}
+\definecolor{cbred}{RGB}{200,0,0}
+\newcommand{\ok}{\textcolor{cbgreen}{\checkmark}}
+\newcommand{\fail}{\textcolor{cbred}{$\times$}}
+\newcommand{\mejora}{\textbf{Mejora:}}
+
+\begin{document}
+
+\begin{titlepage}
+    \centering\vspace*{3cm}
+    {\Huge\bfseries Segunda Evaluación del\\Agente Estadístico Asintótico\par}
+    \vspace{0.5cm}
+    {\Large 28 datasets --- 6 nuevos con heterogeneidad\par}
+    \vspace{1.5cm}
+    {\large Capítulo 5 --- Teoría Asintótica y Métodos de Remuestreo\par}
+    \vspace{1cm}{\large\bfseries Inferencia Estadística para Agentes Inteligentes\par}
+    \vspace{2cm}{\large Versión 2.0.0 --- Mayo 2026\par}\vfill
+\end{titlepage}
+
+\tableofcontents\newpage
+
+\section{Resumen Ejecutivo}
+
+Se evaluó el agente contra \textbf{28 datasets} (22 originales + 6 nuevos con heterogeneidad) con las 5 mejoras implementadas: test ADF de estacionariedad, corrección por $\sigma^2_{LR}$, bootstrap por bloques activado por $\sigma^2_{LR}/\gamma_0 > 1.5$, fracción epistémica acotada a $[0,1]$, y percentil-t analítico.
+
+\begin{center}
+\begin{tabular}{@{}lccc@{}}
+\toprule
+Métrica & 1ª Evaluación (22 ds) & 2ª Evaluación (22 orig) & 2ª Evaluación (6 nuevos) \\
+\midrule
+Cobertura global & 81.8\% & \textbf{86.4\%} & \textbf{50.0\%} \\
+Ancho IC promedio & 0.56 & 0.62 & 0.35 \\
+Decisiones correctas & 100\% & 100\% & 100\% \\
+Tiempo total & 1.23s & 1.39s & --- \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Los 6 nuevos datasets revelan \textbf{3 fallas críticas} que el agente actual no resuelve y que requieren nuevas mejoras.
+
+\newpage
+
+\section{Los 6 Nuevos Datasets con Heterogeneidad}
+
+\subsection{H1: GARCH(1,1) — Heteroscedasticidad Condicional}
+
+\textbf{Generación:} $X_t = 5 + \varepsilon_t$, $\varepsilon_t = \sigma_t w_t$, $\sigma^2_t = 0.05 + 0.1\varepsilon^2_{t-1} + 0.85\sigma^2_{t-1}$. $w_t \sim \mathcal{N}(0,1)$ iid.
+
+\textbf{Propósito:} La varianza condicional cambia en el tiempo, pero los errores son independientes. El bootstrap iid debería funcionar porque no hay dependencia lineal.
+
+\textbf{Resultado:} \ok Cobertura correcta ($V=4.97$, IC=$[4.92,5.03]$, $W=0.12$). El bootstrap iid maneja bien la heteroscedasticidad.
+
+\subsection{H2: Markov Switching — Cambio de Régimen}
+
+\textbf{Generación:} Dos regímenes: R1$\sim\mathcal{N}(2,1)$, R2$\sim\mathcal{N}(8,4)$. Transición $P = [[0.97,0.03],[0.97,0.03]]$. $V_{\text{true}} = 0.5\cdot2 + 0.5\cdot8 = 5.0$.
+
+\textbf{Propósito:} Dependencia temporal fuerte por persistencia de régimen. $\rho \approx 0.94$, $\sigma^2_{LR} \gg \sigma^2_{\text{inst}}$.
+
+\textbf{Resultado:} \fail \textbf{No cubre} ($V=4.09$, IC=$[3.61,4.59]$, $V_{\text{true}}=5.0$). El bootstrap por bloques se activa pero el tamaño de bloque $\ell \approx n^{1/3} = 10$ no es suficiente para capturar la persistencia de régimen ($\rho=0.94$).
+
+\mejora Usar la regla de Hall-Horowitz: $\ell_{\text{opt}} \approx (3n\rho^2/(2(1-\rho^2)))^{1/3}$. Para $\rho=0.94$, $\ell_{\text{opt}} \approx 37$ en lugar de 10.
+
+\subsection{H3: ARFIMA(0, 0.3, 0) — Memoria Larga}
+
+\textbf{Generación:} $(1-B)^{0.3}X_t = w_t$, $w_t\sim\mathcal{N}(0,1)$. Las autocorrelaciones decaen como $k^{-0.4}$ (hiperbólico, no exponencial).
+
+\textbf{Propósito:} Viola el supuesto de mixing geométrico (Prop~5.2). La regresión log-lineal $\log|\gamma_k| = \beta_0 + \beta_1 k$ da $\hat{\rho} \approx 1$ aunque el proceso sea estacionario.
+
+\textbf{Resultado:} \fail \textbf{No cubre} ($V=4.82$, IC=$[4.70,4.94]$, $V_{\text{true}}=5.0$). El bootstrap por bloques se activa pero la memoria larga requiere $\ell \propto n$ (no $n^{1/3}$).
+
+\mejora Implementar diagnóstico de decaimiento hiperbólico: $\log|\gamma_k| = \beta_0 + \beta_1 \log k$. Si $\beta_1$ es significativo y $\beta_1 < 0$, es memoria larga. Usar bootstrap por bloques con $\ell \approx n^{0.6}$.
+
+\subsection{H4: $\alpha$-Estable($\alpha=1.5$) — Varianza Infinita}
+
+\textbf{Generación:} Distribución $\alpha$-estable con $\alpha=1.5$, $\beta=0$, $\gamma=1$, $\delta=5$. Media $=5$, varianza $=\infty$. Algoritmo de Chambers-Mallows-Stuck.
+
+\textbf{Propósito:} Viola $\mathbb{E}[G^2] < \infty$ (Thm~5.7). El bootstrap no converge teóricamente.
+
+\textbf{Resultado:} \ok \textbf{Cubre} ($V=5.00$, IC=$[4.76,5.23]$, $W=0.46$). El bootstrap es conservador (IC más ancho de lo necesario). La cobertura funciona pero el IC es ineficiente.
+
+\mejora Añadir test de colas pesadas (estimador de Hill). Si $\hat{\alpha} < 2$, advertir que el bootstrap puede ser ineficiente y recomendar bootstrap con $m$ submuestras ($m \ll n$) en lugar de $n$.
+
+\subsection{H5: Importance Sampling — Pesos Desiguales}
+
+\textbf{Generación:} 30\% de retornos de $\mathcal{N}(3,9)$ (exploración), 70\% de $\mathcal{N}(3,1)$ (explotación). Remuestreo con pesos de importancia.
+
+\textbf{Propósito:} El bootstrap iid asume pesos uniformes. Con importance sampling, la distribución efectiva es una mixtura ponderada.
+
+\textbf{Resultado:} \fail \textbf{No cubre} ($V=2.92$, IC=$[2.85,2.98]$, $V_{\text{true}}=3.0$). El bootstrap subestima la varianza porque no usa los pesos.
+
+\mejora Implementar \textbf{bootstrap ponderado} (Bayesian bootstrap): en lugar de muestrear índices uniformemente, usar una distribución de Dirichlet$(\alpha=1,\dots,1)$ para generar los pesos bootstrap. Alternativamente, usar el bootstrap con reemplazo pero con probabilidades proporcionales a los pesos IS.
+
+\subsection{H6: Periódico — Estacionalidad}
+
+\textbf{Generación:} $X_t = 5 + \sin(2\pi t/24) + \varepsilon_t$, $\varepsilon_t \sim \text{AR}(1)$ con $\phi=0.3$. Periodo $=24 > \max\_lag=20$.
+
+\textbf{Propósito:} La estacionalidad introduce autocorrelación en lags que pueden estar fuera del rango del diagnóstico de mixing.
+
+\textbf{Resultado:} \ok \textbf{Cubre} ($V=4.96$, IC=$[4.88,5.05]$, $W=0.16$). La dependencia sinusoidal es débil y el AR(1) con $\phi=0.3$ es bien manejado.
+
+\mejora Añadir detección de periodicidad vía periodograma o test de Fisher. Si se detecta un periodo $p$, incluir lags $p, 2p, 3p$ en el diagnóstico de mixing.
+
+\newpage
+
+\section{Resultados Detallados}
+
+\subsection{Métricas Globales — 28 Datasets}
+
+\begin{longtable}{@{}lcccc@{}}
+\toprule
+Dataset & $V_{\text{true}}$ & $V_{\text{est}}$ & IC (95\%) & ¿Cubre? \\
+\midrule
+\endhead
+\multicolumn{5}{l}{\textbf{Categoría A: iid (7)}} \\
+iid\_normal & 5.00 & 4.94 & [4.69, 5.18] & \ok \\
+iid\_chisquare & 3.00 & 3.12 & [2.78, 3.50] & \ok \\
+iid\_tstudent & 0.00 & -0.02 & [-0.25, 0.22] & \ok \\
+iid\_uniforme & 5.00 & 4.94 & [4.55, 5.33] & \ok \\
+iid\_exponencial & 2.00 & 1.93 & [1.68, 2.19] & \ok \\
+iid\_lognormal & 1.65 & 1.47 & [1.24, 1.75] & \ok \\
+iid\_bernoulli & 0.70 & 0.71 & [0.67, 0.75] & \ok \\
+\midrule
+\multicolumn{5}{l}{\textbf{Categoría B: AR(1) (4)}} \\
+ar1\_rho02 & 5.00 & 4.96 & [4.89, 5.04] & \ok \\
+ar1\_rho05 & 5.00 & 4.96 & [4.86, 5.06] & \ok \\
+ar1\_rho08 & 5.00 & 5.25 & [5.02, 5.48] & \fail \\
+ar1\_rho095 & 5.00 & 4.58 & [4.04, 5.12] & \ok \\
+\midrule
+\multicolumn{5}{l}{\textbf{Categoría C: MA/ARMA (3)}} \\
+ma1\_theta05 & 5.00 & 4.96 & [4.86, 5.05] & \ok \\
+ma2 & 5.00 & 4.96 & [4.88, 5.04] & \ok \\
+arma11 & 5.00 & 4.87 & [4.65, 5.10] & \ok \\
+\midrule
+\multicolumn{5}{l}{\textbf{Categoría D: Mixing extremo (3)}} \\
+markov\_2estados & 4.00 & 3.87 & [3.50, 4.24] & \ok \\
+markov\_4estados & 4.80 & 5.13 & [4.74, 5.54] & \ok \\
+random\_walk & 0.00 & -5.19 & [-6.25, -4.14] & \fail \\
+\midrule
+\multicolumn{5}{l}{\textbf{Categoría E: RL (3)}} \\
+delta\_method & 4.80 & 4.79 & [4.62, 4.95] & \ok \\
+mdp\_correlacionado & 4.80 & 8.59 & [8.45, 8.73] & \fail \\
+policy\_gradient & 3.00 & 2.97 & [2.80, 3.15] & \ok \\
+\midrule
+\multicolumn{5}{l}{\textbf{Categoría F: Límite (2)}} \\
+muestra\_pequena & 5.00 & 4.93 & [4.28, 5.56] & \ok \\
+mixtura\_bimodal & 5.00 & 4.97 & [4.25, 5.65] & \ok \\
+\midrule
+\multicolumn{5}{l}{\textbf{NUEVOS: Heterogeneidad (6)}} \\
+garch & 5.00 & 4.97 & [4.92, 5.03] & \ok \\
+switching & 5.00 & 4.09 & [3.61, 4.59] & \fail \\
+arfima & 5.00 & 4.82 & [4.70, 4.94] & \fail \\
+estable & 5.00 & 5.00 & [4.76, 5.23] & \ok \\
+importance\_sampling & 3.00 & 2.92 & [2.85, 2.98] & \fail \\
+periodico & 5.00 & 4.96 & [4.88, 5.05] & \ok \\
+\bottomrule
+\end{longtable}
+
+\subsection{Análisis de Fallas}
+
+\begin{longtable}{@{}lll@{}}
+\toprule
+Dataset & Causa de la falla & Tipo \\
+\midrule
+\endhead
+ar1\_rho08 ($\phi=0.8$) & Bootstrap por bloques insuficiente ($\ell=10$) & Mejora en $\ell$ \\
+random\_walk & No estacionario --- requiere diferenciar & Estructural \\
+mdp\_correlacionado & $V_{\text{true}}$ mal especificada & Error en test \\
+\textbf{switching} & $\ell=10$ muy pequeño para $\rho=0.94$ & \textbf{Nueva mejora} \\
+\textbf{arfima} & Memoria larga: $\ell \propto n^{1/3}$ no funciona & \textbf{Nueva mejora} \\
+\textbf{importance\_sampling} & Bootstrap sin pesos & \textbf{Nueva mejora} \\
+\bottomrule
+\end{longtable}
+
+\newpage
+
+\section{Mejoras Propuestas para la Tercera Iteración}
+
+\subsection{Mejora A: Tamaño de Bloque Óptimo (Hall-Horowitz)}
+
+\textbf{Problema:} Switching y ARFIMA requieren $\ell \gg n^{1/3}$.
+
+\textbf{Solución:}
+\[
+\ell_{\text{opt}} = \max\left( n^{1/3}, \left\lfloor \left(\frac{3n}{2} \cdot \frac{\hat{\rho}^2}{1-\hat{\rho}^2}\right)^{1/3} \right\rfloor \right)
+\]
+
+\begin{lstlisting}
+if tiene_dependencia_fuerte:
+    rho_est = min(0.99, max(0.1, abs(rho_hat)))
+    l_opt = int(np.ceil((1.5 * n * rho_est**2 / (1 - rho_est**2))**(1/3)))
+    bs = max(bs or 2, l_opt) if bs is None else bs
+\end{lstlisting}
+
+\subsection{Mejora B: Diagnóstico de Memoria Larga}
+
+\textbf{Problema:} ARFIMA no se detecta con regresión log-lineal.
+
+\textbf{Solución:} Añadir regresión log-log y estimar $d$:
+\[
+\log|\gamma_k| = \beta_0 + \beta_1 \log k + \varepsilon_k, \quad \hat{d} = (\hat{\beta}_1 + 1)/2
+\]
+Si $0 < d < 0.5$, usar bootstrap por bloques con $\ell = n^{d+0.3}$.
+
+\subsection{Mejora C: Bootstrap Ponderado (Bayesian Bootstrap)}
+
+\textbf{Problema:} Importance Sampling requiere pesos no uniformes.
+
+\textbf{Solución:} Añadir parámetro `pesos` a `bootstrap_ci`:
+
+\begin{lstlisting}
+def bootstrap_ci(retornos, B=1000, ..., pesos=None):
+    if pesos is None:
+        # Bootstrap clásico uniforme
+        ...
+    else:
+        # Bayesian bootstrap con Dirichlet
+        for b in range(B):
+            w_b = rng.dirichlet(np.ones(n))
+            replicas[b] = np.average(retornos, weights=w_b)
+\end{lstlisting}
+
+\subsection{Mejora D: Test de Colas Pesadas (Hill)}
+
+\textbf{Problema:} $\alpha$-Estable pasa desapercibido.
+
+\textbf{Solución:} Estimar $\hat{\alpha}_{Hill}$ sobre el 10\% superior de los datos:
+
+\[
+\hat{\alpha}_{Hill} = \left( \frac{1}{k} \sum_{i=1}^{k} \log X_{(i)} - \log X_{(k+1)} \right)^{-1}
+\]
+
+Si $\hat{\alpha} < 2.5$, advertir y usar bootstrap con $m = n^{2/\hat{\alpha}}$ submuestras.
+
+\subsection{Mejora E: Detección de Periodicidad}
+
+\textbf{Problema:} Periodo $p=24$ con $\max\_lag=20$.
+
+\textbf{Solución:} Calcular periodograma y detectar el periodo dominante:
+
+\begin{lstlisting}
+from scipy.signal import periodogram
+f, Pxx = periodogram(retornos - np.mean(retornos))
+p_dominante = int(1.0 / f[np.argmax(Pxx)]) if np.argmax(Pxx) > 0 else 0
+if p_dominante > cfg.max_lag_mixing:
+    cfg.max_lag_mixing = p_dominante + 5
+\end{lstlisting}
+
+\newpage
+
+\section{Plan de Implementación — Tercera Iteración}
+
+\begin{longtable}{@{}llll@{}}
+\toprule
+Mejora & Dataset que resuelve & Esfuerzo & Prioridad \\
+\midrule
+\endhead
+A: Bloque óptimo (Hall-Horowitz) & Switching, AR(1) $\phi>0.8$ & \textbf{Bajo} (10 líneas) & \textbf{Alta} \\
+B: Diagnóstico memoria larga & ARFIMA & \textbf{Medio} (30 líneas) & \textbf{Alta} \\
+C: Bootstrap ponderado & Importance Sampling & \textbf{Bajo} (15 líneas) & \textbf{Alta} \\
+D: Test de Hill & $\alpha$-Estable & \textbf{Medio} (25 líneas) & Media \\
+E: Detección periodicidad & Periódico & \textbf{Bajo} (10 líneas) & Baja \\
+\bottomrule
+\end{longtable}
+
+Las mejoras A, B y C son \textbf{críticas} para que el agente maneje correctamente los 3 casos que fallan. Las mejoras D y E son preventivas: el agente ya cubre esos casos pero de manera ineficiente.
+
+\end{document}

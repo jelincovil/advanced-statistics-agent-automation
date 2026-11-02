@@ -1,0 +1,545 @@
+{
+  "project": "lab_F3_optimal_estimation_agent",
+  "version": "1.0.0",
+  "chapter": "Capítulo 3 — Estimación Óptima en Agentes",
+  "description": "Prototipo funcional LangGraph + Chainlit que demuestra Rao-Blackwellización, cota de Cramér-Rao y UMVUE en FrozenLake-v1. No apto para producción.",
+
+  "theoretical_anchors": {
+    "rao_blackwell": "Var(E[Q_MC | T]) ≤ Var(Q_MC) — condicionar sobre estadístico suficiente reduce varianza",
+    "cramer_rao": "Var(θ̂) ≥ 1 / (n · I(θ)) — cota inferior irreducible para cualquier estimador insesgado",
+    "umvue": "θ̂(s,a,s') = N(s,a,s') / N(s,a) — estimador frecuencia empírica es UMVUE por Lehmann-Scheffé",
+    "fisher_information": "I(θ) = 1 / (θ(1−θ)) — para modelo Bernoulli de transiciones",
+    "sample_planning": "n ≥ 1 / (ε² · I(θ)) — episodios mínimos para Var(V̂) ≤ ε²"
+  },
+
+  "environment": {
+    "name": "FrozenLake-v1",
+    "library": "gymnasium>=0.29.0",
+    "config": {
+      "map_name": "4x4",
+      "is_slippery": true,
+      "desc": null
+    },
+    "state_space": 16,
+    "action_space": 4,
+    "discount_gamma": 0.95,
+    "note": "is_slippery=true garantiza que las transiciones sean estocásticas — necesario para que I(θ) sea no trivial"
+  },
+
+  "project_structure": {
+    "lab_F3/": {
+      "chainlit_app.py": "Entry point Chainlit — comandos, routing, sesión",
+      "agent/": {
+        "__init__.py": "",
+        "state.py": "AgentState TypedDict — campos para todos los estimadores",
+        "graph.py": "Construcción del grafo LangGraph y compilación",
+        "nodes/": {
+          "__init__.py": "",
+          "collect_node.py": "Nodo collect — ejecuta n episodios en FrozenLake, acumula N(s,a,s')",
+          "estimate_node.py": "Nodo estimate — calcula UMVUE, MC bruto y Fisher information",
+          "rao_blackwell_node.py": "Nodo rao_blackwell — mejora estimador MC condicionando sobre T(X)",
+          "cramer_rao_node.py": "Nodo cramer_rao — computa cota inferior y sample planning",
+          "analyst_node.py": "Nodo analyst — llama Claude API para interpretar resultados",
+          "decide_node.py": "Nodo decide — enrutamiento condicional del grafo"
+        }
+      },
+      "plot_utils.py": "Gráficas: varianza vs n, comparación MC vs RB, cota CR",
+      "stream_handler.py": "Actualizaciones en tiempo real hacia Chainlit UI",
+      "prompts/": {
+        "analyst_system.md": "System prompt del nodo analyst (estadístico experto)",
+        "cramer_rao_template.txt": "Template para análisis de cota de Cramér-Rao"
+      },
+      "requirements.txt": "Todas las dependencias",
+      ".env.example": "Variables de entorno requeridas",
+      "README.md": "Instrucciones de ejecución"
+    }
+  },
+
+  "agent_state": {
+    "file": "agent/state.py",
+    "type": "TypedDict",
+    "fields": {
+      "n_episodes": {
+        "type": "int",
+        "description": "Total de episodios a recolectar"
+      },
+      "n_collected": {
+        "type": "int",
+        "description": "Episodios recolectados hasta ahora"
+      },
+      "gamma": {
+        "type": "float",
+        "default": 0.95,
+        "description": "Factor de descuento γ"
+      },
+      "counts": {
+        "type": "dict[tuple, int]",
+        "description": "N(s,a,s') — conteos de transiciones observadas, estadístico suficiente T(X)"
+      },
+      "trajectories": {
+        "type": "list[list[tuple]]",
+        "description": "Trayectorias completas [(s,a,r,s'), ...] para estimador MC bruto"
+      },
+      "theta_hat": {
+        "type": "dict[tuple, float]",
+        "description": "UMVUE: θ̂(s,a,s') = N(s,a,s') / N(s,a)"
+      },
+      "q_mc": {
+        "type": "dict[tuple, float]",
+        "description": "Estimador Monte Carlo bruto Q̂_MC(s,a)"
+      },
+      "q_rb": {
+        "type": "dict[tuple, float]",
+        "description": "Estimador Rao-Blackwell Q̃(s,a) = E[Q_MC | T(X)]"
+      },
+      "var_mc": {
+        "type": "dict[tuple, float]",
+        "description": "Varianza empírica del estimador MC en cada (s,a)"
+      },
+      "var_rb": {
+        "type": "dict[tuple, float]",
+        "description": "Varianza empírica del estimador RB en cada (s,a)"
+      },
+      "fisher_info": {
+        "type": "dict[tuple, float]",
+        "description": "Información de Fisher I(θ̂_{s,a,s'}) = 1 / (θ̂(1−θ̂)) por transición"
+      },
+      "cramer_rao_bound": {
+        "type": "dict[tuple, float]",
+        "description": "Cota CR: 1 / (N(s,a) · I(θ̂)) para cada (s,a,s')"
+      },
+      "value_hat": {
+        "type": "dict[int, float]",
+        "description": "V̂^π(s) — función de valor estimada por estado"
+      },
+      "value_se": {
+        "type": "dict[int, float]",
+        "description": "SE(V̂^π(s)) — error estándar de la función de valor"
+      },
+      "min_episodes_for_target": {
+        "type": "dict[str, int]",
+        "description": "n_min para alcanzar Var(V̂) < ε² con distintos ε (0.1, 0.05, 0.01)"
+      },
+      "history": {
+        "type": "list[dict]",
+        "description": "Snapshots de (n, var_mc_mean, var_rb_mean, cr_bound_mean) para gráficas"
+      },
+      "analysis_text": {
+        "type": "str",
+        "description": "Interpretación generada por el nodo analyst LLM"
+      },
+      "mode": {
+        "type": "str",
+        "enum": ["collect", "estimate", "compare", "sample_plan", "done"],
+        "description": "Control de flujo del grafo"
+      },
+      "stream_every": {
+        "type": "int",
+        "default": 50,
+        "description": "Emitir update UI cada N episodios"
+      }
+    }
+  },
+
+  "langgraph_topology": {
+    "file": "agent/graph.py",
+    "nodes": [
+      "collect",
+      "estimate",
+      "rao_blackwell",
+      "cramer_rao",
+      "analyst",
+      "decide"
+    ],
+    "edges": {
+      "collect": "decide",
+      "decide": {
+        "condition": "state['mode']",
+        "routing": {
+          "collect": "collect",
+          "estimate": "estimate",
+          "done": "END"
+        }
+      },
+      "estimate": "rao_blackwell",
+      "rao_blackwell": "cramer_rao",
+      "cramer_rao": "analyst",
+      "analyst": "END"
+    },
+    "entry_point": "collect",
+    "compile_kwargs": {
+      "checkpointer": null,
+      "interrupt_before": [],
+      "note": "Prototipo — sin checkpointer persistente"
+    },
+    "ascii_diagram": "collect → decide → (collect | estimate) → rao_blackwell → cramer_rao → analyst → END"
+  },
+
+  "nodes": {
+    "collect_node": {
+      "file": "agent/nodes/collect_node.py",
+      "function": "async def collect_node(state: AgentState) -> AgentState",
+      "description": "Ejecuta episodios en FrozenLake y acumula el estadístico suficiente T(X) = {N(s,a,s')}",
+      "logic": [
+        "env = gymnasium.make('FrozenLake-v1', is_slippery=True)",
+        "Ejecutar BATCH_SIZE=50 episodios por llamada (para permitir streaming)",
+        "Por cada transición (s,a,r,s'): state['counts'][(s,a,s')] += 1",
+        "Guardar trayectoria completa en state['trajectories'] para estimador MC",
+        "Actualizar state['n_collected'] += BATCH_SIZE",
+        "Registrar snapshot en state['history'] si n_collected % stream_every == 0",
+        "Devolver state con mode='collect' si n_collected < n_episodes, else mode='estimate'"
+      ],
+      "batch_size": 50,
+      "note": "Separar en batches permite que decide_node emita updates de Chainlit entre batches"
+    },
+
+    "decide_node": {
+      "file": "agent/nodes/decide_node.py",
+      "function": "def decide_node(state: AgentState) -> str",
+      "description": "Nodo de enrutamiento condicional — decide si seguir colectando o pasar a estimación",
+      "returns": "literal string usado por conditional_edge",
+      "logic": [
+        "if state['n_collected'] < state['n_episodes']: return 'collect'",
+        "elif state['mode'] == 'estimate': return 'estimate'",
+        "else: return 'done'"
+      ]
+    },
+
+    "estimate_node": {
+      "file": "agent/nodes/estimate_node.py",
+      "function": "async def estimate_node(state: AgentState) -> AgentState",
+      "description": "Calcula UMVUE de probabilidades de transición y función de valor V̂^π(s)",
+      "computations": {
+        "theta_hat_umvue": {
+          "formula": "θ̂(s,a,s') = N(s,a,s') / N(s,a)",
+          "code": "theta_hat[(s,a,sp)] = counts[(s,a,sp)] / sum(counts[(s,a,x)] for x in S)",
+          "theorem": "Lehmann-Scheffé: es UMVUE porque T(X) es suficiente minimal completo"
+        },
+        "q_mc_estimator": {
+          "formula": "Q̂_MC(s,a) = mean over trajectories starting with (s,a) of Σ γ^t R_t",
+          "code": "Para cada trayectoria que comience en (s,a), calcular retorno descontado y promediar"
+        },
+        "value_function": {
+          "formula": "V̂^π(s) = Σ_a π(a|s) · Q̂(s,a) bajo política uniforme π(a|s) = 1/|A|",
+          "se_formula": "SE(V̂^π(s)) = std(retornos_desde_s) / sqrt(N_visits(s))"
+        }
+      },
+      "output_fields": ["theta_hat", "q_mc", "value_hat", "value_se"]
+    },
+
+    "rao_blackwell_node": {
+      "file": "agent/nodes/rao_blackwell_node.py",
+      "function": "async def rao_blackwell_node(state: AgentState) -> AgentState",
+      "description": "Mejora el estimador MC condicionando sobre T(X) = {N(s,a,s')}. Implementa Teorema de Rao-Blackwell.",
+      "theorem_implementation": {
+        "sufficient_statistic": "T(X) = {N(s,a,s')} — conteos de transiciones",
+        "rb_estimator": "Q̃(s,a) = E[Q̂_MC(s,a) | T(X)]",
+        "practical_approximation": {
+          "description": "E[Q̂_MC | N(s,a,s')] ≈ retorno esperado bajo modelo estimado θ̂",
+          "method": "Value iteration con θ̂ como modelo de transición",
+          "iterations": 1000,
+          "convergence_tol": 1e-6,
+          "code_sketch": [
+            "# Construir matriz de transición P̂(s'|s,a) = θ̂(s,a,s')",
+            "# Value iteration: V_{k+1}(s) = Σ_a π(a|s) Σ_s' P̂(s'|s,a)[R + γ·V_k(s')]",
+            "# Este V_∞ es el estimador Rao-Blackwell de V^π bajo el modelo estimado"
+          ]
+        }
+      },
+      "variance_comparison": {
+        "description": "Calcular varianza empírica de MC vs RB para demostrar reducción",
+        "method": "Bootstrap con B=200 remuestras del dataset de trayectorias",
+        "output": "var_mc[(s,a)], var_rb[(s,a)] — comparación par a par"
+      },
+      "output_fields": ["q_rb", "var_mc", "var_rb"]
+    },
+
+    "cramer_rao_node": {
+      "file": "agent/nodes/cramer_rao_node.py",
+      "function": "async def cramer_rao_node(state: AgentState) -> AgentState",
+      "description": "Calcula cota de Cramér-Rao y sample planning para distintos objetivos de precisión",
+      "computations": {
+        "fisher_information": {
+          "formula": "I(θ̂_{s,a,s'}) = 1 / (θ̂(1−θ̂))",
+          "note": "Fisher information para modelo Bernoulli de cada transición",
+          "edge_case": "Si θ̂ = 0 o θ̂ = 1, usar suavizado Laplace: θ̂ = (N+1) / (N(s,a)+2)"
+        },
+        "cramer_rao_bound": {
+          "formula": "CR(s,a,s') = 1 / (N(s,a) · I(θ̂_{s,a,s'}))",
+          "interpretation": "Ningún estimador insesgado puede tener varianza menor que este valor"
+        },
+        "empirical_verification": {
+          "description": "Verificar que var_rb[(s,a)] >= CR_bound[(s,a)] (debe cumplirse teóricamente)",
+          "check": "assert var_rb[(s,a)] >= CR_bound[(s,a)] * 0.95  # margen 5% por error numérico",
+          "report": "violation_rate = fracción de pares (s,a) donde var_rb < CR_bound * 0.95"
+        },
+        "sample_planning": {
+          "description": "n_min para alcanzar Var(V̂^π) ≤ ε² usando cota de CR",
+          "targets": [0.1, 0.05, 0.01],
+          "formula": "n_min(ε) = 1 / (ε² · mean_I_theta)",
+          "output": "{'eps_0.1': n1, 'eps_0.05': n2, 'eps_0.01': n3}"
+        },
+        "history_snapshots": {
+          "description": "Para cada snapshot en history, calcular CR_bound con los N disponibles hasta ese punto",
+          "purpose": "Permitir gráfica de CR_bound(n) vs var_mc(n) vs var_rb(n)"
+        }
+      },
+      "output_fields": ["fisher_info", "cramer_rao_bound", "min_episodes_for_target"]
+    },
+
+    "analyst_node": {
+      "file": "agent/nodes/analyst_node.py",
+      "function": "async def analyst_node(state: AgentState) -> AgentState",
+      "description": "Nodo LLM — Claude interpreta los resultados estadísticos completos",
+      "api_call": {
+        "model": "claude-sonnet-4-5",
+        "max_tokens": 500,
+        "system_prompt_file": "prompts/analyst_system.md",
+        "user_message_construction": {
+          "sections": [
+            "## Experimento",
+            "- Entorno: FrozenLake-v1 (4x4, is_slippery=True)",
+            "- Episodios recolectados: {n_collected}",
+            "- γ = {gamma}",
+            "",
+            "## Resultados del estimador MC vs Rao-Blackwell",
+            "- Var promedio MC: {mean_var_mc:.6f}",
+            "- Var promedio RB: {mean_var_rb:.6f}",
+            "- Reducción de varianza: {reduction_pct:.1f}%",
+            "",
+            "## Cota de Cramér-Rao",
+            "- CR bound promedio: {mean_cr_bound:.6f}",
+            "- Var_RB / CR_bound (ratio, idealmente ≥ 1): {ratio:.3f}",
+            "- Tasa de violaciones numéricas: {violation_rate:.1%}",
+            "",
+            "## Sample planning",
+            "- n_min para ε=0.10: {n_min_01}",
+            "- n_min para ε=0.05: {n_min_005}",
+            "- n_min para ε=0.01: {n_min_001}",
+            "",
+            "## Función de valor (5 estados más visitados)",
+            "{top5_value_table}",
+            "",
+            "Interpreta estos resultados en 4-5 oraciones. Menciona: (1) si la RB redujo varianza como predice el teorema, (2) si la cota de CR se respeta, (3) qué implica el sample planning para aplicaciones reales, (4) limitaciones del prototipo."
+          ]
+        }
+      },
+      "streaming": {
+        "method": "client.messages.stream()",
+        "chainlit_integration": "Usar cl.Message(author='analyst') con stream=True para mostrar tokens en tiempo real"
+      },
+      "output_field": "state['analysis_text']"
+    }
+  },
+
+  "chainlit_app": {
+    "file": "chainlit_app.py",
+    "commands": {
+      "/run": {
+        "syntax": "/run [n_episodes] [gamma]",
+        "defaults": {"n_episodes": 500, "gamma": 0.95},
+        "example": "/run 1000 0.99",
+        "flow": [
+          "Parsear argumentos con shlex.split",
+          "Crear estado inicial AgentState",
+          "Compilar grafo con agent.graph.build_graph()",
+          "Ejecutar con graph.astream(state)",
+          "Por cada evento de estado: llamar stream_handler.on_update(state, cl_step)",
+          "Al terminar: enviar gráfica de convergencia + análisis LLM"
+        ]
+      },
+      "/compare": {
+        "syntax": "/compare [n_episodes]",
+        "description": "Ejecuta múltiples runs con n=100,200,500,1000 y grafica var_mc vs var_rb vs CR_bound vs n",
+        "flow": [
+          "Ejecutar 4 runs con n distintos sobre el mismo seed",
+          "Acumular resultados en lista",
+          "Llamar plot_utils.make_comparison_plot(results)",
+          "Enviar imagen inline en Chainlit"
+        ]
+      },
+      "/sample_plan": {
+        "syntax": "/sample_plan [epsilon]",
+        "description": "Calcula n_min para alcanzar Var(V̂) ≤ ε² y lo explica",
+        "default_epsilon": 0.05
+      },
+      "/explain": {
+        "syntax": "/explain [concepto]",
+        "concepts": ["rao-blackwell", "cramer-rao", "umvue", "fisher", "sample-planning"],
+        "description": "El nodo analyst explica el concepto teórico con conexión al experimento actual"
+      },
+      "free_question": {
+        "description": "Cualquier mensaje sin / es tratado como pregunta libre al analyst LLM",
+        "context": "Usa cl.user_session para incluir el último estado del experimento como contexto",
+        "example_questions": [
+          "¿Por qué la Rao-Blackwell tiene menor varianza?",
+          "¿Qué significa que I(θ) sea grande?",
+          "¿Cuántos episodios más necesito para mejorar la precisión?",
+          "¿El estimador MC es insesgado aquí?"
+        ]
+      }
+    },
+    "session_storage": {
+      "cl_user_session_keys": [
+        "last_state",
+        "last_n_episodes",
+        "last_gamma",
+        "experiment_history"
+      ]
+    },
+    "streaming_updates": {
+      "file": "stream_handler.py",
+      "class": "StreamHandler",
+      "update_format": "📊 episodio {n}/{total} | estados visitados: {unique_states} | transiciones únicas: {unique_transitions}",
+      "cl_step_name": "Recolectando episodios",
+      "emit_every": 50
+    }
+  },
+
+  "plot_utils": {
+    "file": "plot_utils.py",
+    "functions": {
+      "make_convergence_plot": {
+        "signature": "def make_convergence_plot(history: list[dict]) -> bytes",
+        "subplots": 3,
+        "subplot_1": {
+          "title": "Varianza MC vs Rao-Blackwell vs Cramér-Rao",
+          "x": "n (episodios)",
+          "y": "varianza promedio",
+          "lines": ["var_mc (rojo)", "var_rb (verde)", "cr_bound (azul punteado)"],
+          "yscale": "log"
+        },
+        "subplot_2": {
+          "title": "Reducción de varianza por Rao-Blackwell",
+          "x": "n",
+          "y": "(var_mc - var_rb) / var_mc · 100%",
+          "note": "Debe ser positivo — si es negativo hay un bug en la implementación"
+        },
+        "subplot_3": {
+          "title": "V̂^π(s) con intervalos de confianza (top 8 estados)",
+          "type": "barplot con errorbars",
+          "x": "estado s",
+          "y": "V̂^π(s)",
+          "errorbars": "± 1.96 · SE(V̂^π(s))"
+        },
+        "output": "bytes PNG, dpi=150, figsize=(12,9)"
+      },
+      "make_comparison_plot": {
+        "signature": "def make_comparison_plot(results: list[dict]) -> bytes",
+        "description": "Gráfica multi-run: var_mc, var_rb y CR_bound en función de n_episodes",
+        "output": "bytes PNG"
+      },
+      "make_sample_planning_plot": {
+        "signature": "def make_sample_planning_plot(cr_bounds: dict, epsilons: list[float]) -> bytes",
+        "description": "Curva n_min(ε) = 1 / (ε² · I_mean) con puntos marcados para ε ∈ {0.1, 0.05, 0.01}"
+      }
+    }
+  },
+
+  "prompts": {
+    "analyst_system_md": {
+      "file": "prompts/analyst_system.md",
+      "content": "Eres un estadístico matemático experto. Tienes acceso a los resultados de un experimento de estimación de funciones de valor en FrozenLake-v1.\n\nCuando interpretes resultados:\n- Conecta los números con los teoremas: Rao-Blackwell (Var(E[T|S]) ≤ Var(T)), Cramér-Rao (Var(θ̂) ≥ 1/nI(θ)), UMVUE (Lehmann-Scheffé).\n- Señala si los resultados empíricos confirman o no las predicciones teóricas.\n- Menciona limitaciones del prototipo (n pequeño, política fija, bootstrap aproximado).\n- Sé preciso pero accesible. Usa notación matemática cuando ayude.\n- Máximo 5 oraciones en análisis automático. En preguntas libres puedes extenderte."
+    }
+  },
+
+  "dependencies": {
+    "requirements_txt": [
+      "chainlit>=1.1.0",
+      "langgraph>=0.2.0",
+      "anthropic>=0.25.0",
+      "gymnasium>=0.29.0",
+      "numpy>=1.26.0",
+      "scipy>=1.12.0",
+      "matplotlib>=3.8.0",
+      "aiofiles>=23.0.0"
+    ],
+    "python_version": ">=3.11",
+    "env_variables": {
+      "required": ["ANTHROPIC_API_KEY"],
+      "optional": ["LANGSMITH_API_KEY", "LANGCHAIN_TRACING_V2", "LANGCHAIN_PROJECT"]
+    }
+  },
+
+  "run_instructions": {
+    "install": "pip install -r requirements.txt",
+    "env_setup": "cp .env.example .env && echo 'ANTHROPIC_API_KEY=sk-ant-...' >> .env",
+    "run": "chainlit run chainlit_app.py -w --port 8000",
+    "quick_test": [
+      "1. Abrir http://localhost:8000",
+      "2. Escribir: /run 500",
+      "3. Ver streaming de episodios en tiempo real",
+      "4. Al terminar: ver gráfica de convergencia + análisis LLM",
+      "5. Preguntar: '¿Por qué var_rb < var_mc siempre?'",
+      "6. Escribir: /compare  (ejecuta 4 runs con n distintos)",
+      "7. Escribir: /sample_plan 0.05  (¿cuántos episodios para Var(V̂) < 0.0025?)"
+    ]
+  },
+
+  "implementation_order": [
+    {
+      "priority": 1,
+      "step": "Scaffold del proyecto y estado",
+      "files": ["agent/state.py", "requirements.txt", ".env.example"],
+      "effort": "30min",
+      "value": "Base tipada para todo el resto"
+    },
+    {
+      "priority": 2,
+      "step": "Nodo collect + grafo básico",
+      "files": ["agent/nodes/collect_node.py", "agent/nodes/decide_node.py", "agent/graph.py"],
+      "effort": "1h",
+      "value": "Agente corre episodios en FrozenLake — verificable con test unitario"
+    },
+    {
+      "priority": 3,
+      "step": "Nodo estimate (UMVUE)",
+      "files": ["agent/nodes/estimate_node.py"],
+      "effort": "45min",
+      "value": "θ̂ y V̂^π calculados — demostración de Lehmann-Scheffé"
+    },
+    {
+      "priority": 4,
+      "step": "Nodo Rao-Blackwell",
+      "files": ["agent/nodes/rao_blackwell_node.py"],
+      "effort": "1.5h",
+      "value": "Reducción de varianza demostrable empíricamente — core del capítulo"
+    },
+    {
+      "priority": 5,
+      "step": "Nodo Cramér-Rao",
+      "files": ["agent/nodes/cramer_rao_node.py"],
+      "effort": "1h",
+      "value": "Cota inferior + sample planning — conexión directa con las preguntas del lab"
+    },
+    {
+      "priority": 6,
+      "step": "Plot utils",
+      "files": ["plot_utils.py"],
+      "effort": "1h",
+      "value": "Visualización de los tres estimadores y su relación con la cota"
+    },
+    {
+      "priority": 7,
+      "step": "Nodo analyst LLM + prompts",
+      "files": ["agent/nodes/analyst_node.py", "prompts/analyst_system.md"],
+      "effort": "1h",
+      "value": "El agente razona sobre sus propios resultados estadísticos"
+    },
+    {
+      "priority": 8,
+      "step": "Chainlit app completa",
+      "files": ["chainlit_app.py", "stream_handler.py"],
+      "effort": "1.5h",
+      "value": "UI conversacional con todos los comandos y modo pregunta libre"
+    }
+  ],
+
+  "known_limitations": [
+    "Bootstrap para varianza empírica es aproximado — con n=500 episodios el error es ~5%",
+    "La RB se implementa via value iteration con θ̂, no con la integral E[Q|T] exacta",
+    "FrozenLake tiene estados terminales frecuentes — muchas trayectorias cortas sesgan la estimación de V para estados distales",
+    "La cota de Cramér-Rao aplica estrictamente a estimadores insesgados — Q_MC puede tener sesgo pequeño por γ<1",
+    "Sin checkpointer persistente — reinicia al cerrar el servidor Chainlit"
+  ]
+}

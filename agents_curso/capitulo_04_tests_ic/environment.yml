@@ -1,0 +1,33 @@
+name: cap04_tests_ic
+channels:
+  - defaults
+dependencies:
+  - python=3.10
+  - pip
+  - pip:
+    - numpy>=1.24
+    - scipy>=1.10
+    - langgraph>=0.2
+    - langchain-openai>=0.1
+    - chainlit>=1.0
+
+# =============================================================================
+# CONFIGURACIÓN DE OPENROUTER API (REQUSITO PREVIO)
+# =============================================================================
+# 1. Obtén tu API key en: https://openrouter.ai/keys
+# 2. Exporta la key antes de ejecutar
+#
+# En bash/zsh (shell actual):
+#    export OPENROUTER_API_KEY="sk-or-v1-..."
+#
+# Para persistir (agrega a ~/.bashrc o ~/.zshrc):
+#    echo 'export OPENROUTER_API_KEY="sk-or-v1-..."' >> ~/.bashrc
+#    source ~/.bashrc
+#
+# O en el archivo .env de este directorio:
+#    OPENROUTER_API_KEY=sk-or-v1-...
+#    (descomenta en .env.example o crea desde .env)
+#
+# 3. Verifica que la configuración funciona:
+#    python -c "import os; print(os.environ.get('OPENROUTER_API_KEY', 'NOT SET'))"
+# =============================================================================

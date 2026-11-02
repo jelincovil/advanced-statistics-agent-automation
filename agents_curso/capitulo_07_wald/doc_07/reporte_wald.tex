@@ -1,0 +1,452 @@
+\documentclass[11pt,a4paper]{article}
+
+% ---------- encoding & fonts ----------
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[spanish,es-tabla]{babel}
+
+% ---------- math ----------
+\usepackage{amsmath,amssymb,amsthm}
+
+% ---------- graphics & diagrams ----------
+\usepackage{tikz}
+\usetikzlibrary{positioning,arrows.meta,shapes,fit,backgrounds,calc,babel}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+
+% ---------- tables ----------
+\usepackage{booktabs,multirow}
+
+% ---------- hyperlinks ----------
+\usepackage[colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue]{hyperref}
+
+% ---------- geometry ----------
+\usepackage[top=2.5cm,bottom=2.5cm,left=2.5cm,right=2.5cm]{geometry}
+
+% ---------- theorems ----------
+\theoremstyle{definition}
+\newtheorem{definicion}{Definición}[section]
+\newtheorem{teorema}{Teorema}[section]
+\newtheorem{observacion}{Observación}[section]
+
+% ---------- custom commands ----------
+\newcommand{\Risk}{\mathcal{R}}
+\newcommand{\Prob}{\mathbb{P}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\X}{\mathcal{X}}
+\newcommand{\A}{\mathcal{A}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Beta}{\operatorname{Beta}}
+
+% ---------- title ----------
+\title{\textbf{Agente Estadístico de Wald para Decisiones Crediticias}\\{\large Implementación en LangGraph de un meta-selector Bayes--Minimax}}
+\author{Lab F.7 — Capítulo 7}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\tableofcontents
+\newpage
+
+% ===================================================================
+\section{Introducción}
+% ===================================================================
+
+Este documento describe un agente de decisión estadística que implementa la
+\textbf{teoría de Wald} del Capítulo~7 para la aprobación de solicitudes
+crediticias. El agente combina tres estrategias de decisión:
+
+\begin{enumerate}
+	\item \textbf{Regla de Bayes}: minimiza el riesgo esperado condicional a los
+	      datos observados.
+	\item \textbf{Regla Minimax}: minimiza la peor pérdida posible sobre un
+	      intervalo de credibilidad posterior.
+	\item \textbf{Escalación a humano}: deriva la decisión a un analista cuando
+	      la incertidumbre epistémica es demasiado alta y las reglas discrepan.
+\end{enumerate}
+
+Un \textbf{meta-selector} elige entre estas tres basándose en la entropía de
+la distribución posterior y en el acuerdo entre las dos reglas automáticas.
+El agente está implementado como un grafo acíclico dirigido (DAG) en
+LangGraph, donde cada nodo es una función pura sobre el estado del agente.
+
+\subsection*{Convención de pérdida (Statlog)}
+
+La matriz de pérdida sigue la convención del dataset \emph{German Credit}
+de Statlog, donde clasificar a un solicitante moroso como bueno es 5~veces
+más costoso que clasificar a uno bueno como moroso:
+
+\begin{equation}\label{eq:loss-matrix}
+	L(\theta,a) =
+	\begin{array}{c|ccc}
+		\theta \backslash a & \text{accept} & \text{reject} & \text{escalate} \\ \hline
+		\text{Pagador}         & 0             & 1             & 1.5             \\
+		\text{Moroso}          & 5             & 0             & 1.5
+	\end{array}
+\end{equation}
+
+La acción \texttt{escalate} tiene un costo fijo de~1.5, superior al riesgo
+máximo de las reglas puras ($\max_{p\in[0,1]}\min(5p,1-p)=5/6\approx0.833$),
+lo que garantiza que está \textbf{estrictamente dominada} para cualquier
+$p\in[0,1]$. Solo el meta-selector puede activarla.
+
+% ===================================================================
+\section{Arquitectura del grafo (DAG)}
+% ===================================================================
+
+El agente se compone de cinco nodos funcionales encadenados secuencialmente.
+Cada nodo recibe el estado completo del agente y devuelve una actualización
+parcial que LangGraph fusiona automáticamente.
+
+\begin{figure}[h]
+	\centering
+	\begin{tikzpicture}[
+			node distance = 1.2cm and 2.8cm,
+			box/.style = {
+					rectangle, rounded corners, draw, very thick,
+					minimum width=3.0cm, minimum height=1.2cm,
+					align=center, font=\small\bfseries
+				},
+			edge/.style = {->, thick, >=Stealth},
+			decision/.style = {
+					diamond, draw, very thick, aspect=1.8,
+					minimum width=3.5cm, align=center, font=\small\bfseries
+				},
+			terminal/.style = {
+					rectangle, draw, very thick, minimum width=2.0cm,
+					minimum height=0.8cm, font=\small\bfseries, rounded corners=2mm
+				},
+			every edge/.append style = {edge}
+		]
+
+		% Nodes
+		\node[box,fill=blue!15]   (obs)      {Observar\\$x\in\X$};
+		\node[box,fill=green!15]  (post)     [right=of obs] {Posterior\\$\theta\mid x \sim \Beta(\alpha,\beta)$};
+		\node[box,fill=yellow!15] (bayes)    [right=of post] {Riesgo\\Bayes\\$\delta_B(x)$};
+		\node[box,fill=orange!15] (minimax)  [right=of bayes] {Riesgo\\Minimax\\$\delta_M(x)$};
+		\node[decision,fill=red!10] (meta)   [right=of minimax] {Meta\\Selector};
+		\node[terminal]            (end)     [right=of meta] {END};
+
+		% Edges
+		\draw[edge] (obs)      -- node[above,font=\small] {$x$} (post);
+		\draw[edge] (post)     -- node[above,font=\small] {$\alpha,\beta,H$} (bayes);
+		\draw[edge] (bayes)    -- node[above,font=\small] {$R_B(a)$} (minimax);
+		\draw[edge] (minimax)  -- node[above,font=\small] {$R_M(a)$} (meta);
+		\draw[edge] (meta)     -- (end);
+
+		% Annotations below
+		\node[below=0.5cm of post,   font=\small,text width=3cm,align=center]
+		{\texttt{make\_posterior\_node}};
+		\node[below=0.5cm of bayes,  font=\small,text width=3cm,align=center]
+		{\texttt{riesgo\_bayes}};
+		\node[below=0.5cm of minimax,font=\small,text width=3cm,align=center]
+		{\texttt{riesgo\_minimax}};
+		\node[below=0.5cm of meta,   font=\small,text width=3cm,align=center]
+		{\texttt{meta\_selector}};
+
+		% Legend
+		\node[above=0.2cm of obs, font=\small\itshape] {Nodo 1};
+		\node[above=0.2cm of post, font=\small\itshape] {Nodo 2};
+		\node[above=0.2cm of bayes, font=\small\itshape] {Nodo 3};
+		\node[above=0.2cm of minimax, font=\small\itshape] {Nodo 4};
+		\node[above=0.2cm of meta, font=\small\itshape] {Nodo 5};
+
+	\end{tikzpicture}
+	\caption{Grafo acíclico dirigido (DAG) del agente de Wald. Cada nodo es
+		una función pura \texttt{AgentState $\to$ AgentState}. Las variables que
+		fluyen entre nodos se indican sobre las aristas.}
+	\label{fig:dag}
+\end{figure}
+
+\subsection*{Estructura del estado}
+
+El estado del agente se define como un \texttt{TypedDict} con los siguientes
+campos:
+
+\begin{itemize}
+	\item \texttt{applicant\_id}, \texttt{x}, \texttt{y\_true}: entrada.
+	\item \texttt{p\_hat}, \texttt{alpha}, \texttt{beta}, \texttt{entropy\_norm}: posterior.
+	\item \texttt{bayes\_risk}, \texttt{minimax\_risk}: riesgos por acción.
+	\item \texttt{bayes\_action}, \texttt{minimax\_action}, \texttt{chosen\_action},
+	      \texttt{rule\_used}, \texttt{realised\_loss}: decisión.
+\end{itemize}
+
+% ===================================================================
+\section{Descripción de los nodos}
+% ===================================================================
+
+\subsection{Nodo 1: Observar (\texttt{observar})}
+
+Recibe el vector de atributos $x\in\X$ del solicitante. En la implementación
+actual, $x$ es inyectado directamente en el estado por el \emph{runner}
+externo. El nodo valida que el campo \texttt{x} exista y retorna una
+actualización vacía.
+
+\subsection{Nodo 2: Posterior (\texttt{make\_posterior\_node})}
+
+Convierte la salida $p = \hat{P}(\text{bad}\mid x)$ de un clasificador
+(regresión logística) en una distribución Beta que representa la creencia
+posterior sobre $\theta = P(\text{bad}\mid x)$:
+
+\begin{equation}\label{eq:moment-match}
+	\theta \mid x \sim \Beta(\alpha,\beta),\qquad
+	\alpha = \kappa \cdot p,\quad \beta = \kappa \cdot (1-p),
+\end{equation}
+
+donde $\kappa$ es un hiperparámetro de concentración (\texttt{POSTERIOR\_KAPPA})
+que controla la agudeza de la posterior. Valores grandes de $\kappa$
+producen una distribución más concentrada (menos incertidumbre epistémica);
+valores pequeños la ensanchan.
+
+Este \emph{moment-matching} es una aproximación deliberada (el
+\enquote{truco de Laplace--Beta}) que evita el costo de una regresión
+logística Bayesiana completa, manteniendo la estructura de Wald manejable.
+
+Además de la media $p$ y los parámetros $(\alpha,\beta)$, el nodo calcula
+la entropía normalizada de la Beta:
+
+\begin{equation}\label{eq:entropy}
+	H_{\text{norm}} = \exp\bigl(H_{\Beta}(\alpha,\beta)\bigr) \in [0,1],
+\end{equation}
+
+donde $H_{\Beta}$ es la entropía diferencial de la Beta en nats.
+$H_{\text{norm}} = 1$ corresponde a $\Beta(1,1)$ (máxima incertidumbre,
+distribución uniforme), y $H_{\text{norm}} \to 0$ cuando la distribución
+se degenera en un punto (certeza total).
+
+\subsection{Nodo 3: Riesgo Bayesiano (\texttt{riesgo\_bayes})}
+
+Calcula el riesgo esperado para cada acción $a\in\A$ bajo la creencia
+posterior actual:
+
+\begin{equation}\label{eq:bayes-risk}
+	R_B(a) = \E_{\theta\mid x}[L(\theta,a)]
+	= p \cdot L(\text{bad},a) + (1-p) \cdot L(\text{good},a)
+\end{equation}
+
+La regla de Bayes es el argumento minimizador:
+
+\begin{equation}\label{eq:bayes-rule}
+	\delta_B(x) = \operatorname*{arg\,min}_{a\in\A} R_B(a)
+\end{equation}
+
+Para la matriz de Statlog, el umbral de decisión cerrado entre aceptar y
+rechazar es:
+
+\begin{equation}\label{eq:threshold}
+	\theta^* = \frac{L(\text{good},\text{reject})}
+	{L(\text{good},\text{reject}) + L(\text{bad},\text{accept})}
+	= \frac{1}{1+5} = \frac{1}{6} \approx 0.1667
+\end{equation}
+
+Si $p < 1/6$ la regla de Bayes acepta; si $p > 1/6$ rechaza. La acción
+\texttt{escalate} nunca es seleccionada porque su costo $1.5$ excede el
+riesgo mínimo de las otras dos acciones para cualquier $p$.
+
+\subsection{Nodo 4: Riesgo Minimax (\texttt{riesgo\_minimax})}
+
+En lugar de usar un único $p$, construye un \textbf{intervalo de credibilidad}
+central al $(1-\gamma)\%$ sobre la posterior Beta y calcula el riesgo en el
+peor caso:
+
+\begin{align}
+	p_{\text{lo}} & = F_{\Beta}^{-1}\bigl(\tfrac{\gamma}{2}; \alpha,\beta\bigr),   \\
+	p_{\text{hi}} & = F_{\Beta}^{-1}\bigl(1-\tfrac{\gamma}{2}; \alpha,\beta\bigr), \\
+	R_M(a)        & = \sup_{p\in[p_{\text{lo}},p_{\text{hi}}]}
+	\bigl[p \cdot L(\text{bad},a) + (1-p) \cdot L(\text{good},a)\bigr].
+\end{align}
+
+Dado que el riesgo esperado es \textbf{lineal} en $p$, el supremo se alcanza
+necesariamente en uno de los dos extremos del intervalo:
+
+\begin{equation}\label{eq:worst-case}
+	R_M(a) = \max\bigl(R_B(p_{\text{lo}};a),\; R_B(p_{\text{hi}};a)\bigr)
+\end{equation}
+
+Esto se verifica experimentalmente en el test \texttt{test\_worst\_case\_at\_endpoints}.
+La regla minimax es:
+
+\begin{equation}\label{eq:minimax-rule}
+	\delta_M(x) = \operatorname*{arg\,min}_{a\in\A} R_M(a)
+\end{equation}
+
+Por construcción, $\delta_M$ es \textbf{más conservadora} que $\delta_B$:
+rechaza al menos con la misma frecuencia (test~\texttt{test\_minimax\_is\_more\_conservative\_than\_bayes}).
+
+\subsection{Nodo 5: Meta-selector (\texttt{meta\_selector})}
+
+Selecciona entre las tres estrategias basándose en dos criterios:
+
+\begin{enumerate}
+	\item \textbf{Entropía posterior} $H_{\text{norm}}$: cuantifica la
+	      incertidumbre epistémica.
+	\item \textbf{Acuerdo entre reglas}: si $\delta_B(x) = \delta_M(x)$ o no.
+\end{enumerate}
+
+La lógica de decisión es la siguiente:
+
+\begin{figure}[h]
+	\centering
+	\begin{tikzpicture}[
+			node distance = 1.0cm and 2.5cm,
+			dec/.style = {diamond, draw, thick, aspect=1.8,
+					minimum width=2.8cm, align=center, font=\small},
+			act/.style = {rectangle, draw, thick, rounded corners,
+					minimum width=2.2cm, minimum height=0.9cm,
+					align=center, font=\small\bfseries},
+			edge/.style = {->, thick, >=Stealth}
+		]
+
+		\node (start)   [act,fill=gray!10]                        {Estado\\$H, \delta_B, \delta_M$};
+		\node (dec1)    [dec,fill=red!10,below=of start]          {$H \ge \tau_{\text{esc}}$\\$\land\ \delta_B \neq \delta_M$?};
+		\node (dec2)    [dec,fill=orange!10,below=of dec1]        {$H \ge \tau_{\text{mm}}$?};
+		\node (bayes)   [act,fill=green!15,below left=of dec2]    {Usar\\$\delta_B(x)$};
+		\node (minimax) [act,fill=blue!15,below right=of dec2]    {Usar\\$\delta_M(x)$};
+		\node (esc)     [act,fill=red!20,right=of dec1]           {Escalar\\a humano};
+
+		\draw[edge] (start)  -- (dec1);
+		\draw[edge] (dec1)   -- node[right,font=\small] {Sí} (esc);
+		\draw[edge] (dec1)   -- node[right,font=\small] {No} (dec2);
+		\draw[edge] (dec2)   -- node[above,font=\small] {No} (bayes);
+		\draw[edge] (dec2)   -- node[above,font=\small] {Sí} (minimax);
+
+	\end{tikzpicture}
+	\caption{Árbol de decisión del meta-selector. $\tau_{\text{esc}} = 0.65$,
+		$\tau_{\text{mm}} = 0.45$ con los parámetros actuales.}
+	\label{fig:meta}
+\end{figure}
+
+\begin{itemize}
+	\item \textbf{Entropía baja} ($H < \tau_{\text{mm}}$): se confía en la
+	      regla de Bayes (eficiente).
+	\item \textbf{Entropía alta} ($H \ge \tau_{\text{mm}}$): se usa la regla
+	      minimax (robusta).
+	\item \textbf{Entropía muy alta y desacuerdo} ($H \ge \tau_{\text{esc}}$
+	      y $\delta_B \neq \delta_M$): se escala a un analista humano.
+\end{itemize}
+
+Los umbrales $\tau_{\text{mm}}$ y $\tau_{\text{esc}}$ están definidos en
+\texttt{config.py} y son editables.
+
+% ===================================================================
+\section{Verificación empírica}
+% ===================================================================
+
+\subsection*{Configuración experimental}
+
+\begin{itemize}
+	\item Dataset: German Credit (Statlog), 1000 filas, 20 atributos, 31.4\% morosos.
+	\item Clasificador base: regresión logística con pipeline
+	      (StandardScaler + OneHotEncoder).
+	\item Split: 80/20 estratificado, semilla~42.
+	\item Concentración posterior: $\kappa = 5$ (baja, para activar el meta-selector).
+\end{itemize}
+
+\subsection*{Resultados}
+
+\begin{table}[h]
+	\centering
+	\begin{tabular}{lrc}
+		\toprule
+		\textbf{Métrica}      & \textbf{Valor}       \\ \midrule
+		Precisión (train)     & 0.748                \\
+		Precisión (test)      & 0.740                \\
+		Umbral Bayes cerrado  & $1/6 \approx 0.1667$ \\
+		$p_{\max}$ aceptados  & 0.1665               \\
+		$p_{\min}$ rechazados & 0.1667               \\ \bottomrule
+	\end{tabular}
+	\caption{La coincidencia entre el umbral cerrado y el observado
+		($0.1665/0.1667$) verifica empíricamente el Teorema de Bayes.}
+	\label{tab:threshold}
+\end{table}
+
+\begin{table}[h]
+	\centering
+	\begin{tabular}{lrc}
+		\toprule
+		\textbf{Regla} & \textbf{Pérdida total} \\ \midrule
+		Always-accept  & 315.00                 \\
+		Always-reject  & 137.00                 \\
+		Bayes puro     & 140.00                 \\
+		Minimax puro   & 134.00                 \\
+		Meta-selector  & 140.00                 \\ \bottomrule
+	\end{tabular}
+	\caption{Pérdida total realizada sobre 200 solicitudes de test.
+		Minimax supera a Bayes en esta ejecución (efecto de muestra finita).}
+	\label{tab:loss}
+\end{table}
+
+\begin{table}[h]
+	\centering
+	\begin{tabular}{lcc}
+		\toprule
+		               & \multicolumn{2}{c}{\textbf{Minimax}}          \\
+		\textbf{Bayes} & accept                               & reject \\ \midrule
+		accept         & 9                                    & 60     \\
+		reject         & 0                                    & 131    \\ \bottomrule
+	\end{tabular}
+	\caption{Tabla de contingencia entre reglas. En 60 casos (30\%)
+		discrepan: Bayes acepta donde minimax rechaza.}
+	\label{tab:confusion}
+\end{table}
+
+\subsection*{Distribución de entropía}
+
+Con $\kappa=5$, la entropía normalizada tiene media $0.52$ y alcanza hasta
+$0.82$. El meta-selector asigna 129 casos a minimax y 71 a Bayes. La ruta
+de escalación no se activa porque las condiciones de alta entropía y
+desacuerdo entre reglas están \textbf{anti-correlacionadas}: la entropía
+es máxima cuando $p\approx 0.5$ (ambas reglas coinciden en rechazar), y
+el desacuerdo ocurre cerca del umbral $p\approx 1/6$ donde la entropía es
+moderada.
+
+% ===================================================================
+\section{Validación teórica (tests)}
+% ===================================================================
+
+Los 7 tests de cordura verifican propiedades fundamentales:
+
+\begin{enumerate}
+	\item \textbf{Umbral de Bayes}: coincide con $1/6$ (test 1).
+	\item \textbf{Frontera de decisión}: $p < 1/6 \to$ accept, $p > 1/6 \to$ reject (test 2).
+	\item \textbf{Minimax es más conservador}: rechaza al menos tantos como Bayes (test 3).
+	\item \textbf{Escalación bajo desacuerdo + alta entropía}: el meta-selector escala (test 4).
+	\item \textbf{Bayes bajo certeza}: con entropía baja, usa Bayes (test 5).
+	\item \textbf{Linealidad del riesgo}: $\E[L\mid p,a]$ es lineal en $p$ (test 6).
+	\item \textbf{Peor caso en extremos}: $\sup_{[p_{\text{lo}},p_{\text{hi}}]}$
+	      se alcanza en un extremo (test 7).
+\end{enumerate}
+
+% ===================================================================
+\section{Configuración y parametrización}
+% ===================================================================
+
+Todos los parámetros editables residen en \texttt{config.py}:
+
+\begin{table}[h]
+	\centering
+	\begin{tabular}{lll}
+		\toprule
+		\textbf{Parámetro}                      & \textbf{Default} & \textbf{Efecto}          \\ \midrule
+		\texttt{SEED}                           & 42               & Reproducibilidad         \\
+		\texttt{POSTERIOR\_KAPPA}               & 5.0              & Concentración Beta       \\
+		\texttt{ENTROPY\_THRESHOLD}             & 0.45             & Activación de minimax    \\
+		\texttt{ESCALATE\_ENTROPY\_THRESHOLD}   & 0.65             & Activación de escalación \\
+		\texttt{MINIMAX\_CRED\_LEVEL}           & 0.90             & Amplitud del intervalo   \\
+		\texttt{LOSS{[}(``bad'',``accept''){]}} & 5.0              & Asimetría 5:1            \\
+		\texttt{TEST\_SIZE}                     & 0.20             & Proporción de test       \\ \bottomrule
+	\end{tabular}
+	\caption{Parámetros editables del agente.}
+	\label{tab:params}
+\end{table}
+
+\section*{Conexión con el Capítulo 8 (MDPs)}
+
+Cada decisión individual constituye un MDP de un paso donde
+$\Risk(\theta,\delta) = -V^\pi(s)$. El isomorfismo Wald--MDP del Capítulo~11
+se manifiesta al extender este agente a decisiones secuenciales
+(préstamos renovables con observación posterior del desempeño del prestatario).
+
+\end{document}

@@ -1,0 +1,270 @@
+{
+  "agent_spec": {
+    "id": "lab_F2_sufficient_state_agent",
+    "version": "1.0.0",
+    "title": "Agente de Compresión de Estado por Estadístico Suficiente",
+    "chapter": "Capítulo 2 — Reducción de Datos y Suficiencia",
+    "lab_reference": "Laboratorio F.2 (apéndice_laboratorio.tex §F.2)",
+    "theorems": [
+      "Neyman-Fisher (thm:ch2-neyman-fisher)",
+      "Lehmann-Scheffé (thm:ch2-lehmann-scheffe)",
+      "Basu (thm:ch2-basu)"
+    ],
+
+    "objective": {
+      "summary": "Demostrar empíricamente que comprimir el historial de observaciones en el estadístico suficiente T_n preserva toda la información inferencial relevante, con actualización O(1) en espacio y tiempo, frente al recálculo O(n) sobre el historial completo.",
+      "theoretical_claim": "Por el Teorema de Neyman-Fisher, T_n = (n, sum_x_i) es estadístico suficiente minimal para theta en Bernoulli(theta). Cualquier inferencia realizable con el historial completo X_1,...,X_n es igualmente realizable con T_n.",
+      "practical_claim": "Un agente que mantiene solo T_n en su StateSchema es ~3000x más rápido que uno que recalcula sobre el historial, sin pérdida de calidad inferencial medida por divergencia KL."
+    },
+
+    "environment": {
+      "type": "simulado_bernoulli",
+      "description": "Secuencia i.i.d. de observaciones X_i ~ Bernoulli(theta_true)",
+      "parameter": {
+        "theta_true": 0.3,
+        "justification": "Valor fijo conocido solo para evaluación; el agente no lo conoce"
+      },
+      "sample_sizes": [100, 1000, 10000, 100000],
+      "random_seed": 42
+    },
+
+    "state_schema": {
+      "description": "El StateSchema implementa T_n = (n, sum_x_i), estadístico suficiente minimal para Bernoulli(theta) por Neyman-Fisher. Dimensión fija O(2) independiente de n.",
+      "fields": {
+        "count": {
+          "type": "int",
+          "initial_value": 0,
+          "description": "Número de observaciones acumuladas: n",
+          "role": "componente 1 del estadístico suficiente"
+        },
+        "total": {
+          "type": "int",
+          "initial_value": 0,
+          "description": "Suma de observaciones: sum_{i=1}^{n} x_i",
+          "role": "componente 2 del estadístico suficiente"
+        }
+      },
+      "derived_quantities": {
+        "theta_hat": {
+          "formula": "total / count  (si count > 0, else 0.5)",
+          "type": "float",
+          "description": "UMVUE de theta por Lehmann-Scheffé. No se almacena; se calcula bajo demanda.",
+          "fallback_if_count_zero": 0.5
+        },
+        "kl_divergence": {
+          "description": "D_KL(Bin(k, theta_hat) || Bin(k, theta_true)) para k=100. Métrica de pérdida de información. Solo disponible en modo evaluación (theta_true conocido).",
+          "formula": "sum_x p(x; theta_hat) * log(p(x; theta_hat) / p(x; theta_true))",
+          "epsilon_smoothing": 1e-15
+        }
+      },
+      "complexity": {
+        "space": "O(2) = O(1)",
+        "update_time": "O(1) por observación",
+        "justification": "Familia exponencial de rango k=1; estadístico aditivo: T_{n+1} = T_n + t(x_{n+1})"
+      }
+    },
+
+    "nodes": {
+      "observe": {
+        "id": "observe",
+        "description": "Recibe la observación x_t del ambiente.",
+        "input": {
+          "x": {
+            "type": "int",
+            "domain": [0, 1],
+            "description": "Realización de X_t ~ Bernoulli(theta)"
+          }
+        },
+        "output": {
+          "x": "int — pasa x_t al nodo siguiente sin modificación",
+          "state": "StateSchema — sin modificar"
+        },
+        "side_effects": "ninguno",
+        "complexity": "O(1)"
+      },
+
+      "update": {
+        "id": "update",
+        "description": "Aplica la regla de actualización aditiva del estadístico suficiente. Implementa la propiedad de familia exponencial: T_{n+1} = T_n + t(x_{n+1}).",
+        "transition_rule": {
+          "count": "state['count'] += 1",
+          "total": "state['total'] += x"
+        },
+        "input": {
+          "x": "int en {0,1}",
+          "state": "StateSchema actual"
+        },
+        "output": {
+          "state": "StateSchema actualizado"
+        },
+        "invariants": [
+          "state['count'] >= 0 en todo momento",
+          "0 <= state['total'] <= state['count'] en todo momento",
+          "La actualización es idempotente bajo replay exacto del historial"
+        ],
+        "complexity": "O(1)"
+      },
+
+      "decide": {
+        "id": "decide",
+        "description": "Calcula theta_hat y emite una estimación puntual. En el modo benchmark emite también el diagnóstico de pérdida de información (KL).",
+        "sub_operations": {
+          "estimate_theta": {
+            "formula": "theta_hat = state['total'] / state['count']",
+            "guard": "si state['count'] == 0 retorna 0.5",
+            "statistical_property": "UMVUE por Lehmann-Scheffé al ser función del estadístico suficiente completo"
+          },
+          "compute_kl": {
+            "description": "Solo en modo evaluación. Cuantifica D_KL entre distribuciones predictivas bajo theta_hat y theta_true.",
+            "binomial_k": 100,
+            "formula_ref": "kl_divergence en state_schema.derived_quantities"
+          }
+        },
+        "output": {
+          "theta_hat": "float — estimación puntual de theta",
+          "kl": "float | null — divergencia KL (null si theta_true no disponible)"
+        },
+        "complexity": "O(k) para KL donde k=100 (constante); O(1) para estimación puntual"
+      }
+    },
+
+    "graph": {
+      "framework": "LangGraph",
+      "topology": "lineal_cíclica",
+      "edges": [
+        {
+          "from": "observe",
+          "to": "update",
+          "condition": "siempre"
+        },
+        {
+          "from": "update",
+          "to": "decide",
+          "condition": "siempre"
+        },
+        {
+          "from": "decide",
+          "to": "observe",
+          "condition": "quedan_observaciones_en_el_stream"
+        },
+        {
+          "from": "decide",
+          "to": "END",
+          "condition": "stream_agotado"
+        }
+      ],
+      "entry_point": "observe",
+      "state_persistence": "StateSchema se transporta por todas las aristas; es el único objeto mutable del grafo"
+    },
+
+    "baseline_agent": {
+      "id": "insufficient_agent",
+      "description": "Agente de referencia que NO usa estadístico suficiente. Almacena la media con actualización de Welford, perdiendo la capacidad de reconstruir la suma exacta.",
+      "state": {
+        "mean": "float, inicializado en 0.5",
+        "n": "int, inicializado en 0"
+      },
+      "update_rule": "mean += (x - mean) / n  [actualización de Welford truncada]",
+      "limitation": "No puede recuperar sum_x_i desde mean y n con precisión flotante; introduce error acumulado de redondeo. Estadístico no suficiente.",
+      "purpose": "Cuantificar la penalización informacional (KL mayor) por usar estadístico insuficiente"
+    },
+
+    "benchmark": {
+      "description": "Experimento de complejidad temporal. Mide el tiempo de pared para procesar n observaciones bajo dos estrategias: actualización O(1) vs recálculo completo O(n) del historial.",
+      "strategies": {
+        "sufficient": {
+          "update": "O(1) — dos sumas escalares",
+          "total_cost": "O(n) tiempo lineal en n con constante pequeña"
+        },
+        "full_recompute": {
+          "update": "O(n) — recalcula sum(history)/len(history) en cada paso",
+          "total_cost": "O(n^2) tiempo cuadrático"
+        }
+      },
+      "metrics": {
+        "t_suf_seconds": "tiempo total para n observaciones con agente suficiente",
+        "t_full_seconds": "tiempo total para n observaciones con recálculo completo",
+        "theta_hat": "estimación final de theta (debe converger a 0.3)",
+        "speedup_ratio": "t_full / t_suf (esperado ~3000x para n=100000)"
+      },
+      "expected_results": {
+        "n_100":    { "t_suf": 0.0001, "t_full": 0.0003, "theta_hat": 0.2900 },
+        "n_1000":   { "t_suf": 0.0008, "t_full": 0.0270, "theta_hat": 0.3010 },
+        "n_10000":  { "t_suf": 0.0082, "t_full": 2.5300, "theta_hat": 0.2987 },
+        "n_100000": { "t_suf": 0.0821, "t_full": 252.0,  "theta_hat": 0.2996 }
+      }
+    },
+
+    "information_loss_experiment": {
+      "description": "Tras n=1000 observaciones, comparar D_KL de ambos agentes respecto a theta_true=0.3 usando distribución predictiva Bin(100, theta_hat).",
+      "expected_results": {
+        "kl_sufficient":   0.000012,
+        "kl_insufficient": 0.000015,
+        "interpretation": "El agente insuficiente acumula un error KL mayor (aunque pequeño para n=1000); la diferencia crece con no linealidades del estadístico a medida que n aumenta."
+      }
+    },
+
+    "ssch_connection": {
+      "description": "Instancia del MDP clínico SSCH del Ejemplo ex:ssch-cap02 (Capítulo 2, hilo longitudinal).",
+      "model": "MDP con estados S (10 niveles HTA), acciones A (10 tratamientos), transiciones theta_{s,a,s'} ~ Dirichlet-multinomial",
+      "sufficient_statistic": {
+        "T_X": "{ N(s,a,s') : s,s' in S, a in A }",
+        "dimension": "|S|^2 * |A| = 100 enteros",
+        "justification": "Factorización de verosimilitud por propiedad de Markov; Neyman-Fisher",
+        "independence_of_n": "Dimensión fija para cualquier número de pacientes n y horizonte H"
+      },
+      "incremental_update": {
+        "rule": "N(s_t, a_t, s_{t+1}) += 1",
+        "complexity_space": "O(|S|^2 * |A|) = O(100)",
+        "complexity_time": "O(1) por transición"
+      },
+      "basu_separation": {
+        "ancillary_statistic": "proporción N(s,a,.) / N(s,a) de visitas al par (s,a)",
+        "sufficiency_result": "Independiente de T(X) por Teorema de Basu",
+        "practical_meaning": "La frecuencia con que el hospital visitó cada par (s,a) es CONTEXTO, no ESTADO; no aporta información sobre theta_{s,a,s'}"
+      },
+      "umvue": {
+        "estimator": "theta_hat_{s,a,s'} = N(s,a,s') / N(s,a)",
+        "example": {
+          "state_pair": "(s_3=HTA-1, a_3=IECA)",
+          "N_s3_a3": 80,
+          "N_s3_a3_s2": 24,
+          "theta_hat": 0.30,
+          "SE": 0.051,
+          "V_pi3_s3": "4.82 ± 0.38"
+        }
+      }
+    },
+
+    "dependencies": {
+      "python": ">=3.10",
+      "packages": ["numpy", "scipy", "time"],
+      "optional": ["langgraph"]
+    },
+
+    "reproducibility": {
+      "random_seed": 42,
+      "set_via": "np.random.seed(42)"
+    },
+
+    "exploration_questions": [
+      {
+        "id": "Q1",
+        "text": "Repita el experimento con modelo Poisson(lambda=2). Identifique T_n = sum(X_i) como estadístico suficiente y compare tiempo de actualización con recálculo de X_bar_n."
+      },
+      {
+        "id": "Q2",
+        "text": "Cuantifique la pérdida de información de usar solo la mediana (estadístico no suficiente para la Normal) vs la media. Use la varianza posterior como medida de información."
+      },
+      {
+        "id": "Q3",
+        "text": "Implemente el Teorema de Basu (thm:ch2-basu): muestre empíricamente que T_n = sum(X_i) y el signo de (X_1 - X_bar) son independientes para X_i ~ N(mu, 1) con mu desconocido."
+      }
+    ],
+
+    "theoretical_table": {
+      "concept":    ["Estadístico suficiente T_n(X_1,...,X_n)", "Factorización Neyman-Fisher", "UMVUE vía Lehmann-Scheffé",           "Divergencia KL D_KL(p_theta || p_theta_hat)"],
+      "code_element": ["state['count'], state['total']",        "update() solo modifica (n, sum_x_i)",  "state['count'] / state['total']", "kl_divergence()"]
+    }
+  }
+}
