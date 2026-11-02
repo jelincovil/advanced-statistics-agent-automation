@@ -1,0 +1,62 @@
+Licencia
+========
+
+Este repositorio combina código y texto. Se aplica una licencia distinta a cada uno.
+
+Copyright (c) 2026 Jaime Enrique Lincovil Curivil
+
+-------------------------------------------------------------------------------
+1. CÓDIGO — MIT
+-------------------------------------------------------------------------------
+
+Aplica a los scripts, laboratorios y aplicaciones: `book_stat_inference_v0/lab*.py`,
+`book_stat_inference_v0/ejecutar_todos.py`, `agents_curso/**` (código Python,
+configuraciones y scripts) y cualquier otro archivo de código fuente.
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+-------------------------------------------------------------------------------
+2. TEXTO, FIGURAS Y DIAPOSITIVAS — CC BY-NC-SA 4.0
+-------------------------------------------------------------------------------
+
+Aplica al manuscrito (`book_stat_inference_v0/`, en particular `main.typ`,
+`plantilla.typ`, `prefacio.typ`, `notacion.typ`, `capitulos/`, `apendices/`,
+`referencias.bib`), al sílabo, a las presentaciones (`diapositivas/`) y a sus
+figuras y tablas.
+
+Creative Commons Atribución-NoComercial-CompartirIgual 4.0 Internacional
+(CC BY-NC-SA 4.0). Usted es libre de compartir y adaptar el material bajo
+estas condiciones:
+
+  Atribución  — debe dar crédito adecuado, enlazar a la licencia e indicar
+                si se realizaron cambios.
+  NoComercial — no puede utilizar el material con fines comerciales.
+  CompartirIgual — si remezcla, transforma o crea a partir del material,
+                debe difundir sus contribuciones bajo la misma licencia.
+
+Texto legal completo: https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode.es
+Resumen legible:      https://creativecommons.org/licenses/by-nc-sa/4.0/deed.es
+
+-------------------------------------------------------------------------------
+3. MATERIAL DE TERCEROS
+-------------------------------------------------------------------------------
+
+Los artículos citados en `referencias.bib` y `FUENTES.md` conservan el
+copyright de sus respectivas editoriales y no se distribuyen en este
+repositorio. Las dependencias de software mantienen sus propias licencias.
