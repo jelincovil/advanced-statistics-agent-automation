@@ -352,6 +352,38 @@
   }
 ]
 
+
+// Alias numéricamente coherente para claves migradas entre capítulos
+// (2026-11-03): hornea el MISMO (word, ch, n) que el entorno inmediatamente
+// anterior, para que @clave-nueva y @clave-vieja impriman idéntico número.
+// Uso: inmediatamente DESPUÉS del entorno original:
+//   #thm-env("theorem", key: "thm:ch9-x")[...]
+//   #env-alias("thm:ch5-x", kind: "theorem")
+#let env-alias(key, kind: "theorem") = context {
+  let ch = chapter-counter.get().first()
+  let word = thm-names.at(kind)
+  let n = thm-counter.get().first()
+  [#metadata((word: word, ch: ch, n: n))#label(key)]
+}
+
+// Variante para Tabla/Figura/Algoritmo/Supuesto/Ejercicio (otros contadores).
+#let obj-alias(key, kind: "tabla") = context {
+  let ch = chapter-counter.get().first()
+  let n = if kind == "tabla" { table-counter.get().first() }
+    else if kind == "figura" { image-counter.get().first() }
+    else if kind == "algoritmo" { algorithm-counter.get().first() }
+    else if kind == "supuesto" { assumption-counter.get().first() }
+    else if kind == "ejercicio" { exercise-counter.get().first() }
+    else { thm-counter.get().first() }
+  let word = if kind == "tabla" { "Tabla" }
+    else if kind == "figura" { "Figura" }
+    else if kind == "algoritmo" { "Algoritmo" }
+    else if kind == "supuesto" { "Supuesto" }
+    else if kind == "ejercicio" { "Ejercicio" }
+    else { "" }
+  [#metadata((word: word, ch: ch, n: n))#label(key)]
+}
+
 // -----------------------------------------------------------------------------
 // TABLAS Y FIGURAS NUMERADAS POR CAPÍTULO (paridad con book.cls; NO usar
 // `#figure(...)` nativo con `@label` para nada que se cite entre capítulos —

@@ -1,0 +1,4 @@
+runs=3000, T=3000, alpha=0.05, grid 81 lambdas
+P(whole CS path excludes the true value) = 0.0000 (MCSE 0.0000)  [guarantee: <= 0.05]
+E[M_tau] at wrong-center stopping time   = 0.0190 (MCSE 0.0009)  [must be <= 1]
+CS width at n=3000: median 0.7750, IQR [0.75  0.775]

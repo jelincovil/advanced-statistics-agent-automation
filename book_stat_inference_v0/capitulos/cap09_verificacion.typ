@@ -31,7 +31,8 @@ mediante argumentos y análisis de sensibilidad; un diagnóstico favorable
 no los convierte en hechos demostrados por la muestra.
 
 El dictamen usa cuatro estados: *aplicable bajo supuestos declarados*,
-*pendiente de justificación*, *no aplicable* y *regla de diseño*. El primero
+*pendiente de justificación*, *no aplicable* y *regla de diseño*. Las marcas típicas
+de filas («↔» / «↝» / no marcada) nunca sustituyen ese dictamen; solo acompañan la comprensión del lector. El primero
 no significa que todos los supuestos poblacionales se hayan probado.
 Si cambia la población, el horizonte, la política, la regla de parada o el
 estimador, se revisa el dictamen. No se transforma una garantía ausente en

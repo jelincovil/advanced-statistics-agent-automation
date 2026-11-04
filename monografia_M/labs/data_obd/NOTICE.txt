@@ -1,0 +1,4 @@
+Open Bandit Dataset subsamples (campaigns all, behavior policies bts and random,
+bundled with the obp 0.5.7 source distribution, st-tech/zr-obp, Apache-2.0.
+Paper: Saito, Aihara, Matsutani, Narita (2021), NeurIPS 2021 Datasets and Benchmarks.
+Full campaigns: available at https://research.zozo.com under ZOZO's own data-use terms.

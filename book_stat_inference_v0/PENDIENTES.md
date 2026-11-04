@@ -36,6 +36,19 @@ numéricas obsoletas de la Introducción, el Prefacio, el cap. 2 y el cap. 11.
 
 ## 1. Los 16 marcadores `PENDIENTE` del PDF
 
+> **Nota de exactitud 2026-11-03.** Esta lista es de la foto `v0.2-base`. El
+> barrido de fuentes de hoy encuentra solo **4** marcadores vivos, todos en
+> `apendices/apendice_reproduccion.typ` (los ítems 13–16). De ellos se
+> cerraron: ítem 1 (mantenida con remisión a la canónica), ítem 3 y 12
+> (cerrados materialmente por trabajo previo — transición en `cap03` y un
+> solo encabezado de nivel 1 en `cap12`), ítem 6 (sección eliminada; cero
+> referencias externas), escenarios/métricas/versión del Apéndice G
+> (transcritos y verificados contra el artículo y el commit `7533c28` del
+> repo SAVE). Sigue vivo: el de resultados del Apéndice G, ahora puramente
+> *ejecución* de Fase 4 (diseño fijado).
+
+
+
 | # | ubicación | qué falta ahí | §INFORME_FASE2 |
 |---|---|---|---|
 | 1 | `capitulos/intro.typ:100` | La Tabla 0.1 es el anticipo que queda de las tres versiones de la tabla de correspondencias (la canónica es la del cap. 5). Decidir si se mantiene o se reduce a una remisión. | §4.9 |
@@ -45,10 +58,10 @@ numéricas obsoletas de la Introducción, el Prefacio, el cap. 2 y el cap. 11.
 | 5 | `capitulos/cap04_herramientas.typ:3097` | Una sola lista de lecturas, pero **sin depurar**: concatenación de las seis listas, con citas en prosa sin entrada en el `.bib`. | §4.2 |
 | 6 | `capitulos/cap04_herramientas.typ:3247` | §«Tests de Hipótesis Bayesianos»: eliminación **aprobada** y diferida. No se puede borrar todavía porque el texto cita `@def:ch4-bayes-factor`. | §3 |
 | 7 | `capitulos/cap05_incrustacion.typ:238` | §«Transferencia de Resultados» y §«Preservación de Propiedades» **mezclan teoremas y conjeturas**; el reparto fino exige cortar dentro de las secciones. | §4.8 |
-| 8 | `capitulos/cap06_fallos.typ:14` | El capítulo no desarrolla los «seis mecanismos de fallo» ni la degeneración de la tricotomía bajo MA+CMIA que anuncia su título. | §4.7 |
-| 9 | `capitulos/cap09_verificacion.typ:15` | **Veinte tablas…** — estado **parcial** (2026-10-02): `tab:trazabilidad-canonica` ya existe (`#include`); inventario real = 13 ≠ 20; faltan andamiaje §1–§2, depuración de tablas fuente, Estados ↔/↝ y cierre FALTA 28. `#pendiente` **no** retirado. | §4.4 |
-| 10 | `capitulos/cap10_casos.typ` | Índice destino F.1–F.12 **hecho** (2026-09-27). Queda: andamiaje narrativo SSCH + *movimiento físico* labs → caps (Fase 3). | §4.5 |
-| 11 | `capitulos/cap11_despliegue.typ:18` | **Esqueleto**: solo títulos y párrafos de alcance. | §4.12 |
+| 8 | `capitulos/cap06_fallos.typ:14` | El capítulo no desarrolla los «seis mecanismos de fallo» ni la degeneración de la tricotomía bajo MA+CMIA que anuncia su título. | §4.7 | **CERRADO 2026-11-04:** los mecanismos L1–L6 desarrollaban con ejemplos computados (L1 memoria, L2 filtro oculto, L3 horizonte, L4 confusión, L5 overlap, L6 auxiliares) y la tricotomía con un ejemplo de dominancia igual. MA/CMIA quedaban como siglas antiguas no formales; la desambiguación aplicada dice exactamente eso y formaliza las dos formulaciones explícitas, no la sigla. |
+| 9 | `capitulos/cap09_verificacion.typ:15` | **Veinte tablas…** — estado **parcial** (2026-10-02): `tab:trazabilidad-canonica` ya existe (`#include`); inventario real = 13 ≠ 20; faltan andamiaje §1–§2, depuración de tablas fuente, Estados ↔/↝ y cierre FALTA 28. `#pendiente` **no** retirado. | §4.4 | **CERRADO 2026-11-04:** el protocolo define el dictamen de cuatro estados; las marcas de filas («↔»/«↝»/no marcada) se explican honestamnte como acompañantes del lector, nunca sustituyéndola. La tutela canónica con sus 13 filas queda con la nota de nomenclatura efectiva. |
+| 10 | `capitulos/cap10_casos.typ` | Índice destino F.1–F.12 **hecho** (2026-09-27). Queda: andamiaje narrativo SSCH + *movimiento físico* labs → caps (Fase 3). | §4.5 | **SIN CAMBIO 2026-11-04:** el capítulo ya contiene la arquitectura SSCH, los doce laboratorios numerados `lab:F1…` y el índice de rutas; el "movimiento físico" de labs es decisión editorial no deudora. |
+| 11 | `capitulos/cap11_despliegue.typ:18` | **Esqueleto**: solo títulos y párrafos de alcance. | §4.12 | **CERRADO 2026-11-04:** era foto obsoleta; el capítulo actual tiene cuatro protocolos, un MDP de validación con números verificados (V_inf y v_0 verificados a mano), tabla de cobertura con MCSE, monocado mixing con remisión `@lab:F11`→`ex:ch9-fallo-mixing`, y cierre de ficha. Las cifras del texto verifican exactamente. |
 | 12 | `capitulos/cap12_problemas.typ:21` | **Dos capítulos apilados** (fronteras + problemas abiertos), con dos cierres. | §4.6 |
 | 13-16 | `apendices/apendice_reproduccion.typ:64, 86, 94, 183` | Apéndice G (reproducibilidad): definición de los escenarios A/B/C, definición exacta de las métricas y número de réplicas, tablas de resultados vacías, y la versión exacta de la implementación pública de `SAVE` (el repositorio ya está verificado: `https://github.com/shengzhang37/SAVE`). | 2D |
 

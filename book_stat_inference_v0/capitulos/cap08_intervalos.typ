@@ -66,6 +66,7 @@ el funcional puede tener tasa $sqrt(n)$ aunque sus funciones auxiliares
 converjan más lentamente. En un problema no paramétrico, estimar una
 función completa suele exigir otra tasa y controlar sesgo de suavización.
 No todo funcional admite una expansión regular de primer orden.
+#section-alias("sec:ch8-problema")
 
 === Condiciones de Mixing
 <sec:ch11-mixing>
@@ -78,12 +79,14 @@ No todo funcional admite una expansión regular de primer orden.
   por $k$ pasos. El proceso es fuertemente mixing si $alpha(k)->0$.
   No basta con que un observable tenga autocorrelación pequeña.
 ]
+#env-alias("def:ch8-alpha", kind: "definition")
 
 #thm-env("definition", name: [Mixing geométrico], key: "def:ch11-geometrico")[
   Existe una cota $alpha(k)<=C r^k$ con $C<infinity$ y $0<r<1$.
   La tasa pertenece a una ley del proceso; una autocorrelación estimada
   no constituye por sí sola una prueba de esa cota.
 ]
+#env-alias("def:ch8-geometrico", kind: "definition")
 
 #thm-env("proposition", name: [Alcance del caso finito], key: "prop:ch11-ergodico")[
   Una cadena finita irreducible y aperiódica, iniciada en su ley
@@ -93,11 +96,13 @@ No todo funcional admite una expansión regular de primer orden.
   En espacios generales, recurrencia positiva y aperiodicidad no
   garantizan por sí solas una tasa geométrica.
 ]
+#env-alias("prop:ch8-ergodico", kind: "proposition")
 
 La cadena relevante para los datos es la inducida por la política de
 registro. Estudiar exclusivamente la política objetivo no caracteriza
 la dependencia de la muestra observada. Véase @bradley2005basic para
 las distinciones entre condiciones de mixing.
+#section-alias("sec:ch8-mixing")
 
 === Tasas de Mixing Explícitas para MDPs
 <sec:ch11-tasas-explicitas>
@@ -111,6 +116,7 @@ las distinciones entre condiciones de mixing.
   $beta(k)=sum_s mu(s)norm(P^k (s,dot)-mu)_"TV"$, se obtiene
   $ beta(k)<=1/2 sqrt(m-1)r^k. $
 ]
+#env-alias("thm:ch8-tasa-tabular", kind: "theorem")
 #proof-env[
   En $L^2(mu)$, reversibilidad hace autoadjunto al operador de transición.
   Su restricción al subespacio de media cero tiene norma $r$.
@@ -129,6 +135,7 @@ las distinciones entre condiciones de mixing.
   con un único autovalor real ordenado no es una regla general.
   Una matriz estimada agrega incertidumbre a cualquier diagnóstico.
 ]
+#env-alias("cor:ch8-gap", kind: "note")
 
 #thm-env("example", name: [Dependencia y tamaño efectivo de una media], key: "prop:ch11-impacto")[
   Si un observable estacionario tiene autocovarianza
@@ -141,6 +148,7 @@ las distinciones entre condiciones de mixing.
   no para todo proceso con cierta tasa de mixing. Con correlaciones
   negativas, la varianza de la media puede disminuir.
 ]
+#env-alias("prop:ch8-impacto", kind: "example")
 
 #mi-tabla(
   caption: [Régimen de datos y fundamento de la varianza], key: "tab:ch11-tasas",
@@ -152,6 +160,7 @@ las distinciones entre condiciones de mixing.
     [Residuos martingala], [Varianza condicional y CLT de martingala.], [Filtración, momentos y resto controlados.], hl(),
   ),
 )
+#obj-alias("tab:ch8-tasas", kind: "tabla")
 
 #algorithm-env(caption: [Selección justificada del método de varianza], key: "alg:ch11-seleccion")[
   + Fijar estimando, política, unidad de muestreo y régimen asintótico.
@@ -162,6 +171,8 @@ las distinciones entre condiciones de mixing.
   + Examinar sensibilidad a ajustes, rezagos y bloques, sin convertir
     umbrales de autocorrelación en certificados de validez.
 ]
+#obj-alias("alg:ch8-seleccion", kind: "algoritmo")
+#section-alias("sec:ch8-tasas-explicitas")
 
 === CLT para Procesos Mixing
 <sec:ch11-clt>
@@ -175,11 +186,13 @@ las distinciones entre condiciones de mixing.
   Para un intervalo normal no degenerado se necesita además
   $sigma_"LR"^2>0$ y estimación consistente de esa varianza.
 ]
+#env-alias("thm:ch8-clt-mixing", kind: "theorem")
 
 Este resultado de teoría de procesos dependientes no controla por sí solo
 el error de funciones aprendidas. Si $X_t$ se reemplaza por una
 contribución estimada, hay que demostrar que la sustitución y el resto
 son despreciables a la escala usada. El @ch:fallos desarrolla esta frontera.
+#section-alias("sec:ch8-clt")
 
 === El Teorema de Shi et al. (2022)
 <sec:ch11-shi>
@@ -218,6 +231,7 @@ además el error de aproximación. No basta con ajustar una regresión flexible.
   al resultado original, no un teorema DR ni una transcripción completa
   de sus hipótesis.
 ]
+#env-alias("thm:ch8-shi", kind: "note")
 
 MA describe la transición Markov; CMIA describe la independencia
 condicional en media de la recompensa respecto del pasado dado estado
@@ -233,9 +247,11 @@ la información del diseño y la invertibilidad siguen siendo esenciales.
   episodios de horizonte fijo con contribución por episodio, la escala
   correspondiente es $sqrt(n)$ y no se reemplaza por $sqrt(n T)$.
 ]
+#env-alias("cor:ch8-ic", kind: "corollary")
 #verdem(<dem:ch11-shi>)
 
 Una expansión asintótica describe la escala y la distribución límite del error. Para utilizarla con datos necesitamos además estimar su varianza en el mismo régimen de muestreo. La elección entre episodios, trayectorias y bloques determina qué contribuciones pueden promediarse.
+#section-alias("sec:ch8-shi")
 
 == Estimación de Varianza
 <sec:ch11-varianza>
@@ -249,6 +265,7 @@ Una expansión asintótica describe la escala y la distribución límite del err
   requiere las condiciones de la expansión; no se deduce de tratar
   los ajustes compartidos como si fueran independientes.
 ]
+#env-alias("def:ch8-var-if", kind: "definition")
 
 #thm-env("definition", name: [Varianza HAC con pesos de Bartlett], key: "def:ch11-hac")[
   Para una secuencia estimada $hat(phi)_t$, con promedio $overline(phi)$,
@@ -260,6 +277,7 @@ Una expansión asintótica describe la escala y la distribución límite del err
   El crecimiento de $K$ debe cumplir el teorema de consistencia usado;
   elegir $K$ del orden $T^(1/3)$ no es una regla válida para todo proceso.
 ]
+#env-alias("def:ch8-hac", kind: "definition")
 
 #thm-env("proposition", name: [Consistencia: una ruta suficiente para HAC], key: "thm:ch11-var-consistente")[
   Sea $c_k$ la autocovarianza de una secuencia estacionaria y suponga
@@ -267,6 +285,7 @@ Una expansión asintótica describe la escala y la distribución límite del err
   $ sum_(k=0)^K abs(hat(c)_k-c_k)->^P 0. $
   Entonces $hat(sigma)_"HAC"^2->^P sigma_"LR"^2$.
 ]
+#env-alias("thm:ch8-var-consistente", kind: "proposition")
 #proof-env[
   El error se separa en estimación de covarianzas, cola omitida y
   ponderación de Bartlett. El primero se acota por dos veces la suma
@@ -295,6 +314,7 @@ crezcan y sean pequeños frente a $T$ no constituye, por sí solo, una
 prueba completa. Véase también @hall1992bootstrap.
 
 Hasta aquí la interpretación del intervalo descansaba en un objetivo fijado para la evaluación. Si los datos también actualizan la política, la cantidad evaluada puede cambiar entre bloques. SAVE aborda esa organización secuencial mediante un procedimiento específico.
+#section-alias("sec:ch8-varianza")
 
 == SAVE: Corrección de Sesgo
 <sec:ch11-save>
@@ -310,6 +330,7 @@ de políticas aprendidas; no es una corrección residual IS equivalente a DR.
   studentización deben seguir el procedimiento original; un promedio
   arbitrario de contribuciones DR no lo reproduce.
 ]
+#env-alias("def:ch8-save", kind: "definition")
 
 *La dificultad que hay que resolver.* Si $pi_k$ se aprende antes de un
 bloque de evaluación y $hat(J)_k$ estima su valor, un promedio con pesos
@@ -327,6 +348,7 @@ exacta de SAVE.
   la norma de error; no se puede trasladar una tasa uniforme a un
   error $L^2$ sin otro argumento.
 ]
+#env-alias("thm:ch8-szls-tasas", kind: "note")
 
 *Ejemplo elemental de una decisión.* Con dos acciones, sea
 $Delta(s)=abs(q(s,1)-q(s,0))$ y suponga
@@ -346,6 +368,8 @@ ni sustituye las condiciones longitudinales del artículo.
   objetivo es el valor de la política aprendida, no necesariamente el
   valor óptimo desconocido.
 ]
+#env-alias("prop:ch8-save", kind: "note")
+#section-alias("sec:ch8-save")
 
 == Diseño de Poder y Tamaño de Muestra
 <sec:ch11-poder>
@@ -358,6 +382,7 @@ ni sustituye las condiciones longitudinales del artículo.
   Es una aproximación de planificación, no una garantía finita universal.
   La varianza debe corresponder al estimador, diseño y objetivo elegidos.
 ]
+#env-alias("thm:ch8-n", kind: "proposition")
 
 Con $alpha=0.05$, poder $0.80$ y efecto estandarizado $0.2$, cuantiles
 normales precisos dan $n=197$. Redondear primero a $1.96$ y $0.84$ da
@@ -373,6 +398,7 @@ episodios, se usa la varianza de sus diferencias, incluida la covarianza.
 Añadir automáticamente un factor dos puede desperdiciar o subestimar
 información. La dependencia y los errores de modelos auxiliares requieren
 una planificación adicional o simulación del procedimiento completo.
+#section-alias("sec:ch8-poder")
 
 == Diagnóstico de Supuestos
 <sec:ch11-diagnostico>
@@ -392,6 +418,7 @@ multiplicando intervalos por un factor elegido después de ver el
 resultado: primero se investiga si falla el sesgo, la varianza, la
 selección o el régimen muestral. No se reportan aquí corridas de
 simulación que no hayan sido realizadas.
+#section-alias("sec:ch8-diagnostico")
 
 == Deep Reinforcement Learning: Policy Gradient y REINFORCE
 <sec:ch11-drl>
@@ -408,12 +435,14 @@ depende del parámetro de política $theta$.
   El score de acción es $z_t=nabla_theta log pi_theta (A_t|S_t)$.
   Se supone integrabilidad suficiente para intercambiar derivada e integral.
 ]
+#env-alias("def:ch8-pg", kind: "definition")
 
 #thm-env("theorem", name: [Identidad del gradiente de política], key: "thm:ch11-pg-theorem")[
   En el experimento anterior,
   $ nabla_theta J(theta)=EE_theta (sum_(t=0)^(H-1)gamma^t z_t G_t)
     =EE_theta (sum_(t=0)^(H-1)gamma^t z_t q_t^(pi_theta) (S_t,A_t)). $
 ]
+#env-alias("thm:ch8-pg-theorem", kind: "theorem")
 #proof-env[
   El score de la trayectoria es $sum_t z_t$, porque solo las
   probabilidades de acción dependen de $theta$. Multiplicarlo por el
@@ -433,6 +462,7 @@ depende del parámetro de política $theta$.
   insesgada bajo el modelo y las condiciones anteriores. Que el
   gradiente sea insesgado no prueba convergencia global de la optimización.
 ]
+#env-alias("def:ch8-reinforce", kind: "definition")
 
 #thm-env("proposition", name: [Baseline: centrado y varianza], key: "prop:ch11-baseline")[
   Si $b_t$ depende del historial anterior a actuar, pero no de la acción
@@ -441,6 +471,7 @@ depende del parámetro de política $theta$.
   Una baseline aprendida con la misma acción o resultado necesita
   un argumento adicional de independencia o corrección.
 ]
+#env-alias("prop:ch8-baseline", kind: "proposition")
 
 Para una contribución vectorial de un solo tiempo, minimizar la traza
 de su varianza condicional da
@@ -463,6 +494,7 @@ la fórmula local no resuelve automáticamente la minimización global.
   Una baseline puede mejorar, empeorar o anular la varianza según
   el problema. No se ha simulado una red ni estimado un beneficio clínico.
 ]
+#section-alias("sec:ch8-drl")
 
 === El criterio de la política y la estimación del gradiente
 <sec:ch11-pg>
@@ -480,6 +512,7 @@ en una transferencia de la representación de Wald.
   $ EE_theta (sum_t gamma^t z_t (hat(q)_t (S_t,A_t)-q_t^(pi_theta) (S_t,A_t))). $
   Este término no es cero para un crítico arbitrario.
 ]
+#env-alias("def:ch8-pg-v2", kind: "definition")
 
 #thm-env("proposition", name: [Momentos del gradiente y función de influencia], key: "prop:ch11-reinforce-if")[
   Para una política fija y episodios iid, sea
@@ -491,6 +524,7 @@ en una transferencia de la representación de Wald.
   Tampoco es automáticamente el gradiente canónico del valor $J$ en
   un modelo de MDP ni coincide con la influencia de DR.
 ]
+#env-alias("prop:ch8-reinforce-if", kind: "proposition")
 
 #thm-env("example", name: [Estado continuo y gradiente verificable], key: "ex:ch11-pg-ssch", es-sintetico: true)[
   Sea $S$ uniforme en $[-1,1]$, $pi_theta (1|s)=1/(1+exp(-theta s))$
@@ -503,6 +537,8 @@ en una transferencia de la representación de Wald.
   varianza es $9/13$, aproximadamente 69.2%, en este modelo exacto.
   No se ha entrenado una red ni afirmado convergencia a una política óptima.
 ]
+#env-alias("ex:ch8-pg-ssch", kind: "example")
+#section-alias("sec:ch8-pg")
 
 == Interpretar el intervalo en la decisión
 <sec:ch11-langgraph>
@@ -521,6 +557,7 @@ $overline(D) plus.minus z_(1-alpha/2)s_D/sqrt(n)$.
 Para un episodio de varias decisiones usa su contribución secuencial
 completa; para una trayectoria o un estimador sieve, la varianza y escala
 se sustituyen por las justificadas para ese procedimiento.
+#section-alias("sec:ch8-ic-agente")
 
 === Decisiones Guiadas por IC
 <sec:ch11-decisiones>
@@ -539,6 +576,7 @@ sea positivo requiere inferencia secuencial válida o un plan de análisis
 que controle esas revisiones.
 
 #verlanggraph
+#section-alias("sec:ch8-decisiones")
 
 === Trazabilidad: Del Teorema al Componente
 <sec:ch11-trazabilidad>

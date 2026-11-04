@@ -161,13 +161,6 @@ El control frecuentista de nivel requiere una restricción sobre las probabilida
 
 El agente debe registrar qué observa, qué desconoce, qué acciones considera y qué pérdida usa para compararlas. La pérdida expresa el objetivo de decisión; el modelo determina cómo se promedian sus consecuencias. Un parámetro desconocido de la dinámica no es el estado físico observado del paciente.
 
-=== El Modelo Estadístico como Modelo del Mundo
-<sec:ch1-modelo-mundo>
-
-El marco de riesgo admite diferentes regímenes. En un modelo paramétrico, $theta$ es un vector finito con interpretación especificada. En un modelo semiparamétrico se distingue un objetivo de interés de funciones nuisance. En un modelo no paramétrico, el índice puede representar una distribución o función en una clase infinita. Ninguna de estas elecciones elimina los supuestos de identificación.
-
-La representación $theta=(psi,eta)$ permite distinguir el objetivo $psi$ de los componentes auxiliares $eta$. Una pérdida $L(theta,a)=(a-psi)^2$ sigue definiendo un problema de decisión aunque $eta$ sea una función. Las herramientas para estimarlo y cuantificar su incertidumbre se desarrollan en @ch:herramientas.
-
 === Políticas Bayesianas
 <sec:ch7-bayesianas>
 
@@ -213,15 +206,6 @@ La elección del criterio se justifica por el problema: disponibilidad de un pri
   [@thm:ch7-admisibilidad-bayes], [Descarte de reglas dominadas], [Modelo finito y prior positivo],
   [@thm:ch7-complete-class], [Organización de reglas], [Problema finito con aleatorización],
 ), caption: [Del criterio de decisión a su uso en el agente.], key: "tab:ch7-trazabilidad")
-
-=== La misma decisión expresada como una política
-<sec:ch1-wald-preview>
-
-#thm-env("proposition", name: [Identidad entre riesgo y retorno de una decisión], key: "prop:ch1-correspondencia")[
-  En la familia de una decisión definida en @thm:ch9-isomorfismo, la política $pi_delta(x)=delta(x)$ recibe recompensa evaluativa $r_theta(x,a)=-L(theta,a)$ y cumple
-  $ J_theta(pi_delta)=-R(theta,delta). $
-  El retorno $J_theta$ promedia sobre $X tilde P_theta$. La política es común a todos los parámetros y no observa el verdadero $theta$. La igualdad se obtiene sustituyendo la recompensa dentro de la esperanza.
-]
 
 #[
 #set heading(numbering: none, outlined: false)

@@ -62,6 +62,7 @@ de confusión no medida.
   $v_0 (s_0)$ en un estado fijado es otro problema; no se obtiene
   promediando indiscriminadamente estados iniciales distintos.
 ]
+#env-alias("def:ch7-ope", kind: "definition")
 
 Las funciones $b_t$ y $e_t$ equivalen a las políticas $pi_b$ y $pi_e$
 de capítulos anteriores. Aquí se abrevian para hacer legibles los pesos.
@@ -77,6 +78,7 @@ trayectoria larga requiere resultados diferentes.
   El modelo directo debe estimar estos valores futuros, no solo la
   recompensa inmediata cuando hay más de una decisión.
 ]
+#env-alias("def:ch7-retorno", kind: "definition")
 
 *Tres familias estadísticas.* Un MDP tabular de tamaño fijo tiene una
 parametrización finita de sus transiciones y medias de recompensa;
@@ -86,6 +88,7 @@ es un problema no paramétrico. Estimar $J(e)$, escalar, dentro de una
 familia que contiene funciones desconocidas de dimensión infinita es un
 problema semiparamétrico. El uso de una red neuronal no determina por sí
 solo a cuál de estas familias pertenece el modelo.
+#section-alias("sec:ch7-problema")
 
 === Supuestos de Identificación
 <sec:ch10-supuestos>
@@ -97,6 +100,7 @@ solo a cuál de estas familias pertenece el modelo.
   interferencia entre episodios. El resultado en $t$ puede depender
   de toda la secuencia previa: no se reduce en general a $R_t (a_t)$.
 ]
+#obj-alias("ass:ch7-consistency", kind: "supuesto")
 
 #assumption-env(name: [Soporte de la política objetivo], key: "ass:ch10-overlap")[
   En las historias alcanzables bajo $e$, toda acción con probabilidad
@@ -107,6 +111,7 @@ solo a cuál de estas familias pertenece el modelo.
   soporte pertinente. Esta restricción cuantitativa es más fuerte que
   la mera positividad.
 ]
+#obj-alias("ass:ch7-overlap", kind: "supuesto")
 
 #thm-env("definition", name: [Coeficiente de overlap], key: "def:ch10-rho-max")[
   $ rho_"max"=C=sup_(t,s,a) frac(e_t (a|s),b_t (a|s)), $
@@ -114,6 +119,7 @@ solo a cuál de estas familias pertenece el modelo.
   finitos puede usarse el máximo. El mayor cociente observado en una
   muestra es un diagnóstico, no necesariamente esta cota poblacional.
 ]
+#env-alias("def:ch7-rho-max", kind: "definition")
 
 #assumption-env(name: [Intercambiabilidad y estructura de Markov], key: "ass:ch10-markov")[
   Se distinguen dos requisitos. Primero, dado el historial previo a
@@ -129,6 +135,7 @@ solo a cuál de estas familias pertenece el modelo.
   medida sin exigir un resumen de Markov; en tal caso también cambian
   los argumentos de las políticas y de las funciones de valor.
 ]
+#obj-alias("ass:ch7-markov", kind: "supuesto")
 
 #thm-env("theorem", name: [Identificación del valor de una política], key: "thm:ch10-identificacion")[
   Bajo los supuestos anteriores, defina
@@ -137,6 +144,7 @@ solo a cuál de estas familias pertenece el modelo.
   Para retornos integrables bajo la ley objetivo,
   $ J(e)=EE_b (W_(H-1)G)=sum_(t=0)^(H-1)gamma^t EE_b (W_t R_t). $
 ]
+#env-alias("thm:ch7-identificacion", kind: "theorem")
 #proof-env[
   La ley de un episodio se factoriza en distribución inicial, políticas
   y núcleos $K_t$. En el cociente de leyes se cancelan $nu$ y los
@@ -152,6 +160,7 @@ Los supuestos causales no se verifican completamente con una tabla de
 frecuencias o una métrica predictiva.
 
 Una vez expresado el valor en términos de la ley observada, hay varias maneras de estimarlo. El método directo utiliza un modelo de valor; la ponderación cambia la medida con la que se promedian las trayectorias. Comparar ambos permite entender después la corrección residual de DR.
+#section-alias("sec:ch7-supuestos")
 
 === Direct Method (DM)
 <sec:ch10-dm>
@@ -165,6 +174,7 @@ Una vez expresado el valor en términos de la ley observada, hay varias maneras 
   Si se usa cross-fitting, cada predicción procede de un ajuste que
   excluye el episodio completo que se evalúa.
 ]
+#env-alias("def:ch7-dm", kind: "definition")
 
 #thm-env("proposition", name: [Error y variabilidad de DM], key: "prop:ch10-dm")[
   Condicionalmente en un ajuste independiente, su sesgo es
@@ -174,6 +184,7 @@ Una vez expresado el valor en términos de la ley observada, hay varias maneras 
   Su varianza condicional es $Var_nu (hat(v)_0 (S_0))/n$.
   La variabilidad total incluye además la del entrenamiento.
 ]
+#env-alias("prop:ch7-dm", kind: "proposition")
 
 No estimar $b$ explícitamente es una ventaja de DM; no permite aprender
 respuestas en regiones sin soporte sin restricciones extrapolativas.
@@ -181,6 +192,7 @@ En un modelo paramétrico mal especificado, el error puede persistir al
 aumentar $n$. En una regresión no paramétrica, la complejidad, la suavidad
 y el diseño determinan la precisión. Un buen ajuste de la recompensa
 inmediata no garantiza una buena aproximación a $q_t$.
+#section-alias("sec:ch7-dm")
 
 === Importance Sampling (IS)
 <sec:ch10-is>
@@ -192,6 +204,7 @@ inmediata no garantiza una buena aproximación a $q_t$.
   por estimaciones requiere otro análisis; no conserva automáticamente
   la insesgadez finita.
 ]
+#env-alias("def:ch7-rho", kind: "definition")
 
 #thm-env("definition", name: [Estimador IS], key: "def:ch10-is")[
   $ hat(J)_"IS"=1/n sum_(i=1)^n W_(i,H-1)G_i. $
@@ -200,6 +213,7 @@ inmediata no garantiza una buena aproximación a $q_t$.
   por $sum_i W_i$; suele tener sesgo finito y requiere que el denominador
   sea positivo. Es un procedimiento diferente.
 ]
+#env-alias("def:ch7-is", kind: "definition")
 
 #thm-env("theorem", name: [Insesgadez de IS], key: "thm:ch10-is-insesgado")[
   Con pesos verdaderos y $EE_e (abs(G))<infinity$,
@@ -208,6 +222,7 @@ inmediata no garantiza una buena aproximación a $q_t$.
   $ Var_b (hat(J)_"IS")=frac(Var_b (W_(H-1)G),n). $
   La segunda condición no se necesita para la primera igualdad.
 ]
+#env-alias("thm:ch7-is-insesgado", kind: "theorem")
 #proof-env[
   La esperanza de cada sumando coincide con $EE_e (G)$ por
   @thm:ch10-identificacion. La independencia entre episodios proporciona
@@ -222,12 +237,14 @@ inmediata no garantiza una buena aproximación a $q_t$.
   identificación e integrabilidad de cada término. Elimina de una
   recompensa pasada los pesos de acciones futuras.
 ]
+#env-alias("def:ch7-pdis", kind: "definition")
 
 Cada término PDIS es la esperanza condicional del correspondiente término
 IS dado el historial hasta esa recompensa. Su segundo momento no aumenta.
 Esto no basta, por sí solo, para ordenar las varianzas de las sumas: también
 intervienen covarianzas entre tiempos. Se debe evaluar el procedimiento
 completo.
+#section-alias("sec:ch7-is")
 
 === Curse-of-Horizon
 <sec:ch10-curse>
@@ -238,6 +255,7 @@ completo.
   No se requiere independencia entre los pesos de distintos tiempos.
   Esta es una cota superior, no una tasa exacta ni una cota inferior.
 ]
+#env-alias("thm:ch7-curse", kind: "theorem")
 #proof-env[
   Se tiene $0<=W_(H-1)<=C^H$ y $EE_b (W_(H-1))=1$, por lo que
   $EE_b (W_(H-1)^2)<=C^H$. Finalmente,
@@ -262,11 +280,13 @@ universal de OPE.
   Una cota grande basada en $C$ alerta sobre un riesgo, pero no prueba
   que IS sea inutilizable en todos los modelos con ese horizonte.
 ]
+#env-alias("cor:ch7-curse", kind: "corollary")
 
 PDIS, pesos de ocupación marginal, modelos de valor y controles de
 varianza pueden ayudar bajo condiciones específicas. Recortar pesos
 introduce sesgo. DR secuencial todavía puede contener productos de pesos;
 no elimina automáticamente el crecimiento con el horizonte.
+#section-alias("sec:ch7-curse")
 
 === Distributional Shift: Cuando el Mundo Cambia
 <sec:ch10-dist-shift>
@@ -285,6 +305,7 @@ información.
   Este cambio no debe confundirse con la diferencia de ocupaciones
   intermedias que las propias políticas generan.
 ]
+#env-alias("def:ch7-covariate", kind: "definition")
 
 #thm-env("proposition", name: [IS con cambio de población inicial], key: "prop:ch10-is-shift")[
   Si se conocen $u$ y las razones de política, y el retorno es integrable,
@@ -293,6 +314,7 @@ información.
   se necesita el segundo momento conjunto de $u(S_0)W_(H-1)G$;
   no se puede factorizar sin condiciones adicionales.
 ]
+#env-alias("prop:ch7-is-shift", kind: "proposition")
 
 Para ilustrar el efecto de $u$ aislado, si $G=1$ y $e=b$, la varianza
 por observación de $u(S_0)$ es
@@ -307,6 +329,7 @@ divergencia. Estimar $u$ agrega error y exige soporte y regularidad.
   sobre las políticas permitidas. En términos de pérdidas, se minimiza
   el peor riesgo. No son el mismo objeto que un estimador puntual OPE.
 ]
+#env-alias("def:ch7-dro", kind: "definition")
 
 #thm-env("proposition", name: [Alcance de una cota robusta], key: "prop:ch10-dro-garantia")[
   Si un conjunto aleatorio $cal(U)_n$ contiene el modelo verdadero de
@@ -317,6 +340,7 @@ divergencia. Estimar $u$ agrega error y exige soporte y regularidad.
   el valor del elemento $P_*$. La dificultad estadística es construir
   un conjunto con la cobertura anunciada, no esta desigualdad.
 ]
+#env-alias("prop:ch7-dro-garantia", kind: "proposition")
 
 Una bola de KL, otra divergencia o Wasserstein requiere especificar su
 centro, métrica, radio y justificación. No hay una cota universal de
@@ -342,6 +366,7 @@ formulación, no para cualquier conjunto de incertidumbre.
   del conjunto de proporciones y se incorporara el error al estimar
   los valores condicionales.
 ]
+#section-alias("sec:ch7-dist-shift")
 
 ==== Distinguir población inicial y ocupación de estados
 <sec:ch10-shift>
@@ -357,6 +382,7 @@ qué componentes del mecanismo siguen siendo transportables.
   de recompensa o transición, ninguno de esos cocientes aislados
   identifica automáticamente el valor en el nuevo entorno.
 ]
+#env-alias("def:ch7-shift", kind: "definition")
 
 DRO constituye una posible formulación de sensibilidad o decisión robusta,
 no una obligación ni una solución universal cuando se desconoce el cambio.
@@ -380,6 +406,8 @@ una garantía de desempeño.
   No existe un umbral MMD universal de $0.05$: su escala depende,
   entre otros factores, del kernel. Véase @gretton2012kernel.
 ]
+#env-alias("ex:ch7-shift-ssch", kind: "example")
+#section-alias("sec:ch7-shift")
 
 === Doubly Robust (DR)
 <sec:ch10-dr>
@@ -398,6 +426,7 @@ una garantía de desempeño.
   $ D_i=hat(v)_0 (S_(i,0))+sum_(t=0)^(H-1)gamma^t hat(W)_(i,t)Delta_(i,t), $
   $ hat(J)_"DR"=1/n sum_(i=1)^n D_i. $
 ]
+#env-alias("def:ch7-dr", kind: "definition")
 
 *Por qué importa el término inicial.* En un estado, sea $R=A$,
 $b(1)=1/2$, $e(1)=3/4$ y modelo exacto $m(a)=a$. El residuo es cero.
@@ -414,6 +443,7 @@ $1/2$. Incluso un modelo perfecto falla con aquella fórmula incorrecta.
   Si todos los términos son integrables, el sesgo se anula cuando
   $overline(m)=m$ o $overline(b)=b$.
 ]
+#env-alias("thm:ch7-dr", kind: "theorem")
 #proof-env[
   Condicione en $S$, promedie la acción con $b$ y sustituya
   $EE[R|S,A]=m(S,A)$. Al restar $sum_a e(a|S)m(S,a)$, se agrupan
@@ -445,6 +475,7 @@ baste para todo el episodio.
   estimadores regulares; la varianza muestral de las contribuciones
   cross-fitted estima esa varianza bajo estas condiciones.
 ]
+#env-alias("thm:ch7-dr-eficiencia", kind: "proposition")
 #verdem(<dem:ch10-dr-eficiencia>)
 
 La eficiencia exige más que doble robustez. Tener un componente correcto
@@ -468,6 +499,7 @@ no debe declararse eficiente en todo modelo Markov por llevar el nombre DR.
   aumenta la varianza. Un residuo útil puede reducirla; esa reducción
   no está garantizada para una aproximación arbitraria.
 ]
+#env-alias("prop:ch7-var-dr", kind: "example")
 
 #mi-figura(
   caption: [Elección de estimador después de justificar identificación. Las condiciones son requisitos de análisis, no umbrales automáticos de cobertura.],
@@ -480,6 +512,8 @@ no debe declararse eficiente en todo modelo Markov por llevar el nombre DR.
     [IS recortado], [Pesos limitados por un umbral.], [Sesgo añadido y regla de elección del umbral.], hl(),
   ),
 )
+#obj-alias("fig:ch7-arbol-ope", kind: "figura")
+#section-alias("sec:ch7-dr")
 
 === Comparación de Estimadores
 <sec:ch10-comparacion>
@@ -493,6 +527,7 @@ no debe declararse eficiente en todo modelo Markov por llevar el nombre DR.
     [DR], [Cancelación residual bajo una de las dos familias correctas.], [Ambas familias incorrectas; resto o varianza sin controlar.], hl(),
   )
 ]
+#env-alias("thm:ch7-tradeoff", kind: "note")
 
 No hay un orden universal de varianzas «baja, media, alta». Comparar
 estimaciones sobre los mismos episodios es útil para diagnosticar
@@ -502,6 +537,7 @@ por el intervalo más favorable y luego interpretar su cobertura como
 si la elección hubiera sido previa.
 
 La comparación entre estimadores vuelve sobre la misma restricción de información: los datos deben representar las acciones que necesita la política objetivo. Los diagnósticos siguientes permiten examinar cómo aparece esa dificultad en la muestra y qué decisiones de análisis obliga a revisar.
+#section-alias("sec:ch7-comparacion")
 
 === Diagnósticos de Overlap
 <sec:ch10-diagnosticos>
@@ -513,6 +549,7 @@ La comparación entre estimadores vuelve sobre la misma restricción de informac
   certifica soporte poblacional ni la información efectiva de cualquier
   estimador. Si todos los pesos son cero, la expresión no está definida.
 ]
+#env-alias("def:ch7-ess", kind: "definition")
 
 Conviene indicar si se calcula con $W_(H-1)$, con $W_t$ por tiempo o con
 razones marginales. Para los cuatro pesos $(0.25,0.75,0.75,2.25)$,
@@ -520,6 +557,7 @@ la suma es cuatro, la suma de cuadrados $6.25$ y el ESS es $2.56$.
 La media y el máximo no determinan por sí solos la suma de cuadrados.
 Un ESS elevado también puede coexistir con una región objetivo nunca
 representada en la muestra.
+#section-alias("sec:ch7-diagnosticos")
 
 === Protocolo de Fallback ante Overlap Insuficiente
 <sec:ch10-fallback>
@@ -539,6 +577,7 @@ el estimador no restituye soporte ausente.
     probabilidad cero bajo el registro. Sin restricciones adicionales,
     el valor completo puede no estar identificado.
 ]
+#env-alias("def:ch7-niveles", kind: "definition")
 
 #thm-env("theorem", name: [Sesgo y varianza por truncamiento], key: "thm:ch10-truncamiento")[
   Sea $W=W_(H-1)$ verdadero, $abs(G)<=B_H$ y $M>0$ fijo. Para
@@ -548,6 +587,7 @@ el estimador no restituye soporte ausente.
   El sesgo depende de la masa ponderada de la cola, no solo de
   $Prob_b (W>M)$.
 ]
+#env-alias("thm:ch7-truncamiento", kind: "theorem")
 #proof-env[
   Reste $EE_b (W G)$ y aplique valor absoluto. Para la varianza,
   $min(W,M)^2<=M^2$ y también $min(W,M)^2<=M W$, con $EE_b (W)=1$.
@@ -566,6 +606,7 @@ el estimador no restituye soporte ausente.
   Reportar estabilidad ante varios umbrales es un diagnóstico, no
   una demostración de cobertura.
 ]
+#env-alias("prop:ch7-truncamiento", kind: "note")
 
 *Ejemplo de cola rara.* Si $e(1)=1$, $b(1)=0.01$ y $R=A$, entonces
 $W=100$ con probabilidad $0.01$ y cero en otro caso. El valor es uno.
@@ -586,6 +627,7 @@ Emitir un intervalo nominal solo con una justificación inferencial aplicable
 Un intervalo multiplicado por $1.5$ no tiene cobertura garantizada por
 ese factor. Una estimación DM puede presentarse como extrapolación
 condicionada al modelo, no como reparación automática de identificación.
+#section-alias("sec:ch7-fallback")
 
 === Verificación en Línea de Supuestos
 <sec:ch10-verificacion>
@@ -602,6 +644,7 @@ válidos bajo parada opcional.
   positiva puede calcularse su coeficiente de variación. Examinar la
   dependencia entre unidades cuando estas no sean episodios independientes.
 ]
+#env-alias("def:ch7-indicadores", kind: "definition")
 
 #thm-env("note", name: [Calibración de alertas], key: "prop:ch10-umbrales")[
   Los umbrales operativos se fijan antes de la evaluación y se calibran
@@ -610,6 +653,7 @@ válidos bajo parada opcional.
   No hay valores universales de ESS, peso máximo o autocorrelación
   que certifiquen identificación, mixing o cobertura del 95%.
 ]
+#env-alias("prop:ch7-umbrales", kind: "note")
 
 #thm-env("example", name: [Pipeline de monitoreo], key: "ex:ch10-pipeline")[
   ```
@@ -627,6 +671,7 @@ válidos bajo parada opcional.
   iid planteado al inicio deja de ser aplicable sin una justificación
   específica para esos datos adaptativos.
 ]
+#env-alias("ex:ch7-pipeline", kind: "example")
 
 #mi-tabla(
   caption: [Respuesta a dificultades de evaluación], key: "tab:ch10-respuesta",
@@ -639,6 +684,8 @@ válidos bajo parada opcional.
     [Modelo de valor deficiente], [DM y parte de DR.], [Revisar ajuste y soporte; usar ponderación solo si está justificada.], hl(),
   ),
 )
+#obj-alias("tab:ch7-respuesta", kind: "tabla")
+#section-alias("sec:ch7-verificacion")
 
 == Convertir la evaluación en una decisión documentada
 <sec:ch10-langgraph>

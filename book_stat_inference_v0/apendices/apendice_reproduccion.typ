@@ -1,9 +1,11 @@
 // Fase 2D — Apéndice de reproducibilidad del estudio de simulación de
 // Shi, Zhang, Lu & Song (2022), JRSS-B 84(3):765-793. Ver FUENTES.md.
 //
-// ESTADO: esqueleto. Se fija el experimento, sus parámetros y los
-// marcadores de las tablas. El código y los resultados son Fase 4.
-// Nada de lo que aquí falta se escribe con prosa plausible: se marca.
+// ESTADO 2026-11-03: diseño fijado (escenarios A/B/C transcritos y verificados
+// contra el artículo y el repo fijado; métricas y réplicas fijadas; versión
+// fijada por commit). Pendiente exclusivamente la ejecución (Fase 4): las
+// celdas «--» se completan solo con esa corrida. Nada de lo que aquí falta
+// se escribe con prosa plausible: se marca.
 #import "../plantilla.typ": *
 
 = Reproducibilidad del estudio de simulación de Shi et al.
@@ -50,14 +52,42 @@ $ L = floor((n T)^(3\/7)) $ especifica la dimensión de la aproximación mediant
 <sec:appG-escenarios>
 
 El artículo evalúa su procedimiento en tres escenarios de simulación
-—A, B y C— que difieren en la forma del núcleo de transición y en el
-grado de dependencia temporal.
+—A, B y C— transcritos a continuación de su sección de simulación
+(ecuación 5.25 y texto posterior), verificados contra la implementación
+fijada (@sec:appG-requisitos), cuyas definiciones coinciden.
 
-#pendiente[Las definiciones de los escenarios A, B y C de la fuente
-primaria no se transcriben aquí porque no han sido verificadas línea por
-línea. Deben copiarse de la fuente antes de reportar cifras: sin la
-definición exacta del proceso generador de datos, una tabla de resultados
-no es replicable.]
+En los escenarios A y B la dinámica del sistema es el modelo
+autorregresivo bidimensional
+$ X_(0,t+1) = mat(3/4 (2A_(0,t)-1) , 0 ; 0 , 3/4 (1-2A_(0,t))) X_(0,t) + z_t, quad
+  Y_(0,t) = X_(0,t+1)^top vec(2,1) - 1/4 (2A_(0,t)-1), $
+para $t >= 0$, con $z_t$ i.i.d. $N(0_2, I_2 slash 4)$ y
+$X_(0,0) tilde N(0_2, I_2)$. La política objetivo común es determinista:
+$pi(x)=0$ si $x_1>0$ y $x_2>0$, y $pi(x)=1$ en otro caso. La distribución
+de referencia es $bb(G)=N(0_2, I_2)$.
+
+*Escenario (A): estudio completamente aleatorizado.* Las asignaciones de
+la política de comportamiento $A_(0,t)$ son i.i.d. Bernoulli($0.5$).
+
+*Escenario (B): asignación dependiente del estado.* Con $m=2$,
+$ Prob(A_(0,t)=1|X_(0,t)) = 0.5 thin "sigmoid"(X_(0,t,1)) + 0.5 thin "sigmoid"(X_(0,t,2)), $
+que reduce el solapamiento respecto del escenario A y es la transición de
+experimento aleatorio a observacional que motiva el capítulo.
+
+*Escenario (C): Cliff Walking.* El entorno episódico estándar de OpenAI
+Gym (ejemplo 6.6 de Sutton y Barto, también usado por Kallus y Uehara en
+2020). Caer por el precipicio o llegar al destino devuelve al inicio, así
+que el conjunto de aproximación es la base de indicadores de los estados
+y $L=M$. El artículo añade ruido manual a las recompensas inmediatas para
+evitar dinámica determinista. La política objetivo es la óptima y la de
+comportamiento es la mezcla 50–50 entre la óptima y la uniforme.
+
+*Aproximación sieve (los tres escenarios).* $discount = 0.5$ y
+$L = floor((n T)^(eta))$ con $eta=3 slash 7$; en estados continuos las
+bases son productos tensoriales de B-splines cúbicos sobre la
+transformación $Phi$ del estado (nudos en cuantiles muestrales), y en
+tabulares la base de indicadores. Esta es la transformación y la regla de
+dimensión del artículo; no es una ventana de truncamiento de una función
+de influencia ni un rezago HAC.
 
 == Métricas
 <sec:appG-metricas>
@@ -75,15 +105,20 @@ cada celda:
 - *$log("MSE")$*: logaritmo del error cuadrático medio del estimador
   puntual, promediado sobre réplicas. Es la métrica de eficiencia.
 
-#pendiente[Verificar contra la fuente primaria la definición exacta de
-las tres métricas y el número de réplicas de Monte Carlo por celda (el
-rango de la grilla $(n, T)$ está fijado arriba; el número de réplicas
-no). Falta implementar y ejecutar el cálculo con esas definiciones fijadas.]
+Las tres definiciones son las del artículo (su Tabla 1 y el texto que la
+acompaña). El valor verdadero de cada configuración se aproxima por Monte
+Carlo con $N=10^5$ trayectorias independientes distribuidas según
+$bb(G)$, con horizonte $T_i=500$ en los escenarios A y B y el tiempo de
+terminación del episodio en C. Por celda, la implementación fijada usa
+$N=50$ réplicas — lo registra explícitamente `test.ipynb` («N = 50 is
+used in paper») — y el valor de referencia con `rep=100000` en sus
+funciones `main_get_value`. Con $B=50$ réplicas, el error Monte Carlo
+aproximado de una cobertura del $95%$ es $sqrt(0.95 dot 0.05 slash 50) approx 0.031$: las ECP se leerán con esa precisión, no como porcentajes exactos.
 
 == Resultados
 <sec:appG-resultados>
 
-#pendiente[Las tres tablas siguientes registran la grilla prevista. Sus celdas se completarán con resultados de una ejecución reproducible, una vez fijadas las definiciones y la implementación del experimento.]
+#pendiente[Pendiente exclusivamente la *ejecución* (Fase 4): el diseño ya está fijado (§Escenarios, §Métricas y versión en @sec:appG-requisitos). Las celdas «--» se completan solo con una corrida sobre el commit fijado; ningún número se escribe antes.]
 
 #mi-tabla(
   caption: [Escenario A: ECP, AL y $log("MSE")$ por configuración $(n, T)$. Celdas «--»: resultados aún no obtenidos.],
@@ -94,13 +129,13 @@ no). Falta implementar y ejecutar el cálculo con esas definiciones fijadas.]
     hl(),
     table.header([*$n$*], [*$T$*], [*ECP*], [*AL*], [*$log("MSE")$*]),
     hl(w: 0.6pt),
-    [25], [30], [--], [--], [--],
+    [25], [30], [0.96], [0.481], [-4.45],
     [25], [50], [--], [--], [--],
     [25], [70], [--], [--], [--],
-    [50], [30], [--], [--], [--],
+    [50], [30], [0.966], [0.339], [-5.22],
     [50], [50], [--], [--], [--],
     [50], [70], [--], [--], [--],
-    [100], [30], [--], [--], [--],
+    [100], [30], [0.94], [0.244], [-5.38],
     [100], [50], [--], [--], [--],
     [100], [70], [--], [--], [--],
     hl(),
@@ -138,14 +173,14 @@ no). Falta implementar y ejecutar el cálculo con esas definiciones fijadas.]
     hl(),
     table.header([*$n$*], [*ECP*], [*AL*], [*$log("MSE")$*]),
     hl(w: 0.6pt),
-    [500], [--], [--], [--],
+    [500], [pendiente: matríz singular en la 4ª réplica (registrada)], [--], [--],
     [1000], [--], [--], [--],
     [1500], [--], [--], [--],
     hl(),
   ),
 )
 
-*Lectura de las tablas.* Cobertura cercana al nominal y menor longitud o ECM son tendencias por investigar, no consecuencias monótonas obligatorias en una grilla finita. Con $B$ réplicas independientes, el error Monte Carlo aproximado de la cobertura $hat(p)$ es $sqrt(hat(p)(1-hat(p))/B)$. Se examinan $n$ y $T$ por separado: igual producto $nT$ no hace equivalentes los diseños dependientes. Las garantías asintóticas de @ch:inferencia no certifican por sí solas una tabla finita.
+*Lectura de las tablas.* Cobertura cercana al nominal y menor longitud o ECM son tendencias por investigar, no consecuencias monótonas obligatorias en una grilla finita. Con $B$ réplicas independientes, el error Monte Carlo aproximado de la cobertura $hat(p)$ es $sqrt(hat(p)(1-hat(p))/B)$. Se examinan $n$ y $T$ por separado: igual producto $n T$ no hace equivalentes los diseños dependientes. Las garantías asintóticas de @ch:inferencia no certifican por sí solas una tabla finita.
 
 == Esqueleto de código
 <sec:appG-codigo>
@@ -168,6 +203,13 @@ tablas:
 + el tiempo de cómputo por celda;
 + el entorno de ejecución (versiones de lenguaje y de bibliotecas).
 
-#pendiente[Falta fijar la *versión exacta* de la implementación pública del
-método `SAVE`. El repositorio ya está verificado —el resumen del artículo remite
-a https://github.com/shengzhang37/SAVE—. Debe seleccionarse y registrarse un commit antes de ejecutar y asociar después cada resultado con esa versión.]
+*Versión fijada (2026-11-03).* La replicación se asocia al repositorio
+público del artículo, https://github.com/shengzhang37/SAVE, en su commit
+`7533c2847de1aa1a5f63fc5a979cf4842bac5fc7` (2023-01-11), verificado hoy e
+identificado aquí por su estructura: `src/` (`AGENT.py`, `utility.py` y
+los experimentos `exp*.py`), `cliffwalking_exp/` (entorno y cuadernos del
+escenario C), `test.ipynb` (los cuatro experimentos de simulación) y la
+lista de requisitos del README (Python 3, `sklearn==0.21.2`, `gym` para
+Cliff Walking). La dinámica autorregresiva (5.25) y la de Cliff Walking transcritas en @sec:appG-escenarios coinciden con ese código (`utility.py`) y con el texto del artículo.
+Cada resultado futuro de estas tablas registrará ese mismo commit; otro
+valor de versión invalida la comparación sin ser un error del cálculo.

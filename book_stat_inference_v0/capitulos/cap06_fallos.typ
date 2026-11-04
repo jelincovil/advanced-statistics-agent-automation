@@ -51,6 +51,7 @@ ni las variables latentes contradicen la teoría de decisión de Wald.
   espacio de estados sea continuo. En SSCH, discretizar una medición
   tampoco elimina automáticamente el error de modelo o la información perdida.
 ]
+#env-alias("ex:ch6-estados-infinitos", kind: "example")
 
 #thm-env("example", name: [Observabilidad Parcial], key: "ex:ch9-observabilidad-parcial")[
   Sea un estado oculto fijo $Z in \{0,1\}$ con probabilidad inicial $1/2$.
@@ -69,6 +70,7 @@ ni las variables latentes contradicen la teoría de decisión de Wald.
   finito, la creencia pertenece a un simplex de dimensión finita; el
   posterior puede ser infinito-dimensional en modelos más generales.
 ]
+#env-alias("ex:ch6-observabilidad-parcial", kind: "example")
 
 #thm-env("example", name: [Horizonte Infinito sin Ergodicidad], key: "ex:ch9-horizonte-infinito")[
   Dos estados son absorbentes bajo todas las acciones; sus recompensas
@@ -84,6 +86,7 @@ ni las variables latentes contradicen la teoría de decisión de Wald.
   Antes de trasladar una garantía debe fijarse cuál de estos tres
   funcionales —total finito, total descontado o promedio— se estudia.
 ]
+#env-alias("ex:ch6-horizonte-infinito", kind: "example")
 
 #thm-env("example", name: [Confounding No Observado], key: "ex:ch9-confounding")[
   Sea $U$ Bernoulli con parámetro $1/2$. La acción
@@ -102,6 +105,7 @@ ni las variables latentes contradicen la teoría de decisión de Wald.
   estructurales justificadas pueden cambiar el problema; DM, IS y DR
   no eliminan por su nombre esta ambigüedad.
 ]
+#env-alias("ex:ch6-confounding", kind: "example")
 
 #mi-tabla(
   caption: [Qué limita cada ejemplo], key: "tab:ch9-contraejemplos",
@@ -115,6 +119,8 @@ ni las variables latentes contradicen la teoría de decisión de Wald.
     [Memoria insuficiente], [Modelo de transición], [Bellman sobre el resumen elegido puede resolver otro problema.], hl(),
   ),
 )
+#obj-alias("tab:ch6-contraejemplos", kind: "tabla")
+#section-alias("sec:ch6-contraejemplos")
 
 === Límites del Isomorfismo: Cuándo NO se Transfieren Garantías
 <sec:ch9-limites>
@@ -132,6 +138,7 @@ positiva a una pregunta no responde automáticamente las siguientes.
   muestras independientes a una trayectoria adaptativa— hace falta un
   resultado que cubra el nuevo régimen de datos.
 ]
+#env-alias("def:ch6-transferible", kind: "definition")
 
 #thm-env("note", name: [Condiciones suficientes según el régimen], key: "thm:ch9-condiciones")[
   No existe una lista única de condiciones necesarias formada por
@@ -152,6 +159,7 @@ positiva a una pregunta no responde automáticamente las siguientes.
   no para calcular el valor en un modelo completamente conocido. Cada
   ruta debe acompañarse de su teorema y su unidad de muestreo.
 ]
+#env-alias("thm:ch6-condiciones", kind: "note")
 
 #mi-tabla(
   caption: [Garantías de estimación y de decisión], key: "tab:ch9-tipos",
@@ -162,6 +170,8 @@ positiva a una pregunta no responde automáticamente las siguientes.
     [Selección], [¿Es válida la comparación tras elegir una política?], [Evaluación independiente o inferencia uniforme o selectiva apropiada.], hl(),
   ),
 )
+#obj-alias("tab:ch6-tipos", kind: "tabla")
+#section-alias("sec:ch6-limites")
 
 === Qué puede transportarse bajo condiciones adicionales
 <sec:ch6-conjeturas-transferencia>
@@ -184,6 +194,7 @@ Las dificultades anteriores permiten precisar qué información adicional necesi
   el intervalo normal no degenerado usual. El CLT inicial debe ser
   válido para los datos efectivamente usados.
 ]
+#env-alias("thm:ch6-ic", kind: "proposition")
 
 #thm-env("note", name: [Hipótesis y potencia bajo una transformación], key: "thm:ch9-tests")[
   Contrastar $g(theta)=v_0$ significa contrastar el conjunto
@@ -198,6 +209,7 @@ Las dificultades anteriores permiten precisar qué información adicional necesi
   de hipótesis. Cambiar a trayectorias dependientes requiere una nueva
   justificación de la distribución del estadístico.
 ]
+#env-alias("thm:ch6-tests", kind: "note")
 
 #thm-env("note", name: [Correspondencias que requieren una prueba propia], key: "prop:ch9-tabla")[
   #table(columns: (28%, 1fr), align: left, hl(),
@@ -210,6 +222,7 @@ Las dificultades anteriores permiten precisar qué información adicional necesi
     [Control FDR], [Valores p válidos y condiciones de dependencia del procedimiento elegido.], hl(),
   )
 ]
+#env-alias("prop:ch6-tabla", kind: "note")
 
 #thm-env("example", name: [Eficiencia no equivale a normalidad de cualquier funcional], key: "thm:ch9-eficiencia")[
   Sean $X_i$ iid $N(theta,1)$. La media es eficiente para $theta$.
@@ -222,6 +235,7 @@ Las dificultades anteriores permiten precisar qué información adicional necesi
   noción de regularidad. Tampoco basta llamar DR a un estimador para
   que su función de influencia sea la eficiente del modelo de MDP.
 ]
+#env-alias("thm:ch6-eficiencia", kind: "example")
 
 #thm-env("example", name: [Fallo por Violación de Mixing], key: "ex:ch9-fallo-mixing")[
   Elija $Z tilde "Bernoulli"(1/2)$ una sola vez y defina $X_t=Z$ para
@@ -230,6 +244,7 @@ Las dificultades anteriores permiten precisar qué información adicional necesi
   $\{X_k=1\}$ mantienen dependencia $1/4$ para cualquier rezago.
   Si se reemplaza $1/2$ por una proporción desconocida $p$, la ley observada identifica $p$ porque $P(X_0=1)=p$. Sin embargo, alargar una sola trayectoria repite el mismo Bernoulli y no permite estimar consistentemente $p$. Muchas trayectorias con reinicios independientes sí permiten hacerlo: cambia la unidad muestral, no el teorema original.
 ]
+#env-alias("ex:ch6-fallo-mixing", kind: "example")
 
 #thm-env("example", name: [Fallo por Overlap Insuficiente], key: "ex:ch9-fallo-overlap")[
   En una decisión, el registro contiene solo $A=0$ con recompensa cero;
@@ -249,6 +264,7 @@ Las dificultades anteriores permiten precisar qué información adicional necesi
   Si $0<=R<=1$ y no hay soporte para la acción uno, el primer escenario
   solo permite el intervalo de identificación $[0,0.9]$.
 ]
+#env-alias("ex:ch6-fallo-overlap", kind: "example")
 
 #thm-env("example", name: [Fallo por No-Estacionariedad], key: "ex:ch9-fallo-noest")[
   Hay $n/2$ resultados Bernoulli independientes de media $0.2$, seguidos
@@ -259,6 +275,7 @@ Las dificultades anteriores permiten precisar qué información adicional necesi
   Incluir tiempo en el estado puede representar una dinámica no
   homogénea; no prueba estabilidad futura ni devuelve episodios iid.
 ]
+#env-alias("ex:ch6-fallo-noest", kind: "example")
 
 #thm-env("note", name: [Protocolo antes de invocar una garantía], key: "prop:ch9-protocolo")[
   Registrar objetivo, política, periodo, unidad independiente y modelo;
@@ -269,6 +286,7 @@ Las dificultades anteriores permiten precisar qué información adicional necesi
   una región de identificación o un análisis de sensibilidad según el
   caso, sin adjuntar la garantía que no se ha establecido.
 ]
+#env-alias("prop:ch6-protocolo", kind: "note")
 
 Hasta aquí hemos seguido cambios del objetivo y de la información disponible. La estructura temporal de los datos añade otra dificultad: dos estimadores con la misma fórmula pueden tener fluctuaciones diferentes si uno promedia episodios independientes y el otro una trayectoria larga.
 
@@ -294,6 +312,7 @@ estacionario, por ejemplo una contribución de influencia ya definida.
   Es una condición sobre sigma-álgebras de pasado y futuro, no solo
   sobre la correlación entre dos variables.
 ]
+#env-alias("def:ch6-mixing-clt", kind: "definition")
 
 La autocorrelación controla relaciones lineales de un observable;
 $alpha(k)$ controla dependencia entre sucesos. No son intercambiables.
@@ -314,6 +333,7 @@ entre nociones de mixing.
   no se reemplaza una varianza de la media por una varianza sin dividir
   por el tamaño de la trayectoria.
 ]
+#env-alias("thm:ch6-clt-agentes", kind: "proposition")
 Este CLT es un resultado externo de teoría de procesos dependientes;
 una exposición con estas condiciones es el teorema 355 de
 #link("https://www.stat.cmu.edu/~cshalizi/754/2006/notes/lecture-27.pdf")[las notas de Shalizi sobre mixing].
@@ -336,6 +356,7 @@ controlar el resto de su expansión; el CLT escalar no realiza ese paso.
   $0.843$. La comparación distingue cálculo exacto de aproximación
   asintótica; no afirma una cobertura exacta con cien observaciones.
 ]
+#env-alias("ex:ch6-cadena", kind: "example")
 
 #thm-env("note", name: [Diagnóstico empírico de dependencia], key: "prop:ch5-verificacion")[
   Examinar autocorrelaciones de recompensas, ocupaciones y contribuciones
@@ -353,6 +374,7 @@ controlar el resto de su expansión; el CLT escalar no realiza ese paso.
   crecimiento de $K$; no basta elegir un valor por inspección.
   Véase @newey1987hac para la construcción de covarianzas HAC.
 ]
+#env-alias("prop:ch6-verificacion", kind: "note")
 
 #mi-tabla(
   caption: [Qué se necesita al cambiar el régimen muestral], key: "tab:ch5-extension",
@@ -363,6 +385,8 @@ controlar el resto de su expansión; el CLT escalar no realiza ese paso.
     [Método delta], [Transformación de un límite conjunto], [Diferenciabilidad y control del resto.], hl(),
   ),
 )
+#obj-alias("tab:ch6-extension", kind: "tabla")
+#section-alias("sec:ch6-dependencia")
 
 == Representación, identificación e inferencia
 <sec:ch13-limitaciones>
@@ -372,6 +396,7 @@ formal del @ch:isomorfismo. Los encabezados históricos «isomorfismo
 estricto» y «transferencia condicional» se conservan; se refieren aquí,
 respectivamente, a límites de representación secuencial y a requisitos
 para inferir con datos. Ninguno modifica la identidad de un paso.
+#section-alias("sec:ch6-limitaciones")
 
 === Límites del isomorfismo estricto
 
@@ -500,7 +525,12 @@ son propias de esa construcción, independientes de la incrustación de Wald.
 *Cuándo coinciden Bayes, minimax y admisibilidad.* La propiedad de
 Markov y la observación del estado no eliminan la incertidumbre sobre
 el modelo. Para evitar que siglas como MA y CMIA sustituyan hipótesis,
-se distinguen dos formulaciones explícitas.
+se distinguen dos formulaciones explícitas. MA y CMIA no aparecen como
+condiciones formales en este libro: quedan como abreviaturas viejas
+(*Markov action*, acciones que obedecen un núcleo Markov en el historial;
+*conditional mean independence of actions*, media condicional de la
+recompensa dado estado y acción) — incompatibles con la notación
+usada. Nuestro siguiente paso formaliza esas dos formulaciones, no la sigla.
 
 En un modelo conocido con distribución inicial fija $nu$, todas las
 políticas se comparan por el mismo escalar $J_nu (pi)$. Si el supremo se

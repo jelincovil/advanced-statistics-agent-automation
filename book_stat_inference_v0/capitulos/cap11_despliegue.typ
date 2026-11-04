@@ -453,7 +453,7 @@ ceros y ruido en rezagos grandes hacen aún más frágil esa interpretación.
     consistente bajo ella. Si falta, conservar el dictamen pendiente.
 ]
 
-El @lab:F11 ilustra una cadena conocida con autocovarianza $0.6^k$ y
+El ejemplo de @ex:ch9-fallo-mixing ilustra una cadena conocida con autocovarianza $0.6^k$ y
 varianza de largo plazo cuatro. Su cobertura HAC de muestra finita fue
 $0.918$ con error Monte Carlo $0.0123$. Ese resultado ayuda a discutir
 calibración; no autoriza a afirmar cobertura nominal porque HAC y bootstrap

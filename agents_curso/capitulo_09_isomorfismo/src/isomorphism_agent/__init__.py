@@ -6,7 +6,8 @@ del Capítulo 9 (Cap.~\ref{ch:isomorfismo}) con:
 
 * Nodos LangGraph: observation → state → inference → decision
   → isomorphism → transfer → test → verify → END
-* Funtor F con estado terminal (corrige bug de v1).
+* Representación fiel al teorema (`representation.py`; el MDP con
+  estados = θ de v1–v2 queda como demo clairvidente deprecated — D9).
 * Trazabilidad estructurada (tabla Teorema→Componente→Garantía).
 * Protocolo de verificación Prop.~9.14 antes de invocar garantías.
 * Bootstrap secuencial con corrección por mixing (Liao 2021).
@@ -19,6 +20,7 @@ Liao et al. (2021), Chernozhukov et al. (2018).
 from .agent import build_agent, run_agent
 from .bootstrap import block_bootstrap_v
 from .functor import F, F_inv, verify_isomorphism
+from .instrument import emit_agent_v1
 from .mdp import MDP, optimal_policy, policy_evaluation, value_iteration
 from .ope import (
     CrossFittedDoublyRobust,
@@ -46,7 +48,7 @@ __all__ = [
     "WaldProblem", "Distribution", "BernoulliDistribution",
     "bayes_rule", "minimax_rule", "posterior_ic", "wald_test",
     "MDP", "value_iteration", "optimal_policy", "policy_evaluation",
-    "F", "F_inv", "verify_isomorphism",
+    "F", "F_inv", "verify_isomorphism", "emit_agent_v1",
     "ic_transfer_delta", "test_transfer_ump",
     "DirectMethod", "ImportanceSampling", "DoublyRobust", "CrossFittedDoublyRobust", "OPEResult",
     "verify_guarantee", "VerificationResult",

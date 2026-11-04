@@ -99,8 +99,9 @@ def isomorphism_node(state: AgentState) -> dict:
     log: TraceLog = state.get("trace_log", TraceLog())
     log.log("Thm 9.1", "isomorphism_node", "Formal",
             value=f"δ*={result['bayes_action']}, π*={result['mdp_action']}, "
-                  f"ok={result['isomorphism_ok']}",
-            notes="F: Dec → MDP biyección")
+                  f"ok={result['isomorphism_ok']}, "
+                  f"err={result['identity_max_abs_error']:.1e}",
+            notes="J_θ(π_δ)=-R(θ,δ) verificado integrando sobre X")
     return {"mdp_action": result["mdp_action"],
             "isomorphism_ok": result["isomorphism_ok"],
             "trace_log": log}

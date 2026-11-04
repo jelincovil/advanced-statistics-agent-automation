@@ -112,7 +112,14 @@ class WaldProblem:
         return theta * d
 
     def risk(self, theta: float, delta: Callable) -> float:
-        """Riesgo R(θ, δ) = E_X[L(θ, δ(X))] para Bernoulli(n)."""
+        """Evaluación puntual L(θ, f(θ)) de un mapa indexado por θ.
+
+        NO es el riesgo de Wald R(θ,δ) = E_X[L(θ, δ(X))]: aquí no hay
+        observación ni esperanza sobre P_θ. El riesgo estadístico real,
+        integrado sobre la observación, está en
+        `representation.risk_statistical`. Se conserva por compatibilidad
+        con el demo clairvidente (D9, 2026-11-03).
+        """
         a_star = delta(theta)
         return self.loss(theta, a_star)
 

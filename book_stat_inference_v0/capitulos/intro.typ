@@ -54,7 +54,7 @@ finito y un posterior que actúa como estado de información.
 
 #block(breakable: false)[
 #mi-tabla(
-  caption: [Objetos que deben conservarse al representar una decisión. Las garantías inferenciales se justifican para el experimento y el procedimiento correspondientes.],
+  caption: [Objetos que deben conservarse al representar una decisión. Las garantías inferenciales se justifican para el experimento y el procedimiento correspondientes. La versión canónica y completa de estas correspondencias es la @tab:isomorfismo-completo del @ch:isomorfismo.],
   key: "tab:correspondencia-central",
   table(
     columns: (23%, 38%, 1fr),

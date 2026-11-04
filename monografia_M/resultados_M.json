@@ -1,0 +1,124 @@
+{
+  "versions": {
+    "python": "3.12.14",
+    "platform": "Linux-7.0.0-31-generic-x86_64-with-glibc2.43",
+    "numpy": "2.5.3",
+    "scipy": "1.18.1",
+    "scikit-learn": "1.9.1",
+    "pandas": "3.1.0"
+  },
+  "results": [
+    {
+      "file": "labs/m_ch11_obd.py",
+      "returncode": 0,
+      "stdout": "{\"n\": 10000}\n{\"n_items\": 80}\n{\"propensity_random_unique\": [0.0125]}\n{\"propensity_bts_range\": [4.5e-05, 0.95424]}\n{\"mean_click_bts_campaign\": 0.0042}\n{\"mean_click_random_campaign\": 0.0038}\n{\"e_star\": 0.50625}\n{\"e_other\": 0.00625}\n{\"C_ratio_bound\": 40.49999999999999}\n{\"ESS_fraction_diagnostic_only\": 0.04818646557633925}\n{\"IS\": 0.005899999999999999}\n{\"DR\": 0.0057156146707109294}\n{\"DR_CI95_normal\": [-0.00221, 0.01364]}\n{\"DR_SE\": 0.004042866762204333}\n{\"DM_crossfit\": 0.005082878159759316}\n{\"CS_at_n\": [-0.2, 1.0]}\n{\"CS_width_at_n\": 1.2}\n{\"note\": \"ESS is diagnostic only; C is by construction; CS uses true weights. DR_CI is asymptotic under the one-decision efficiency theorem; sanity references are the on-policy means of both campaigns (different policies).\"}\n",
+      "stderr": "",
+      "seconds": 5.1,
+      "sha256": "e4b80710f556e3d01b693fddf4fe262b029293f7c3eef7c3e9fab330b0951e5b"
+    },
+    {
+      "file": "labs/m_ch8_labA_stopping.py",
+      "returncode": 0,
+      "stdout": "runs=4000, horizon T=4000, burn-in=10, alpha=0.05, grid 121 lambdas\nc = true value 0.74: P(peeked fixed-time CI excludes c) = 0.6072 (MCSE 0.0077)\n...................  P(CS excludes c)                   = 0.0000 (MCSE 0.0000)\nc = wrong value 0.50: P(peeked fixed-time CI excludes c) = 1.0000 (MCSE 0.0000)\n....................  P(CS excludes c)                   = 1.0000 (MCSE 0.0000)\n",
+      "stderr": "",
+      "seconds": 35.37,
+      "sha256": "20142ef831045ee7aef9534f5b967aa50a9c07cb0fc6982f115aac54af795f32"
+    },
+    {
+      "file": "labs/m_ch8_labB_gridcs.py",
+      "returncode": 0,
+      "stdout": "runs=3000, T=3000, alpha=0.05, grid 81 lambdas\nP(whole CS path excludes the true value) = 0.0000 (MCSE 0.0000)  [guarantee: <= 0.05]\nE[M_tau] at wrong-center stopping time   = 0.0190 (MCSE 0.0009)  [must be <= 1]\nCS width at n=3000: median 0.7750, IQR [0.75  0.775]\n",
+      "stderr": "",
+      "seconds": 446.59,
+      "sha256": "18778c4a80995970ac863a83226cda3e4fd5596fa826a1797806d0ad9e77ee38"
+    },
+    {
+      "file": "verificacion/m_ch10_certificados.py",
+      "returncode": 0,
+      "stdout": "OK ch10: chi2_1 en theta=0; var exacta 4t^2/n+2/n^2; seleccion cubre 0.777 < 0.95 nominal\n",
+      "stderr": "",
+      "seconds": 0.25,
+      "sha256": "81b3fa470061761865f5221eb05b4c71973021d1c993df1e0cb9f63dd39ecfae"
+    },
+    {
+      "file": "verificacion/m_ch2_ssch.py",
+      "returncode": 0,
+      "stdout": "OK ch2: tabla de riesgos, posteriors, minimax aleatorizado 1/2, prior certificante\n",
+      "stderr": "",
+      "seconds": 0.04,
+      "sha256": "06791f92ca2916e7013e3a6d363781fe312cc39085c87b76fdf0b15a1fdbce54"
+    },
+    {
+      "file": "verificacion/m_ch3_bellman.py",
+      "returncode": 0,
+      "stdout": "OK ch3: V*, iteraciones, certificado residual\n",
+      "stderr": "",
+      "seconds": 0.04,
+      "sha256": "8dd8f04dcb09ed3e836cc8a1f89d1acbab2f56c07ce5fc140cbfb2e12ff140c1"
+    },
+    {
+      "file": "verificacion/m_ch3_thompson.py",
+      "returncode": 0,
+      "stdout": "OK ch3: Thompson 0.8 selecta el brazo 1; predictivo 0.74 < 0.8 Bayes\n",
+      "stderr": "",
+      "seconds": 0.09,
+      "sha256": "dacebc839adbd257af6de331fa508dfb700aa01a4b048e75d9dd944550b22d21"
+    },
+    {
+      "file": "verificacion/m_ch5_stopping.py",
+      "returncode": 0,
+      "stdout": "OK ch5: observar cuesta 0.43 < 0.70 decidir ya\n",
+      "stderr": "",
+      "seconds": 0.04,
+      "sha256": "5f87b20dbdd8d253e76d823561a9287899817688445a5321d0eb9b037182223a"
+    },
+    {
+      "file": "verificacion/m_ch6_contraejemplos.py",
+      "returncode": 0,
+      "stdout": "OK ch6: confounding identico-ley, alpha>=1/4, Var(W)=80.19, Var=0.16/n\n",
+      "stderr": "",
+      "seconds": 0.04,
+      "sha256": "c99a3638673126c08c28d3605082b54192b4046777c0efbe0867b21d3a786824"
+    },
+    {
+      "file": "verificacion/m_ch6_tricotomia.py",
+      "returncode": 0,
+      "stdout": "OK ch6: maximin empatado bajo dominancia; L1 1/2 vs 1\n",
+      "stderr": "",
+      "seconds": 0.04,
+      "sha256": "e3e8c42d26ddea9a7ad3f7ad9952df27a5aad66b7e031532e594601d64f7c4fb"
+    },
+    {
+      "file": "verificacion/m_ch7_curse.py",
+      "returncode": 0,
+      "stdout": "OK ch7: c exacto y tabla H=1,5,10\n",
+      "stderr": "",
+      "seconds": 0.04,
+      "sha256": "c59fdfd33d1344ef9245a572a4f8d381801af6b497e7ac58d8f1f98927e75114"
+    },
+    {
+      "file": "verificacion/m_ch8_anytime.py",
+      "returncode": 0,
+      "stdout": "OK ch8: sup_lambda E[factor]=1.000000 <= 1 (Hoeffding factor validated on the exact support)\n",
+      "stderr": "",
+      "seconds": 0.07,
+      "sha256": "cacf322b2c05f7282f6a6347a1e492c33713558e864122287c8aee9635e0b593"
+    },
+    {
+      "file": "verificacion/m_ch9_margin.py",
+      "returncode": 0,
+      "stdout": "OK ch9: E[perdida]~5.00e-03 <= C(2eps)^(1+kappa)=1.00e-02\n",
+      "stderr": "",
+      "seconds": 0.07,
+      "sha256": "89e40eff0ae6dfa3916d171aed73ec33eee06a2e285db95316095a517d4c13ae"
+    },
+    {
+      "file": "verificacion/m_ch9_pg.py",
+      "returncode": 0,
+      "stdout": "OK ch9: varianzas baseline 0.01171875/0.046875/0; grad 1/12; 13/720 y 1/180 (69.2%)\n",
+      "stderr": "",
+      "seconds": 0.04,
+      "sha256": "539d646583a0dec51d62ca929271f24f76b96d51c7a32b71b42387b635bf3a70"
+    }
+  ]
+}

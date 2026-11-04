@@ -1,0 +1,914 @@
+[
+ {
+  "file": "capitulos/cap05_incrustacion.typ",
+  "old": "ex:ch9-ej5",
+  "new": "ex:ch5-ej5",
+  "kind": "ejercicio"
+ },
+ {
+  "file": "capitulos/cap05_incrustacion.typ",
+  "old": "ex:ch9-ej4",
+  "new": "ex:ch5-ej4",
+  "kind": "ejercicio"
+ },
+ {
+  "file": "capitulos/cap05_incrustacion.typ",
+  "old": "ex:ch9-ej3",
+  "new": "ex:ch5-ej3",
+  "kind": "ejercicio"
+ },
+ {
+  "file": "capitulos/cap05_incrustacion.typ",
+  "old": "ex:ch9-ej2",
+  "new": "ex:ch5-ej2",
+  "kind": "ejercicio"
+ },
+ {
+  "file": "capitulos/cap05_incrustacion.typ",
+  "old": "ex:ch9-ej1",
+  "new": "ex:ch5-ej1",
+  "kind": "ejercicio"
+ },
+ {
+  "file": "capitulos/cap05_incrustacion.typ",
+  "old": "tab:ch9-trazabilidad",
+  "new": "tab:ch5-trazabilidad",
+  "kind": "tabla"
+ },
+ {
+  "file": "capitulos/cap05_incrustacion.typ",
+  "old": "cor:ch7-secuencial",
+  "new": "cor:ch5-secuencial",
+  "kind": "note"
+ },
+ {
+  "file": "capitulos/cap05_incrustacion.typ",
+  "old": "cor:ch7-traduccion",
+  "new": "cor:ch5-traduccion",
+  "kind": "corollary"
+ },
+ {
+  "file": "capitulos/cap05_incrustacion.typ",
+  "old": "thm:ch7-isomorfismo",
+  "new": "thm:ch5-isomorfismo",
+  "kind": "note"
+ },
+ {
+  "file": "capitulos/cap05_incrustacion.typ",
+  "old": "ex:ch9-state",
+  "new": "ex:ch5-state",
+  "kind": "example"
+ },
+ {
+  "file": "capitulos/cap05_incrustacion.typ",
+  "old": "thm:ch9-state",
+  "new": "thm:ch5-state",
+  "kind": "note"
+ },
+ {
+  "file": "capitulos/cap05_incrustacion.typ",
+  "old": "cor:ch9-bayes",
+  "new": "cor:ch5-bayes",
+  "kind": "corollary"
+ },
+ {
+  "file": "capitulos/cap05_incrustacion.typ",
+  "old": "thm:ch9-admisibilidad",
+  "new": "thm:ch5-admisibilidad",
+  "kind": "theorem"
+ },
+ {
+  "file": "capitulos/cap05_incrustacion.typ",
+  "old": "cor:ch9-bellman",
+  "new": "cor:ch5-bellman",
+  "kind": "corollary"
+ },
+ {
+  "file": "capitulos/cap05_incrustacion.typ",
+  "old": "thm:ch9-secuencial",
+  "new": "thm:ch5-secuencial",
+  "kind": "theorem"
+ },
+ {
+  "file": "capitulos/cap05_incrustacion.typ",
+  "old": "fig:ch9-incrustacion-dec-mdp",
+  "new": "fig:ch5-incrustacion-dec-mdp",
+  "kind": "figura"
+ },
+ {
+  "file": "capitulos/cap05_incrustacion.typ",
+  "old": "note:ch9-extension-no-demostrada",
+  "new": "note:ch5-extension-no-demostrada",
+  "kind": "note"
+ },
+ {
+  "file": "capitulos/cap05_incrustacion.typ",
+  "old": "thm:ch9-isomorfismo",
+  "new": "thm:ch5-isomorfismo",
+  "kind": "theorem"
+ },
+ {
+  "file": "capitulos/cap05_incrustacion.typ",
+  "old": "def:ch9-mdp",
+  "new": "def:ch5-mdp",
+  "kind": "definition"
+ },
+ {
+  "file": "capitulos/cap05_incrustacion.typ",
+  "old": "def:ch9-wald",
+  "new": "def:ch5-wald",
+  "kind": "definition"
+ },
+ {
+  "file": "capitulos/cap06_fallos.typ",
+  "old": "tab:ch5-extension",
+  "new": "tab:ch6-extension",
+  "kind": "tabla"
+ },
+ {
+  "file": "capitulos/cap06_fallos.typ",
+  "old": "prop:ch5-verificacion",
+  "new": "prop:ch6-verificacion",
+  "kind": "note"
+ },
+ {
+  "file": "capitulos/cap06_fallos.typ",
+  "old": "ex:ch5-cadena",
+  "new": "ex:ch6-cadena",
+  "kind": "example"
+ },
+ {
+  "file": "capitulos/cap06_fallos.typ",
+  "old": "thm:ch5-clt-agentes",
+  "new": "thm:ch6-clt-agentes",
+  "kind": "proposition"
+ },
+ {
+  "file": "capitulos/cap06_fallos.typ",
+  "old": "def:ch5-mixing-clt",
+  "new": "def:ch6-mixing-clt",
+  "kind": "definition"
+ },
+ {
+  "file": "capitulos/cap06_fallos.typ",
+  "old": "prop:ch9-protocolo",
+  "new": "prop:ch6-protocolo",
+  "kind": "note"
+ },
+ {
+  "file": "capitulos/cap06_fallos.typ",
+  "old": "ex:ch9-fallo-noest",
+  "new": "ex:ch6-fallo-noest",
+  "kind": "example"
+ },
+ {
+  "file": "capitulos/cap06_fallos.typ",
+  "old": "ex:ch9-fallo-overlap",
+  "new": "ex:ch6-fallo-overlap",
+  "kind": "example"
+ },
+ {
+  "file": "capitulos/cap06_fallos.typ",
+  "old": "ex:ch9-fallo-mixing",
+  "new": "ex:ch6-fallo-mixing",
+  "kind": "example"
+ },
+ {
+  "file": "capitulos/cap06_fallos.typ",
+  "old": "thm:ch9-eficiencia",
+  "new": "thm:ch6-eficiencia",
+  "kind": "example"
+ },
+ {
+  "file": "capitulos/cap06_fallos.typ",
+  "old": "prop:ch9-tabla",
+  "new": "prop:ch6-tabla",
+  "kind": "note"
+ },
+ {
+  "file": "capitulos/cap06_fallos.typ",
+  "old": "thm:ch9-tests",
+  "new": "thm:ch6-tests",
+  "kind": "note"
+ },
+ {
+  "file": "capitulos/cap06_fallos.typ",
+  "old": "thm:ch9-ic",
+  "new": "thm:ch6-ic",
+  "kind": "proposition"
+ },
+ {
+  "file": "capitulos/cap06_fallos.typ",
+  "old": "tab:ch9-tipos",
+  "new": "tab:ch6-tipos",
+  "kind": "tabla"
+ },
+ {
+  "file": "capitulos/cap06_fallos.typ",
+  "old": "thm:ch9-condiciones",
+  "new": "thm:ch6-condiciones",
+  "kind": "note"
+ },
+ {
+  "file": "capitulos/cap06_fallos.typ",
+  "old": "def:ch9-transferible",
+  "new": "def:ch6-transferible",
+  "kind": "definition"
+ },
+ {
+  "file": "capitulos/cap06_fallos.typ",
+  "old": "tab:ch9-contraejemplos",
+  "new": "tab:ch6-contraejemplos",
+  "kind": "tabla"
+ },
+ {
+  "file": "capitulos/cap06_fallos.typ",
+  "old": "ex:ch9-confounding",
+  "new": "ex:ch6-confounding",
+  "kind": "example"
+ },
+ {
+  "file": "capitulos/cap06_fallos.typ",
+  "old": "ex:ch9-horizonte-infinito",
+  "new": "ex:ch6-horizonte-infinito",
+  "kind": "example"
+ },
+ {
+  "file": "capitulos/cap06_fallos.typ",
+  "old": "ex:ch9-observabilidad-parcial",
+  "new": "ex:ch6-observabilidad-parcial",
+  "kind": "example"
+ },
+ {
+  "file": "capitulos/cap06_fallos.typ",
+  "old": "ex:ch9-estados-infinitos",
+  "new": "ex:ch6-estados-infinitos",
+  "kind": "example"
+ },
+ {
+  "file": "capitulos/cap07_ope.typ",
+  "old": "ex:ch10-ej5",
+  "new": "ex:ch7-ej5",
+  "kind": "ejercicio"
+ },
+ {
+  "file": "capitulos/cap07_ope.typ",
+  "old": "ex:ch10-ej4",
+  "new": "ex:ch7-ej4",
+  "kind": "ejercicio"
+ },
+ {
+  "file": "capitulos/cap07_ope.typ",
+  "old": "ex:ch10-ej3",
+  "new": "ex:ch7-ej3",
+  "kind": "ejercicio"
+ },
+ {
+  "file": "capitulos/cap07_ope.typ",
+  "old": "ex:ch10-ej2",
+  "new": "ex:ch7-ej2",
+  "kind": "ejercicio"
+ },
+ {
+  "file": "capitulos/cap07_ope.typ",
+  "old": "ex:ch10-ej1",
+  "new": "ex:ch7-ej1",
+  "kind": "ejercicio"
+ },
+ {
+  "file": "capitulos/cap07_ope.typ",
+  "old": "tab:ch10-respuesta",
+  "new": "tab:ch7-respuesta",
+  "kind": "tabla"
+ },
+ {
+  "file": "capitulos/cap07_ope.typ",
+  "old": "ex:ch10-pipeline",
+  "new": "ex:ch7-pipeline",
+  "kind": "example"
+ },
+ {
+  "file": "capitulos/cap07_ope.typ",
+  "old": "prop:ch10-umbrales",
+  "new": "prop:ch7-umbrales",
+  "kind": "note"
+ },
+ {
+  "file": "capitulos/cap07_ope.typ",
+  "old": "def:ch10-indicadores",
+  "new": "def:ch7-indicadores",
+  "kind": "definition"
+ },
+ {
+  "file": "capitulos/cap07_ope.typ",
+  "old": "prop:ch10-truncamiento",
+  "new": "prop:ch7-truncamiento",
+  "kind": "note"
+ },
+ {
+  "file": "capitulos/cap07_ope.typ",
+  "old": "thm:ch10-truncamiento",
+  "new": "thm:ch7-truncamiento",
+  "kind": "theorem"
+ },
+ {
+  "file": "capitulos/cap07_ope.typ",
+  "old": "def:ch10-niveles",
+  "new": "def:ch7-niveles",
+  "kind": "definition"
+ },
+ {
+  "file": "capitulos/cap07_ope.typ",
+  "old": "def:ch10-ess",
+  "new": "def:ch7-ess",
+  "kind": "definition"
+ },
+ {
+  "file": "capitulos/cap07_ope.typ",
+  "old": "thm:ch10-tradeoff",
+  "new": "thm:ch7-tradeoff",
+  "kind": "note"
+ },
+ {
+  "file": "capitulos/cap07_ope.typ",
+  "old": "fig:ch10-arbol-ope",
+  "new": "fig:ch7-arbol-ope",
+  "kind": "figura"
+ },
+ {
+  "file": "capitulos/cap07_ope.typ",
+  "old": "prop:ch10-var-dr",
+  "new": "prop:ch7-var-dr",
+  "kind": "example"
+ },
+ {
+  "file": "capitulos/cap07_ope.typ",
+  "old": "thm:ch10-dr-eficiencia",
+  "new": "thm:ch7-dr-eficiencia",
+  "kind": "proposition"
+ },
+ {
+  "file": "capitulos/cap07_ope.typ",
+  "old": "thm:ch10-dr",
+  "new": "thm:ch7-dr",
+  "kind": "theorem"
+ },
+ {
+  "file": "capitulos/cap07_ope.typ",
+  "old": "def:ch10-dr",
+  "new": "def:ch7-dr",
+  "kind": "definition"
+ },
+ {
+  "file": "capitulos/cap07_ope.typ",
+  "old": "ex:ch10-shift-ssch",
+  "new": "ex:ch7-shift-ssch",
+  "kind": "example"
+ },
+ {
+  "file": "capitulos/cap07_ope.typ",
+  "old": "def:ch10-shift",
+  "new": "def:ch7-shift",
+  "kind": "definition"
+ },
+ {
+  "file": "capitulos/cap07_ope.typ",
+  "old": "prop:ch10-dro-garantia",
+  "new": "prop:ch7-dro-garantia",
+  "kind": "proposition"
+ },
+ {
+  "file": "capitulos/cap07_ope.typ",
+  "old": "def:ch10-dro",
+  "new": "def:ch7-dro",
+  "kind": "definition"
+ },
+ {
+  "file": "capitulos/cap07_ope.typ",
+  "old": "prop:ch10-is-shift",
+  "new": "prop:ch7-is-shift",
+  "kind": "proposition"
+ },
+ {
+  "file": "capitulos/cap07_ope.typ",
+  "old": "def:ch10-covariate",
+  "new": "def:ch7-covariate",
+  "kind": "definition"
+ },
+ {
+  "file": "capitulos/cap07_ope.typ",
+  "old": "cor:ch10-curse",
+  "new": "cor:ch7-curse",
+  "kind": "corollary"
+ },
+ {
+  "file": "capitulos/cap07_ope.typ",
+  "old": "thm:ch10-curse",
+  "new": "thm:ch7-curse",
+  "kind": "theorem"
+ },
+ {
+  "file": "capitulos/cap07_ope.typ",
+  "old": "def:ch10-pdis",
+  "new": "def:ch7-pdis",
+  "kind": "definition"
+ },
+ {
+  "file": "capitulos/cap07_ope.typ",
+  "old": "thm:ch10-is-insesgado",
+  "new": "thm:ch7-is-insesgado",
+  "kind": "theorem"
+ },
+ {
+  "file": "capitulos/cap07_ope.typ",
+  "old": "def:ch10-is",
+  "new": "def:ch7-is",
+  "kind": "definition"
+ },
+ {
+  "file": "capitulos/cap07_ope.typ",
+  "old": "def:ch10-rho",
+  "new": "def:ch7-rho",
+  "kind": "definition"
+ },
+ {
+  "file": "capitulos/cap07_ope.typ",
+  "old": "prop:ch10-dm",
+  "new": "prop:ch7-dm",
+  "kind": "proposition"
+ },
+ {
+  "file": "capitulos/cap07_ope.typ",
+  "old": "def:ch10-dm",
+  "new": "def:ch7-dm",
+  "kind": "definition"
+ },
+ {
+  "file": "capitulos/cap07_ope.typ",
+  "old": "thm:ch10-identificacion",
+  "new": "thm:ch7-identificacion",
+  "kind": "theorem"
+ },
+ {
+  "file": "capitulos/cap07_ope.typ",
+  "old": "ass:ch10-markov",
+  "new": "ass:ch7-markov",
+  "kind": "supuesto"
+ },
+ {
+  "file": "capitulos/cap07_ope.typ",
+  "old": "def:ch10-rho-max",
+  "new": "def:ch7-rho-max",
+  "kind": "definition"
+ },
+ {
+  "file": "capitulos/cap07_ope.typ",
+  "old": "ass:ch10-overlap",
+  "new": "ass:ch7-overlap",
+  "kind": "supuesto"
+ },
+ {
+  "file": "capitulos/cap07_ope.typ",
+  "old": "ass:ch10-consistency",
+  "new": "ass:ch7-consistency",
+  "kind": "supuesto"
+ },
+ {
+  "file": "capitulos/cap07_ope.typ",
+  "old": "def:ch10-retorno",
+  "new": "def:ch7-retorno",
+  "kind": "definition"
+ },
+ {
+  "file": "capitulos/cap07_ope.typ",
+  "old": "def:ch10-ope",
+  "new": "def:ch7-ope",
+  "kind": "definition"
+ },
+ {
+  "file": "capitulos/cap08_intervalos.typ",
+  "old": "ex:ch11-ej5",
+  "new": "ex:ch8-ej5",
+  "kind": "ejercicio"
+ },
+ {
+  "file": "capitulos/cap08_intervalos.typ",
+  "old": "ex:ch11-ej4",
+  "new": "ex:ch8-ej4",
+  "kind": "ejercicio"
+ },
+ {
+  "file": "capitulos/cap08_intervalos.typ",
+  "old": "ex:ch11-ej3",
+  "new": "ex:ch8-ej3",
+  "kind": "ejercicio"
+ },
+ {
+  "file": "capitulos/cap08_intervalos.typ",
+  "old": "ex:ch11-ej2",
+  "new": "ex:ch8-ej2",
+  "kind": "ejercicio"
+ },
+ {
+  "file": "capitulos/cap08_intervalos.typ",
+  "old": "ex:ch11-ej1",
+  "new": "ex:ch8-ej1",
+  "kind": "ejercicio"
+ },
+ {
+  "file": "capitulos/cap08_intervalos.typ",
+  "old": "tab:ch11-trazabilidad",
+  "new": "tab:ch8-trazabilidad",
+  "kind": "tabla"
+ },
+ {
+  "file": "capitulos/cap08_intervalos.typ",
+  "old": "ex:ch11-pg-ssch",
+  "new": "ex:ch8-pg-ssch",
+  "kind": "example"
+ },
+ {
+  "file": "capitulos/cap08_intervalos.typ",
+  "old": "prop:ch11-reinforce-if",
+  "new": "prop:ch8-reinforce-if",
+  "kind": "proposition"
+ },
+ {
+  "file": "capitulos/cap08_intervalos.typ",
+  "old": "def:ch11-pg-v2",
+  "new": "def:ch8-pg-v2",
+  "kind": "definition"
+ },
+ {
+  "file": "capitulos/cap08_intervalos.typ",
+  "old": "prop:ch11-baseline",
+  "new": "prop:ch8-baseline",
+  "kind": "proposition"
+ },
+ {
+  "file": "capitulos/cap08_intervalos.typ",
+  "old": "def:ch11-reinforce",
+  "new": "def:ch8-reinforce",
+  "kind": "definition"
+ },
+ {
+  "file": "capitulos/cap08_intervalos.typ",
+  "old": "thm:ch11-pg-theorem",
+  "new": "thm:ch8-pg-theorem",
+  "kind": "theorem"
+ },
+ {
+  "file": "capitulos/cap08_intervalos.typ",
+  "old": "def:ch11-pg",
+  "new": "def:ch8-pg",
+  "kind": "definition"
+ },
+ {
+  "file": "capitulos/cap08_intervalos.typ",
+  "old": "thm:ch11-n",
+  "new": "thm:ch8-n",
+  "kind": "proposition"
+ },
+ {
+  "file": "capitulos/cap08_intervalos.typ",
+  "old": "prop:ch11-save",
+  "new": "prop:ch8-save",
+  "kind": "note"
+ },
+ {
+  "file": "capitulos/cap08_intervalos.typ",
+  "old": "thm:ch11-szls-tasas",
+  "new": "thm:ch8-szls-tasas",
+  "kind": "note"
+ },
+ {
+  "file": "capitulos/cap08_intervalos.typ",
+  "old": "def:ch11-save",
+  "new": "def:ch8-save",
+  "kind": "definition"
+ },
+ {
+  "file": "capitulos/cap08_intervalos.typ",
+  "old": "thm:ch11-var-consistente",
+  "new": "thm:ch8-var-consistente",
+  "kind": "proposition"
+ },
+ {
+  "file": "capitulos/cap08_intervalos.typ",
+  "old": "def:ch11-hac",
+  "new": "def:ch8-hac",
+  "kind": "definition"
+ },
+ {
+  "file": "capitulos/cap08_intervalos.typ",
+  "old": "def:ch11-var-if",
+  "new": "def:ch8-var-if",
+  "kind": "definition"
+ },
+ {
+  "file": "capitulos/cap08_intervalos.typ",
+  "old": "cor:ch11-ic",
+  "new": "cor:ch8-ic",
+  "kind": "corollary"
+ },
+ {
+  "file": "capitulos/cap08_intervalos.typ",
+  "old": "thm:ch11-shi",
+  "new": "thm:ch8-shi",
+  "kind": "note"
+ },
+ {
+  "file": "capitulos/cap08_intervalos.typ",
+  "old": "thm:ch11-clt-mixing",
+  "new": "thm:ch8-clt-mixing",
+  "kind": "theorem"
+ },
+ {
+  "file": "capitulos/cap08_intervalos.typ",
+  "old": "alg:ch11-seleccion",
+  "new": "alg:ch8-seleccion",
+  "kind": "algoritmo"
+ },
+ {
+  "file": "capitulos/cap08_intervalos.typ",
+  "old": "tab:ch11-tasas",
+  "new": "tab:ch8-tasas",
+  "kind": "tabla"
+ },
+ {
+  "file": "capitulos/cap08_intervalos.typ",
+  "old": "prop:ch11-impacto",
+  "new": "prop:ch8-impacto",
+  "kind": "example"
+ },
+ {
+  "file": "capitulos/cap08_intervalos.typ",
+  "old": "cor:ch11-gap",
+  "new": "cor:ch8-gap",
+  "kind": "note"
+ },
+ {
+  "file": "capitulos/cap08_intervalos.typ",
+  "old": "thm:ch11-tasa-tabular",
+  "new": "thm:ch8-tasa-tabular",
+  "kind": "theorem"
+ },
+ {
+  "file": "capitulos/cap08_intervalos.typ",
+  "old": "prop:ch11-ergodico",
+  "new": "prop:ch8-ergodico",
+  "kind": "proposition"
+ },
+ {
+  "file": "capitulos/cap08_intervalos.typ",
+  "old": "def:ch11-geometrico",
+  "new": "def:ch8-geometrico",
+  "kind": "definition"
+ },
+ {
+  "file": "capitulos/cap08_intervalos.typ",
+  "old": "def:ch11-alpha",
+  "new": "def:ch8-alpha",
+  "kind": "definition"
+ },
+ {
+  "file": "capitulos/cap05_incrustacion.typ",
+  "old": "sec:ch9-marcos",
+  "new": "sec:ch5-marcos",
+  "kind": "seccion"
+ },
+ {
+  "file": "capitulos/cap05_incrustacion.typ",
+  "old": "sec:ch9-isomorfismo",
+  "new": "sec:ch5-isomorfismo",
+  "kind": "seccion"
+ },
+ {
+  "file": "capitulos/cap05_incrustacion.typ",
+  "old": "sec:ch9-secuencial",
+  "new": "sec:ch5-secuencial",
+  "kind": "seccion"
+ },
+ {
+  "file": "capitulos/cap05_incrustacion.typ",
+  "old": "sec:ch9-transferencia",
+  "new": "sec:ch5-transferencia",
+  "kind": "seccion"
+ },
+ {
+  "file": "capitulos/cap05_incrustacion.typ",
+  "old": "sec:ch9-optimalidad",
+  "new": "sec:ch5-optimalidad",
+  "kind": "seccion"
+ },
+ {
+  "file": "capitulos/cap05_incrustacion.typ",
+  "old": "sec:ch9-state",
+  "new": "sec:ch5-state",
+  "kind": "seccion"
+ },
+ {
+  "file": "capitulos/cap05_incrustacion.typ",
+  "old": "sec:ch13-mapa",
+  "new": "sec:ch5-mapa",
+  "kind": "seccion"
+ },
+ {
+  "file": "capitulos/cap05_incrustacion.typ",
+  "old": "sec:ch9-arquitectura",
+  "new": "sec:ch5-arquitectura",
+  "kind": "seccion"
+ },
+ {
+  "file": "capitulos/cap05_incrustacion.typ",
+  "old": "sec:ch9-garantias",
+  "new": "sec:ch5-garantias",
+  "kind": "seccion"
+ },
+ {
+  "file": "capitulos/cap05_incrustacion.typ",
+  "old": "sec:ch9-ejercicios",
+  "new": "sec:ch5-ejercicios",
+  "kind": "seccion"
+ },
+ {
+  "file": "capitulos/cap05_incrustacion.typ",
+  "old": "sec:ch9-lecturas",
+  "new": "sec:ch5-lecturas",
+  "kind": "seccion"
+ },
+ {
+  "file": "capitulos/cap06_fallos.typ",
+  "old": "sec:ch9-contraejemplos",
+  "new": "sec:ch6-contraejemplos",
+  "kind": "seccion"
+ },
+ {
+  "file": "capitulos/cap06_fallos.typ",
+  "old": "sec:ch9-limites",
+  "new": "sec:ch6-limites",
+  "kind": "seccion"
+ },
+ {
+  "file": "capitulos/cap06_fallos.typ",
+  "old": "sec:ch5-dependencia",
+  "new": "sec:ch6-dependencia",
+  "kind": "seccion"
+ },
+ {
+  "file": "capitulos/cap06_fallos.typ",
+  "old": "sec:ch13-limitaciones",
+  "new": "sec:ch6-limitaciones",
+  "kind": "seccion"
+ },
+ {
+  "file": "capitulos/cap07_ope.typ",
+  "old": "sec:ch10-problema",
+  "new": "sec:ch7-problema",
+  "kind": "seccion"
+ },
+ {
+  "file": "capitulos/cap07_ope.typ",
+  "old": "sec:ch10-supuestos",
+  "new": "sec:ch7-supuestos",
+  "kind": "seccion"
+ },
+ {
+  "file": "capitulos/cap07_ope.typ",
+  "old": "sec:ch10-dm",
+  "new": "sec:ch7-dm",
+  "kind": "seccion"
+ },
+ {
+  "file": "capitulos/cap07_ope.typ",
+  "old": "sec:ch10-is",
+  "new": "sec:ch7-is",
+  "kind": "seccion"
+ },
+ {
+  "file": "capitulos/cap07_ope.typ",
+  "old": "sec:ch10-curse",
+  "new": "sec:ch7-curse",
+  "kind": "seccion"
+ },
+ {
+  "file": "capitulos/cap07_ope.typ",
+  "old": "sec:ch10-dist-shift",
+  "new": "sec:ch7-dist-shift",
+  "kind": "seccion"
+ },
+ {
+  "file": "capitulos/cap07_ope.typ",
+  "old": "sec:ch10-shift",
+  "new": "sec:ch7-shift",
+  "kind": "seccion"
+ },
+ {
+  "file": "capitulos/cap07_ope.typ",
+  "old": "sec:ch10-dr",
+  "new": "sec:ch7-dr",
+  "kind": "seccion"
+ },
+ {
+  "file": "capitulos/cap07_ope.typ",
+  "old": "sec:ch10-comparacion",
+  "new": "sec:ch7-comparacion",
+  "kind": "seccion"
+ },
+ {
+  "file": "capitulos/cap07_ope.typ",
+  "old": "sec:ch10-diagnosticos",
+  "new": "sec:ch7-diagnosticos",
+  "kind": "seccion"
+ },
+ {
+  "file": "capitulos/cap07_ope.typ",
+  "old": "sec:ch10-fallback",
+  "new": "sec:ch7-fallback",
+  "kind": "seccion"
+ },
+ {
+  "file": "capitulos/cap07_ope.typ",
+  "old": "sec:ch10-verificacion",
+  "new": "sec:ch7-verificacion",
+  "kind": "seccion"
+ },
+ {
+  "file": "capitulos/cap08_intervalos.typ",
+  "old": "sec:ch11-problema",
+  "new": "sec:ch8-problema",
+  "kind": "seccion"
+ },
+ {
+  "file": "capitulos/cap08_intervalos.typ",
+  "old": "sec:ch11-mixing",
+  "new": "sec:ch8-mixing",
+  "kind": "seccion"
+ },
+ {
+  "file": "capitulos/cap08_intervalos.typ",
+  "old": "sec:ch11-tasas-explicitas",
+  "new": "sec:ch8-tasas-explicitas",
+  "kind": "seccion"
+ },
+ {
+  "file": "capitulos/cap08_intervalos.typ",
+  "old": "sec:ch11-clt",
+  "new": "sec:ch8-clt",
+  "kind": "seccion"
+ },
+ {
+  "file": "capitulos/cap08_intervalos.typ",
+  "old": "sec:ch11-shi",
+  "new": "sec:ch8-shi",
+  "kind": "seccion"
+ },
+ {
+  "file": "capitulos/cap08_intervalos.typ",
+  "old": "sec:ch11-varianza",
+  "new": "sec:ch8-varianza",
+  "kind": "seccion"
+ },
+ {
+  "file": "capitulos/cap08_intervalos.typ",
+  "old": "sec:ch11-save",
+  "new": "sec:ch8-save",
+  "kind": "seccion"
+ },
+ {
+  "file": "capitulos/cap08_intervalos.typ",
+  "old": "sec:ch11-poder",
+  "new": "sec:ch8-poder",
+  "kind": "seccion"
+ },
+ {
+  "file": "capitulos/cap08_intervalos.typ",
+  "old": "sec:ch11-diagnostico",
+  "new": "sec:ch8-diagnostico",
+  "kind": "seccion"
+ },
+ {
+  "file": "capitulos/cap08_intervalos.typ",
+  "old": "sec:ch11-drl",
+  "new": "sec:ch8-drl",
+  "kind": "seccion"
+ },
+ {
+  "file": "capitulos/cap08_intervalos.typ",
+  "old": "sec:ch11-pg",
+  "new": "sec:ch8-pg",
+  "kind": "seccion"
+ },
+ {
+  "file": "capitulos/cap08_intervalos.typ",
+  "old": "sec:ch11-ic-agente",
+  "new": "sec:ch8-ic-agente",
+  "kind": "seccion"
+ },
+ {
+  "file": "capitulos/cap08_intervalos.typ",
+  "old": "sec:ch11-decisiones",
+  "new": "sec:ch8-decisiones",
+  "kind": "seccion"
+ }
+]

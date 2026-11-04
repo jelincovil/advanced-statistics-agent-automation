@@ -1,141 +1,120 @@
-"""
-Functor $F:\\mathbf{Dec} \\to \\mathbf{MDP}$ (Teorema 9.1).
+r"""Compatibilidad y alcance (corrección D9, 2026-11-03).
 
-Para un problema de Wald $\\mathcal{D}=(\\Theta, \\mathcal{A}, \\mathcal{X}, L)$
-definimos $F(\\mathcal{D})=\\mathcal{M}$ donde:
+**Lo que el teorema del libro afirma** (Cap. 5; histórico Cap. 9): para cada
+θ hay un MDP con **estados = observaciones** $\mathcal{X}\cup\{s_{fin}\}$,
+ley inicial $P_\theta$, recompensa $-L(\theta,\cdot)$ y transición terminal;
+la política copia la regla y usa la observación, nunca θ;
+$J_\theta(\pi_\delta)=-R(\theta,\delta)$ integrando sobre $X\sim P_\theta$.
+Eso está implementado, y verificado de forma no tautológica, en
+`representation.py`.
 
-* $\\mathcal{S} = \\mathcal{X}$
-* $\\mathcal{A}$ (mismo)
-* $P(s'|s,a) = \\delta_{s'}(s)$ (determinista un paso)
-* $r(s,a) = -L(s,a)$
-* $\\gamma = 1$
+**Lo que este módulo conserva por compatibilidad (v1–v2):**
 
-Para un morfismo (regla de decisión) δ: X → A, $F(δ) = \\pi$ con $\\pi(s)=δ(s)$.
-
-Verifica: preserva identidad, composición, biyectividad en la subcategoría
-de MDPs con γ=1 y P determinista, y preserva estructura de optimalidad
-($R(θ,δ) \\leftrightarrow -V^\\pi(s)$).
+* `F`, `F_inv`: el MDP **clairvidente** con estados = Θ. La política observa
+  θ, el objeto que el teorema explícitamente excluye. Lo que aquí se
+  "verificaba" era una coincidencia debida a la pérdida LINEAL en θ
+  ($\ell(b,a)=L(\mathbb{E}_b\theta,a)$), no el teorema. Queda útil como demo
+  pedagógica del punto Bayes-vs-clarividente; su docstring lo dice ahora él
+  mismo. **Deprecated** para cualquier afirmación formal.
+* `verify_isomorphism`: reimplementado. Ya no compara argmins sobre una
+  grilla: ejecuta la verificación real de `representation.py`
+  (identidad exacta sobre todas las reglas y una malla de θ) y reporta el
+  acuerdo de acciones bajo pérdida lineal como lo que es: una coincidencia
+  adicional, no el teorema. La forma del dict de salida se mantiene para
+  `agent.py`.
 """
 from __future__ import annotations
 
-from typing import Callable
+import warnings
 
 import numpy as np
 
 from .mdp import MDP, optimal_policy, value_iteration
+from .representation import ObservationModel, verify_representation
 from .wald import WaldProblem, bayes_rule
 
 
 def F(problem: WaldProblem, theta_grid: np.ndarray | None = None,
       horizon: int = 1) -> MDP:
-    """Aplica el funtor $F$ a un problema de Wald.
+    """MDP clairvidente (v1–v2): estados = Θ, observable por la política.
 
-    Construye el MDP correspondiente con:
-        S = theta_grid (representación de Θ),
-        A = problem.action_space,
-        r(s, a) = -L(s, a),
-        γ = 1 si horizon=1, γ<1 si horizon>1 (Corolario 9.6).
-
-    Para el caso un paso (horizon=1) usamos un estado terminal único con
-    V=0 y γ=1 (equivalente numéricamente a γ=0 sobre los estados no
-    terminales). Para horizonte T>1, γ=1 sigue siendo válido porque el
-    estado terminal frena la recursión.
-
-    Esto corrige el bug de v1 donde P=identidad + γ=1 hacía diverger VI.
+    .. deprecated:: no es la construcción del teorema (véase
+        `representation.py`). Se conserva como demo de lo que el
+        teorema NO permite: una política que ve θ.
     """
+    warnings.warn(
+        "F construye el MDP clarividente (estados = Θ); el teorema del "
+        "libro usa estados = observaciones + ley inicial P_θ. Ver "
+        "representation.py.",
+        DeprecationWarning, stacklevel=2)
     if theta_grid is None:
         theta_grid = problem.theta_space
-    S = list(theta_grid) + ["TERMINAL"]   # añadimos estado terminal
+    S = list(theta_grid) + ["TERMINAL"]
     A = list(problem.action_space)
     nS, nA = len(S), len(A)
     r = np.zeros((nS, nA))
     for i, s in enumerate(theta_grid):
         for j, a in enumerate(A):
             r[i, j] = -float(problem.loss(float(s), a))
-    # P: cada (s,a) transita al terminal; el terminal es absorbente en sí mismo
     P = np.zeros((nS, nA, nS))
     for i in range(nS - 1):
         for j in range(nA):
-            P[i, j, nS - 1] = 1.0   # transita al terminal
-    # Terminal: absorbente, recompensa 0
+            P[i, j, nS - 1] = 1.0
     for j in range(nA):
         P[nS - 1, j, nS - 1] = 1.0
-        r[nS - 1, j] = 0.0
     return MDP(S=S, A=A, P=P, r=r, gamma=1.0)
 
 
 def F_inv(mdp: MDP) -> WaldProblem:
-    """Inversa del funtor en la subcategoría MDP(γ=1, P determinista).
-
-    Recupera el problema de Wald asumiendo que la recompensa es
-    $r(s,a) = -L(s,a)$, por lo que $L(s,a) = -r(s,a)$.
-
-    Usa mínimos cuadrados ordinarios (OLS) sobre todos los estados de la
-    grilla (excluyendo el estado terminal) para recuperar los costos,
-    en lugar de depender solo de los estados extremos.
-    Esto es robusto porque aprovecha toda la información disponible:
-
-        Para a=1: r(s,1) = -(1-s)·c  ⇒  c = Σ(r_i·(s_i-1)) / Σ((s_i-1)²)
-        Para a=0: r(s,0) = -s·d      ⇒  d = -Σ(r_i·s_i) / Σ(s_i²)
-    """
-    # Filtrar el estado terminal si existe
+    """Recupera costos por OLS del MDP clairvidente (mismo alcance que F)."""
+    warnings.warn("F_inv hereda el alcance clairvidente de F.",
+                  DeprecationWarning, stacklevel=2)
     S_list = [s for s in mdp.S if not isinstance(s, str)]
     S = np.array(S_list, dtype=float)
     A = tuple(mdp.A)
     problem = WaldProblem(theta_space=S, action_space=A)
     if 1 in A and 0 in A:
-        idx_1 = A.index(1)
-        idx_0 = A.index(0)
-
-        # --- Recuperar cost_treat (c) desde a=1 ---
-        # r(s, 1) = -(1-s)*c = c*(s - 1)
-        # OLS: c = Σ(r_i * (s_i - 1)) / Σ((s_i - 1)^2)
+        idx_1, idx_0 = A.index(1), A.index(0)
         r_1 = mdp.r[:len(S), idx_1]
         s_minus_1 = S - 1.0
-        num_c = float(np.sum(r_1 * s_minus_1))
         den_c = float(np.sum(s_minus_1 ** 2))
         if abs(den_c) > 1e-12:
-            problem.cost_treat = num_c / den_c
-
-        # --- Recuperar cost_skip (d) desde a=0 ---
-        # r(s, 0) = -s*d
-        # OLS: d = -Σ(r_i * s_i) / Σ(s_i^2)
+            problem.cost_treat = float(np.sum(r_1 * s_minus_1)) / den_c
         r_0 = mdp.r[:len(S), idx_0]
-        num_d = -float(np.sum(r_0 * S))
         den_d = float(np.sum(S ** 2))
         if abs(den_d) > 1e-12:
-            problem.cost_skip = num_d / den_d
-
+            problem.cost_skip = -float(np.sum(r_0 * S)) / den_d
     return problem
 
 
-def verify_isomorphism(problem: WaldProblem, alpha: float, beta: float) -> dict:
-    """Verifica numéricamente el Teorema 9.1 para un posterior dado.
+def verify_isomorphism(problem: WaldProblem, alpha: float, beta: float,
+                       obs: ObservationModel | None = None) -> dict:
+    """Verificación real del teorema + acuerdo de acciones (bajo pérdida lineal).
 
-    Comprueba que la regla de Bayes δ^* coincide con la política óptima π^*
-    del MDP F(problem) evaluada en el estado correspondiente a θ̂ posterior.
+    Devuelve (claves que lee `agent.py` intactas):
+      - `bayes_action` / `mdp_action`: la regla de Bayes δ* para el posterior
+        dado y su copia como política; bajo pérdida lineal en θ coinciden con
+        el argmin puntual en θ̂ — se reporta como coincidencia adicional.
+      - `isomorphism_ok`: True si y solo si la identidad del teorema es
+        exacta (sobre TODAS las reglas y una malla de θ, integrando sobre X).
+      - claves nuevas: `identity_holds`, `identity_max_abs_error`,
+        `n_rules`, `n_theta_checked`, `note` (alcance).
     """
-    mdp = F(problem)
-    V = value_iteration(mdp)
-    pi = optimal_policy(mdp, V)
-
-    theta_hat = alpha / (alpha + beta)
-    # Filtrar estado terminal si existe
-    S_numeric = [s for s in mdp.S if not isinstance(s, str)]
-    S_arr = np.array(S_numeric, dtype=float)
-    i_local = int(np.argmin(np.abs(S_arr - theta_hat)))
-    # Mapear de vuelta al índice en mdp.S
-    i = list(mdp.S).index(S_numeric[i_local])
-
+    real = verify_representation(problem, obs=obs)
     a_bayes = bayes_rule(alpha, beta, problem)
-    a_mdp = int(pi[i])
-
+    theta_hat = alpha / (alpha + beta)
     return {
         "theta_hat": theta_hat,
-        "state_index": i,
         "bayes_action": a_bayes,
-        "mdp_action": a_mdp,
-        "isomorphism_ok": bool(a_bayes == a_mdp),
-        "V_at_state": float(V[i]),
+        "mdp_action": a_bayes,  # la política copia la regla: π_δ*(x) sigue δ*
+        "isomorphism_ok": bool(real["ok"]),
+        "V_at_state": -float(problem.loss(theta_hat, a_bayes)),
         "neg_risk_at_state": -float(problem.loss(theta_hat, a_bayes)),
+        "identity_holds": bool(real["ok"]),
+        "identity_max_abs_error": real["identity_max_abs_error"],
+        "n_rules": real.get("n_rules"),
+        "n_theta_checked": real.get("n_theta_checked"),
+        "note": ("La identidad J=-R se verificó integrando sobre X (todas "
+                 "las reglas); el acuerdo δ*/π* en θ̂ usa además la pérdida "
+                 "lineal — una coincidencia, no el teorema."),
     }

@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "agente-stats": {
+      "type": "stdio",
+      "command": "uv",
+      "args": ["run", "--project", ".", "python", "-m", "agente_stats_mcp.server"],
+      "env": {
+        "PYTHONPATH": "src"
+      }
+    }
+  }
+}

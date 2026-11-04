@@ -1449,64 +1449,6 @@ Para controlar esa probabilidad sin exigir independencia, puede distribuirse el 
 Bajo independencia se usa que, al sustituir un p-valor nulo por cero, el total de rechazos permite acotar su contribución a la FDR por $alpha/m$. La suma da $m_0 alpha/m$. La extensión PRDS requiere un argumento adicional; se atribuye a la literatura, no se deduce de independencia. Véase #verdem(<dem:ch4-bh>).
 ]
 
-=== Tests de Hipótesis Bayesianos
-<sec:ch4-bayes>
-
-El paradigma frecuentista fija $alpha$ antes de observar los datos y
-controla el error Tipo I en el largo plazo. El paradigma bayesiano
-aborda el mismo problema desde otra dirección: dado el posterior
-$pi(theta|x)$, ¿cuánta evidencia aportan los datos en favor de $H_1$
-frente a $H_0$? La respuesta se codifica en el _factor de Bayes_, que
-puede interpretarse como la actualización multiplicativa que los datos
-producen sobre la razón de probabilidades a priori.
-
-#thm-env("definition", name: [Factor de Bayes], key: "def:ch4-bayes-factor")[
-  Sean $H_0: theta in Theta_0$ y $H_1: theta in Theta_1$ hipótesis
-  mutuamente excluyentes y exhaustivas, con probabilidades previas estrictamente positivas
-  $pi_0 = P(theta in Theta_0)$ y $pi_1 = 1 - pi_0$, y priors condicionales propios con evidencias finitas y positivas. El _factor de Bayes_
-  a favor de $H_1$ sobre $H_0$ es:
-  $ BF_(10)(x) = (m_1 (x))/(m_0 (x)), quad m_j (x) = integral_(Theta_j) f(x|theta) pi(theta|H_j) dif theta, $
-  donde $m_j$ es la verosimilitud marginal (evidencia) bajo $H_j$ y
-  $pi(theta|H_j)$ es el prior sobre $theta$ condicional a $H_j$.
-
-  Equivalentemente, el factor de Bayes actualiza las razones de
-  probabilidad:
-  $ underbrace((P(H_1|x))/(P(H_0|x)), "razón posterior") = BF_(10)(x) times underbrace(pi_1/pi_0, "razón a priori"). $
-]
-
-
-#thm-env("example", name: [Factor de Bayes en el SSCH: Comparación de dos tratamientos], key: "ex:ch4-bf-ssch")[
-Considere dos muestras binomiales independientes, $n_A=n_B=50$, $y_A=32$, $y_B=20$, con priors independientes $"Beta"(1,1)$. Los posteriores son $p_A|y tilde "Beta"(33,19)$ y $p_B|y tilde "Beta"(21,31)$. Para las hipótesis de orden $H_1:p_A>p_B$ y $H_0:p_A<=p_B$, la probabilidad previa de cada región es $1/2$.
-
-  Calcule $q=integral_0^1 f_(33,19)(u)F_(21,31)(u)dif u$, donde $f$ y $F$ son densidad y CDF beta. La integración numérica da $q approx 0.99151457$ y $BF_(10)=q/(1-q) approx 116.8491$. Los priors dentro de las hipótesis son los priors conjuntos restringidos y normalizados en cada región. No es un contraste de igualdad puntual ni un p-valor.
-
-  La actualización de los cuatro parámetros beta es constante por observación; evaluar la integral tiene costo numérico propio. El siguiente código reproduce el cálculo, sin atribuirle una precisión clínica:
-  ```python
-  from scipy.integrate import quad
-  from scipy.stats import beta
-  q, error = quad(lambda u: beta.pdf(u, 33, 19)
-                          * beta.cdf(u, 21, 31), 0, 1)
-  print(q, q / (1 - q), error)
-  ```
-]
-
-La comparación de las dos pérdidas posteriores convierte la evidencia bayesiana en una regla de decisión con costos explícitos.
-
-#thm-env("proposition", name: [Regla de Bayes para contraste de hipótesis con pérdida 0--1], key: "thm:ch4-bayes-decision")[
-  Bajo la función de pérdida 0--1 con costos asimétricos $w_I$ y
-  $w_(I I)$, una regla de Bayes que no rechaza en caso de empate rechaza $H_0$ si y solo si:
-  $ BF_(10)(x) > w_I/w_(I I) dot pi_0/pi_1. $
-  En particular, si $w_I = w_(I I)$ y $pi_0 = pi_1 = 1/2$, se rechaza
-  $H_0$ cuando $BF_(10) > 1$, es decir, cuando los datos favorecen a
-  $H_1$ sobre $H_0$.
-]
-
-#proofsketch-env[
-  La pérdida esperada posterior de aceptar $H_0$ es $w_(I I) dot P(H_1|x)$;
-  la de rechazar $H_0$ es $w_I dot P(H_0|x)$. La regla de Bayes elige la
-  acción con menor pérdida esperada, lo que conduce directamente a la
-  desigualdad. En el empate ambas decisiones y cualquier aleatorización entre ellas minimizan la pérdida posterior.
-]
 
 == Aproximar la distribución del error de estimación
 
@@ -2385,17 +2327,10 @@ El recorrido ha pasado de conservar información a controlar el error de un obje
   Compare estimar una media, una CDF, una densidad puntual y el valor de una política. Para cada objetivo, declare un modelo, unidad de muestreo, estimador y condición de regularidad. Explique por qué «no paramétrico» no equivale a «sin supuestos».
 ]
 #exercise-env(key: "ex:ch4-ej-dr")[
-  En el ejemplo causal de dos estratos, use $overline(e)=(0.4,0.6)$, $overline(m)_0=(11,19)$ y $overline(m)_1=(9,15)$. Calcule el sesgo con la identidad DR. Repita con propensión correcta y luego con ambas regresiones correctas. Compruebe qué propiedad es poblacional y qué haría falta para construir un intervalo muestral.
+  Retome el contraejemplo DR del cuerpo (@thm:ch6-dr, donde ambas funciones, propensión y recompensa, permiten distinguir casos): use $overline(e)=(0.4,0.6)$, $overline(m)_0=(11,19)$ y $overline(m)_1=(9,15)$. Calcule el sesgo con la identidad DR. Repita con propensión correcta y luego con ambas regresiones correctas. Compruebe qué propiedad es poblacional y qué haría falta para construir un intervalo muestral.
 ]
 #exercise-env(key: "ex:ch4-ej-dependencia")[
   Derive la varianza de largo plazo del AR(1) y compare $rho=0$, $0.6$ y $-0.4$. Diseñe una simulación de cobertura con réplicas independientes y reporte el error Monte Carlo de la cobertura estimada. No confunda repetir una simulación con aumentar la longitud de una sola trayectoria.
-]
-
-#exercise-env(key: "ex:ch4-ej-bf")[
-  Utilizando los datos del ejemplo anterior y priors $"Beta"(1,1)$:
-  + Calcule el factor de Bayes $BF_(10)$ para $H_1: p_A > p_B$ vs. $H_0: p_A <= p_B$.
-  + Si la pérdida por error Tipo I (adoptar un tratamiento inferior) es 5 veces la del error Tipo II (no detectar uno superior), ¿rechazaría $H_0$?
-  + Compare su decisión con la que obtendría usando un test frecuentista de una cola con $alpha = 0.05$.
 ]
 
 == Lecturas Propuestas
@@ -2416,7 +2351,7 @@ El recorrido ha pasado de conservar información a controlar el error de un obje
 === Lecturas Complementarias
 ]
 
-+ #cite(<kennedy2017theory>, form: "prose") y #cite(<kennedy2022semiparametric>, form: "prose"): introducciones a funciones de influencia y estimación de funcionales.
++ #cite(<kennedy2022semiparametric>, form: "prose"): introducción a funciones de influencia y estimación de funcionales (la referencia alternativa citada aquí antes no tenía entrada en el `.bib`; sustituida 2026-11-03).
 + #cite(<chernozhukov2018double>, form: "prose"): momentos ortogonales, cross-fitting y condiciones sobre los restos.
 + #cite(<kallus2020double>, form: "prose") y #cite(<kallus2022efficiently>, form: "prose"): distinguir los modelos finitos por tiempo de los modelos estacionarios de horizonte infinito antes de trasladar una IF.
 + #cite(<efron1993introduction>, form: "prose"), #cite(<hall1992bootstrap>, form: "prose") y #cite(<kunsch1989jackknife>, form: "prose"): remuestreo, refinamientos y dependencia.

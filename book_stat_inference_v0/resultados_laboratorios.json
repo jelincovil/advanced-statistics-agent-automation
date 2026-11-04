@@ -1,7 +1,7 @@
 {
   "versions": {
     "python": "3.12.14",
-    "platform": "Linux-6.14.0-37-generic-x86_64-with-glibc2.39",
+    "platform": "Linux-7.0.0-31-generic-x86_64-with-glibc2.43",
     "numpy": "2.5.3",
     "scipy": "1.18.1",
     "scikit-learn": "1.9.1",
@@ -14,7 +14,7 @@
       "returncode": 0,
       "stdout": "Diseno: 80 transiciones independientes por fila; total 1600\nValores verdaderos desde s3: [-7.771309  1.635906  5.855945  4.786908]\nValores estimados desde s3: [-5.091062  0.964091  5.570888  4.835083]\nDiferencia a3-a2=4.606798; SE delta=0.882817\nIC normal 95%: [2.876508 6.337087]\np unilateral normal=9.029e-08\nIC bootstrap parametrico 95%: [2.998922 6.409819]\nFilas estocasticas y derivada direccional: OK\n",
       "stderr": "",
-      "seconds": 1.6701134550094139,
+      "seconds": 0.45420248599839397,
       "sha256": "ce0d025cdc8e35d506bb465e6e40b20448db67b7744c61d21aef11864e37ba66"
     },
     {
@@ -22,7 +22,7 @@
       "returncode": 0,
       "stdout": "Posterior Beta(13,89); p=0.127451; SD=0.032859\nUmbral=0.100; accion de dos opciones=tratar\nRegla adicional SD<=0.03: consultar\n",
       "stderr": "",
-      "seconds": 0.023044893008773215,
+      "seconds": 0.006197164009790868,
       "sha256": "3df6d86172189e998d4024e9074b6ef6d05232bdd793d28f9742ca1888339bed"
     },
     {
@@ -30,7 +30,7 @@
       "returncode": 0,
       "stdout": "Posterior Beta(19,83); beneficio esperado=0.036275\nMostrar: True\nn suficiente por cota uniforme para SD<0.05: 98\n",
       "stderr": "",
-      "seconds": 0.0378707280033268,
+      "seconds": 0.009643473022151738,
       "sha256": "5a495718471b1e1d568bf33aa584ec1033538a00b79f875e781d8a86c384df01"
     },
     {
@@ -38,7 +38,7 @@
       "returncode": 0,
       "stdout": "n=1000; exitos=305; media=0.305000\nConteos, historial y (n,media) coinciden: OK\nRazón L(a)/L(b) en theta=0.2: 16.000000\nRazón L(a)/L(b) en theta=0.7: 0.183673\nOperaciones suma completa a cada llegada: 500500\nActualizaciones incrementales: 1000\n",
       "stderr": "",
-      "seconds": 0.1572204399999464,
+      "seconds": 0.040151328983483836,
       "sha256": "b53aa8e6bb0a2fb1e3129736127d2257c7ec9ad7b6f62023cb8ce2ee1f329006"
     },
     {
@@ -46,7 +46,7 @@
       "returncode": 0,
       "stdout": "Objetivo J=2theta=0.600\nVar teorica inicial=0.840000\nVar teorica RB y cota CR=0.042000\nVar simulada inicial=0.845121; RB=0.041860\nMedias simuladas: 0.606400, 0.600420\n",
       "stderr": "",
-      "seconds": 0.18019774000276811,
+      "seconds": 0.0431841810059268,
       "sha256": "3a288d906aeb3c4acdcafd7fd5ca1c9556c3ae57c7e77725fe26306a52263940"
     },
     {
@@ -54,7 +54,7 @@
       "returncode": 0,
       "stdout": "Diferencia=0.475000; SE=0.010113\nIC bilateral 95%: [0.455179 0.494821]\nMargen=0.40; p unilateral=0.000000; limite=0.458366; rechazo=True\nMargen=0.47; p unilateral=0.310507; limite=0.458366; rechazo=False\np ajustados Holm (ejemplo separado): [0.012 0.09  0.16  0.21  0.4   0.8  ]\n",
       "stderr": "",
-      "seconds": 1.3583976219961187,
+      "seconds": 0.3210354360053316,
       "sha256": "e8c247abeca2ee70c15ea006fafcfe44b27edf9ab88039a352c7b8d59c958574"
     },
     {
@@ -62,7 +62,7 @@
       "returncode": 0,
       "stdout": "Normal: cobertura=0.958; MCSE=0.0090; longitud=0.03958\nBootstrap percentil: cobertura=0.950; MCSE=0.0097; longitud=0.03900\nM=500; n=100; B=499; verdadero=0.475\nVarianza individual: 0.010124999999999999\nVarianza de la media: 0.00010124999999999998\n",
       "stderr": "",
-      "seconds": 1.510584283998469,
+      "seconds": 0.4255230169801507,
       "sha256": "bfc75d87f26b79cc489e098efdd6e1c6c36873f7b88ab878d9beeddbf27fcdd6"
     },
     {
@@ -70,7 +70,7 @@
       "returncode": 0,
       "stdout": "ATE verdadero=1; AIPW=0.977928; SE=0.045716\nIC normal 95%: [0.888328 1.067529]\nPropensiones ajustadas min,max: [0.334971 0.695206]\nEsperanza AIPW, ambos correctos: 1.000000\nEsperanza AIPW, solo propension: 1.000000\nEsperanza AIPW, solo resultado: 1.000000\nEsperanza AIPW, ambos incorrectos: 1.245613\n",
       "stderr": "",
-      "seconds": 2.2365731509926263,
+      "seconds": 0.5388902600097936,
       "sha256": "391fdda81088256e0714cf06aa6fef44d2a82ac015805bfe42d002aca5597c57"
     },
     {
@@ -78,7 +78,7 @@
       "returncode": 0,
       "stdout": "TS: pseudo-regret medio=14.404; MCSE=0.451\nUCB1: pseudo-regret medio=94.150; MCSE=1.294\nepsilon-greedy: pseudo-regret medio=104.736; MCSE=2.287\nBayes con una ronda restante: 0\n",
       "stderr": "",
-      "seconds": 9.417431378009496,
+      "seconds": 2.4178320359787904,
       "sha256": "c790c1bf16e614f400c06f6cc179bb6fad29868362a020aac1e5b17503ca17b3"
     },
     {
@@ -86,7 +86,7 @@
       "returncode": 0,
       "stdout": "Politica optima (acciones 1..4): [2 3 3 4 4]\nV* por PI: [7.77928  7.311139 7.096966 7.102004 6.46565 ]\nVI: 216 actualizaciones; PI: 3 evaluaciones\nResiduo VI=9.645e-11; cota error valor=9.645e-10\nComprobaciones numericas de contraccion: OK\n",
       "stderr": "",
-      "seconds": 1.0666363990021637,
+      "seconds": 0.33285577897913754,
       "sha256": "77859a783f2ff92c99018f4ae783b8cf3590deaecaa0f80cde20d5c63cb7be83"
     },
     {
@@ -94,7 +94,7 @@
       "returncode": 0,
       "stdout": "regla=(0, 0); riesgo=[0. 3.]; retorno=[ 0. -3.]\nregla=(0, 1); riesgo=[0.2 0.6]; retorno=[-0.2 -0.6]\nregla=(1, 0); riesgo=[0.8 2.4]; retorno=[-0.8 -2.4]\nregla=(1, 1); riesgo=[1. 0.]; retorno=[-1.  0.]\nRegla Bayes: (0, 1) ; riesgo Bayes: 0.4\nImagen por g(theta)=-c*(1-theta): [-0.15 -0.09]\nTodas las reglas enumeradas satisfacen J=-R: OK\n",
       "stderr": "",
-      "seconds": 0.12471402499068063,
+      "seconds": 0.035887637990526855,
       "sha256": "8d0010d0fb98f032e7c8b7e21406fa12af612dad4775beade2320ce92e842687"
     },
     {
@@ -102,7 +102,7 @@
       "returncode": 0,
       "stdout": "DM: media=16.98554; SE entre episodios=0.00096\nIS: media=16.85609; SE entre episodios=0.53158\nPDIS: media=17.12232; SE entre episodios=0.24905\nDR: media=17.30569; SE entre episodios=0.04221\nIC DR normal 95%: [17.22297 17.38842]\nESS pesos finales=535.29/1000; max=4.014\nReferencia on-policy=17.24282; SE=0.02907\n",
       "stderr": "",
-      "seconds": 7.011433075997047,
+      "seconds": 1.8443335370102432,
       "sha256": "c573e4eb7f0d8312e0ff95d763be946d5d4e2cba9be148e9c0c6afda1d7402f5"
     },
     {
@@ -110,7 +110,7 @@
       "returncode": 0,
       "stdout": "Media verdadera=0; estimada=-0.10600; varianza LR exacta=4\nHAC K=10: LR=3.49375; IC=[-0.22185  0.00985]\nHAC K=20: LR=4.15126; IC=[-0.23228  0.02028]\nHAC K=40: LR=4.96757; IC=[-0.24414  0.03214]\nIC block bootstrap percentil: [-0.232   0.0203]\nRadio no trivial=0.60; gap absoluto=0.40; pasos TV<=0.01: 8\nTamano efectivo asintotico del observable: 250.0\niid aplicado incorrectamente: cobertura=0.660; MCSE=0.0212\nHAC K=20: cobertura=0.918; MCSE=0.0123\n",
       "stderr": "",
-      "seconds": 1.6670987359975697,
+      "seconds": 0.47286274802172557,
       "sha256": "7907f209870b98f9425162e32079cea152e89b84f1467f447b90231fe48834ec"
     },
     {
@@ -118,7 +118,7 @@
       "returncode": 0,
       "stdout": "Diferencia verdadera=0.195388; estimada DR=0.226384; SE=0.016039\nIC bilateral 95%: [0.194948 0.257821]\nLimite inferior unilateral=0.200002; p=1.54763e-45\nESS pesos finales=751.79/2000\nDecision de mejora, analisis unico: True\nInvariancia softmax a desplazamiento comun: OK\n",
       "stderr": "",
-      "seconds": 1.25415661399893,
+      "seconds": 0.3663965379819274,
       "sha256": "ec63500c7c2623c46297fbcb557b4110f186fd20965f50c1cfab9a632742b4c0"
     }
   ]

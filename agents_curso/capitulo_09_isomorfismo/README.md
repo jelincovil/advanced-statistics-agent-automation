@@ -4,10 +4,10 @@ Implementación Python + LangGraph del **isomorfismo estructural** entre la teor
 
 ## ¿Qué es?
 
-Un agente estadístico que operacionaliza el funtor $F:\mathbf{Dec}\to\mathbf{MDP}$ del Capítulo 9, con:
+Un agente estadístico que operacionaliza la **representación riesgo–retorno** del Capítulo 9 ($J_\theta(\pi_\delta)=-R(\theta,\delta)$, integrando sobre la observación). Desde la corrección D9 (2026-11-03), `representation.py` implementa la construcción del teorema (estados $=\mathcal{X}$, ley inicial $P_\theta$, políticas $\mathcal{X}\to\mathcal{A}$) y el antiguo "funtor" con estados $=\Theta$ queda como demo clairvidente con su alcance declarado. El paquete no afirma ninguna equivalencia de categorías. Componentes:
 
 - **8 nodos LangGraph**: observation → state → inference → decision → isomorphism → transfer → test → verify
-- **Funtor F** con estado terminal explícito (corrige bug de v1)
+- **Representación fiel al teorema** (`representation.py`, verificación no tautológica); `functor.py` queda como demo clairvidente deprecated (D9)
 - **Transferencia de IC** vía delta-method (Teorema 9.7)
 - **Transferencia de tests UMP** (Teorema 9.8)
 - **OPE con DM / IS / DR** + clipping adaptativo (Su et al. 2020)
@@ -24,15 +24,17 @@ isomorphism-agent/
 │   ├── state.py                # WaldState, MDPState, AgentState
 │   ├── wald.py                 # WaldProblem, bayes_rule, wald_test
 │   ├── mdp.py                  # MDP, value_iteration, optimal_policy
-│   ├── functor.py              # F, F_inv, verify_isomorphism (Thm 9.1)
+│   ├── representation.py       # Representación del teorema (D9): mdp_for_theta, verify_representation
+│   ├── functor.py              # Capa de compatibilidad: demo clairvidente deprecated + verify_isomorphism real
 │   ├── transfer.py             # ic_transfer_delta (Thm 9.7), test_transfer_ump (Thm 9.8)
 │   ├── ope.py                  # DM, IS, DR + clipping adaptativo
 │   ├── verify.py               # Prop. 9.14
 │   ├── bootstrap.py            # Block bootstrap + mixing (Liao 2021)
 │   ├── trace.py                # TraceLog teorema→componente→garantía
 │   └── agent.py                # build_agent, run_agent (LangGraph)
-├── tests/                      # 39 tests pytest (todos pasan)
-│   ├── test_isomorphism.py     # 14 tests del funtor F y transferencia
+├── tests/                      # 54 tests pytest (todos pasan)
+│   ├── test_isomorphism.py     # 14 tests del funtor F (demo clairvidente) y transferencia
+│   ├── test_representation.py  # 8 tests de la representación del teorema (D9)
 │   ├── test_agent.py           # 7 tests end-to-end
 │   ├── test_ope.py             # 5 tests DM/IS/DR
 │   └── test_v2.py              # 13 tests de mejoras v2
@@ -85,7 +87,7 @@ print(result['trace_log'].summary_table())
 
 ```bash
 pytest tests/ -v
-# 39 tests, todos pasan en ~2s
+# 54 tests, todos pasan en ~1s (8 de la representación del teorema, D9; 7 de la emisión instrumentada JSONL del proyecto MCP, Fase 1)
 ```
 
 ## Reproducir la aplicación a Diabetes 130-US

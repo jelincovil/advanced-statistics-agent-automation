@@ -21,6 +21,7 @@ La construcción permite traducir Bayes, minimax y admisibilidad dentro de una m
   $ R(theta, delta) = sum_(x in cal(X)) P_theta(x) L(theta, delta(x)). $
   Denotamos por $cal(D)_0$ la clase de todas estas reglas. Las comparaciones se harán siempre dentro de esta clase, salvo indicación expresa.
 ]
+#env-alias("def:ch5-wald", kind: "definition")
 
 La familia $(P_theta)$ forma parte del problema: indica qué puede aprenderse de la observación. El riesgo es una función de $theta$ que evalúa una regla completa. No se exige que una sola regla minimice el riesgo simultáneamente para todos los parámetros.
 
@@ -31,6 +32,8 @@ La familia $(P_theta)$ forma parte del problema: indica qué puede aprenderse de
     J_theta(pi) = sum_x P_theta(x) V_theta^pi(x). $
   El primer objeto condiciona en el estado inicial; el segundo promedia sobre su distribución. Un descuento igual a uno es admisible porque solo hay una recompensa y el horizonte es finito.
 ]
+#env-alias("def:ch5-mdp", kind: "definition")
+#section-alias("sec:ch5-marcos")
 
 === Representación fundamental de un paso
 <sec:ch9-isomorfismo>
@@ -50,12 +53,14 @@ La familia $(P_theta)$ forma parte del problema: indica qué puede aprenderse de
     = -R(theta,delta). $
   La acotación de la pérdida asegura convergencia absoluta de las sumas. La transición terminal garantiza que no existen recompensas futuras que alteren la igualdad. La demostración y sus consecuencias se detallan en @dem:ch9-isomorfismo.
 ]
+#env-alias("thm:ch5-isomorfismo", kind: "theorem")
 
 #thm-env("note", name: [Alcance de la construcción], key: "note:ch9-extension-no-demostrada")[
   El estado inicial es observable, pero el índice $theta$ es desconocido. La familia sirve para evaluar una política común; no entrega al agente el verdadero modelo. La representación tampoco supone que la recompensa evaluativa pueda observarse después de actuar: una pérdida estadística puede depender de una verdad que continúa desconocida. Por ello no constituye, por sí sola, un protocolo de aprendizaje por refuerzo con recompensas registradas.
 
   La transición al estado terminal es determinista. Esa propiedad no hace determinista el muestreo de $X$. La identidad demostrada usa $J_theta$, no el valor condicionado $V_theta^pi(x)$. No establece que un MDP general sea equivalente a un problema estadístico de una decisión.
 ]
+#env-alias("note:ch5-extension-no-demostrada", kind: "note")
 
 #block(breakable: false)[
 #mi-figura(
@@ -70,6 +75,7 @@ La familia $(P_theta)$ forma parte del problema: indica qué puede aprenderse de
   caption: [Representación de una decisión. El parámetro indexa el modelo y la evaluación; la regla utiliza únicamente la observación.],
   key: "fig:ch9-incrustacion-dec-mdp",
 )
+#obj-alias("fig:ch5-incrustacion-dec-mdp", kind: "figura")
 ]
 
 === Extensión al Caso Secuencial
@@ -91,6 +97,7 @@ $ ell(b,a) = sum_theta b(theta) L(theta,a). $
     c + sum_(y in cal(Y)) m_b(y) W_(k-1)(B(b,y))}. $
   La estrategia elige la alternativa que alcanza el mínimo. Los empates pueden resolverse mediante una regla fija. La demostración por inducción está en @dem:ch9-suficiencia-markov.
 ]
+#env-alias("thm:ch5-secuencial", kind: "theorem")
 
 El estado de decisión es $(k,b)$. Observar produce una transición aleatoria determinada por $m_b$; decidir conduce al estado terminal. La actualización del posterior es determinista *dada la observación*, pero el proceso de creencias es generalmente estocástico. El resultado pertenece al enfoque bayesiano de estados de información y no implica optimalidad frecuentista uniforme en $theta$.
 
@@ -101,6 +108,8 @@ El estado de decisión es $(k,b)$. Observar produce una transición aleatoria de
     -c+sum_y m_b(y) U_(k-1)(B(b,y))}. $
   La recompensa al observar es $-c$ y la recompensa terminal esperada es $-ell(b,a)$. La igualdad se obtiene cambiando el signo en la recursión anterior. El estado oculto $theta$ permanece fijo; la actualización afecta la distribución de creencias sobre él.
 ]
+#env-alias("cor:ch5-bellman", kind: "corollary")
+#section-alias("sec:ch5-secuencial")
 
 === Transferencia de Resultados de Inferencia
 <sec:ch9-transferencia>
@@ -119,6 +128,7 @@ El índice $theta$ de la teoría de decisión puede representar un vector o un m
   caption: [Preguntas inferenciales que la representación de riesgo deja abiertas. La dimensión del objetivo y la del modelo son conceptos distintos.],
   key: "tab:ch5-regimenes",
 )
+#section-alias("sec:ch5-transferencia")
 
 === Preservación de Propiedades de Optimalidad
 <sec:ch9-optimalidad>
@@ -128,6 +138,7 @@ El índice $theta$ de la teoría de decisión puede representar un vector o un m
   $ J_theta(pi') >= J_theta(pi_delta) quad "para todo" theta, $
   con desigualdad estricta para algún $theta$. El orden compara el vector de retornos indexado por los modelos, no por estados iniciales observados. La conclusión se sigue de cambiar el signo en la definición de dominancia; #verdem(<dem:ch9-transferencia-admis>).
 ]
+#env-alias("thm:ch5-admisibilidad", kind: "theorem")
 
 #thm-env("corollary", name: [Criterio de Bayes], key: "cor:ch9-bayes")[
   Para un prior $nu$ sobre $Theta$, sean
@@ -135,8 +146,10 @@ El índice $theta$ de la teoría de decisión puede representar un vector o un m
     J_nu(pi)=sum_theta nu(theta)J_theta(pi). $
   Entonces $J_nu(pi_delta)=-rho_nu(delta)$. La correspondencia identifica los conjuntos de minimizadores del riesgo de Bayes con los de maximizadores de $J_nu$. La distribución conjunta usada es $nu(theta)P_theta(x)$; en general no se puede reemplazar por una recompensa promediada sin condicionar en $x$. Véase @dem:ch9-transferencia-bayes.
 ]
+#env-alias("cor:ch5-bayes", kind: "corollary")
 
 Con datos $x$, la regla bayesiana minimiza la pérdida posterior. No se necesita que el prior tenga soporte completo para esta identidad. La admisibilidad de una regla de Bayes es una cuestión adicional; no se deduce aquí para cualquier prior y cualquier situación.
+#section-alias("sec:ch5-optimalidad")
 
 === StateSchema como Estadístico Suficiente
 <sec:ch9-state>
@@ -146,6 +159,7 @@ Con datos $x$, la regla bayesiana minimiza la pérdida posterior. No se necesita
 
   En @thm:ch9-secuencial, el posterior y el horizonte restante constituyen un estado de información bajo el modelo establecido. Si el costo o las observaciones dependen de una variable histórica adicional, esa variable también debe almacenarse o justificarse su eliminación.
 ]
+#env-alias("thm:ch5-state", kind: "note")
 
 #thm-env("example", name: [Memoria suficiente para observaciones normales], key: "ex:ch9-state")[
   Sean $Y_1,...,Y_n$ independientes con distribución normal de media $mu$ y varianza conocida $sigma^2>0$, con tamaño $n$ fijo. La factorización de la verosimilitud muestra que $sum_i Y_i$ es suficiente para $mu$. Para actualizar una media a medida que llegan datos puede almacenarse:
@@ -156,6 +170,8 @@ Con datos $x$, la regla bayesiana minimiza la pérdida posterior. No se necesita
   ```
   El contador es información de diseño para la actualización. Si media y varianza son desconocidas, la pareja $(sum_i Y_i, sum_i Y_i^2)$ es suficiente para el modelo normal con $n$ fijo; se debe almacenar también la suma de cuadrados. Este ejemplo no convierte una trayectoria clínica dependiente en una muestra normal independiente.
 ]
+#env-alias("ex:ch5-state", kind: "example")
+#section-alias("sec:ch5-state")
 
 === Síntesis de la representación Wald → MDP
 <sec:ch7-isomorfismo>
@@ -170,10 +186,13 @@ Con datos $x$, la regla bayesiana minimiza la pérdida posterior. No se necesita
     = -sup_pi inf_(theta in Theta) J_theta(pi). $
   Si existen óptimos, las reglas minimax corresponden a políticas maximin de la familia. No se intercambia el orden de optimización con el del parámetro. Admitir reglas aleatorizadas exige ampliar ambos lados a la misma clase; un óptimo determinista puede dejar de ser óptimo en la clase ampliada.
 ]
+#env-alias("cor:ch5-traduccion", kind: "corollary")
 
 #thm-env("note", name: [Alcance secuencial demostrado], key: "cor:ch7-secuencial")[
   El resultado secuencial de este capítulo es @thm:ch9-secuencial: observaciones condicionalmente independientes, espacios finitos, prior especificado, costo conocido y horizonte finito. La generalización a observaciones controladas o a estados ocultos dinámicos exige definir el kernel correspondiente y el filtro bayesiano. Este capítulo no afirma un teorema general sobre todos los agentes adaptativos.
 ]
+#env-alias("cor:ch5-secuencial", kind: "note")
+#section-alias("sec:ch5-isomorfismo")
 
 == Leer las correspondencias a partir de sus condiciones
 <sec:ch13-mapa>
@@ -197,6 +216,7 @@ Con datos $x$, la regla bayesiana minimiza la pérdida posterior. No se necesita
   key: "tab:isomorfismo-completo",
 )
 ]
+#section-alias("sec:ch5-mapa")
 
 == De la representación a una decisión concreta
 
@@ -206,6 +226,7 @@ La identidad de objetivos puede orientar la organización de un agente si se dis
 <sec:ch9-arquitectura>
 
 El nodo de observación produce los datos disponibles. El nodo de estado almacena la información cuya adecuación se ha justificado para el modelo. El nodo de inferencia estima los objetos desconocidos; el nodo de decisión utiliza una regla explícita. Cada paso tiene una responsabilidad verificable. La identidad de objetivos no certifica por sí sola la arquitectura completa.
+#section-alias("sec:ch5-arquitectura")
 
 === Garantías y condiciones
 <sec:ch9-garantias>
@@ -214,6 +235,8 @@ La cobertura pertenece a un intervalo, un objetivo y un régimen muestral concre
 
 #[
 #set heading(numbering: none, outlined: false)
+#section-alias("sec:ch5-garantias")
+
 === Trazabilidad: Del Teorema al Componente
 <sec:ch9-trazabilidad>
 ]
@@ -275,6 +298,7 @@ La representación deja así una identidad precisa y una extensión bayesiana de
 #exercise-env(key: "ex:ch9-ej5")[
   En el ejemplo SSCH de este capítulo, calcule el posterior para ambas señales y la regla de Bayes. Antes de recibir ninguna señal, permita obtener una única observación, en total, con costo $c=0.05$ y aplique @thm:ch9-secuencial desde el prior indicado. Determine si conviene observar o decidir inmediatamente.
 ]
+#section-alias("sec:ch5-ejercicios")
 
 == Lecturas Propuestas
 <sec:ch9-lecturas>
@@ -290,3 +314,5 @@ Como apoyo abierto, las notas de Will Fithian sobre
 precisan modelo, pérdida y riesgo; las notas de Russ Tedrake sobre
 #link("https://underactuated.mit.edu/belief.html")[planificación bajo incertidumbre]
 explican los estados de creencia. Estas referencias sirven de orientación; las demostraciones de los enunciados particulares usados aquí están incluidas en el apéndice.
+#section-alias("sec:ch5-lecturas")
+
