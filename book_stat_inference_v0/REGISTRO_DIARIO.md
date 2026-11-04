@@ -965,3 +965,69 @@ fuente — limpia antes de integrar.
 `typst compile main.typ` → EXIT 0, 275 pp, 0 errores, 0 advertencias.
 `verificacion/comprobar_{hallazgos,identidades,secundarios}.py` → OK ×3.
 
+
+---
+
+## 2026-11-04 (t18) — Plan: proyecto Lean de verificación del libro (docencia)
+
+### Entregable
+`PLAN_LEAN_LIBRO_2026-11-04.md` (raíz del repo): plan por fases (F0–F4) para un
+proyecto Lean 4 + Mathlib en `verificacion_lean/` que verifique las
+proposiciones **propias y críticas** del libro `v1.0-libro`.
+
+### Puntos clave del plan
+- Regla de alcance del autor aplicada: 36 resultados inventariados (P1 núcleo
+  crítico 14, P2 núcleo 13, P3 puente 9) con **lista de exclusiones explícita**
+  (LLN, CLT, delta, bootstrap, Cramér–Rao, RB, LS, Basu, NP, BH, Wilks, MLE,
+  UCB1, Lai–Robbins, contracción per se, Hoeffding/Ville per se, etc.).
+- Piloto existente (m_repr/m_bayes/m_admis, 0 sorry) cuenta como P1 #1–#3;
+  faltante detectado: `cor:ch7-traduccion` (minimax) no estaba en el piloto.
+- Entorno verificado hoy: Lean 4.33.1 + Mathlib precompilada (LEAN_PATH),
+  `/opt/mathlib` read-only ⇒ runner `verificar.sh` con `lean` directo
+  (mecánica probada por el piloto), `lakefile.toml` solo para portabilidad.
+- Política de calidad: 0 sorry, auditoría `#print axioms` por teorema,
+  sin `native_decide`, trazabilidad bidireccional con las claves del libro,
+  fidelidad declarada (versión finita documentada cuando el libro es más
+  general), SSCH como igualdades racionales exactas (sin flotantes).
+- Presupuesto discovery propuesto: ≤2 USD/problema, ≤20 USD total.
+
+### Pendiente del autor (§11 del plan)
+carpeta/nombre, lote P3, presupuesto, migración del piloto, #34 spectral.
+
+
+---
+
+## 2026-11-04 (t19) — Lean F0: andamiaje `verificacion_lean/`, piloto migrado y minimax probado
+
+### Entregable
+`verificacion_lean/` en la raíz del repo: `lean-toolchain` (4.33.1),
+`lakefile.toml` (solo portabilidad/CI), `Book/Foundation.lean` (problema de
+Wald finito: `risk`, `mdpReturn`, `dominates`, `returnDominates`),
+`Book/Cap05Representacion.lean` (P1 #1–#4), `Book/Audit.lean` (auditoría
+`#print axioms`), `verificar.sh` (runner canónico), `README.md` y
+`Progress/DASHBOARD.md` (generado por `Progress/gen_dashboard.py` desde los
+comentarios `book:` y `build/axioms.log`, como pide el plan §3).
+
+### Corrida
+- Piloto migrado con nombres canónicos del plan §3 y trazabilidad `book:`
+  a cap05_incrustacion.typ:41/143/136; `monografia_M/pilot_core_proven.lean`
+  se conserva sin cambios con nota de cabecera (origen canónico movido).
+- Nuevo en F0: `cor:ch7-traduccion` (cap05:183), la pieza que el piloto no
+  cubría — dos teoremas: `ch7_traduccion_optimos` (parte operativa,
+  minimax ↔ maximin sobre testigos individuales) y `ch7_traduccion`
+  (identidad de valores `inf_δ sup_θ R = -sup_π inf_θ J`), con helpers
+  privados sup'/inf'–neg (esta Mathlib no trae `Finset.sup'_neg`).
+- Fidelidad declarada en los docstrings: versión finita; `ch7_traduccion`
+  exige `DecidableEq X` (para `Fintype (X → A)`); el testigo `δ*` del libro
+  se llama `δ₀` en Lean (el asterisco no es un carácter de identificador).
+
+### Verificación
+`./verificar.sh` → **EXIT 0**: Foundation, Cap05Representacion y Audit
+compilados; 5 teoremas, todos con axiomas `[propext, Classical.choice,
+Quot.sound]`; 0 `sorry` en `Book/`; dashboard P1 4/14 (P2 0/13, P3 0/8,
+total 4/35 filas).
+
+### Pendiente
+Commit de F0 (a la espera del autor, como el de t17/t18). F1 (P1 #5–#14:
+parada bayesiana, identificación IS, DR, curse, mejora de políticas,
+certificados residuales, SSCH) no arranca sin aviso de que F0 cerró.

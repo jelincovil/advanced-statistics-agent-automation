@@ -15,6 +15,11 @@ risk-preserving representation; probability measures appear only as weight
 functions (normalization is not needed for the algebraic identities). The
 frontier theorem and the sequential stopping recursion are Phases 1–2 of
 `VERIFICACION_LEAN_PLAN.md`.
+
+Canonical home (2026-11-04): these identities now live in, and are extended
+by, `verificacion_lean/Book/Cap05Representacion.lean` in the main repository
+(PLAN_LEAN_LIBRO_2026-11-04.md). This file is kept unchanged, as the record
+of the discovery run that first proved them.
 -/
 
 /-- Risk of a deterministic rule in a finite Wald problem: R(θ, δ) = Σ_x P_θ(x) · L(θ, δ(x)). -/
