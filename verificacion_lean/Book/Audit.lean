@@ -1,4 +1,7 @@
 import Book.Cap05Representacion
+import Book.Cap07OPE
+import Book.Cap06Fronteras
+import Book.Cap03MDP
 
 /-!
 # Book.Audit — auditoría de axiomas del proyecto (plan §6)
@@ -15,3 +18,16 @@ ningún archivo de Book/. -/
 #print axioms ch9_admisibilidad
 #print axioms ch7_traduccion_optimos
 #print axioms ch7_traduccion
+#print axioms ch10_identificacion
+#print axioms ch10_identificacion_pdis
+#print axioms ch10_dr
+#print axioms ch10_dr_sesgo_m
+#print axioms ch10_dr_sesgo_b
+#print axioms ch9_ic
+#print axioms ch9_secuencial_cota
+#print axioms ch9_secuencial_alcanza
+#print axioms ch9_bellman
+#print axioms ch8_mejora
+#print axioms ch8_pi_finita_sin_repeticion
+#print axioms ch8_pi_finita_conteo
+#print axioms ch8_pi_finita_optimo

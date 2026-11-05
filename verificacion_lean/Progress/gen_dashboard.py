@@ -14,9 +14,16 @@ LOG = ROOT / "build" / "axioms.log"
 # que las cubren. Cada clave debe aparecer en la tabla generada (se verifica).
 COMPLETADAS = {
     "P1": ["thm:ch9-isomorfismo", "cor:ch9-bayes", "thm:ch9-admisibilidad",
-           "cor:ch7-traduccion"],
+           "cor:ch7-traduccion", "thm:ch10-dr", "thm:ch9-ic",
+           "thm:ch9-secuencial", "cor:ch9-bellman", "thm:ch8-mejora"],
     "P2": [],
     "P3": [],
+}
+# Claves con teoremas parciales: lo probado y lo que falta.
+PARCIALES = {
+    "thm:ch10-identificacion":
+        "dos de tres identidades (J(e) = E_b[W G] y E_b[W_t R_t] = E_e[R_t]); "
+        "falta J(e) = Σ_t γ^t E_b[W_t R_t]",
 }
 INVENTARIO = {"P1": 14, "P2": 13, "P3": 8}  # filas del plan §2
 LIMPIO = "propext, Classical.choice, Quot.sound"
@@ -63,9 +70,12 @@ def main() -> int:
                    "filas completadas")
     total = sum(INVENTARIO.values())
     done = sum(len(v) for v in COMPLETADAS.values())
-    out += [f"- **Total**: {done}/{total} filas · {len(claves)} claves "
-            f"del libro cubiertas", "",
-            f"Axiomas esperados en toda fila: `{LIMPIO}`.", ""]
+    out += [f"- **Total**: {done}/{total} filas · {len(COMPLETADAS['P1'] + COMPLETADAS['P2'] + COMPLETADAS['P3'])} claves "
+            f"del libro completadas", "",
+            "## En progreso (teoremas parciales)", ""]
+    for clave, nota in PARCIALES.items():
+        out.append(f"- `{clave}` — {nota}.")
+    out += ["", f"Axiomas esperados en toda fila: `{LIMPIO}`.", ""]
     (ROOT / "Progress" / "DASHBOARD.md").write_text("\n".join(out),
                                                     encoding="utf-8")
     print(f"OK: DASHBOARD.md ({len(rows)} teoremas, {done}/{total} filas).")

@@ -1031,3 +1031,96 @@ total 4/35 filas).
 Commit de F0 (a la espera del autor, como el de t17/t18). F1 (P1 #5–#14:
 parada bayesiana, identificación IS, DR, curse, mejora de políticas,
 certificados residuales, SSCH) no arranca sin aviso de que F0 cerró.
+
+---
+
+## 2026-11-04 (t20) — Lean F1 (arranque): cap. 7 parcial + cap. 6 R1
+
+### Entregable
+`Book/Cap07OPE.lean` (nuevo módulo) y `Book/Cap06Fronteras.lean` (nuevo),
+integrados a `verificar.sh` y `Book/Audit.lean`. Dashboard actualizado con
+soporte de filas parciales (`Progress/gen_dashboard.py`).
+
+### Corrida
+- **Base no enunciada en el libro** (pedida por el autor): tipo inductivo
+  `Traj S A k` de trayectorias finitas indexadas por horizonte, con pesos
+  por política (`bweight`/`eweight`), razón de importancia por producto de
+  razones de paso (`rhow`), retorno descontado (`trajReturn`),
+  descomposición prefijo–sufijo (`trajAppend`) y tres lemas: normalización
+  de pesos, telescopio puntual `P_b(τ)·W(τ) = P_e(τ)` (el «se cancelan ν y
+  los núcleos» del libro como identidad de sumas finitas), y normalización
+  de la mezcla `E_b[W] = 1`.
+- **#7 `thm:ch10-identificacion` (PARCIAL)**: probadas dos de las tres
+  identidades: `J(e) = E_b[W_{H-1} G]` (`ch10_identificacion`) y
+  `E_b[W_t R_t] = E_e[R_t]` en forma prefijo–sufijo
+  (`ch10_identificacion_pdis`). Falta la igualdad de valores
+  `J(e) = Σ_t γ^t E_b[W_t R_t]` (requiere la descomposición del retorno
+  del lado e; anotada en el dashboard).
+- **#10 `thm:ch10-dr` (COMPLETA)**: identidad de doble robustez para una
+  decisión, versión finita con recompensa determinista `R(s,a,s')`,
+  `m(s,a) = Σ_{s'} K(s'|s,a) R(s,a,s')`, y `v̂` inicial del libro; más los
+  dos corolarios de anulación de sesgo (`m̂ = m` o `b̂ = b`).
+- **#14 `thm:ch9-ic` (COMPLETA)**: transporte de conjuntos de confianza
+  por imagen, en la capa de sumas finitas (monotonía de la probabilidad por
+  contención de sucesos).
+
+### Verificación
+`./verificar.sh` → **EXIT 0**: 4 módulos, **11 teoremas**, todos con
+axiomas `[propext, Classical.choice, Quot.sound]`, 0 `sorry`. Cobertura:
+**P1 6/14** (completas: #1, #2, #3, #4, #10, #14; parcial: #7) ·
+P2 0/13 · P3 0/8 — total 6/35 filas + 1 parcial.
+
+### Pendiente
+Resto de P1: #5/#6 (secuencial + Bellman bayesiano), #8 (IS insesgado con
+episodios iid), #9 (cota curse + ejemplo exacto c^H − 1), #11/#12 (mejora
+de políticas con desempate + certificados de parada; requiere la capa MDP
+con V^* vía iteración de valor), #13 (SSCH racionales). Después P2, P3.
+Commit de este avance: a la espera del autor.
+
+---
+
+## 2026-11-04 (t21) — Lean F1: secuencial (#5, #6) y mejora de políticas (#11)
+
+### Entregable
+Sección `Secuencial` añadida a `Book/Cap05Representacion.lean` (estrategias
+inductivas `Strat`, recursión `W`, riesgo de estrategia) y módulo nuevo
+`Book/Cap03MDP.lean` (matrices estocásticas, serie de Neumann `Vpi`, operadores
+de Bellman `Tpol`/`Topt`). Ambos integrados a `verificar.sh` y `Audit.lean`.
+
+### Corrida
+- **#5 `thm:ch9-secuencial` (COMPLETA, el más difícil del P1)**: las dos
+  mitades del teorema del libro — `ch9_secuencial_cota` (ninguna estrategia de
+  profundidad ≤ k mejora la recursión W) y `ch9_secuencial_alcanza` (existe
+  estrategia óptima que depende solo de (k, b), con desempate fijo en la
+  parada). Inducción sobre k con el argumento del mínimo (argmín) para la cota
+  y `Finset.exists_min_image` para la construcción. Fidelidad declarada:
+  espacios finitos, likelihoods/creencias no negativas, posterior arbitrario
+  cuando la predictiva es cero (como el libro).
+- **#6 `cor:ch9-bellman` (COMPLETA)**: `U_k = -W_k` satisface la recursión de
+  máximo; cambio de signo en la recursión de #5, con `neg_min_eq_max_neg` y el
+  dual sup'/inf' ya disponible del minimax de F0.
+- **#11 `thm:ch8-mejora` + `cor:ch8-pi-finita` (COMPLETAS)**: mejora de
+  políticas con la regla de desempate del libro (cambio ⇒ mejora estricta en
+  algún estado) y terminación finita en tres partes: sin repetición
+  (`ch8_pi_finita_sin_repeticion`), a lo sumo `|A|^|S|` políticas
+  (`ch8_pi_finita_conteo`) y optimalidad al punto fijo
+  (`ch8_pi_finita_optimo`: ninguna política supera a la que satisface
+  `T*V^π = V^π`, vía iteración del operador óptimo y γ^k·M → 0).
+- **Base no enunciada (pedida por el autor)**: `V^π` como serie de Neumann
+  `∑' t γ^t (P_π^t r_π)(s)` (lo que la prueba del libro llama
+  `(I-γP^π)⁻¹ d = Σ_j γ^j (P^π)^j d`), su punto fijo `V^π = T^π V^π`
+  (`Vpi_fix`, con el lema de cola `Summable.sum_add_tsum_nat_add` y el
+  intercambio tsum/suma finita vía `hasSum_sum`/`HasSum.const_smul`),
+  monotonía y desplazamiento de `Topt`, y el argumento del argmín
+  (`nonneg_of_fix`).
+
+### Verificación
+`./verificar.sh` → **EXIT 0**: 5 módulos, **18 teoremas**, todos con axiomas
+`[propext, Classical.choice, Quot.sound]`, 0 `sorry`. Cobertura: **P1 9/14**
+(+ #7 parcial) · P2 0/13 · P3 0/8 — total 9/35 filas.
+
+### Pendiente
+P1: #7 parcial (tercera identidad), #8 (IS iid), #9 (curse + ejemplo exacto),
+#12 (certificados de parada — la capa MDP de hoy es su base), #13 (SSCH).
+Commit y push de F1 autorizados por el autor ("un solo push con todo el
+avance de F1").
