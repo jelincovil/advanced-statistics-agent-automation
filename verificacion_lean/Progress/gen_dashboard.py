@@ -23,7 +23,9 @@ COMPLETADAS = {
            "ex:ch9-fallo-mixing", "ex:ch9-fallo-overlap",
            "ex:ch9-observabilidad-parcial", "ex:ch6-minimax-dominada",
            "prop:ch10-var-dr", "prop:ch11-baseline", "ex:ssch-cap08"],
-    "P3": ["ex:ch5-cadena", "ex:ch11-pg-ssch"],
+    "P3": ["ex:ch5-cadena", "ex:ch11-pg-ssch", "cap11-cuantizacion",
+           "cap11-truncamiento", "cap11-monitoreo", "def:appE-mdp-test",
+           "thm:ch11-tasa-tabular", "cap11-margen"],
 }
 # Claves con teoremas parciales: lo probado y lo que falta.
 PARCIALES = {}

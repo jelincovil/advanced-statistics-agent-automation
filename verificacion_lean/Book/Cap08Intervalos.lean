@@ -214,3 +214,109 @@ theorem ex_ch11_pg_ssch :
   · norm_num
   · norm_num
   · norm_num
+
+/-! ## thm:ch11-tasa-tabular — #34: cota espectral bajo reversibilidad -/
+
+/-- book: capitulos/cap08_intervalos.typ:110 (key: thm:ch11-tasa-tabular) —
+cota espectral bajo reversibilidad, versión finita verificada sobre la
+cadena de dos estados del propio libro: para `k ≥ 1`, la forma cerrada
+`P^k = 1μ^T + (1/2)^{k−1}·(P − 1μ^T)` da las desigualdades
+`TV(k,s) = TV(1,s)·(1/2)^{k−1} ≤ (1/2)·√(1/μ(s)−1)·(1/2)^k` y, con la
+convención estacionaria `β(k) = Σ_s μ(s)·TV(k,s)`, se obtiene
+`β(k) ≤ (1/2)·√(m−1)·(1/2)^k` con `m = 2`. Fidelidad declarada: el libro
+enuncia el teorema general para cadenas finitas irreducibles
+aperiódicas reversibles; la demostración general (operador autoadjunto
+en `L²(μ)` y Cauchy–Schwarz) no se formaliza aquí; las dos
+comparaciones clave se reducen a `72 ≤ 75` y `24 ≤ 25` (racionales).
+Origen: F3 2026-11-05 (nuevo). -/
+theorem ch11_tasa_tabular :
+    -- la forma cerrada de P^k (declarada como definición P2k)
+    (∀ k : ℕ, 1 ≤ k → ∀ s : Bool, ∀ s' : Bool,
+        P2k k s s' - μ2 s' = (1/2)^(k-1) * (P2 s s' - μ2 s'))
+    -- el TV a un paso (calculado)
+    ∧ ((1/2) * (∑ s' : Bool, |P2 true s' - μ2 s'|) = 3/10)
+    ∧ ((1/2) * (∑ s' : Bool, |P2 false s' - μ2 s'|) = 1/5)
+    -- las comparaciones clave (racionales: 72 ≤ 75 y 24 ≤ 25)
+    ∧ ((3/10) * (3/10) ≤ (1/4) * (3/2))
+    ∧ ((1/5) * (1/5) ≤ (1/4) * (2/3))
+    -- la cota per-estado del libro (con la forma del TV escalado)
+    ∧ (∀ k : ℕ, 1 ≤ k → ∀ s : Bool,
+        (1/2) * (∑ s' : Bool, |P2k k s s' - μ2 s'|)
+          ≤ (1/2) * Real.sqrt (1 / μ2 s - 1) * (1/2)^k)
+    -- la cota estacionaria β(k) ≤ (1/2)·(1/2)^k (m = 2)
+    ∧ (∀ k : ℕ, 1 ≤ k →
+        (∑ s : Bool, μ2 s * ((1/2) * (∑ s' : Bool, |P2k k s s' - μ2 s'|)))
+          ≤ (1/2) * (1/2)^k) := by
+  -- la forma cerrada (la descomposición espectral de la matriz 2×2)
+  have hdev : ∀ k : ℕ, 1 ≤ k → ∀ s : Bool, ∀ s' : Bool,
+      P2k k s s' - μ2 s' = (1/2)^(k-1) * (P2 s s' - μ2 s') := by
+    intro k hk s s'
+    unfold P2k
+    rw [if_neg (by omega : k ≠ 0)]
+    ring
+  -- las desviaciones absolutas por fila: D(true) = 3/5, D(false) = 2/5
+  have hDt : (∑ s' : Bool, |P2 true s' - μ2 s'|) = 3/5 := by
+    rw [Fintype.sum_bool]; norm_num [P2, μ2]
+  have hDf : (∑ s' : Bool, |P2 false s' - μ2 s'|) = 2/5 := by
+    rw [Fintype.sum_bool]; norm_num [P2, μ2]
+  have hhalf : ∀ k : ℕ, 1 ≤ k → (1:ℝ)/2 * (1/2)^(k-1) = (1/2)^k := by
+    intro k hk
+    obtain ⟨m, hm⟩ : ∃ m : ℕ, k = m + 1 := ⟨k - 1, by omega⟩
+    subst hm
+    have h2 : (m : ℕ) + 1 - 1 = m := by omega
+    simp only [h2, pow_succ]
+    ring
+  -- la comparación por estado: D(s) ≤ (1/2)·√(1/μ(s)−1), es decir,
+  -- 9/25 ≤ 3/8 (72 ≤ 75) para true y 4/25 ≤ 1/6 (24 ≤ 25) para false
+  have hkey : ∀ s : Bool,
+      (∑ s' : Bool, |P2 s s' - μ2 s'|) ≤ (1/2) * Real.sqrt (1 / μ2 s - 1) := by
+    intro s
+    cases s
+    · have hs : (1:ℝ) / μ2 false - 1 = 2/3 := by norm_num [μ2]
+      rw [hDf, hs]
+      have hb : (0:ℝ) ≤ 2/3 := by norm_num
+      have hnn : (0:ℝ) ≤ (1/2) * Real.sqrt (2/3) := by positivity
+      exact le_of_sq_le_sq (by rw [mul_pow, Real.sq_sqrt hb]; norm_num) hnn
+    · have hs : (1:ℝ) / μ2 true - 1 = 3/2 := by norm_num [μ2]
+      rw [hDt, hs]
+      have hb : (0:ℝ) ≤ 3/2 := by norm_num
+      have hnn : (0:ℝ) ≤ (1/2) * Real.sqrt (3/2) := by positivity
+      exact le_of_sq_le_sq (by rw [mul_pow, Real.sq_sqrt hb]; norm_num) hnn
+  -- el TV de k pasos factoriza: (1/2)·Σ|P^k − μ| = (1/2)^k·D(s)
+  have hTV : ∀ k : ℕ, 1 ≤ k → ∀ s : Bool,
+      (1/2) * (∑ s' : Bool, |P2k k s s' - μ2 s'|)
+        = (1/2)^k * (∑ s' : Bool, |P2 s s' - μ2 s'|) := by
+    intro k hk s
+    have hpow : (0:ℝ) ≤ (1/2)^(k-1) := by positivity
+    have habs : ∀ s' : Bool,
+        |P2k k s s' - μ2 s'| = (1/2)^(k-1) * |P2 s s' - μ2 s'| := by
+      intro s'
+      rw [hdev k hk s s', abs_mul, abs_of_nonneg hpow]
+    simp only [habs, ← Finset.mul_sum]
+    rw [← mul_assoc, hhalf k hk]
+  refine ⟨hdev, ?_, ?_, ?_, ?_, ?_, ?_⟩
+  · rw [hDt]; norm_num
+  · rw [hDf]; norm_num
+  · norm_num
+  · norm_num
+  · intro k hk s
+    rw [hTV k hk s]
+    have hw : (0:ℝ) < (1/2)^k := by positivity
+    calc (1/2)^k * (∑ s' : Bool, |P2 s s' - μ2 s'|)
+        = (∑ s' : Bool, |P2 s s' - μ2 s'|) * (1/2)^k := by ring
+      _ ≤ ((1/2) * Real.sqrt (1 / μ2 s - 1)) * (1/2)^k :=
+          mul_le_mul_of_nonneg_right (hkey s) (le_of_lt hw)
+      _ = (1/2) * Real.sqrt (1 / μ2 s - 1) * (1/2)^k := by ring
+  · intro k hk
+    have hw : (0:ℝ) < (1/2)^k := by positivity
+    have hμt : μ2 true = 2/5 := by norm_num [μ2]
+    have hμf : μ2 false = 3/5 := by norm_num [μ2]
+    have houter : (∑ s : Bool, μ2 s * ((1/2) * (∑ s' : Bool, |P2k k s s' - μ2 s'|)))
+        = μ2 true * ((1/2) * (∑ s' : Bool, |P2k k true s' - μ2 s'|))
+          + μ2 false * ((1/2) * (∑ s' : Bool, |P2k k false s' - μ2 s'|)) :=
+      Fintype.sum_bool _
+    calc (∑ s : Bool, μ2 s * ((1/2) * (∑ s' : Bool, |P2k k s s' - μ2 s'|)))
+        = (12:ℝ)/25 * (1/2)^k := by
+          rw [houter, hTV k hk true, hTV k hk false, hDt, hDf, hμt, hμf]
+          ring
+      _ ≤ (1/2) * (1/2)^k := mul_le_mul_of_nonneg_right (by norm_num) (le_of_lt hw)

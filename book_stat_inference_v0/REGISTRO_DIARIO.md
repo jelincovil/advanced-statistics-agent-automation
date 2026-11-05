@@ -1278,3 +1278,52 @@ P3: #28–#30, #33, #35 (módulo `Book/Cap11Despliegue.lean` por escribir)
 y #34 (la versión finita de la cota espectral quedó con la forma cerrada
 de P^k declarada pero la prueba de la cota TV no se completó; el archivo
 se recortó para mantener cero sorry).
+
+## 2026-11-05 (t26) — Lean F3: P3 completo (#28–#35); inventario 35/35
+
+### Entregable
+`ch11_tasa_tabular` (#34) cerrado en `Book/Cap08Intervalos.lean` sin
+`sorry`: la forma cerrada `P^k = 1μ^T + (1/2)^{k−1}(P − 1μ^T)` factoriza
+el TV de `k` pasos como `(1/2)^k·D(s)` con `D(true) = 3/5` y
+`D(false) = 2/5`; la cota por estado del libro
+`D(s) ≤ (1/2)·√(1/μ(s)−1)` se cuadra vía `le_of_sq_le_sq` en las dos
+comparaciones racionales `9/25 ≤ 3/8` (72 ≤ 75) y `4/25 ≤ 1/6`
+(24 ≤ 25); la cota estacionaria sale de `β(k) = (12/25)·(1/2)^k ≤
+(1/2)·(1/2)^k`. Módulo nuevo `Book/Cap11Despliegue.lean` completo:
+#28 cuantización (contribuciones DR 19/20 y 11/20, perturbación
+24/25, cota 1/100·(1+3/2) = 1/40), #29 truncamiento (`H = 46` por
+`decide` sobre `120·9^45 > 10^45` y `120·9^46 ≤ 10^46`), #30 monitoreo
+(telescopio `α/(m(m+1))`, caso `M = 3` exacto y cota `≤ α`), #33 MDP de
+validación del apéndice E (punto fijo `(I − γP)V = r` por sustitución
+racional con `V_∞ = (249052, 251670, 234068)/32549` y recursión hacia
+atrás con `v_5 = 0`), y #35 margen elemental
+`E[q(S,a*) − q(S,â)] ≤ C·(2ε)^{1+κ}` como teorema general finito
+(`S` Fintype, `μ` ley de probabilidad, hipótesis de masa
+`P(0 < Δ(S) ≤ u) ≤ C·u^κ` como suma sobre filtro): brecha de una acción
+greedy incorrecta ≤ `2ε` (cadena de tres desigualdades desde
+`‖q̂−q‖_∞ ≤ ε`), preservación del orden con brecha > `2ε` (el greedy
+coincide con el óptimo), empates con pérdida cero, y suma reducida a
+`{0 < Δ ≤ 2ε}` vía `Finset.sum_subset` con el margen en `u = 2ε`; el
+caso `ε = 0` se cierra con `zero_pow`. Dos `noncomputable def`
+privados (`astar`/`ahat`, desempate hacia `false`; `Real.decidableLE`
+es no computable). Integración: `verificar.sh` + `Cap11Despliegue`,
+`Audit.lean` +6 impresiones, `README.md` actualizado de F1 a F3
+(orden de compilación de los 9 módulos y árbol con las filas P2/P3 por
+módulo), `gen_dashboard.py` con las 8 claves de P3 en `COMPLETADAS`.
+
+### Corrida
+`./verificar.sh` → EXIT 0: **9 módulos**, **65 teoremas** en la
+auditoría, 0 `sorry`, axiomas
+`[propext, Classical.choice, Quot.sound]` ×64 y `[propext]` en
+`ch11_truncamiento` (decide puro). Nota: el recuento de t25 («56
+teoremas», y «57» en el mensaje del commit 8acf3ac) estaba bajo — el
+`Audit.lean` de ese commit ya listaba 59.
+
+### Verificación
+Dashboard: **P1 14/14 · P2 13/13 · P3 8/8** — total **35/35 filas**,
+63 filas de teoremas. Inventario del plan §2 agotado.
+
+### Pendiente
+Nada del inventario. El push queda a la palabra del autor: el remoto
+está en `8bc3a39` (F1); `8acf3ac` (F2+F3 parcial) y este commit no se
+han empujado.

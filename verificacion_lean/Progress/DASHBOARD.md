@@ -48,6 +48,12 @@ Generado por `Progress/gen_dashboard.py` el 2026-11-05 desde `Book/*.lean` y `bu
 | `ch11_baseline_ejemplo` (`Cap08Intervalos.lean`) | `ex:ssch-drl-cap11` @ capitulos/cap08_intervalos.typ:480 | F3 2026-11-05 (nuevo) | `propext, Classical.choice, Quot.sound` | OK |
 | `ex_ch5_cadena` (`Cap08Intervalos.lean`) | `ex:ch5-cadena` @ capitulos/cap06_fallos.typ:343 | F3 2026-11-05 (nuevo) | `propext, Classical.choice, Quot.sound` | OK |
 | `ex_ch11_pg_ssch` (`Cap08Intervalos.lean`) | `ex:ch11-pg-ssch` @ capitulos/cap08_intervalos.typ:529 | F3 2026-11-05 (nuevo) | `propext, Classical.choice, Quot.sound` | OK |
+| `ch11_tasa_tabular` (`Cap08Intervalos.lean`) | `thm:ch11-tasa-tabular` @ capitulos/cap08_intervalos.typ:110 | F3 2026-11-05 (nuevo) | `propext, Classical.choice, Quot.sound` | OK |
+| `ch11_cuantizacion_ejemplo` (`Cap11Despliegue.lean`) | `cap11-cuantizacion` @ capitulos/cap11_despliegue.typ:101 | F3 2026-11-05 (nuevo) | `propext, Classical.choice, Quot.sound` | OK |
+| `ch11_truncamiento` (`Cap11Despliegue.lean`) | `cap11-truncamiento` @ capitulos/cap11_despliegue.typ:165 | F3 2026-11-05 (nuevo) | `propext` | OK |
+| `ch11_monitoreo` (`Cap11Despliegue.lean`) | `cap11-monitoreo` @ capitulos/cap11_despliegue.typ:607 | F3 2026-11-05 (nuevo) | `propext, Classical.choice, Quot.sound` | OK |
+| `ch11_mdp_validacion` (`Cap11Despliegue.lean`) | `def:appE-mdp-test` @ capitulos/cap11_despliegue.typ:269 | F3 2026-11-05 (nuevo) | `propext, Classical.choice, Quot.sound` | OK |
+| `ch11_margen_elemental` (`Cap11Despliegue.lean`) | `cap11-margen` @ capitulos/cap08_intervalos.typ:353 | F3 2026-11-05 (nuevo) | `propext, Classical.choice, Quot.sound` | OK |
 | `ssch_regla_ordinario` (`SSCH.lean`) | `ex:ssch-cap09` @ capitulos/cap05_incrustacion.typ:262 | F1 2026-11-04 (nuevo) | `propext, Classical.choice, Quot.sound` | OK |
 | `ssch_regla_intensificado` (`SSCH.lean`) | `ex:ssch-cap09` @ capitulos/cap05_incrustacion.typ:262 | F1 2026-11-04 (nuevo) | `propext, Classical.choice, Quot.sound` | OK |
 | `ssch_regla_seguir` (`SSCH.lean`) | `ex:ssch-cap09` @ capitulos/cap05_incrustacion.typ:262 | F1 2026-11-04 (nuevo) | `propext, Classical.choice, Quot.sound` | OK |
@@ -68,8 +74,8 @@ Generado por `Progress/gen_dashboard.py` el 2026-11-05 desde `Book/*.lean` y `bu
 
 - **P1**: 14/14 filas completadas
 - **P2**: 13/13 filas completadas
-- **P3**: 2/8 filas completadas
-- **Total**: 29/35 filas · 29 claves del libro completadas
+- **P3**: 8/8 filas completadas
+- **Total**: 35/35 filas · 35 claves del libro completadas
 
 ## En progreso (teoremas parciales)
 

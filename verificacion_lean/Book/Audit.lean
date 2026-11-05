@@ -1,5 +1,6 @@
 import Book.Cap02Wald
 import Book.Cap08Intervalos
+import Book.Cap11Despliegue
 import Book.SSCH
 import Book.Cap06Fronteras
 import Book.Cap07OPE
@@ -65,3 +66,9 @@ import Book.Cap07OPE
 #print axioms ch11_baseline_ejemplo
 #print axioms ex_ch5_cadena
 #print axioms ex_ch11_pg_ssch
+#print axioms ch11_tasa_tabular
+#print axioms ch11_cuantizacion_ejemplo
+#print axioms ch11_truncamiento
+#print axioms ch11_monitoreo
+#print axioms ch11_mdp_validacion
+#print axioms ch11_margen_elemental
