@@ -188,16 +188,16 @@ noncomputable def post (b : Θ → ℝ) (y : Y) : Θ → ℝ :=
 def ell (b : Θ → ℝ) (a : A) : ℝ := ∑ θ, b θ * L θ a
 
 /-- Riesgo de detenerse: mínimo de la pérdida esperada sobre acciones. -/
-private def wStop (b : Θ → ℝ) : ℝ :=
+def wStop (b : Θ → ℝ) : ℝ :=
   (univ : Finset A).inf' Finset.univ_nonempty (ell L b)
 
-/-- Recursión de programación dinámica del teorema. -/
-private noncomputable def W : ℕ → (Θ → ℝ) → ℝ
+/-- Recursión de programación dinámica del teorema (`W_k(b)` del libro). -/
+noncomputable def W : ℕ → (Θ → ℝ) → ℝ
   | 0, b => wStop L b
   | (k + 1), b => min (wStop L b) (c + ∑ y, mPred q b y * W k (post q b y))
 
 /-- Riesgo de una estrategia bajo la creencia de entrada `b`. -/
-private noncomputable def riskOf : Strat A Y → (Θ → ℝ) → ℝ
+noncomputable def riskOf : Strat A Y → (Θ → ℝ) → ℝ
   | .stop a, b => ell L b a
   | .obs f, b => c + ∑ y, mPred q b y * riskOf (f y) (post q b y)
 
@@ -212,6 +212,13 @@ private theorem post_nonneg (hq : ∀ θ y, 0 ≤ q θ y) {b : Θ → ℝ}
   · simp [post, h0]
   · rw [post, if_neg h0]
     exact div_nonneg (mul_nonneg (hb θ) (hq θ y)) (mPred_nonneg q hq hb y)
+
+/-- Ecuaciones de la recursión `W` (definicionales; para uso externo). -/
+theorem W_zero (b : Θ → ℝ) : W q L c 0 b = wStop L b := rfl
+
+theorem W_succ (k : ℕ) (b : Θ → ℝ) :
+    W q L c (k + 1) b
+      = min (wStop L b) (c + ∑ y, mPred q b y * W q L c k (post q b y)) := rfl
 
 /-- book: capitulos/cap05_incrustacion.typ:92 (key: thm:ch9-secuencial) —
 cota inferior: ninguna estrategia de profundidad a lo sumo `k` mejora la

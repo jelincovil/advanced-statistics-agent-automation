@@ -16,7 +16,8 @@ COMPLETADAS = {
     "P1": ["thm:ch9-isomorfismo", "cor:ch9-bayes", "thm:ch9-admisibilidad",
            "cor:ch7-traduccion", "thm:ch10-dr", "thm:ch9-ic",
            "thm:ch9-secuencial", "cor:ch9-bellman", "thm:ch8-mejora",
-           "thm:ch10-identificacion", "thm:ch10-is-insesgado"],
+           "thm:ch10-identificacion", "thm:ch10-is-insesgado",
+           "thm:ch10-curse", "cor:ch8-parada", "ex:ssch-cap09"],
     "P2": [],
     "P3": [],
 }

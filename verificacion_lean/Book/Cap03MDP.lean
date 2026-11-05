@@ -552,4 +552,319 @@ theorem ch8_pi_finita_optimo (π : S → A)
       linarith
   linarith
 
+/-! ### cor:ch8-parada — certificados de parada -/
+
+/-- Norma supremo en `ℝ^S` (base no enunciada; el libro la escribe
+`‖·‖_∞`). -/
+def snorm (v : S → ℝ) : ℝ :=
+  (univ : Finset S).sup' Finset.univ_nonempty (fun s => |v s|)
+
+private theorem le_snorm (v : S → ℝ) (s : S) : |v s| ≤ snorm v := by
+  show |v s| ≤ (univ : Finset S).sup' Finset.univ_nonempty (fun s => |v s|)
+  exact Finset.le_sup' (fun s => |v s|) (Finset.mem_univ s)
+
+private theorem snorm_le (v : S → ℝ) (c : ℝ) (h : ∀ s, |v s| ≤ c) :
+    snorm v ≤ c := by
+  show (univ : Finset S).sup' Finset.univ_nonempty (fun s => |v s|) ≤ c
+  exact (Finset.sup'_le_iff Finset.univ_nonempty _).mpr fun s _ => h s
+
+private theorem snorm_nonneg (v : S → ℝ) : 0 ≤ snorm v := by
+  obtain ⟨s₀⟩ := ‹Nonempty S›
+  exact le_trans (abs_nonneg _) (le_snorm v s₀)
+
+private theorem snorm_comm (v w : S → ℝ) (h : ∀ s, v s = -w s) :
+    snorm v = snorm w := by
+  show (univ : Finset S).sup' Finset.univ_nonempty (fun s => |v s|)
+      = (univ : Finset S).sup' Finset.univ_nonempty (fun s => |w s|)
+  refine Finset.sup'_congr Finset.univ_nonempty rfl (fun s _ => ?_)
+  rw [h s]
+  exact abs_neg (w s)
+
+/-- Resta de operadores de política (base no enunciada): la parte afín. -/
+private theorem Tpol_sub (π : S → A) (V W : S → ℝ) (s : S) :
+    Tpol r P γ π V s - Tpol r P γ π W s
+      = γ * mvec (pmat P π) (fun s' => V s' - W s') s := by
+  have hfun : V = (fun s' => W s' + (V s' - W s')) := by
+    funext s'
+    ring
+  have htp := Tpol_add r P γ π W (fun s' => V s' - W s') s
+  rw [← hfun] at htp
+  rw [htp]
+  ring
+
+/-- book: capitulos/cap03_mdp.typ:82 (key: thm:ch8-contraccion) —
+contracción en norma supremo para `T = T*`: `‖T* V − T* W‖_∞ ≤ γ‖V−W‖_∞`
+(puntual). La diferencia de dos máximos está acotada por el máximo de las
+diferencias; cada promedio con `P` está acotado por la norma. -/
+theorem ch8_contraccion (hP0 : ∀ s a s', 0 ≤ P s a s')
+    (hP1 : ∀ s a, ∑ s', P s a s' = 1) (hγ0 : 0 ≤ γ)
+    (V W : S → ℝ) (s : S) :
+    |Topt r P γ V s - Topt r P γ W s|
+      ≤ γ * snorm (fun s' => V s' - W s') := by
+  have hq : ∀ a : A,
+      (r s a + γ * ∑ s', P s a s' * V s') - (r s a + γ * ∑ s', P s a s' * W s')
+        = γ * ∑ s', P s a s' * (V s' - W s') := by
+    intro a
+    have h1 : ∑ s', P s a s' * V s' - ∑ s', P s a s' * W s'
+        = ∑ s', P s a s' * (V s' - W s') := by
+      simp only [mul_sub, Finset.sum_sub_distrib]
+    have h2 : (r s a + γ * ∑ s', P s a s' * V s')
+        - (r s a + γ * ∑ s', P s a s' * W s')
+        = γ * (∑ s', P s a s' * V s' - ∑ s', P s a s' * W s') := by
+      ring
+    rw [h2, h1]
+  have hbound : ∀ a : A,
+      (r s a + γ * ∑ s', P s a s' * V s') - (r s a + γ * ∑ s', P s a s' * W s')
+        ≤ γ * snorm (fun s' => V s' - W s') := by
+    intro a
+    rw [hq a]
+    refine mul_le_mul_of_nonneg_left ?_ hγ0
+    have h1 : ∀ s' : S, P s a s' * (V s' - W s')
+        ≤ P s a s' * snorm (fun s' => V s' - W s') :=
+      fun s' => mul_le_mul_of_nonneg_left
+        (le_trans (le_abs_self (V s' - W s'))
+          (le_snorm (fun s' => V s' - W s') s')) (hP0 s a s')
+    calc ∑ s', P s a s' * (V s' - W s')
+        ≤ ∑ s', P s a s' * snorm (fun s' => V s' - W s') :=
+          Finset.sum_le_sum (fun s' _ => h1 s')
+      _ = (∑ s', P s a s') * snorm (fun s' => V s' - W s') :=
+          (Finset.sum_mul (univ : Finset S)
+            (fun s' => P s a s') (snorm (fun s' => V s' - W s'))).symm
+      _ = snorm (fun s' => V s' - W s') := by
+          rw [hP1 s a, one_mul]
+  have hbound' : ∀ a : A,
+      (r s a + γ * ∑ s', P s a s' * W s') - (r s a + γ * ∑ s', P s a s' * V s')
+        ≤ γ * snorm (fun s' => V s' - W s') := by
+    intro a
+    have h1 := hq a
+    have h2 : (r s a + γ * ∑ s', P s a s' * W s')
+        - (r s a + γ * ∑ s', P s a s' * V s')
+        = -(γ * ∑ s', P s a s' * (V s' - W s')) := by
+      linarith
+    rw [h2]
+    have h3 : ∑ s', P s a s' * (V s' - W s')
+        ≤ |∑ s', P s a s' * (V s' - W s')| := le_abs_self _
+    have h4 : γ * |∑ s', P s a s' * (V s' - W s')|
+        ≤ γ * snorm (fun s' => V s' - W s') :=
+      mul_le_mul_of_nonneg_left
+        (mvec_abs_bound (fun _ s' => P s a s') (fun s' => V s' - W s')
+          (snorm (fun s' => V s' - W s'))
+          (fun s' s'' => hP0 s a s'') (fun s' => hP1 s a)
+          (fun s => le_snorm (fun s' => V s' - W s') s) s) hγ0
+    have h5 : γ * (-(∑ s', P s a s' * (V s' - W s')))
+        ≤ γ * |∑ s', P s a s' * (V s' - W s')| :=
+      mul_le_mul_of_nonneg_left (neg_le_abs _) hγ0
+    linarith
+  have hsup_sub : ∀ (f g : A → ℝ), ∀ c : ℝ, (∀ a, f a - g a ≤ c) →
+      (univ : Finset A).sup' Finset.univ_nonempty f
+        - (univ : Finset A).sup' Finset.univ_nonempty g ≤ c := by
+    intro f g c hc
+    have h1 : (univ : Finset A).sup' Finset.univ_nonempty f
+        ≤ c + (univ : Finset A).sup' Finset.univ_nonempty g := by
+      refine (Finset.sup'_le_iff Finset.univ_nonempty _).mpr ?_
+      intro a _
+      have h2 : f a - g a ≤ c := hc a
+      have h3 : g a ≤ (univ : Finset A).sup' Finset.univ_nonempty g :=
+        Finset.le_sup' g (Finset.mem_univ a)
+      linarith
+    linarith
+  have hle1 : Topt r P γ V s - Topt r P γ W s
+      ≤ γ * snorm (fun s' => V s' - W s') :=
+    hsup_sub (fun a => r s a + γ * ∑ s', P s a s' * V s')
+      (fun a => r s a + γ * ∑ s', P s a s' * W s')
+      (γ * snorm (fun s' => V s' - W s')) hbound
+  have hle2 : Topt r P γ W s - Topt r P γ V s
+      ≤ γ * snorm (fun s' => V s' - W s') :=
+    hsup_sub (fun a => r s a + γ * ∑ s', P s a s' * W s')
+      (fun a => r s a + γ * ∑ s', P s a s' * V s')
+      (γ * snorm (fun s' => V s' - W s')) hbound'
+  exact abs_le.mpr ⟨by linarith, hle1⟩
+
+/-- book: capitulos/cap03_mdp.typ:89 (key: cor:ch8-punto-fijo) — unicidad del
+punto fijo del operador óptimo por contracción. -/
+theorem ch8_punto_fijo_unico (hP0 : ∀ s a s', 0 ≤ P s a s')
+    (hP1 : ∀ s a, ∑ s', P s a s' = 1) (hγ0 : 0 ≤ γ) (hγ1 : γ < 1)
+    (W W' : S → ℝ) (hW : ∀ s, Topt r P γ W s = W s)
+    (hW' : ∀ s, Topt r P γ W' s = W' s) : W = W' := by
+  have hbound : ∀ s, |W s - W' s| ≤ γ * snorm (fun s => W s - W' s) := by
+    intro s
+    rw [← hW s, ← hW' s]
+    exact ch8_contraccion r P γ hP0 hP1 hγ0 W W' s
+  have hsn : snorm (fun s => W s - W' s) ≤ γ * snorm (fun s => W s - W' s) :=
+    snorm_le _ _ hbound
+  have h1 : 0 ≤ 1 - γ := by linarith
+  have h2 : 0 ≤ snorm (fun s => W s - W' s) :=
+    snorm_nonneg (fun s => W s - W' s)
+  have h3 : snorm (fun s => W s - W' s) - γ * snorm (fun s => W s - W' s)
+      ≤ 0 := by linarith
+  have h4 : snorm (fun s => W s - W' s) ≤ 0 := by
+    nlinarith [h1, h2, h3]
+  funext s
+  have h6 : γ * snorm (fun s => W s - W' s) = 0 := by
+    have h7 : snorm (fun s => W s - W' s) = 0 := le_antisymm h4 h2
+    rw [h7]
+    ring
+  have habs : |W s - W' s| ≤ 0 := le_trans (hbound s) (by rw [h6])
+  have h5 : W s - W' s = 0 :=
+    abs_eq_zero.mp (le_antisymm habs (abs_nonneg _))
+  linarith
+
+/-- book: capitulos/cap03_mdp.typ:107 (key: cor:ch8-parada) —
+certificados de parada: para cualquier `V`, con `e = ‖T* V − V‖_∞` y `π`
+greedy respecto de `V`, con `W` el punto fijo de `T*` (el valor óptimo
+`V*`; único por `ch8_punto_fijo_unico`): `‖V − W‖_∞ ≤ e/(1−γ)` y
+`‖W − V^π‖_∞ ≤ 2γe/(1−γ)²`. La primera usa `‖V−W‖ ≤ e + γ‖V−W‖`; la
+segunda la combina con la cota de la política greedy (dos objetivos de
+precisión diferentes, como el libro). -/
+theorem ch8_parada (π : S → A) (V W : S → ℝ)
+    (hP0 : ∀ s a s', 0 ≤ P s a s') (hP1 : ∀ s a, ∑ s', P s a s' = 1)
+    (hγ0 : 0 ≤ γ) (hγ1 : γ < 1)
+    (hW : ∀ s, Topt r P γ W s = W s)
+    (hgreedy : ∀ s a, r s (π s) + γ * ∑ s', P s (π s) s' * V s'
+      ≥ r s a + γ * ∑ s', P s a s' * V s') :
+    (∀ s, |V s - W s|
+      ≤ snorm (fun s => Topt r P γ V s - V s) / (1 - γ))
+    ∧ (∀ s, |W s - Vpi r P γ π s|
+      ≤ 2 * γ * snorm (fun s => Topt r P γ V s - V s) / (1 - γ) ^ 2) := by
+  have hpos : 0 < 1 - γ := by linarith
+  set e : ℝ := snorm (fun s => Topt r P γ V s - V s) with he
+  set δ : ℝ := snorm (fun s => V s - W s) with hδdef
+  have hδ1 : δ ≤ e / (1 - γ) := by
+    rw [le_div_iff₀ hpos]
+    have hpt : ∀ s, |V s - W s| ≤ e + γ * δ := by
+      intro s
+      have hsplit : V s - W s
+          = (V s - Topt r P γ V s) + (Topt r P γ V s - Topt r P γ W s) := by
+        rw [hW s]
+        ring
+      have h1 : |V s - Topt r P γ V s| ≤ e := by
+        rw [he, abs_sub_comm]
+        exact le_snorm (fun s' => Topt r P γ V s' - V s') s
+      have h2 : |Topt r P γ V s - Topt r P γ W s| ≤ γ * δ :=
+        ch8_contraccion r P γ hP0 hP1 hγ0 V W s
+      rw [hsplit]
+      calc |(V s - Topt r P γ V s) + (Topt r P γ V s - Topt r P γ W s)|
+          ≤ |V s - Topt r P γ V s|
+            + |Topt r P γ V s - Topt r P γ W s| := abs_add_le _ _
+        _ ≤ e + γ * δ := add_le_add h1 h2
+    have hsn : δ ≤ e + γ * δ := snorm_le _ _ hpt
+    have h2 : δ * (1 - γ) = δ - γ * δ := by ring
+    rw [h2]
+    linarith
+  refine ⟨?_, ?_⟩
+  · -- primera desigualdad: ‖V − W‖_∞ ≤ e/(1−γ)
+    intro s
+    exact le_trans (le_snorm (fun s' => V s' - W s') s) hδ1
+  · -- segunda desigualdad: ‖W − V^π‖_∞ ≤ 2γe/(1−γ)²
+    intro s
+    set u : S → ℝ := fun s => W s - Vpi r P γ π s with hu
+    have hu_ge : ∀ s, 0 ≤ u s := by
+      have hid : ∀ s, u s = (W s - Tpol r P γ π W s)
+          + γ * mvec (pmat P π) u s := by
+        intro s
+        have h1 : Tpol r P γ π W s - Vpi r P γ π s
+            = γ * mvec (pmat P π) (fun s' => W s' - Vpi r P γ π s') s := by
+          have hfix := Vpi_fix r P γ π hP0 hP1 hγ0 hγ1 s
+          have hsub := Tpol_sub r P γ π W (Vpi r P γ π) s
+          rw [hfix]
+          exact hsub
+        show W s - Vpi r P γ π s
+            = (W s - Tpol r P γ π W s)
+              + γ * mvec (pmat P π) (fun s' => W s' - Vpi r P γ π s') s
+        linarith
+      exact nonneg_of_fix γ u (fun s => W s - Tpol r P γ π W s) (pmat P π)
+        hγ0 hγ1 hid (fun s => by
+          have hle : Tpol r P γ π W s ≤ W s := by
+            have h1 := le_Topt r P γ π W s
+            rw [hW s] at h1
+            exact h1
+          linarith)
+        (pmat_nonneg P hP0 π) (pmat_row_sum P hP1 π)
+    have habs_u : ∀ s, |u s| = u s := fun s => abs_of_nonneg (hu_ge s)
+    have hgreedy_eq : ∀ s'' : S, Topt r P γ V s'' = Tpol r P γ π V s'' := by
+      intro s''
+      refine le_antisymm ?_ (le_Topt r P γ π V s'')
+      refine (Finset.sup'_le_iff Finset.univ_nonempty _).mpr ?_
+      intro a _
+      exact hgreedy s'' a
+    have hup : ∀ s, u s ≤ 2 * γ * δ + γ * snorm u := by
+      intro s'
+      have hWV : W s' ≤ Topt r P γ V s' + γ * δ := by
+        have h1 : |Topt r P γ W s' - Topt r P γ V s'| ≤ γ * δ := by
+          have h1' := ch8_contraccion r P γ hP0 hP1 hγ0 W V s'
+          have hcomm : snorm (fun s₀ => W s₀ - V s₀) = δ :=
+            snorm_comm (fun s₀ => W s₀ - V s₀) (fun s₀ => V s₀ - W s₀)
+              (fun s₀ => by ring)
+          rw [hcomm] at h1'
+          exact h1'
+        have h2 := abs_le.mp h1
+        rw [hW s'] at h2
+        linarith
+      have hfix := Vpi_fix r P γ π hP0 hP1 hγ0 hγ1 s'
+      have hsub : Tpol r P γ π V s' - Vpi r P γ π s'
+          = γ * mvec (pmat P π) (fun s'' => V s'' - Vpi r P γ π s'') s' := by
+        rw [hfix]
+        exact Tpol_sub r P γ π V (Vpi r P γ π) s'
+      have hsplitV : (fun s'' => V s'' - Vpi r P γ π s'')
+          = (fun s'' => (V s'' - W s'') + u s'') := by
+        funext s''
+        show V s'' - Vpi r P γ π s''
+            = (V s'' - W s'') + (W s'' - Vpi r P γ π s'')
+        ring
+      have hmvec : mvec (pmat P π) (fun s'' => V s'' - Vpi r P γ π s'') s'
+          = mvec (pmat P π) (fun s'' => V s'' - W s'') s'
+            + mvec (pmat P π) u s' := by
+        rw [hsplitV, mvec_add]
+      have hbVW : mvec (pmat P π) (fun s'' => V s'' - W s'') s' ≤ δ := by
+        have h1 : |mvec (pmat P π) (fun s'' => V s'' - W s'') s'| ≤ δ :=
+          mvec_abs_bound (pmat P π) (fun s'' => V s'' - W s'') δ
+            (pmat_nonneg P hP0 π) (pmat_row_sum P hP1 π)
+            (fun s => le_snorm (fun s'' => V s'' - W s'') s) s'
+        exact le_trans (le_abs_self _) h1
+      have hbu : mvec (pmat P π) u s' ≤ snorm u :=
+        le_trans (le_abs_self _) (mvec_abs_bound (pmat P π) u (snorm u)
+          (pmat_nonneg P hP0 π) (pmat_row_sum P hP1 π)
+          (fun s => le_snorm u s) s')
+      calc u s' = W s' - Vpi r P γ π s' := rfl
+        _ ≤ Topt r P γ V s' + γ * δ - Vpi r P γ π s' := by
+            have := hWV
+            linarith
+        _ = Tpol r P γ π V s' + γ * δ - Vpi r P γ π s' := by
+            rw [hgreedy_eq s']
+        _ = γ * mvec (pmat P π) (fun s'' => V s'' - Vpi r P γ π s'') s'
+              + γ * δ := by
+            linarith
+        _ = γ * (mvec (pmat P π) (fun s'' => V s'' - W s'') s'
+              + mvec (pmat P π) u s') + γ * δ := by
+            rw [hmvec]
+        _ ≤ γ * (δ + snorm u) + γ * δ := by
+            refine add_le_add (mul_le_mul_of_nonneg_left
+              (add_le_add hbVW hbu) hγ0) (le_refl _)
+        _ = 2 * γ * δ + γ * snorm u := by ring
+    have hsnorm_bound : snorm u ≤ 2 * γ * δ / (1 - γ) := by
+      have h : snorm u ≤ 2 * γ * δ + γ * snorm u :=
+        snorm_le u (2 * γ * δ + γ * snorm u)
+          (fun s' => by rw [habs_u s']; exact hup s')
+      rw [le_div_iff₀ hpos]
+      have h2 : snorm u * (1 - γ) = snorm u - γ * snorm u := by ring
+      rw [h2]
+      linarith
+    -- cierre: u ≤ 2γδ/(1−γ), escalado por (1−γ) dos veces
+    have h1 : (1 - γ) * δ ≤ e := by
+      rw [mul_comm]
+      exact (le_div_iff₀ hpos).mp hδ1
+    have h3 : u s ≤ 2 * γ * δ / (1 - γ) := by
+      rw [← habs_u s]
+      exact le_trans (le_snorm u s) hsnorm_bound
+    have h3' : u s * (1 - γ) ≤ 2 * γ * δ := (le_div_iff₀ hpos).mp h3
+    have hkey : |u s| ≤ 2 * γ * e / (1 - γ) ^ 2 := by
+      rw [habs_u s, le_div_iff₀ (pow_pos hpos 2)]
+      calc u s * (1 - γ) ^ 2
+          = (u s * (1 - γ)) * (1 - γ) := by ring
+        _ ≤ 2 * γ * δ * (1 - γ) :=
+            mul_le_mul_of_nonneg_right h3' (le_of_lt hpos)
+        _ = 2 * γ * ((1 - γ) * δ) := by ring
+        _ ≤ 2 * γ * e :=
+            mul_le_mul_of_nonneg_left h1 (by linarith : (0:ℝ) ≤ 2 * γ)
+    exact hkey
 end MDP

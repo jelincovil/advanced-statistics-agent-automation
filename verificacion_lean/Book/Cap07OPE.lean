@@ -1169,3 +1169,418 @@ theorem ch10_is_varianza (H n : ℕ) (hn : 0 < n)
   ring
 
 end IS
+
+/-! ## thm:ch10-curse — curse of horizon -/
+
+/-- La ley del producto es la potencia de la suma: `(∑ g)^n = ∑_ω ∏ g(ω k)`.
+(Base no enunciada; el espejo multiplicativo de `iid_prod_one`.) -/
+private theorem iid_prod_pow {X : Type u} [Fintype X] (g : X → ℝ) :
+    ∀ n : ℕ, (∑ x : X, g x) ^ n = ∑ ω : (Fin n → X), ∏ k, g (ω k) := by
+  intro n
+  induction n with
+  | zero => simp
+  | succ n ih =>
+      rw [sum_snocEquiv]
+      have hreas : ∀ x : X, ∀ ω' : (Fin n → X),
+          (∏ k : Fin (n + 1), g ((Fin.snoc ω' x : Fin (n + 1) → X) k))
+            = g x * (∏ k : Fin n, g (ω' k)) := by
+        intro x ω'
+        rw [prod_snoc]
+        ring
+      rw [Finset.sum_congr rfl (fun x _ => Finset.sum_congr rfl (fun ω' _ =>
+        hreas x ω'))]
+      have hL : ∀ x : X,
+          (∑ ω' : (Fin n → X), g x * (∏ k : Fin n, g (ω' k)))
+            = g x * (∑ ω' : (Fin n → X), ∏ k : Fin n, g (ω' k)) := by
+        intro x
+        rw [← Finset.mul_sum]
+      rw [Finset.sum_congr rfl (fun x _ => hL x)]
+      rw [← Finset.sum_mul]
+      rw [← ih]
+      rw [pow_succ']
+
+section Curse
+
+variable {S A : Type u} [Fintype S] [Fintype A] [Nonempty S]
+  (b e : S → A → ℝ) (K : S → A → S → ℝ) (ν : S → ℝ) (R : S → A → S → ℝ) (γ : ℝ)
+
+/-- No negatividad del peso de comportamiento (base no enunciada). -/
+private theorem bweight_nonneg (hb0 : ∀ s a, 0 ≤ b s a)
+    (hK0 : ∀ s a s', 0 ≤ K s a s') :
+    ∀ {k : ℕ} (s : S) (τ : Traj S A k), 0 ≤ bweight b K s τ := by
+  intro k
+  induction k with
+  | zero => intro s τ; cases τ; simp [bweight]
+  | succ k ih =>
+      intro s τ
+      cases τ with
+      | step a s' r =>
+          simp only [bweight]
+          exact mul_nonneg (mul_nonneg (hb0 s a) (hK0 s a s')) (ih s' r)
+
+/-- No negatividad de la razón de importancia (con `e, b ≥ 0`). -/
+private theorem rho_nonneg (hb0 : ∀ s a, 0 ≤ b s a) (he0 : ∀ s a, 0 ≤ e s a)
+    (s : S) (a : A) : 0 ≤ rho b e s a := by
+  rw [rho]
+  split
+  · exact le_refl 0
+  · exact div_nonneg (he0 s a) (hb0 s a)
+
+/-- De `e s a ≤ C * b s a` (con `b ≥ 0`, `C ≥ 0`) se sigue `ρ ≤ C`. -/
+private theorem rho_le (C : ℝ) (hC0 : 0 ≤ C) (hb0 : ∀ s a, 0 ≤ b s a)
+    (hρC : ∀ s a, e s a ≤ C * b s a) (s : S) (a : A) :
+    rho b e s a ≤ C := by
+  rw [rho]
+  split
+  · exact hC0
+  · rename_i hbne
+    have hbpos : 0 < b s a := lt_of_le_of_ne (hb0 s a) (Ne.symm hbne)
+    rw [div_le_iff₀ hbpos]
+    exact hρC s a
+
+/-- No negatividad puntual del peso `W` (base no enunciada). -/
+private theorem rhow_nonneg (hb0 : ∀ s a, 0 ≤ b s a) (he0 : ∀ s a, 0 ≤ e s a) :
+    ∀ {k : ℕ} (s : S) (τ : Traj S A k), 0 ≤ rhow b e s τ := by
+  intro k
+  induction k with
+  | zero => intro s τ; cases τ; simp [rhow]
+  | succ k ih =>
+      intro s τ
+      cases τ with
+      | step a s' r =>
+          simp only [rhow]
+          exact mul_nonneg (rho_nonneg b e hb0 he0 s a) (ih s' r)
+
+/-- Cota exponencial del peso: `W(τ) ≤ C^k` por inducción en la
+trayectoria (base no enunciada; es el `0 ≤ W_(H-1) ≤ C^H` del libro). -/
+private theorem rhow_le_pow (C : ℝ) (hC0 : 0 ≤ C) (hb0 : ∀ s a, 0 ≤ b s a)
+    (he0 : ∀ s a, 0 ≤ e s a) (hρC : ∀ s a, e s a ≤ C * b s a) :
+    ∀ {k : ℕ} (s : S) (τ : Traj S A k), rhow b e s τ ≤ C ^ k := by
+  intro k
+  induction k with
+  | zero => intro s τ; cases τ; simp [rhow]
+  | succ k ih =>
+      intro s τ
+      cases τ with
+      | step a s' r =>
+          simp only [rhow]
+          rw [pow_succ']
+          exact mul_le_mul (rho_le b e C hC0 hb0 hρC s a) (ih s' r)
+            (rhow_nonneg b e hb0 he0 s' r) hC0
+
+/-- Normalización local del peso: `E_b[W] = 1` a nivel de episodio
+(la mezcla se normaliza; base del argumento del libro). -/
+private theorem epW_one (H : ℕ)
+    (hs : ∀ s a, e s a ≠ 0 → b s a ≠ 0) (he : ∀ s, ∑ a, e s a = 1)
+    (hb : ∀ s, ∑ a, b s a = 1) (hK : ∀ s a, ∑ s', K s a s' = 1)
+    (hν : ∑ s, ν s = 1) :
+    (∑ ep : S × Traj S A H, epProb b K ν H ep * rhow b e ep.1 ep.2) = 1 := by
+  rw [Fintype.sum_prod_type]
+  show (∑ s₀ : S, ∑ τ : Traj S A H, ν s₀ * bweight b K s₀ τ * rhow b e s₀ τ) = 1
+  have hinner : ∀ s₀ : S,
+      (∑ τ : Traj S A H, ν s₀ * bweight b K s₀ τ * rhow b e s₀ τ) = ν s₀ := by
+    intro s₀
+    have hreas : ∀ τ : Traj S A H,
+        ν s₀ * bweight b K s₀ τ * rhow b e s₀ τ
+          = ν s₀ * (bweight b K s₀ τ * rhow b e s₀ τ) := fun τ => by ring
+    rw [Finset.sum_congr rfl (fun τ _ => hreas τ), ← Finset.mul_sum]
+    rw [bweight_rhow_sum_one b e K hs he hK H s₀]
+    ring
+  rw [Finset.sum_congr rfl (fun s₀ _ => hinner s₀)]
+  exact hν
+
+/-- Segundo momento del episodio: `E_b[W² G²] ≤ B² C^H`. La cadena es la
+del libro: `W² ≤ C^H · W` (con `E_b[W] = 1`), `G² ≤ B²`, multiplicación
+puntual y suma (base no enunciada de `thm:ch10-curse`). -/
+private theorem epWG2_le (H : ℕ) (C B : ℝ) (hC0 : 0 ≤ C)
+    (hb0 : ∀ s a, 0 ≤ b s a) (he0 : ∀ s a, 0 ≤ e s a)
+    (hs : ∀ s a, e s a ≠ 0 → b s a ≠ 0) (he : ∀ s, ∑ a, e s a = 1)
+    (hb : ∀ s, ∑ a, b s a = 1) (hK0 : ∀ s a s', 0 ≤ K s a s')
+    (hK : ∀ s a, ∑ s', K s a s' = 1) (hν0 : ∀ s, 0 ≤ ν s)
+    (hν : ∑ s, ν s = 1) (hρC : ∀ s a, e s a ≤ C * b s a)
+    (hB : ∀ s₀ : S, ∀ τ : Traj S A H, |trajReturn R γ s₀ τ| ≤ B) :
+    (∑ ep : S × Traj S A H,
+        epProb b K ν H ep * epWG b e R γ H ep * epWG b e R γ H ep)
+      ≤ B ^ 2 * C ^ H := by
+  have hW1 : (∑ ep : S × Traj S A H, epProb b K ν H ep * rhow b e ep.1 ep.2)
+      = 1 := epW_one b e K ν H hs he hb hK hν
+  have hper : ∀ ep : S × Traj S A H,
+      epProb b K ν H ep * epWG b e R γ H ep * epWG b e R γ H ep
+        ≤ B ^ 2 * C ^ H * (epProb b K ν H ep * rhow b e ep.1 ep.2) := by
+    intro ep
+    obtain ⟨s₀, τ⟩ := ep
+    have hW0 : 0 ≤ rhow b e s₀ τ := rhow_nonneg b e hb0 he0 s₀ τ
+    have hWle : rhow b e s₀ τ ≤ C ^ H := rhow_le_pow b e C hC0 hb0 he0 hρC s₀ τ
+    have hab := abs_le.mp (hB s₀ τ)
+    have hG2 : trajReturn R γ s₀ τ * trajReturn R γ s₀ τ ≤ B * B := by
+      have hsq := sq_le_sq' hab.1 hab.2
+      rw [pow_two, pow_two] at hsq
+      exact hsq
+    have hW2 : rhow b e s₀ τ * rhow b e s₀ τ ≤ C ^ H * rhow b e s₀ τ :=
+      mul_le_mul_of_nonneg_right hWle hW0
+    have hpp : 0 ≤ epProb b K ν H (s₀, τ) := by
+      show 0 ≤ ν s₀ * bweight b K s₀ τ
+      exact mul_nonneg (hν0 s₀) (bweight_nonneg b K hb0 hK0 s₀ τ)
+    have hstep : (rhow b e s₀ τ * rhow b e s₀ τ)
+          * (trajReturn R γ s₀ τ * trajReturn R γ s₀ τ)
+        ≤ (C ^ H * rhow b e s₀ τ) * (B * B) :=
+      mul_le_mul hW2 hG2 (mul_self_nonneg (trajReturn R γ s₀ τ))
+        (mul_nonneg (pow_nonneg hC0 H) hW0)
+    calc epProb b K ν H (s₀, τ) * epWG b e R γ H (s₀, τ)
+            * epWG b e R γ H (s₀, τ)
+        = epProb b K ν H (s₀, τ) * ((rhow b e s₀ τ * rhow b e s₀ τ)
+            * (trajReturn R γ s₀ τ * trajReturn R γ s₀ τ)) := by
+          show ν s₀ * bweight b K s₀ τ * (rhow b e s₀ τ * trajReturn R γ s₀ τ)
+              * (rhow b e s₀ τ * trajReturn R γ s₀ τ)
+            = ν s₀ * bweight b K s₀ τ * ((rhow b e s₀ τ * rhow b e s₀ τ)
+              * (trajReturn R γ s₀ τ * trajReturn R γ s₀ τ))
+          ring
+      _ ≤ epProb b K ν H (s₀, τ) * ((C ^ H * rhow b e s₀ τ) * (B * B)) :=
+          mul_le_mul_of_nonneg_left hstep hpp
+      _ = B ^ 2 * C ^ H
+            * (epProb b K ν H (s₀, τ) * rhow b e (s₀, τ).1 (s₀, τ).2) := by
+          show ν s₀ * bweight b K s₀ τ * ((C ^ H * rhow b e s₀ τ) * (B * B))
+              = B ^ 2 * C ^ H * (ν s₀ * bweight b K s₀ τ * rhow b e s₀ τ)
+          ring
+  calc (∑ ep : S × Traj S A H,
+          epProb b K ν H ep * epWG b e R γ H ep * epWG b e R γ H ep)
+      ≤ (∑ ep : S × Traj S A H,
+          B ^ 2 * C ^ H * (epProb b K ν H ep * rhow b e ep.1 ep.2)) :=
+        Finset.sum_le_sum fun ep _ => hper ep
+    _ = B ^ 2 * C ^ H
+          * (∑ ep : S × Traj S A H, epProb b K ν H ep * rhow b e ep.1 ep.2) := by
+        rw [← Finset.mul_sum]
+    _ = B ^ 2 * C ^ H * 1 := by rw [hW1]
+    _ = B ^ 2 * C ^ H := by ring
+
+/-- book: capitulos/cap07_ope.typ:252 (key: thm:ch10-curse) —
+cota de varianza y crecimiento posible: si `|G| ≤ B` y las razones están
+acotadas (`e s a ≤ C * b s a`, que da `ρ ≤ C`), entonces
+`Var_b(Ĵ_IS) ≤ B² C^H / n`. La prueba es la del libro:
+`0 ≤ W ≤ C^H` con `E_b[W] = 1` da `E_b[W²] ≤ C^H`, y
+`Var ≤ E_b[W²G²] ≤ B²C^H`. No se requiere independencia entre los pesos
+de distintos tiempos (la prueba no la usa); cota superior, no tasa exacta.
+Fidelidad declarada: versión finita; la hipótesis `ρ_t ≤ C` del libro se
+formula como `e s a ≤ C * b s a` con `b ≥ 0` (implica `ρ ≤ C`); `ν, b, K, e`
+no negativos para que la ley del episodio sea una medida positiva.
+Origen: F1 2026-11-04 (nuevo). -/
+theorem ch10_curse (H n : ℕ) (hn : 0 < n) (C B : ℝ) (hC0 : 0 ≤ C)
+    (hb0 : ∀ s a, 0 ≤ b s a) (he0 : ∀ s a, 0 ≤ e s a)
+    (hs : ∀ s a, e s a ≠ 0 → b s a ≠ 0)
+    (hb : ∀ s, ∑ a, b s a = 1) (he : ∀ s, ∑ a, e s a = 1)
+    (hK0 : ∀ s a s', 0 ≤ K s a s') (hK : ∀ s a, ∑ s', K s a s' = 1)
+    (hν0 : ∀ s, 0 ≤ ν s) (hν : ∑ s, ν s = 1)
+    (hρC : ∀ s a, e s a ≤ C * b s a)
+    (hB : ∀ s₀ : S, ∀ τ : Traj S A H, |trajReturn R γ s₀ τ| ≤ B) :
+    ((∑ ω : (Fin n → (S × Traj S A H)), (∏ k, epProb b K ν H (ω k))
+        * (((1 / (n:ℝ)) * ∑ k, epWG b e R γ H (ω k))
+            * ((1 / (n:ℝ)) * ∑ k, epWG b e R γ H (ω k))))
+      - (∑ ω : (Fin n → (S × Traj S A H)), (∏ k, epProb b K ν H (ω k))
+        * ((1 / (n:ℝ)) * ∑ k, epWG b e R γ H (ω k)))
+        * (∑ ω : (Fin n → (S × Traj S A H)), (∏ k, epProb b K ν H (ω k))
+          * ((1 / (n:ℝ)) * ∑ k, epWG b e R γ H (ω k))))
+    ≤ B ^ 2 * C ^ H / (n : ℝ) := by
+  have hnR : ((n:ℝ)) ≠ 0 := ne_of_gt (Nat.cast_pos.mpr hn)
+  have hnRpos : (0:ℝ) < (n:ℝ) := Nat.cast_pos.mpr hn
+  have hM2 := epWG2_le b e K ν R γ H C B hC0 hb0 he0 hs he hb hK0 hK hν0 hν
+    hρC hB
+  rw [ch10_is_varianza b e K ν R γ H n hn hb hK hν]
+  rw [le_div_iff₀ hnRpos]
+  have hXn : (1 / (n:ℝ))
+      * ((∑ ep : S × Traj S A H, epProb b K ν H ep * epWG b e R γ H ep
+            * epWG b e R γ H ep)
+        - (∑ ep : S × Traj S A H, epProb b K ν H ep * epWG b e R γ H ep)
+          * (∑ ep : S × Traj S A H, epProb b K ν H ep * epWG b e R γ H ep))
+        * (n:ℝ)
+      = (∑ ep : S × Traj S A H, epProb b K ν H ep * epWG b e R γ H ep
+            * epWG b e R γ H ep)
+        - (∑ ep : S × Traj S A H, epProb b K ν H ep * epWG b e R γ H ep)
+          * (∑ ep : S × Traj S A H, epProb b K ν H ep * epWG b e R γ H ep) := by
+    rw [mul_right_comm, one_div_mul_cancel hnR, one_mul]
+  rw [hXn]
+  have hM1sq : (0:ℝ)
+      ≤ (∑ ep : S × Traj S A H, epProb b K ν H ep * epWG b e R γ H ep)
+        * (∑ ep : S × Traj S A H, epProb b K ν H ep * epWG b e R γ H ep) :=
+    mul_self_nonneg _
+  linarith
+
+end Curse
+
+/-! ### Ejemplo exacto Bernoulli del curse (cap07_ope.typ:265) -/
+
+section CurseEjemplo
+
+/-- Ley de Bernoulli(`qb`) sobre `Bool`: la del registro por acción. -/
+private def berLaw (qb : ℝ) : Bool → ℝ := fun x => if x then qb else 1 - qb
+
+/-- Razón de importancia por acción: Bernoulli(`p`)/Bernoulli(`qb`). -/
+private noncomputable def berRatio (p qb : ℝ) : Bool → ℝ :=
+  fun x => if x then p / qb else (1 - p) / (1 - qb)
+
+/-- Ley del episodio: `H` acciones iid Bernoulli(`qb`). -/
+private def epLawB (qb : ℝ) (H : ℕ) (ω : Fin H → Bool) : ℝ :=
+  ∏ k, berLaw qb (ω k)
+
+/-- Peso `W` del episodio: producto de las razones por acción. -/
+private noncomputable def WB (p qb : ℝ) (H : ℕ) (ω : Fin H → Bool) : ℝ :=
+  ∏ k, berRatio p qb (ω k)
+
+private theorem berLaw_sum_one (qb : ℝ) : ∑ x : Bool, berLaw qb x = 1 := by
+  rw [Fintype.sum_bool]
+  show qb + (1 - qb) = 1
+  ring
+
+private theorem berMean_one (p qb : ℝ) (hqb0 : 0 < qb) (hqb1 : qb < 1) :
+    ∑ x : Bool, berLaw qb x * berRatio p qb x = 1 := by
+  rw [Fintype.sum_bool]
+  show qb * (p / qb) + (1 - qb) * ((1 - p) / (1 - qb)) = 1
+  have hb1 : qb ≠ 0 := ne_of_gt hqb0
+  have hb2 : 1 - qb ≠ 0 := sub_ne_zero_of_ne (ne_of_gt hqb1)
+  field_simp
+  ring
+
+private theorem berMean_c (p qb : ℝ) (hqb0 : 0 < qb) (hqb1 : qb < 1) :
+    ∑ x : Bool, berLaw qb x * berRatio p qb x * berRatio p qb x
+      = p ^ 2 / qb + (1 - p) ^ 2 / (1 - qb) := by
+  rw [Fintype.sum_bool]
+  show qb * (p / qb) * (p / qb)
+      + (1 - qb) * ((1 - p) / (1 - qb)) * ((1 - p) / (1 - qb))
+    = p ^ 2 / qb + (1 - p) ^ 2 / (1 - qb)
+  have hq : ∀ q r : ℝ, q ≠ 0 → q * (r / q) = r := by
+    intro q r h
+    field_simp
+  have hb1 : qb ≠ 0 := ne_of_gt hqb0
+  have hb2 : 1 - qb ≠ 0 := sub_ne_zero_of_ne (ne_of_gt hqb1)
+  rw [hq qb p hb1, hq (1 - qb) (1 - p) hb2, ← mul_div_assoc, ← mul_div_assoc,
+    ← pow_two, ← pow_two]
+
+/-- Las dos formas de la constante del ejemplo: la del libro
+`c = p²/qb + (1-p)²/(1-qb)` y la del PLAN `c = 1 + (p-qb)²/(qb(1-qb))`. -/
+private theorem c_forms (p qb : ℝ) (hb1 : qb ≠ 0) (hb2 : 1 - qb ≠ 0) :
+    p ^ 2 / qb + (1 - p) ^ 2 / (1 - qb)
+      = 1 + (p - qb) ^ 2 / (qb * (1 - qb)) := by
+  field_simp
+  ring
+
+private theorem epLawB_sum_one (qb : ℝ) (H : ℕ) :
+    (∑ ω : (Fin H → Bool), epLawB qb H ω) = 1 :=
+  iid_prod_one (berLaw qb) (berLaw_sum_one qb) H
+
+private theorem epWB_one (p qb : ℝ) (hqb0 : 0 < qb) (hqb1 : qb < 1) (H : ℕ) :
+    (∑ ω : (Fin H → Bool), epLawB qb H ω * WB p qb H ω) = 1 := by
+  have hfold : ∀ ω : (Fin H → Bool),
+      (∏ k, berLaw qb (ω k)) * (∏ k, berRatio p qb (ω k))
+        = ∏ k, berLaw qb (ω k) * berRatio p qb (ω k) :=
+    fun ω => (Finset.prod_mul_distrib (s := (univ : Finset (Fin H)))
+      (f := fun k => berLaw qb (ω k))
+      (g := fun k => berRatio p qb (ω k))).symm
+  simp only [epLawB, WB]
+  rw [Finset.sum_congr rfl (fun ω _ => hfold ω)]
+  rw [← iid_prod_pow (fun x => berLaw qb x * berRatio p qb x)]
+  rw [berMean_one p qb hqb0 hqb1, one_pow]
+
+private theorem epWB_two (p qb : ℝ) (hqb0 : 0 < qb) (hqb1 : qb < 1) (H : ℕ) :
+    (∑ ω : (Fin H → Bool), epLawB qb H ω * WB p qb H ω * WB p qb H ω)
+      = (1 + (p - qb) ^ 2 / (qb * (1 - qb))) ^ H := by
+  have hfoldA : ∀ ω : (Fin H → Bool),
+      (∏ k, berLaw qb (ω k)) * (∏ k, berRatio p qb (ω k))
+        = ∏ k, berLaw qb (ω k) * berRatio p qb (ω k) :=
+    fun ω => (Finset.prod_mul_distrib (s := (univ : Finset (Fin H)))
+      (f := fun k => berLaw qb (ω k))
+      (g := fun k => berRatio p qb (ω k))).symm
+  have hfoldB : ∀ ω : (Fin H → Bool),
+      (∏ k, berLaw qb (ω k) * berRatio p qb (ω k))
+        * (∏ k, berRatio p qb (ω k))
+        = ∏ k, berLaw qb (ω k) * berRatio p qb (ω k) * berRatio p qb (ω k) :=
+    fun ω => (Finset.prod_mul_distrib (s := (univ : Finset (Fin H)))
+      (f := fun k => berLaw qb (ω k) * berRatio p qb (ω k))
+      (g := fun k => berRatio p qb (ω k))).symm
+  simp only [epLawB, WB]
+  rw [Finset.sum_congr rfl (fun ω _ => by rw [hfoldA ω, hfoldB ω])]
+  rw [← iid_prod_pow (fun x => berLaw qb x * berRatio p qb x
+        * berRatio p qb x)]
+  rw [berMean_c p qb hqb0 hqb1]
+  have hb1 : qb ≠ 0 := ne_of_gt hqb0
+  have hb2 : 1 - qb ≠ 0 := sub_ne_zero_of_ne (ne_of_gt hqb1)
+  rw [c_forms p qb hb1 hb2]
+
+/-- book: capitulos/cap07_ope.typ:265 (key: thm:ch10-curse) —
+ejemplo exacto del curse of horizon: un estado, `H` acciones iid
+Bernoulli(`qb`) bajo el registro, Bernoulli(`p`) bajo evaluación,
+recompensa terminal uno (las demás cero), `γ = 1`. El valor es uno pero IS
+tiene varianza exacta `(c^H − 1)/n` con `c = 1 + (p-qb)²/(qb(1-qb))`
+(equivalente a `c = p²/qb + (1-p)²/(1-qb)` del libro, cf. `c_forms`); la
+fórmula se obtiene multiplicando segundos momentos de pesos independientes
+en este ejemplo específico. La recompensa terminal uno no es un
+`trajReturn` homogéneo, así que el episodio es la secuencia de acciones
+`Fin H → Bool` y `W` el producto de las razones por acción (fidelidad
+declarada).
+Origen: F1 2026-11-04 (nuevo). -/
+theorem ch10_curse_ejemplo (p qb : ℝ) (hqb0 : 0 < qb) (hqb1 : qb < 1)
+    (H n : ℕ) (hn : 0 < n) :
+    (∑ ωs : (Fin n → (Fin H → Bool)), (∏ i, epLawB qb H (ωs i))
+        * ((1 / (n:ℝ)) * ∑ i, WB p qb H (ωs i))) = 1
+    ∧ ((∑ ωs : (Fin n → (Fin H → Bool)), (∏ i, epLawB qb H (ωs i))
+        * (((1 / (n:ℝ)) * ∑ i, WB p qb H (ωs i))
+            * ((1 / (n:ℝ)) * ∑ i, WB p qb H (ωs i))))
+      - (∑ ωs : (Fin n → (Fin H → Bool)), (∏ i, epLawB qb H (ωs i))
+        * ((1 / (n:ℝ)) * ∑ i, WB p qb H (ωs i)))
+        * (∑ ωs : (Fin n → (Fin H → Bool)), (∏ i, epLawB qb H (ωs i))
+          * ((1 / (n:ℝ)) * ∑ i, WB p qb H (ωs i)))
+    = ((1 + (p - qb) ^ 2 / (qb * (1 - qb))) ^ H - 1) / (n : ℝ)) := by
+  have hnR : ((n:ℝ)) ≠ 0 := ne_of_gt (Nat.cast_pos.mpr hn)
+  have hprob : ∑ ω : (Fin H → Bool), epLawB qb H ω = 1 :=
+    epLawB_sum_one qb H
+  have hmean := iid_sum_mean (epLawB qb H) hprob (WB p qb H) n
+  have h2 := iid_sum2_mean (epLawB qb H) hprob (WB p qb H) (WB p qb H) n
+  have hW1 : (∑ ω : (Fin H → Bool), epLawB qb H ω * WB p qb H ω) = 1 :=
+    epWB_one p qb hqb0 hqb1 H
+  have hW2 : (∑ ω : (Fin H → Bool), epLawB qb H ω * WB p qb H ω
+        * WB p qb H ω)
+      = (1 + (p - qb) ^ 2 / (qb * (1 - qb))) ^ H :=
+    epWB_two p qb hqb0 hqb1 H
+  -- primer momento del estimador: el valor es uno
+  have hE1 : (∑ ωs : (Fin n → (Fin H → Bool)), (∏ i, epLawB qb H (ωs i))
+        * ((1 / (n:ℝ)) * ∑ i, WB p qb H (ωs i))) = 1 := by
+    have hscale : ∀ ωs : (Fin n → (Fin H → Bool)),
+        (∏ i, epLawB qb H (ωs i)) * ((1 / (n:ℝ)) * ∑ i, WB p qb H (ωs i))
+          = (1 / (n:ℝ)) * ((∏ i, epLawB qb H (ωs i))
+              * (∑ i, WB p qb H (ωs i))) := by
+      intro ωs
+      ring
+    rw [Finset.sum_congr rfl (fun ωs _ => hscale ωs)]
+    rw [← Finset.mul_sum]
+    rw [hmean]
+    rw [hW1, mul_one, one_div_mul_cancel hnR]
+  refine ⟨hE1, ?_⟩
+  -- segundo momento del estimador
+  have hE2 : (∑ ωs : (Fin n → (Fin H → Bool)), (∏ i, epLawB qb H (ωs i))
+        * (((1 / (n:ℝ)) * ∑ i, WB p qb H (ωs i))
+            * ((1 / (n:ℝ)) * ∑ i, WB p qb H (ωs i))))
+      = ((1 / (n:ℝ)) * (1 / (n:ℝ)))
+          * ((n:ℝ) * (∑ ω : (Fin H → Bool),
+                epLawB qb H ω * WB p qb H ω * WB p qb H ω)
+            + (n:ℝ) * ((n:ℝ) - 1) * (∑ ω : (Fin H → Bool),
+                epLawB qb H ω * WB p qb H ω)
+              * (∑ ω : (Fin H → Bool), epLawB qb H ω * WB p qb H ω)) := by
+    have hscale : ∀ ωs : (Fin n → (Fin H → Bool)),
+        (∏ i, epLawB qb H (ωs i))
+            * (((1 / (n:ℝ)) * ∑ i, WB p qb H (ωs i))
+              * ((1 / (n:ℝ)) * ∑ i, WB p qb H (ωs i)))
+          = ((1 / (n:ℝ)) * (1 / (n:ℝ)))
+              * ((∏ i, epLawB qb H (ωs i))
+                  * (∑ i, WB p qb H (ωs i))
+                  * (∑ i, WB p qb H (ωs i))) := by
+      intro ωs
+      ring
+    rw [Finset.sum_congr rfl (fun ωs _ => hscale ωs)]
+    rw [← Finset.mul_sum]
+    rw [h2]
+  rw [hE2, hE1]
+  rw [hW2, hW1]
+  simp only [mul_one]
+  set c : ℝ := 1 + (p - qb) ^ 2 / (qb * (1 - qb)) with hcdef
+  field_simp
+  ring
+
+end CurseEjemplo

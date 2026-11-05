@@ -2,6 +2,7 @@ import Book.Cap05Representacion
 import Book.Cap07OPE
 import Book.Cap06Fronteras
 import Book.Cap03MDP
+import Book.SSCH
 
 /-!
 # Book.Audit — auditoría de axiomas del proyecto (plan §6)
@@ -34,3 +35,22 @@ ningún archivo de Book/. -/
 #print axioms ch8_pi_finita_sin_repeticion
 #print axioms ch8_pi_finita_conteo
 #print axioms ch8_pi_finita_optimo
+#print axioms ch8_contraccion
+#print axioms ch8_punto_fijo_unico
+#print axioms ch8_parada
+#print axioms ch10_curse
+#print axioms ch10_curse_ejemplo
+#print axioms ssch_regla_ordinario
+#print axioms ssch_regla_intensificado
+#print axioms ssch_regla_seguir
+#print axioms ssch_regla_invertir
+#print axioms ssch_posterior
+#print axioms ssch_perdidas_posteriores
+#print axioms ssch_umbral
+#print axioms ssch_bayes_sigue
+#print axioms ssch_retornos
+#print axioms ssch_secuencial
+#print axioms ssch_minimax_riesgos
+#print axioms ssch_minimax_certificado
+#print axioms ssch_minimax_cota
+#print axioms ssch_minimax

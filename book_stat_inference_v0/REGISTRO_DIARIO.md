@@ -1163,3 +1163,58 @@ P2 0/13 · P3 0/8 — total 11/35 filas.
 P1: #9 (cota curse + ejemplo exacto c^H−1), #12 (certificados de parada;
 la capa MDP de t21 es su base), #13 (SSCH racionales). Commit y push
 autorizados («otro push único»).
+
+## 2026-11-05 (t23) — Lean F1: P1 completo 14/14 (#9 curse, #12 parada, #13 SSCH)
+
+### Entregable
+Cierre del plan P1: `thm:ch10-curse` con su ejemplo exacto (#9), los
+certificados de parada `cor:ch8-parada` (#12) y el módulo nuevo
+`Book/SSCH.lean` con el hilo longitudinal SSCH (#13). En
+`Book/Cap05Representacion.lean` se hacen públicas `wStop`, `W`, `riskOf`
+(antes `private`) y se añaden `W_zero`/`W_succ` (rfl): `SSCH.lean` (#13)
+necesita instanciar la recursión `W` del thm:ch9-secuencial en el prior
+SSCH. Todo integrado a `verificar.sh`, `Audit.lean` y el dashboard.
+
+### Corrida
+- **#12 `cor:ch8-parada` (COMPLETA, tres teoremas)**: `ch8_contraccion`
+  (‖T*V − T*W‖_∞ ≤ γ‖V−W‖_∞ puntual, `thm:ch8-contraccion`),
+  `ch8_punto_fijo_unico` (`cor:ch8-punto-fijo`) y `ch8_parada`
+  (‖V−V*‖_∞ ≤ e/(1−γ) y ‖V*−V^π_V‖_∞ ≤ 2γe/(1−γ)²). El punto fijo V*
+  es hipótesis (`hW : T* W = W`; construirlo exigiría la iteración de
+  valor + límites); la unicidad se prueba aparte, así que W es
+  esencialmente único y el enunciado es fiel. La segunda cota es el
+  argumento del argmín del libro: `u := W − V^π ≥ 0` vía `nonneg_of_fix`,
+  `u ≤ 2γδ + γ‖u‖` puntual, cierre en el máximo.
+- **#9 `thm:ch10-curse` (COMPLETA, dos teoremas)**: `ch10_curse`
+  (Var_b(Ĵ_IS) ≤ B²C^H/n por la cadena del libro: `0 ≤ W ≤ C^H` con
+  E_b[W] = 1 da E_b[W²] ≤ C^H, y Var ≤ E[W²G²] ≤ B²C^H; la hipótesis
+  `ρ_t ≤ C` se formula como `e s a ≤ C * b s a` con `b ≥ 0`) y
+  `ch10_curse_ejemplo` (el ejemplo Bernoulli exacto: E[Ĵ] = 1 y
+  Var = (c^H − 1)/n con `c = 1 + (p−qb)²/(qb(1−qb))`, equivalente a la
+  forma del libro `c = p²/qb + (1−p)²/(1−qb)` — probada como `c_forms`;
+  el episodio es la secuencia de acciones `Fin H → Bool` porque la
+  recompensa terminal 1 no es un `trajReturn` homogéneo). Base no
+  enunciada: `iid_prod_pow` ((∑g)^n = ∑_ω ∏ g(ωk)), no negatividad y
+  cota exponencial de `rhow` por inducción en la trayectoria, y
+  E_b[W] = 1 a nivel de episodio (`epW_one`).
+- **#13 SSCH (COMPLETA, módulo nuevo `Book/SSCH.lean`)**: tabla de las
+  cuatro reglas deterministas ((0,4,6/5), (1,0,7/10), (1/5,4/5,19/50),
+  (4/5,16/5,38/25)); posteriores 12/19, 7/19, 3/31, 28/31; umbral 1/5
+  (4p = 1−p, `ssch_umbral`); Bayes sigue la señal (`ssch_bayes_sigue`);
+  retornos J₀ = −1/5, J₁ = −4/5 vía `ch9_isomorfismo`; recursión `W`
+  con señal de costo 1/20 (W₀ = 7/10, W₁ = 43/100 < 7/10: conviene
+  observar); minimax aleatorizado (`ssch_minimax`: δ* intensifica
+  siempre si X=1 y con prob 3/8 si X=0, riesgos ambos 1/2, certificado
+  por ν*(1) = 1/2 con posterior exactamente en el umbral; cota para
+  toda regla aleatorizada vía R̄(0,δ) + R̄(1,δ) = 1 + 3·δ(X=1, a=0) ≥ 1).
+  Todas las cifras como igualdades racionales exactas (sin flotantes),
+  rutas `simp [defs]` + `norm_num` sobre los racionales.
+
+### Verificación
+`./verificar.sh` → **EXIT 0**: 6 módulos, **40 teoremas**, todos con
+axiomas `[propext, Classical.choice, Quot.sound]`, 0 `sorry`. Cobertura:
+**P1 14/14** · P2 0/13 · P3 0/8 — total 14/35 filas.
+
+### Pendiente
+P1 cerrado. P2/P3 no empiezan sin aviso del autor (decisión del plan:
+fases en orden, con confirmación).
