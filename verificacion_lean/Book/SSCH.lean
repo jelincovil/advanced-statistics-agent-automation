@@ -1,6 +1,7 @@
 import Mathlib
 import Book.Foundation
 import Book.Cap05Representacion
+import Book.Cap03MDP
 
 /-!
 # Book.SSCH — hilo longitudinal SSCH (ex:ssch-cap09, ex:ssch-cap07)
@@ -338,3 +339,106 @@ theorem ssch_minimax (δ : Bool → Bool → ℝ)
   · rcases ssch_minimax_cota δ h0 h1 with hc | hc
     · exact le_max_of_le_left hc
     · exact le_max_of_le_right hc
+
+/-! ## ex:ssch-cap08 — MDP reducido de dos estados (cap03_mdp.typ:243) -/
+
+section SSCHMDP
+
+open Finset BigOperators
+
+/-- Recompensas del MDP reducido: `r(g,0)=1, r(g,1)=1/2, r(b,0)=0,
+r(b,1)=−1/2` (recompensa por paso, transiciones deterministas). -/
+private noncomputable def rSSCHMDP : Bool → Bool → ℝ :=
+  fun s a => if s then (if a then 1 / 2 else 1) else (if a then -1 / 2 else 0)
+
+/-- Transiciones deterministas del MDP reducido:
+`(g,0)→b, (g,1)→g, (b,0)→b, (b,1)→g`. -/
+private def pSSCHMDP : Bool → Bool → Bool → ℝ :=
+  fun s a s' => if s then (if a then (if s' then 1 else 0) else (if s' then 0 else 1))
+    else (if a then (if s' then 1 else 0) else (if s' then 0 else 1))
+
+/-- Vector de valor óptimo del MDP reducido: `V*(g) = 5, V*(b) = 4`. -/
+private def vSSCHMDP : Bool → ℝ := fun s => if s then 5 else 4
+
+private theorem sup'_bool_two (f : Bool → ℝ) :
+    (univ : Finset Bool).sup' Finset.univ_nonempty f = max (f true) (f false) := by
+  refine le_antisymm ?_ ?_
+  · refine (Finset.sup'_le_iff Finset.univ_nonempty _).mpr ?_
+    intro a _
+    cases a
+    · exact le_max_of_le_right (le_refl _)
+    · exact le_max_of_le_left (le_refl _)
+  · exact max_le (Finset.le_sup' f (Finset.mem_univ true))
+      (Finset.le_sup' f (Finset.mem_univ false))
+
+/-- book: capitulos/cap03_mdp.typ:243 (key: ex:ssch-cap08) —
+modelo reducido pedagógico de dos estados: la solución es
+`V*(g) = 5`, `V*(b) = 4` con acción 1 en ambos estados; verifica Bellman
+y, por unicidad del punto fijo (`ch8_punto_fijo_unico`), prueba
+optimalidad. Las iteradas desde cero son `V₁ = (1, 0)`,
+`V₂ = (7/5, 2/5)` y `V₃ = (44/25, 19/25)` (el libro escribe 1.4, 0.4,
+1.76, 0.76).
+Origen: F3 2026-11-05 (nuevo). -/
+theorem ssch_mdp_bellman :
+    (Topt rSSCHMDP pSSCHMDP (9 / 10) vSSCHMDP) true = 5
+    ∧ (Topt rSSCHMDP pSSCHMDP (9 / 10) vSSCHMDP) false = 4
+    ∧ ToptIter rSSCHMDP pSSCHMDP (9 / 10) 1 (fun _ => 0) = (fun s => if s then 1 else 0)
+    ∧ ToptIter rSSCHMDP pSSCHMDP (9 / 10) 2 (fun _ => 0)
+        = (fun s => if s then 7 / 5 else 2 / 5)
+    ∧ ToptIter rSSCHMDP pSSCHMDP (9 / 10) 3 (fun _ => 0)
+        = (fun s => if s then 44 / 25 else 19 / 25) := by
+  have hEqT : ∀ (V : Bool → ℝ) (s : Bool),
+      (Topt rSSCHMDP pSSCHMDP (9 / 10) V) s
+        = max (rSSCHMDP s true + (9 / 10) * ∑ s' : Bool, pSSCHMDP s true s' * V s')
+            (rSSCHMDP s false + (9 / 10) * ∑ s' : Bool, pSSCHMDP s false s' * V s') := by
+    intro V s
+    show (univ : Finset Bool).sup' Finset.univ_nonempty
+      (fun a => rSSCHMDP s a + (9 / 10) * ∑ s', pSSCHMDP s a s' * V s')
+      = _
+    rw [sup'_bool_two]
+  have hbase : ∀ t : Bool, (ToptIter rSSCHMDP pSSCHMDP (9 / 10) 0 (fun _ => 0)) t = 0 :=
+    fun _ => rfl
+  have h1 : ∀ t : Bool, (ToptIter rSSCHMDP pSSCHMDP (9 / 10) 1 (fun _ => 0)) t
+      = if t then (1:ℝ) else 0 := by
+    intro t
+    show (Topt rSSCHMDP pSSCHMDP (9 / 10) (ToptIter rSSCHMDP pSSCHMDP (9 / 10) 0 (fun _ => 0))) t
+      = if t then (1:ℝ) else 0
+    rw [hEqT]
+    cases t <;> norm_num [rSSCHMDP, pSSCHMDP, Fintype.sum_bool, sup'_bool_two, hbase]
+  have h2 : ∀ t : Bool, (ToptIter rSSCHMDP pSSCHMDP (9 / 10) 2 (fun _ => 0)) t
+      = if t then 7 / 5 else 2 / 5 := by
+    intro t
+    show (Topt rSSCHMDP pSSCHMDP (9 / 10) (ToptIter rSSCHMDP pSSCHMDP (9 / 10) 1 (fun _ => 0))) t
+      = if t then 7 / 5 else 2 / 5
+    rw [hEqT]
+    cases t <;> norm_num [rSSCHMDP, pSSCHMDP, Fintype.sum_bool, sup'_bool_two, h1]
+  refine ⟨?_, ?_, ?_, ?_, ?_⟩
+  · show (Topt rSSCHMDP pSSCHMDP (9 / 10) vSSCHMDP) true = 5
+    rw [hEqT]
+    norm_num [rSSCHMDP, pSSCHMDP, vSSCHMDP, Fintype.sum_bool, sup'_bool_two]
+  · show (Topt rSSCHMDP pSSCHMDP (9 / 10) vSSCHMDP) false = 4
+    rw [hEqT]
+    norm_num [rSSCHMDP, pSSCHMDP, vSSCHMDP, Fintype.sum_bool, sup'_bool_two]
+  · funext s
+    cases s
+    · show (ToptIter rSSCHMDP pSSCHMDP (9 / 10) 1 (fun _ => 0)) false
+          = (if false then (1:ℝ) else 0)
+      exact h1 false
+    · show (ToptIter rSSCHMDP pSSCHMDP (9 / 10) 1 (fun _ => 0)) true
+          = (if true then (1:ℝ) else 0)
+      exact h1 true
+  · funext s
+    cases s
+    · show (ToptIter rSSCHMDP pSSCHMDP (9 / 10) 2 (fun _ => 0)) false
+          = (if false then 7 / 5 else 2 / 5)
+      exact h2 false
+    · show (ToptIter rSSCHMDP pSSCHMDP (9 / 10) 2 (fun _ => 0)) true
+          = (if true then 7 / 5 else 2 / 5)
+      exact h2 true
+  · funext s
+    show (Topt rSSCHMDP pSSCHMDP (9 / 10) (ToptIter rSSCHMDP pSSCHMDP (9 / 10) 2 (fun _ => 0))) s
+      = (if s then 44 / 25 else 19 / 25)
+    rw [hEqT]
+    cases s <;> norm_num [rSSCHMDP, pSSCHMDP, Fintype.sum_bool, sup'_bool_two, h2]
+
+end SSCHMDP

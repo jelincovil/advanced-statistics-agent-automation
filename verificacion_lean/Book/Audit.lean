@@ -1,18 +1,10 @@
-import Book.Cap05Representacion
-import Book.Cap07OPE
-import Book.Cap06Fronteras
-import Book.Cap03MDP
+import Book.Cap02Wald
+import Book.Cap08Intervalos
 import Book.SSCH
+import Book.Cap06Fronteras
+import Book.Cap07OPE
 
-/-!
-# Book.Audit — auditoría de axiomas del proyecto (plan §6)
-
-Cada teorema debe depender solo de `propext`, `Classical.choice` y
-`Quot.sound` (el estándar del piloto). `verificar.sh` vuelca la salida
-de este archivo a build/axioms.log y falla si aparece el axioma
-prohibido — el que marcaría una prueba sin cerrar; por la política de
-cero cabos sueltos (plan §6), esa palabra no debe aparecer escrita en
-ningún archivo de Book/. -/
+/-! # Book.Audit — auditoría de axiomas del proyecto (plan §6) -/
 
 #print axioms ch9_isomorfismo
 #print axioms ch9_bayes
@@ -54,3 +46,22 @@ ningún archivo de Book/. -/
 #print axioms ssch_minimax_certificado
 #print axioms ssch_minimax_cota
 #print axioms ssch_minimax
+#print axioms ch7_bayes
+#print axioms ch7_minimax_bayes
+#print axioms ch7_minimax_bayes_constante
+#print axioms ch7_admisibilidad_bayes
+#print axioms ch7_complete_class_bayes
+#print axioms ch7_complete_class_esencial
+#print axioms ex_ch9_observabilidad_parcial
+#print axioms ex_ch9_confounding
+#print axioms ex_ch9_fallo_mixing
+#print axioms ex_ch9_fallo_overlap
+#print axioms ex_ch9_fallo_overlap_instancia
+#print axioms ex_ch6_memoria
+#print axioms ex_ch6_minimax_dominada
+#print axioms ch10_var_dr
+#print axioms ssch_mdp_bellman
+#print axioms ch11_baseline
+#print axioms ch11_baseline_ejemplo
+#print axioms ex_ch5_cadena
+#print axioms ex_ch11_pg_ssch

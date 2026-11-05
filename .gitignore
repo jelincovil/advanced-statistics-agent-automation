@@ -29,3 +29,6 @@ ENV/
 
 # Build del proyecto Lean (artefactos regenerables de verificar.sh)
 verificacion_lean/build/
+
+# Cache del agente (no versionar)
+.scratch/

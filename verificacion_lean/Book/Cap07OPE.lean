@@ -1584,3 +1584,35 @@ theorem ch10_curse_ejemplo (p qb : ℝ) (hqb0 : 0 < qb) (hqb1 : qb < 1)
   ring
 
 end CurseEjemplo
+
+/-! ## prop:ch10-var-dr — DR puede aumentar la varianza -/
+
+section VarDR
+
+/-- book: capitulos/cap07_ope.typ:494 (key: prop:ch10-var-dr) —
+DR puede aumentar la varianza: con `R = 0` siempre, `b(1) = 1/2`,
+`e(1) = 1`, modelo `m̄(a) = 1` para ambas acciones y propensión
+correcta, la contribución DR es `D = 1 − 2A`: media cero y varianza uno,
+mientras que IS es idénticamente cero (varianza cero). El modelo es no
+nulo y tiene error cuadrático finito, pero aumenta la varianza; un
+residuo útil puede reducirla, pero esa reducción no está garantizada
+para una aproximación arbitraria. Fidelidad declarada: acción binaria
+`A ~ Bernoulli(1/2)` bajo el registro; la fila del PLAN con «el término
+correcto vale 3/4 y usar m(A) da 1/2» no aparece en este pasaje del
+libro y no se formaliza.
+Origen: F3 2026-11-05 (nuevo). -/
+theorem ch10_var_dr :
+    (∑ a : Bool, (1 / 2) * (1 - 2 * (if a then (1:ℝ) else 0)))
+      = 0
+    ∧ (∑ a : Bool, (1 / 2) * ((1 - 2 * (if a then (1:ℝ) else 0))
+          - (∑ a' : Bool, (1 / 2) * (1 - 2 * (if a' then (1:ℝ) else 0))))
+          * ((1 - 2 * (if a then (1:ℝ) else 0))
+          - (∑ a' : Bool, (1 / 2) * (1 - 2 * (if a' then (1:ℝ) else 0)))))
+      = 1
+    ∧ (∑ a : Bool, (1 / 2) * (0 - 0) * (0 - 0)) = 0 := by
+  refine ⟨?_, ?_, ?_⟩
+  · rw [Fintype.sum_bool]; norm_num
+  · rw [Fintype.sum_bool, Fintype.sum_bool]; norm_num [reduceIte]
+  · norm_num
+
+end VarDR

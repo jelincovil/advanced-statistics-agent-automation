@@ -18,8 +18,12 @@ COMPLETADAS = {
            "thm:ch9-secuencial", "cor:ch9-bellman", "thm:ch8-mejora",
            "thm:ch10-identificacion", "thm:ch10-is-insesgado",
            "thm:ch10-curse", "cor:ch8-parada", "ex:ssch-cap09"],
-    "P2": [],
-    "P3": [],
+    "P2": ["thm:ch7-bayes", "thm:ch7-minimax-bayes", "thm:ch7-admisibilidad-bayes",
+           "thm:ch7-complete-class", "ex:ch6-memoria", "ex:ch9-confounding",
+           "ex:ch9-fallo-mixing", "ex:ch9-fallo-overlap",
+           "ex:ch9-observabilidad-parcial", "ex:ch6-minimax-dominada",
+           "prop:ch10-var-dr", "prop:ch11-baseline", "ex:ssch-cap08"],
+    "P3": ["ex:ch5-cadena", "ex:ch11-pg-ssch"],
 }
 # Claves con teoremas parciales: lo probado y lo que falta.
 PARCIALES = {}

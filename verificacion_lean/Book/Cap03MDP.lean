@@ -207,8 +207,9 @@ def Topt (V : S → ℝ) : S → ℝ :=
   fun s => (univ : Finset A).sup' Finset.univ_nonempty
     (fun a => r s a + γ * ∑ s', P s a s' * V s')
 
-/-- Iterado `k`-veces del operador óptimo. -/
-private def ToptIter : ℕ → (S → ℝ) → (S → ℝ)
+/-- Iterado `k`-veces del operador óptimo (público: lo usa el ejemplo
+SSCH de `Book/SSCH.lean`). -/
+def ToptIter : ℕ → (S → ℝ) → (S → ℝ)
   | 0, V => V
   | (k + 1), V => Topt r P γ (ToptIter k V)
 

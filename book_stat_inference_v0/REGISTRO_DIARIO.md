@@ -1244,3 +1244,37 @@ el dashboard no lista).
 
 ### Pendiente
 P2/P3 sin empezar (esperando aviso del autor).
+
+## 2026-11-05 (t25) — Lean F2+F3: P2 completo y P3 parcial (#15–#27, #31–#32)
+
+### Entregable
+Módulos nuevos `Book/Cap02Wald.lean` (#15–#18: regla de Bayes, minimax
+mediante Bayes, admisibilidad con prior positivo y clase esencialmente
+completa por separación de conos — Farkas geométrico vía
+`ProperCone.hyperplane_separation'`), adiciones a `Book/Cap06Fronteras.lean`
+(#19–#24: los seis contraejemplos del cap. 6 — observabilidad parcial,
+confounding, mixing, overlap débil, memoria y minimax dominada, todos en
+racionales exactos), `ch10_var_dr` en `Book/Cap07OPE.lean` (#25),
+`ssch_mdp_bellman` en `Book/SSCH.lean` (#27: V*=(5,4) verifica Bellman e
+iteradas (1,0), (7/5,2/5), (44/25,19/25)), y módulo nuevo
+`Book/Cap08Intervalos.lean` (#26: baseline y ejemplo exacto con tres
+varianzas 3/256, 3/64, 0; #31: cadena de dos estados con media 4,
+varianza 24, covarianza 24(1/2)^k y σ²_LR=72 vía
+`tsum_geometric_two'`; #32: gradiente 1/12, varianzas 13/720 y 1/180,
+reducción 9/13, momentos verificados como integrales). `ToptIter`
+público en `Cap03MDP.lean`. P3 sin escribir: #28–#30, #33, #35
+(cuantización, truncamiento, monitoreo, MDP de validación, margen
+elemental) y #34 (cota espectral) pendientes.
+
+### Corrida
+`./verificar.sh` → EXIT 0: 8 módulos, **56 teoremas**, 0 sorry, axiomas
+`[propext, Classical.choice, Quot.sound]` ×56.
+
+### Verificación
+Dashboard: **P1 14/14 · P2 13/13 · P3 2/8** — total 29/35 filas.
+
+### Pendiente
+P3: #28–#30, #33, #35 (módulo `Book/Cap11Despliegue.lean` por escribir)
+y #34 (la versión finita de la cota espectral quedó con la forma cerrada
+de P^k declarada pero la prueba de la cota TV no se completó; el archivo
+se recortó para mantener cero sorry).
