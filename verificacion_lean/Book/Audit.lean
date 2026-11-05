@@ -24,6 +24,9 @@ ningún archivo de Book/. -/
 #print axioms ch10_dr_sesgo_m
 #print axioms ch10_dr_sesgo_b
 #print axioms ch9_ic
+#print axioms ch10_identificacion_per_decision
+#print axioms ch10_is_insesgado
+#print axioms ch10_is_varianza
 #print axioms ch9_secuencial_cota
 #print axioms ch9_secuencial_alcanza
 #print axioms ch9_bellman

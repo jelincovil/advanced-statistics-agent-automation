@@ -24,16 +24,18 @@ Generado por `Progress/gen_dashboard.py` el 2026-11-05 desde `Book/*.lean` y `bu
 | `ch10_dr` (`Cap07OPE.lean`) | `thm:ch10-dr` @ capitulos/cap07_ope.typ:436 | F1 2026-11-04 (nuevo) | `propext, Classical.choice, Quot.sound` | OK |
 | `ch10_dr_sesgo_m` (`Cap07OPE.lean`) | `thm:ch10-dr` @ capitulos/cap07_ope.typ:436 | F1 2026-11-04 (corolario de ch10_dr) | `propext, Classical.choice, Quot.sound` | OK |
 | `ch10_dr_sesgo_b` (`Cap07OPE.lean`) | `thm:ch10-dr` @ capitulos/cap07_ope.typ:436 | F1 2026-11-04 (corolario de ch10_dr) | `propext, Classical.choice, Quot.sound` | OK |
+| `ch10_identificacion_per_decision` (`Cap07OPE.lean`) | `thm:ch10-identificacion` @ capitulos/cap07_ope.typ:140 | ? | `propext, Classical.choice, Quot.sound` | OK |
+| `ch10_is_insesgado` (`Cap07OPE.lean`) | `thm:ch10-is-insesgado` @ capitulos/cap07_ope.typ:218 | F1 2026-11-04 (nuevo) | `propext, Classical.choice, Quot.sound` | OK |
+| `ch10_is_varianza` (`Cap07OPE.lean`) | `thm:ch10-is-insesgado` @ capitulos/cap07_ope.typ:218 | F1 2026-11-04 (nuevo) | `propext, Classical.choice, Quot.sound` | OK |
 
 ## Cobertura del inventario (plan §2)
 
-- **P1**: 9/14 filas completadas
+- **P1**: 11/14 filas completadas
 - **P2**: 0/13 filas completadas
 - **P3**: 0/8 filas completadas
-- **Total**: 9/35 filas · 9 claves del libro completadas
+- **Total**: 11/35 filas · 11 claves del libro completadas
 
 ## En progreso (teoremas parciales)
 
-- `thm:ch10-identificacion` — dos de tres identidades (J(e) = E_b[W G] y E_b[W_t R_t] = E_e[R_t]); falta J(e) = Σ_t γ^t E_b[W_t R_t].
 
 Axiomas esperados en toda fila: `propext, Classical.choice, Quot.sound`.

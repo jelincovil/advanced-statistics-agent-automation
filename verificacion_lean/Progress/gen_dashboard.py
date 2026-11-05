@@ -15,16 +15,13 @@ LOG = ROOT / "build" / "axioms.log"
 COMPLETADAS = {
     "P1": ["thm:ch9-isomorfismo", "cor:ch9-bayes", "thm:ch9-admisibilidad",
            "cor:ch7-traduccion", "thm:ch10-dr", "thm:ch9-ic",
-           "thm:ch9-secuencial", "cor:ch9-bellman", "thm:ch8-mejora"],
+           "thm:ch9-secuencial", "cor:ch9-bellman", "thm:ch8-mejora",
+           "thm:ch10-identificacion", "thm:ch10-is-insesgado"],
     "P2": [],
     "P3": [],
 }
 # Claves con teoremas parciales: lo probado y lo que falta.
-PARCIALES = {
-    "thm:ch10-identificacion":
-        "dos de tres identidades (J(e) = E_b[W G] y E_b[W_t R_t] = E_e[R_t]); "
-        "falta J(e) = Σ_t γ^t E_b[W_t R_t]",
-}
+PARCIALES = {}
 INVENTARIO = {"P1": 14, "P2": 13, "P3": 8}  # filas del plan §2
 LIMPIO = "propext, Classical.choice, Quot.sound"
 

@@ -1124,3 +1124,42 @@ P1: #7 parcial (tercera identidad), #8 (IS iid), #9 (curse + ejemplo exacto),
 #12 (certificados de parada — la capa MDP de hoy es su base), #13 (SSCH).
 Commit y push de F1 autorizados por el autor ("un solo push con todo el
 avance de F1").
+
+---
+
+## 2026-11-04 (t22) — Lean F1: tercera identidad de #7 y #8 (IS insesgado + varianza)
+
+### Entregable
+Secciones nuevas en `Book/Cap07OPE.lean`: `IdentificacionTotal` (tercera
+identidad) y `Iid` + `IS` (episodios iid). Todo integrado a `verificar.sh`,
+`Audit.lean` y el dashboard.
+
+### Corrida
+- **#7 `thm:ch10-identificacion` (COMPLETA — se cierra la parcial)**:
+  `ch10_identificacion_per_decision`: `J(e) = Σ_t γ^t E_b[W_t R_t]`, con
+  cada `E_b[W_t R_t]` en forma prefijo (razón `W_t` + recompensa del paso
+  `t`; el sufijo se promedia a uno bajo `b`). Base no enunciada: lema
+  maestro del lado e (`e_sum_return`, inducción sobre el horizonte: el
+  retorno descontado bajo la ley de la política se descompone por pasos,
+  con el término por decisión `eTerm` y sus recursiones en cero y sucesor).
+- **#8 `thm:ch10-is-insesgado` (COMPLETA, dos partes)**:
+  `ch10_is_insesgado` (E_b[Ĵ_IS] = J(e), con `n ≥ 1` episodios iid) y
+  `ch10_is_varianza` (Var_b(Ĵ_IS) = Var_b(WG)/n). Base no enunciada: la
+  capa iid genérica sobre `Fin.snocEquiv` (`iid_prod_one`,
+  `iid_sum_mean`, `iid_sum2_mean`: normalización, esperanza y segundo
+  momento de sumas de coordenadas iid, con término cruzado
+  `n(n−1)·E[f]·E[g]`), y el episodio como par (s₀, τ) con
+  `epProb = ν·bweight` y `epWG = rhow·trajReturn`. Las condiciones de
+  integrabilidad del libro son automáticas en el modelo finito (declarado
+  en los docstrings).
+
+### Verificación
+`./verificar.sh` → **EXIT 0**: 5 módulos, **21 teoremas**, todos con
+axiomas `[propext, Classical.choice, Quot.sound]`, 0 `sorry`. Cobertura:
+**P1 11/14** (quedan #9 curse, #12 certificados de parada, #13 SSCH) ·
+P2 0/13 · P3 0/8 — total 11/35 filas.
+
+### Pendiente
+P1: #9 (cota curse + ejemplo exacto c^H−1), #12 (certificados de parada;
+la capa MDP de t21 es su base), #13 (SSCH racionales). Commit y push
+autorizados («otro push único»).
