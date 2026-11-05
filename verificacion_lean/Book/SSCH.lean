@@ -245,25 +245,25 @@ theorem ssch_secuencial :
     norm_num
   · norm_num
 
-/-! ## Minimax aleatorizado (cap02_wald.typ:183) -/
+/-! ## Minimax aleatorizado (cap02_wald.typ:184) -/
 
-/-- book: capitulos/cap02_wald.typ:183 (key: ex:ssch-cap07) — riesgo de
+/-- book: capitulos/cap02_wald.typ:184 (key: ex:ssch-cap07) — riesgo de
 una regla aleatorizada `δ : Y → A → ℝ` (filas no negativas que suman 1):
 `R̄(θ, δ) = ∑_y P_θ(y) ∑_a δ(y,a) L(θ,a)`. -/
 noncomputable def rrisk (δ : Bool → Bool → ℝ) (θ : Bool) : ℝ :=
   ∑ y, qSSCH θ y * ∑ a, δ y a * LSSCH θ a
 
-/-- book: capitulos/cap02_wald.typ:183 (key: ex:ssch-cap07) — prior del
+/-- book: capitulos/cap02_wald.typ:184 (key: ex:ssch-cap07) — prior del
 certificado minimax: `ν*(1) = 1/2`. -/
 noncomputable def nuStar : Bool → ℝ := fun _ => 1 / 2
 
-/-- book: capitulos/cap02_wald.typ:183 (key: ex:ssch-cap07) — regla
+/-- book: capitulos/cap02_wald.typ:184 (key: ex:ssch-cap07) — regla
 aleatorizada óptima en peor caso: intensificar siempre si `X = 1`; si
 `X = 0`, intensificar con probabilidad `3/8` (y ordinario con `5/8`). -/
 noncomputable def dStar : Bool → Bool → ℝ :=
   fun y a => if y then (if a then 1 else 0) else (if a then 3 / 8 else 5 / 8)
 
-/-- book: capitulos/cap02_wald.typ:183 (key: ex:ssch-cap07) — los dos
+/-- book: capitulos/cap02_wald.typ:184 (key: ex:ssch-cap07) — los dos
 riesgos de `δ*` valen `1/2` (regla igualadora; el libro: «sus riesgos son
 ambos 1/2, inferiores a 0.8»).
 Origen: F1 2026-11-04 (nuevo). -/
@@ -275,7 +275,7 @@ theorem ssch_minimax_riesgos :
   · simp [rrisk, qSSCH, LSSCH, dStar]
     norm_num
 
-/-- book: capitulos/cap02_wald.typ:183 (key: ex:ssch-cap07) — certificado
+/-- book: capitulos/cap02_wald.typ:184 (key: ex:ssch-cap07) — certificado
 por el prior `ν*(1) = 1/2`: el posterior de `θ=1` tras `X=0` es exactamente
 `1/5` (el umbral de indiferencia); tras `X=1` es `4/5` y conviene
 intensificar. Junto con el riesgo constante de `δ*`, este es el
@@ -296,7 +296,7 @@ theorem ssch_minimax_certificado :
     simp [mPred, qSSCH, nuStar]
     norm_num
 
-/-- book: capitulos/cap02_wald.typ:183 (key: ex:ssch-cap07) — cota minimax
+/-- book: capitulos/cap02_wald.typ:184 (key: ex:ssch-cap07) — cota minimax
 en la clase ampliada: toda regla aleatorizada (filas no negativas que
 suman 1) tiene riesgo `≥ 1/2` en alguno de los dos modelos. Prueba
 directa: `R̄(0,δ) + R̄(1,δ) = 1 + 3·δ(X=1, a=0) ≥ 1`, luego algún modelo
@@ -322,7 +322,7 @@ theorem ssch_minimax_cota (δ : Bool → Bool → ℝ)
   have h3 : 0 ≤ δ true false := h0 true false
   linarith
 
-/-- book: capitulos/cap02_wald.typ:183 (key: ex:ssch-cap07) — `δ*` es
+/-- book: capitulos/cap02_wald.typ:184 (key: ex:ssch-cap07) — `δ*` es
 minimax en la clase ampliada: su peor riesgo es exactamente `1/2` y
 ninguna regla aleatorizada baja de `1/2` en peor caso. La elección de la
 clase cambia la respuesta aunque los datos y las pérdidas sean idénticos

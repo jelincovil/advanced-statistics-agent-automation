@@ -31,7 +31,7 @@ Generado por `Progress/gen_dashboard.py` el 2026-11-05 desde `Book/*.lean` y `bu
 | `ch10_is_insesgado` (`Cap07OPE.lean`) | `thm:ch10-is-insesgado` @ capitulos/cap07_ope.typ:218 | F1 2026-11-04 (nuevo) | `propext, Classical.choice, Quot.sound` | OK |
 | `ch10_is_varianza` (`Cap07OPE.lean`) | `thm:ch10-is-insesgado` @ capitulos/cap07_ope.typ:218 | F1 2026-11-04 (nuevo) | `propext, Classical.choice, Quot.sound` | OK |
 | `ch10_curse` (`Cap07OPE.lean`) | `thm:ch10-curse` @ capitulos/cap07_ope.typ:252 | F1 2026-11-04 (nuevo) | `propext, Classical.choice, Quot.sound` | OK |
-| `ch10_curse_ejemplo` (`Cap07OPE.lean`) | `thm:ch10-curse` @ capitulos/cap07_ope.typ:265 | F1 2026-11-04 (nuevo) | `propext, Classical.choice, Quot.sound` | OK |
+| `ch10_curse_ejemplo` (`Cap07OPE.lean`) | `thm:ch10-curse` @ capitulos/cap07_ope.typ:266 | F1 2026-11-04 (nuevo) | `propext, Classical.choice, Quot.sound` | OK |
 | `ssch_regla_ordinario` (`SSCH.lean`) | `ex:ssch-cap09` @ capitulos/cap05_incrustacion.typ:262 | F1 2026-11-04 (nuevo) | `propext, Classical.choice, Quot.sound` | OK |
 | `ssch_regla_intensificado` (`SSCH.lean`) | `ex:ssch-cap09` @ capitulos/cap05_incrustacion.typ:262 | F1 2026-11-04 (nuevo) | `propext, Classical.choice, Quot.sound` | OK |
 | `ssch_regla_seguir` (`SSCH.lean`) | `ex:ssch-cap09` @ capitulos/cap05_incrustacion.typ:262 | F1 2026-11-04 (nuevo) | `propext, Classical.choice, Quot.sound` | OK |
@@ -42,10 +42,10 @@ Generado por `Progress/gen_dashboard.py` el 2026-11-05 desde `Book/*.lean` y `bu
 | `ssch_bayes_sigue` (`SSCH.lean`) | `ex:ssch-cap09` @ capitulos/cap05_incrustacion.typ:262 | F1 2026-11-04 (nuevo) | `propext, Classical.choice, Quot.sound` | OK |
 | `ssch_retornos` (`SSCH.lean`) | `ex:ssch-cap09` @ capitulos/cap05_incrustacion.typ:262 | F1 2026-11-04 (nuevo) | `propext, Classical.choice, Quot.sound` | OK |
 | `ssch_secuencial` (`SSCH.lean`) | `ex:ssch-cap09` @ capitulos/cap05_incrustacion.typ:262 | F1 2026-11-04 (nuevo) | `propext, Classical.choice, Quot.sound` | OK |
-| `ssch_minimax_riesgos` (`SSCH.lean`) | `ex:ssch-cap07` @ capitulos/cap02_wald.typ:183 | F1 2026-11-04 (nuevo) | `propext, Classical.choice, Quot.sound` | OK |
-| `ssch_minimax_certificado` (`SSCH.lean`) | `ex:ssch-cap07` @ capitulos/cap02_wald.typ:183 | F1 2026-11-04 (nuevo) | `propext, Classical.choice, Quot.sound` | OK |
-| `ssch_minimax_cota` (`SSCH.lean`) | `ex:ssch-cap07` @ capitulos/cap02_wald.typ:183 | F1 2026-11-04 (nuevo) | `propext, Classical.choice, Quot.sound` | OK |
-| `ssch_minimax` (`SSCH.lean`) | `ex:ssch-cap07` @ capitulos/cap02_wald.typ:183 | F1 2026-11-04 (nuevo) | `propext, Classical.choice, Quot.sound` | OK |
+| `ssch_minimax_riesgos` (`SSCH.lean`) | `ex:ssch-cap07` @ capitulos/cap02_wald.typ:184 | F1 2026-11-04 (nuevo) | `propext, Classical.choice, Quot.sound` | OK |
+| `ssch_minimax_certificado` (`SSCH.lean`) | `ex:ssch-cap07` @ capitulos/cap02_wald.typ:184 | F1 2026-11-04 (nuevo) | `propext, Classical.choice, Quot.sound` | OK |
+| `ssch_minimax_cota` (`SSCH.lean`) | `ex:ssch-cap07` @ capitulos/cap02_wald.typ:184 | F1 2026-11-04 (nuevo) | `propext, Classical.choice, Quot.sound` | OK |
+| `ssch_minimax` (`SSCH.lean`) | `ex:ssch-cap07` @ capitulos/cap02_wald.typ:184 | F1 2026-11-04 (nuevo) | `propext, Classical.choice, Quot.sound` | OK |
 
 ## Cobertura del inventario (plan §2)
 

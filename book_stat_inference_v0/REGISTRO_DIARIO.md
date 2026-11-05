@@ -1218,3 +1218,29 @@ axiomas `[propext, Classical.choice, Quot.sound]`, 0 `sorry`. Cobertura:
 ### Pendiente
 P1 cerrado. P2/P3 no empiezan sin aviso del autor (decisión del plan:
 fases en orden, con confirmación).
+
+## 2026-11-05 (t24) — F1 post-cierre: corrección de citas de línea y README
+
+### Entregable
+Corrección de trazabilidad hallada en la auditoría de cierre: las citas
+`cap02_wald.typ:183` → `184` (×8 en `Book/SSCH.lean`: 7 docstrings + el
+encabezado de la sección minimax) y `cap07_ope.typ:265` → `266` (×2 en
+`Book/Cap07OPE.lean`: el docstring de `ch10_curse_ejemplo` + su
+encabezado de sección). README de `verificacion_lean/` actualizado del
+estado F0 al F1: orden de compilación real de los 7 módulos y árbol de
+módulos con las filas P1 que cubre cada uno.
+
+### Corrida
+Sin cambios de enunciados ni de pruebas — solo comentarios y
+documentación. Las demás citas se verificaron exactas (`cap03_mdp.typ:82/
+89/107`, `cap07_ope.typ:252`, `cap05_incrustacion.typ:262`).
+
+### Verificación
+`./verificar.sh` → **EXIT 0**: 6 módulos, 40 teoremas, 0 sorry, axiomas
+`[propext, Classical.choice, Quot.sound]` ×40. Dashboard regenerado:
+cambia la columna de origen de las 5 filas afectadas (los otros 3
+docstrings corregidos son de `def`s — `rrisk`, `nuStar`, `dStar` — que
+el dashboard no lista).
+
+### Pendiente
+P2/P3 sin empezar (esperando aviso del autor).

@@ -13,7 +13,8 @@ cd verificacion_lean
 ```
 
 `verificar.sh` compila cada módulo con `lean` directo (Foundation →
-Cap05Representacion → Audit) usando el `LEAN_PATH` del entorno (Mathlib
+Cap05Representacion → Cap07OPE → Cap06Fronteras → Cap03MDP → SSCH →
+Audit) usando el `LEAN_PATH` del entorno (Mathlib
 precompilada), vuelca la auditoría de axiomas a `build/axioms.log` y falla
 si aparece un `sorry` en `Book/` o el axioma prohibido en la auditoría.
 Verde = exit 0 con el mensaje final `OK: verificar.sh en verde`.
@@ -36,9 +37,11 @@ python3 Progress/gen_dashboard.py
   Thompson Sampling, SPRT, James–Stein, …) quedan fuera por decisión del
   autor — lista cerrada en el plan §1.
 - Inventario priorizado P1/P2/P3 con las claves del libro: plan §2.
-- Estado: **F0 cerrada** — P1 #1–#4 (los tres teoremas del piloto +
-  `cor:ch7-traduccion`, minimax) verificados; 5 teoremas, 0 `sorry`,
-  axiomas limpios.
+- Estado: **F1 cerrada** — P1 completo (14/14 filas del plan §2): F0
+  (piloto + minimax), secuencial/Bellman, identificación, IS, curse, DR,
+  mejora y certificados de parada, SSCH y transporte de conjuntos;
+  40 teoremas, 0 `sorry`, axiomas limpios. P2 (13 filas) y P3 (8) sin
+  empezar — no arrancan sin aviso del autor.
 
 ## Política de calidad (plan §6, no negociable)
 
@@ -62,7 +65,11 @@ lean-toolchain, lakefile.toml    # portabilidad/CI (el runner local es verificar
 verificar.sh                     # runner canónico (puerta de cada fase)
 Book/
   Foundation.lean                # problema de Wald finito: risk, mdpReturn, dominates…
-  Cap05Representacion.lean       # cap. 5: P1 #1–#4 (piloto migrado + minimax)
+  Cap05Representacion.lean       # cap. 5: P1 #1–#6 (piloto + minimax + secuencial/Bellman)
+  Cap07OPE.lean                  # cap. 7: P1 #7–#10 (identificación, IS, curse, DR)
+  Cap06Fronteras.lean            # cap. 6: P1 #14 (transporte de conjuntos, R1)
+  Cap03MDP.lean                  # cap. 3: P1 #11–#12 (mejora, pi-finita, contracción, parada)
+  SSCH.lean                      # hilo longitudinal SSCH: P1 #13 (racionales exactos)
   Audit.lean                     # #print axioms de cada teorema
 Progress/
   DASHBOARD.md                   # teorema ↔ clave ↔ origen ↔ axiomas (generado)

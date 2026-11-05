@@ -1406,7 +1406,7 @@ theorem ch10_curse (H n : ℕ) (hn : 0 < n) (C B : ℝ) (hC0 : 0 ≤ C)
 
 end Curse
 
-/-! ### Ejemplo exacto Bernoulli del curse (cap07_ope.typ:265) -/
+/-! ### Ejemplo exacto Bernoulli del curse (cap07_ope.typ:266) -/
 
 section CurseEjemplo
 
@@ -1504,7 +1504,7 @@ private theorem epWB_two (p qb : ℝ) (hqb0 : 0 < qb) (hqb1 : qb < 1) (H : ℕ) 
   have hb2 : 1 - qb ≠ 0 := sub_ne_zero_of_ne (ne_of_gt hqb1)
   rw [c_forms p qb hb1 hb2]
 
-/-- book: capitulos/cap07_ope.typ:265 (key: thm:ch10-curse) —
+/-- book: capitulos/cap07_ope.typ:266 (key: thm:ch10-curse) —
 ejemplo exacto del curse of horizon: un estado, `H` acciones iid
 Bernoulli(`qb`) bajo el registro, Bernoulli(`p`) bajo evaluación,
 recompensa terminal uno (las demás cero), `γ = 1`. El valor es uno pero IS
