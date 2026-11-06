@@ -187,6 +187,45 @@ theorem ex_ch5_cadena :
   · rw [tsum_geometric_two' (24:ℝ)]
     norm_num
 
+/-- book: capitulos/cap06_fallos.typ:343 (key: ex:ch5-cadena) —
+varianza finita exacta de la media muestral en la cadena de dos
+estados: `Var(X̄_T) = 24/T + 48/T²·Σ_{k=1}^{T−1}(T−k)(1/2)^k` (la
+fórmula finita del libro). En `T = 100` el valor exacto es
+`444/625 + 3/(625·2^99)`: `444/625 = 0.7104` es exactamente el
+«aproximadamente 0.7104» del libro y `3/(625·2^99)` es la corrección
+exponencialmente pequeña. Fidelidad declarada: evaluación puntual en
+`T = 100`; la suma se evalúa en su forma escalada en naturales
+(`Σ_{k=1}^{99}(100−k)·2^{99−k} = 98·2^99 + 1`, por `decide`) con el
+puente a ℝ vía `Nat.cast`; la fórmula general para todo `T` no se
+enuncia aquí.
+Origen: t28 2026-11-06 (nuevo; la referencia a este teorema quedaba
+colgante en el docstring de `ex_ch5_cadena`). -/
+theorem ex_ch5_cadena_varianza_finita :
+    (24:ℝ)/100 + 48/(100:ℝ)^2 * ∑ k ∈ Finset.Icc (1:ℕ) 99, ((100:ℝ) - (k:ℝ)) * (1/2)^k
+      = 444/(625:ℝ) + 3/(625:ℝ) * (1/2)^99 := by
+  have hnat : ∑ k ∈ Finset.Icc (1:ℕ) 99, (100 - k) * 2^(99 - k) = 98 * 2^99 + 1 := by
+    decide
+  have hterm : ∀ k ∈ Finset.Icc (1:ℕ) 99,
+      ((100:ℝ) - (k:ℝ)) * (1/2)^k
+        = (((100 - k) * 2^(99 - k) : ℕ) : ℝ) * (1/2)^99 := by
+    intro k hk
+    have hk' := Finset.mem_Icc.mp hk
+    have hk100 : k ≤ 100 := by omega
+    have hpow : ((1/2:ℝ)^(k:ℕ)) * (2:ℝ)^(99:ℕ) = (2:ℝ)^(99 - k) := by
+      have hexp : (k:ℕ) + (99 - k) = 99 := by omega
+      calc ((1/2:ℝ)^k) * (2:ℝ)^99 = ((1/2:ℝ)^k) * ((2:ℝ)^k * (2:ℝ)^(99-k)) := by
+            rw [← pow_add, hexp]
+        _ = (((1/2:ℝ) * (2:ℝ))^k) * (2:ℝ)^(99-k) := by
+            rw [mul_pow]; ring
+        _ = (2:ℝ)^(99-k) := by norm_num
+    have hpow' : ((1/2:ℝ)^(k:ℕ)) = (2:ℝ)^(99 - k) * (1/2)^99 := by
+      rw [← hpow, mul_assoc, ← mul_pow]
+      norm_num
+    rw [Nat.cast_mul, Nat.cast_pow, Nat.cast_sub hk100, hpow']
+    ring
+  rw [Finset.sum_congr rfl (fun k hk => hterm k hk), ← Finset.sum_mul, ← Nat.cast_sum, hnat]
+  norm_num
+
 /-! ## ex:ch11-pg-ssch — estado continuo y gradiente verificable -/
 
 /-- book: capitulos/cap08_intervalos.typ:529 (key: ex:ch11-pg-ssch) —
@@ -203,9 +242,9 @@ Origen: F3 2026-11-05 (nuevo). -/
 theorem ex_ch11_pg_ssch :
     (∫ x in (-1:ℝ)..1, x ^ 2 = 2 / 3)
     ∧ (∫ x in (-1:ℝ)..1, x ^ 4 = 2 / 5)
-    ∧ ((1 / 2) * (1 / 2) * (2 / 3) / 4 = 1 / 12)
+    ∧ (((1:ℝ) / 2) * (2 / 3) * (1 / 2) * (1 / 2) = 1 / 12)
     ∧ (((1 / 2) * ((1:ℝ) / 5) / 4) - (1 / 12) * (1 / 12) = 13 / 720)
-    ∧ (((1 / 5) / 16) - ((1 / 3) / 4) * ((1 / 3) / 4) = 1 / 180)
+    ∧ ((((1:ℝ) / 5) / 16) - ((1 / 3) / 4) * ((1 / 3) / 4) = 1 / 180)
     ∧ ((1:ℝ) - (1 / 180) / (13 / 720) = 9 / 13) := by
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_⟩
   · norm_num [integral_pow]
@@ -237,8 +276,8 @@ theorem ch11_tasa_tabular :
     ∧ ((1/2) * (∑ s' : Bool, |P2 true s' - μ2 s'|) = 3/10)
     ∧ ((1/2) * (∑ s' : Bool, |P2 false s' - μ2 s'|) = 1/5)
     -- las comparaciones clave (racionales: 72 ≤ 75 y 24 ≤ 25)
-    ∧ ((3/10) * (3/10) ≤ (1/4) * (3/2))
-    ∧ ((1/5) * (1/5) ≤ (1/4) * (2/3))
+    ∧ (((3:ℝ)/10) * (3/10) ≤ (1/4) * (3/2))
+    ∧ (((1:ℝ)/5) * (1/5) ≤ (1/4) * (2/3))
     -- la cota per-estado del libro (con la forma del TV escalado)
     ∧ (∀ k : ℕ, 1 ≤ k → ∀ s : Bool,
         (1/2) * (∑ s' : Bool, |P2k k s s' - μ2 s'|)

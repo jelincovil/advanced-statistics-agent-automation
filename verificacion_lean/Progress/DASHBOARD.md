@@ -1,6 +1,6 @@
 # DASHBOARD — verificacion_lean
 
-Generado por `Progress/gen_dashboard.py` el 2026-11-05 desde `Book/*.lean` y `build/axioms.log`. No editar a mano.
+Generado por `Progress/gen_dashboard.py` el 2026-11-06 desde `Book/*.lean` y `build/axioms.log`. No editar a mano.
 
 ## Teoremas verificados
 
@@ -30,7 +30,7 @@ Generado por `Progress/gen_dashboard.py` el 2026-11-05 desde `Book/*.lean` y `bu
 | `ex_ch9_observabilidad_parcial` (`Cap06Fronteras.lean`) | `ex:ch9-observabilidad-parcial` @ capitulos/cap06_fallos.typ:56 | F3 2026-11-05 (nuevo) | `propext, Classical.choice, Quot.sound` | OK |
 | `ex_ch9_confounding` (`Cap06Fronteras.lean`) | `ex:ch9-confounding` @ capitulos/cap06_fallos.typ:91 | F3 2026-11-05 (nuevo) | `propext, Classical.choice, Quot.sound` | OK |
 | `ex_ch9_fallo_mixing` (`Cap06Fronteras.lean`) | `ex:ch9-fallo-mixing` @ capitulos/cap06_fallos.typ:240 | F3 2026-11-05 (nuevo) | `propext, Classical.choice, Quot.sound` | OK |
-| `ex_ch9_fallo_overlap` (`Cap06Fronteras.lean`) | `ex:ch9-fallo-overlap` @ capitulos/cap06_fallos.typ:249 | F3 2026-11-05 (nuevo) | `propext, Classical.choice, Quot.sound` | OK |
+| `ex_ch9_fallo_overlap` (`Cap06Fronteras.lean`) | `ex:ch9-fallo-overlap` @ capitulos/cap06_fallos.typ:249 | F3 2026-11-05 (nuevo); la omisión de la parte (i) declarada en | `propext, Classical.choice, Quot.sound` | OK |
 | `ex_ch6_memoria` (`Cap06Fronteras.lean`) | `ex:ch6-memoria` @ capitulos/cap06_fallos.typ:408 | F3 2026-11-05 (nuevo) | `propext, Classical.choice, Quot.sound` | OK |
 | `ex_ch6_minimax_dominada` (`Cap06Fronteras.lean`) | `ex:ch6-minimax-dominada` @ capitulos/cap06_fallos.typ:551 | F3 2026-11-05 (nuevo) | `propext, Classical.choice, Quot.sound` | OK |
 | `ch10_identificacion` (`Cap07OPE.lean`) | `thm:ch10-identificacion` @ capitulos/cap07_ope.typ:140 | F1 2026-11-04 (nuevo) | `propext, Classical.choice, Quot.sound` | OK |
@@ -47,6 +47,7 @@ Generado por `Progress/gen_dashboard.py` el 2026-11-05 desde `Book/*.lean` y `bu
 | `ch11_baseline` (`Cap08Intervalos.lean`) | `prop:ch11-baseline` @ capitulos/cap08_intervalos.typ:467 | F3 2026-11-05 (nuevo) | `propext, Classical.choice, Quot.sound` | OK |
 | `ch11_baseline_ejemplo` (`Cap08Intervalos.lean`) | `ex:ssch-drl-cap11` @ capitulos/cap08_intervalos.typ:480 | F3 2026-11-05 (nuevo) | `propext, Classical.choice, Quot.sound` | OK |
 | `ex_ch5_cadena` (`Cap08Intervalos.lean`) | `ex:ch5-cadena` @ capitulos/cap06_fallos.typ:343 | F3 2026-11-05 (nuevo) | `propext, Classical.choice, Quot.sound` | OK |
+| `ex_ch5_cadena_varianza_finita` (`Cap08Intervalos.lean`) | `ex:ch5-cadena` @ capitulos/cap06_fallos.typ:343 | t28 2026-11-06 (nuevo; la referencia a este teorema quedaba | `propext, Classical.choice, Quot.sound` | OK |
 | `ex_ch11_pg_ssch` (`Cap08Intervalos.lean`) | `ex:ch11-pg-ssch` @ capitulos/cap08_intervalos.typ:529 | F3 2026-11-05 (nuevo) | `propext, Classical.choice, Quot.sound` | OK |
 | `ch11_tasa_tabular` (`Cap08Intervalos.lean`) | `thm:ch11-tasa-tabular` @ capitulos/cap08_intervalos.typ:110 | F3 2026-11-05 (nuevo) | `propext, Classical.choice, Quot.sound` | OK |
 | `ch11_cuantizacion_ejemplo` (`Cap11Despliegue.lean`) | `cap11-cuantizacion` @ capitulos/cap11_despliegue.typ:101 | F3 2026-11-05 (nuevo) | `propext, Classical.choice, Quot.sound` | OK |

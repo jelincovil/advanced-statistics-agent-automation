@@ -65,6 +65,7 @@ import Book.Cap07OPE
 #print axioms ch11_baseline
 #print axioms ch11_baseline_ejemplo
 #print axioms ex_ch5_cadena
+#print axioms ex_ch5_cadena_varianza_finita
 #print axioms ex_ch11_pg_ssch
 #print axioms ch11_tasa_tabular
 #print axioms ch11_cuantizacion_ejemplo

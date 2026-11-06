@@ -1327,3 +1327,73 @@ Dashboard: **P1 14/14 · P2 13/13 · P3 8/8** — total **35/35 filas**,
 Nada del inventario. El push queda a la palabra del autor: el remoto
 está en `8bc3a39` (F1); `8acf3ac` (F2+F3 parcial) y este commit no se
 han empujado.
+
+## 2026-11-06 (t27) — Auditoría de enunciados F0–F2 contra los .typ
+
+### Entregable
+Revisión de fidelidad de los **59** teoremas de F0–F2 (57 con docstring +
+`ch7_complete_class_esencial` y `ex_ch9_fallo_overlap_instancia`) contra
+los pasajes citados de `capitulos/*.typ`: hipótesis, cuantificadores,
+clase de comparación, fuerza y números. Informe completo en
+`verificacion_lean/Progress/AUDITORIA_ENUNCIADOS_2026-11-06.md`.
+
+### Hallazgos
+**55/59 fieles.** Defecto crítico en 4 teoremas: **siete conjunciones
+elaboran en ℕ** (raciales literales sin ascrito dentro de conjunciones
+`∧` sin conductor ℝ → división truncada → `0=0` vacío): el gradiente 1/12
+y la varianza 1/180 de `ex_ch11_pg_ssch` (el gradiente además mal
+codificado: en ℝ daría 1/24), el cambio 1/100 y la cota 1/40 de
+`ch11_cuantizacion_ejemplo`, la covarianza 1/4 de `ex_ch9_fallo_mixing` y
+las dos comparaciones decorativas de `ch11_tasa_tabular` (su contenido
+sustantivo sí está verificado). Es la trampa documentada del proyecto
+(pagada en Cap07OPE) reaparecida en tres módulos; confirmada con `#check`
+aislado. Además: referencia colgante a `ex_ch5_cadena_varianza_finita`
+(no existe; la fórmula finita T=100 del libro y del plan #31 sin
+formalizar) y cobertura parcial no declarada de `ex_ch9_fallo_overlap`
+(solo la mitad de solapamiento débil). Corrige además dos afirmaciones
+propias de la sesión anterior: #28 y #34 no estaban totalmente verificados.
+
+### Verificación
+Sin cambios en `Book/`; `verificar.sh` sigue en el estado verde de t26
+(9 módulos, 65 teoremas, 0 sorry) — el verde no distingue conjunciones
+vacuas de ℕ, que es exactamente lo que esta auditoría añade al control.
+
+### Pendiente
+Aplicación de las correcciones propuestas (ascritos `:ℝ` + gradiente
+corregido + varianza finita de la cadena + declaración del overlap),
+re-corrida de `verificar.sh` y dashboard — **a la espera del autor**.
+Nada commiteado.
+
+## 2026-11-06 (t28) — Aplicación de las correcciones de la auditoría t27
+
+### Entregable
+(1) Ascritos `:ℝ` en las siete conjunciones que elaboraban en ℕ (H1):
+`ex_ch11_pg_ssch` (gradiente y varianza baseline), `ch11_cuantizacion_ejemplo`
+(cambio y cota), `ex_ch9_fallo_mixing` (covarianza) y `ch11_tasa_tabular` (las
+dos comparaciones decorativas); la expresión del gradiente quedó corregida a
+`E[S²]·p(1−p)` = `(1/2)·(2/3)·(1/2)·(1/2) = 1/12` (la anterior daba 1/24 en
+ℝ y solo «pasaba» por la vacuidad ℕ). Re-test con el mismo `#check` de la
+auditoría: las siete elaboran en ℝ. (2) Teorema nuevo
+`ex_ch5_cadena_varianza_finita` en `Cap08Intervalos.lean`: la fórmula finita
+del libro en `T = 100`, `24/100 + 48/100²·Σ_{k=1}^{99}(100−k)(1/2)^k =
+444/625 + 3/(625·2^99)` — `444/625 = 0.7104` exacto (el decimal del libro) y
+la corrección `3/(625·2^99)`; la suma se evalúa escalada en naturales
+(`Σ(100−k)·2^{99−k} = 98·2^99+1`, `decide`) con puente `Nat.cast` a ℝ; resuelve
+la referencia colgante del docstring de `ex_ch5_cadena` (H2). (3) Declarada en
+el docstring de `ex_ch9_fallo_overlap` la omisión de la parte (i) «sin
+soporte» del ejemplo del libro (H3). (4) `Audit.lean` +1 impresión.
+
+### Corrida
+`./verificar.sh` desde cero → EXIT 0: 9 módulos, **66 teoremas**, 0 sorry,
+axiomas `[propext, Classical.choice, Quot.sound]` ×65 y `[propext]` en
+`ch11_truncamiento`. Dashboard regenerado: **64 filas** de teoremas, 35/35
+claves (P1 14/14 · P2 13/13 · P3 8/8).
+
+### Verificación
+Las conjunciones corregidas son ahora identidades ℝ genuinas (norm_num las
+prueba en ℝ; antes eran `0=0` en ℕ). La auditoría t27 queda saldada: H1
+corregido y re-testeado, H2 resuelto con el teorema nuevo, H3 declarado.
+
+### Pendiente
+Commit de t27+t28 (informe de auditoría + correcciones + registro) a la
+palabra del autor. Sin push.

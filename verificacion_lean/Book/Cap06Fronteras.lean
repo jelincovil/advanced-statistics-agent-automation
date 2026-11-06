@@ -124,7 +124,7 @@ Origen: F3 2026-11-05 (nuevo). -/
 theorem ex_ch9_fallo_mixing (n : ℕ) (hn : 0 < n) :
     (∀ z : Bool, (∑ i : Fin n, (if z then (1:ℝ) else 0)) / (n : ℝ)
       = (if z then (1:ℝ) else 0))
-    ∧ (∑ z : Bool, (1 / 2) * ((if z then 1 else 0) - 1 / 2)
+    ∧ (∑ z : Bool, ((1:ℝ) / 2) * ((if z then 1 else 0) - 1 / 2)
           * ((if z then 1 else 0) - 1 / 2)) = 1 / 4 := by
   have hnR : ((n:ℝ)) ≠ 0 := ne_of_gt (Nat.cast_pos.mpr hn)
   have hc : (Finset.univ : Finset (Fin n)).card = n := by
@@ -143,11 +143,18 @@ theorem ex_ch9_fallo_mixing (n : ℕ) (hn : 0 < n) :
 /-! ### ex:ch9-fallo-overlap -/
 
 /-- book: capitulos/cap06_fallos.typ:249 (key: ex:ch9-fallo-overlap) —
-solapamiento débil: con `π_b(1) = ε > 0`, `π_e(1) = 9/10` y recompensa
-`R = A`, la contribución IS vale `W = (9/10)/ε` con probabilidad `ε` y
-cero en otro caso: `E[W] = 9/10` y `Var(W) = (81/100)(1/ε − 1)`. Con
-`ε = 1/100` la varianza es `8019/100 = 80.19`: finita, pero grande.
-Origen: F3 2026-11-05 (nuevo). -/
+el ejemplo del libro tiene dos partes. (i) Sin soporte: el registro
+contiene solo `A = 0` con recompensa cero; dos modelos asignan a la
+acción nunca observada recompensas cero y uno, generan exactamente los
+mismos registros y sus valores objetivo son cero y `9/10` — sin
+identificación puntual. Esta parte NO se formaliza aquí. (ii)
+Solapamiento débil (la parte verificada): con `π_b(1) = ε > 0`,
+`π_e(1) = 9/10` y recompensa `R = A`, la contribución IS vale
+`W = (9/10)/ε` con probabilidad `ε` y cero en otro caso: `E[W] = 9/10`
+y `Var(W) = (81/100)(1/ε − 1)`. Con `ε = 1/100` la varianza es
+`8019/100 = 80.19`: finita, pero grande.
+Origen: F3 2026-11-05 (nuevo); la omisión de la parte (i) declarada en
+t28 2026-11-06. -/
 theorem ex_ch9_fallo_overlap (ε : ℝ) (hε0 : 0 < ε) (hε1 : ε ≤ 1) :
     (∑ b : Bool, (if b then ε else 1 - ε) * (if b then (9 / 10) / ε else 0)) = 9 / 10
     ∧ (∑ b : Bool, (if b then ε else 1 - ε)
