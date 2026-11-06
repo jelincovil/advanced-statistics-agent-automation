@@ -1,0 +1,172 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Evidence receipt v1 — authenticity requires replay or explicit attestation",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": "1.0"
+    },
+    "id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "spec_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "spec_hash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "source_commit": {
+      "type": "string",
+      "minLength": 1
+    },
+    "environment_hash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "checker_version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "command_argv": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string"
+      }
+    },
+    "working_directory": {
+      "type": "string",
+      "minLength": 1
+    },
+    "input_hashes": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string",
+        "pattern": "^[0-9a-f]{64}$"
+      }
+    },
+    "started_at": {
+      "type": "string",
+      "minLength": 1
+    },
+    "finished_at": {
+      "type": "string",
+      "minLength": 1
+    },
+    "exit_status": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "termination": {
+      "enum": [
+        "completed",
+        "timeout",
+        "resource_limit",
+        "launch_failed"
+      ]
+    },
+    "stdout_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "stderr_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "artifacts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "path",
+          "sha256"
+        ],
+        "properties": {
+          "path": {
+            "type": "string",
+            "minLength": 1
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          }
+        }
+      }
+    },
+    "execution_passed": {
+      "type": "boolean"
+    },
+    "scientific_criterion_met": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "observed_checks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "status",
+          "detail"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "status": {
+            "enum": [
+              "pass",
+              "fail",
+              "skip",
+              "pending"
+            ]
+          },
+          "detail": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "trust_mode": {
+      "enum": [
+        "locally_reproduced",
+        "untrusted_import",
+        "attested_by_configured_policy"
+      ]
+    }
+  },
+  "required": [
+    "schema_version",
+    "id",
+    "spec_id",
+    "spec_hash",
+    "source_commit",
+    "environment_hash",
+    "checker_version",
+    "command_argv",
+    "working_directory",
+    "input_hashes",
+    "started_at",
+    "finished_at",
+    "exit_status",
+    "termination",
+    "stdout_sha256",
+    "stderr_sha256",
+    "artifacts",
+    "execution_passed",
+    "scientific_criterion_met",
+    "observed_checks",
+    "trust_mode"
+  ]
+}

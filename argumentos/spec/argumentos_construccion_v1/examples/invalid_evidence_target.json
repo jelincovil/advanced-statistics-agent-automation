@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "claims": [
+    {
+      "id": "C.risk_return.finite",
+      "book_key": "thm:ch9-isomorfismo",
+      "kind": "formal",
+      "statement": "Identidad finita mdpReturn P L theta delta = -risk P L theta delta; enlace semántico pendiente de auditoría.",
+      "expression": {
+        "op": "atom",
+        "id": "wald_risk_return_finite"
+      },
+      "scope": {
+        "observations": "finite",
+        "weights": "real_arbitrary"
+      },
+      "assumptions": []
+    }
+  ],
+  "arguments": [
+    {
+      "id": "A.risk_return",
+      "conclusion": "C.risk_return.finite",
+      "premises": [],
+      "rule": "LEAN_ANCHOR",
+      "evidence_specs": [
+        "E.risk_return"
+      ]
+    }
+  ],
+  "evidence_specs": [
+    {
+      "id": "E.risk_return",
+      "kind": "lean",
+      "claim_id": "C.other",
+      "runner_id": "lean.book.wrapper",
+      "target": "ch9_isomorfismo",
+      "scope": {
+        "observations": "finite",
+        "weights": "real_arbitrary"
+      },
+      "availability": "pending"
+    }
+  ]
+}

@@ -1,0 +1,4 @@
+Entrega MASTER_PROMPT.md íntegro a tu agente local, con acceso al repositorio y a esta carpeta.
+Ejemplo de instrucción inicial:
+«Lee MASTER_PROMPT.md de este paquete y todos los documentos que indica. Implementa el proyecto completo en el repositorio advanced-statistics-agent-automation siguiendo F0–F8. Conserva los cambios existentes. Empieza por F0 y continúa; guarda checkpoints y entrega evidencias reales, sin declarar completada una fase bloqueada.»
+El código incluido valida la entrega y una instancia SSCH; no es el sistema Rust final.

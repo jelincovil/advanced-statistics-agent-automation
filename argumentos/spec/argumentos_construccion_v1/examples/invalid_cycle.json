@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.0",
+  "claims": [
+    {
+      "id": "C.P",
+      "book_key": null,
+      "kind": "formal",
+      "statement": "C.P — ejemplo contractual, sin evidencia ejecutada",
+      "expression": {
+        "op": "atom",
+        "id": "P"
+      },
+      "scope": {
+        "domain": "finite"
+      },
+      "assumptions": [
+        "C.Q"
+      ]
+    },
+    {
+      "id": "C.PQ",
+      "book_key": null,
+      "kind": "formal",
+      "statement": "C.PQ — ejemplo contractual, sin evidencia ejecutada",
+      "expression": {
+        "op": "implies",
+        "antecedent": {
+          "op": "atom",
+          "id": "P"
+        },
+        "consequent": {
+          "op": "atom",
+          "id": "Q"
+        }
+      },
+      "scope": {
+        "domain": "finite"
+      },
+      "assumptions": []
+    },
+    {
+      "id": "C.Q",
+      "book_key": null,
+      "kind": "formal",
+      "statement": "C.Q — ejemplo contractual, sin evidencia ejecutada",
+      "expression": {
+        "op": "atom",
+        "id": "Q"
+      },
+      "scope": {
+        "domain": "finite"
+      },
+      "assumptions": []
+    }
+  ],
+  "arguments": [
+    {
+      "id": "A.Q",
+      "conclusion": "C.Q",
+      "premises": [
+        "C.P",
+        "C.PQ"
+      ],
+      "rule": "MODUS_PONENS",
+      "evidence_specs": []
+    }
+  ],
+  "evidence_specs": []
+}

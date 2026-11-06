@@ -32,3 +32,6 @@ verificacion_lean/build/
 
 # Cache del agente (no versionar)
 .scratch/
+
+# Rust build artifacts del workspace argumentos/
+argumentos/target/

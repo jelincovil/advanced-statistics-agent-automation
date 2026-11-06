@@ -1,0 +1,29 @@
+{
+  "phase": "F0",
+  "base_commit": "1c98d6b",
+  "implementation_commit": null,
+  "completed_gates": [
+    "F0"
+  ],
+  "pending_gates": [
+    "F1",
+    "F2",
+    "F3",
+    "F4",
+    "F5",
+    "F6",
+    "F7",
+    "F8"
+  ],
+  "blockers": [],
+  "commands_run": [
+    "python3 tools/validate_package.py -> PASS (11 fixtures, package self-check)",
+    "python3 tools/check_schema.py -> PASS (jsonschema disponible en el sistema)",
+    "./verificar.sh -> exit 0: 9 módulos, 66 teoremas, 0 sorry, axiomas [propext, Classical.choice, Quot.sound] x65 + [propext] x1",
+    "python3 verificacion/comprobar_hallazgos.py -> OK",
+    "python3 verificacion/comprobar_identidades.py -> OK",
+    "python3 verificacion/comprobar_secundarios.py -> OK",
+    "typst compile main.typ -> ver BASELINE.md (resultado de la corrida de línea base)"
+  ],
+  "next_action": "F1: workspace Cargo + CLI argumentos doctor + tipos serde con deny_unknown_fields + dependencias oficiales resueltas y Cargo.lock fijado"
+}

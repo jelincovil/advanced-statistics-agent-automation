@@ -1,0 +1,250 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:argumentos:kernel:1",
+  "title": "ARGUMENTOS pilot exchange v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "claims",
+    "arguments",
+    "evidence_specs"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "1.0"
+    },
+    "claims": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/claim"
+      }
+    },
+    "arguments": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/argument"
+      }
+    },
+    "evidence_specs": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/evidence"
+      }
+    }
+  },
+  "$defs": {
+    "expression": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "op": {
+              "const": "atom"
+            },
+            "id": {
+              "type": "string",
+              "pattern": "^[A-Za-z][A-Za-z0-9_.:-]*$"
+            }
+          },
+          "required": [
+            "op",
+            "id"
+          ]
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "op": {
+              "const": "implies"
+            },
+            "antecedent": {
+              "$ref": "#/$defs/expression"
+            },
+            "consequent": {
+              "$ref": "#/$defs/expression"
+            }
+          },
+          "required": [
+            "op",
+            "antecedent",
+            "consequent"
+          ]
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "op": {
+              "const": "and"
+            },
+            "items": {
+              "type": "array",
+              "minItems": 2,
+              "items": {
+                "$ref": "#/$defs/expression"
+              }
+            }
+          },
+          "required": [
+            "op",
+            "items"
+          ]
+        }
+      ]
+    },
+    "claim": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9_.:-]*$"
+        },
+        "book_key": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "kind": {
+          "enum": [
+            "formal",
+            "empirical",
+            "conditional",
+            "factual"
+          ]
+        },
+        "statement": {
+          "type": "string",
+          "minLength": 1
+        },
+        "expression": {
+          "$ref": "#/$defs/expression"
+        },
+        "scope": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "assumptions": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Za-z][A-Za-z0-9_.:-]*$"
+          }
+        }
+      },
+      "required": [
+        "id",
+        "book_key",
+        "kind",
+        "statement",
+        "expression",
+        "scope",
+        "assumptions"
+      ]
+    },
+    "argument": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9_.:-]*$"
+        },
+        "conclusion": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9_.:-]*$"
+        },
+        "premises": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Za-z][A-Za-z0-9_.:-]*$"
+          }
+        },
+        "rule": {
+          "enum": [
+            "LEAN_ANCHOR",
+            "LEAN_APPLY",
+            "AND_INTRO",
+            "MODUS_PONENS",
+            "EMPIRICAL_RECORD",
+            "CONDITIONAL_APPLICATION",
+            "ALIAS_EXACT"
+          ]
+        },
+        "evidence_specs": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Za-z][A-Za-z0-9_.:-]*$"
+          }
+        }
+      },
+      "required": [
+        "id",
+        "conclusion",
+        "premises",
+        "rule",
+        "evidence_specs"
+      ]
+    },
+    "evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9_.:-]*$"
+        },
+        "kind": {
+          "enum": [
+            "lean",
+            "python"
+          ]
+        },
+        "claim_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9_.:-]*$"
+        },
+        "runner_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9_.:-]*$"
+        },
+        "target": {
+          "type": "string",
+          "minLength": 1
+        },
+        "scope": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "availability": {
+          "enum": [
+            "pending",
+            "candidate"
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "kind",
+        "claim_id",
+        "runner_id",
+        "target",
+        "scope",
+        "availability"
+      ]
+    }
+  }
+}

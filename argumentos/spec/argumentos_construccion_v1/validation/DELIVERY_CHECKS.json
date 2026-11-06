@@ -1,0 +1,35 @@
+{
+  "scope": "Package validation, not target Rust implementation",
+  "checks": [
+    {
+      "command": [
+        "python3",
+        "tools/validate_package.py"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "stdout": "{\n  \"package_validation\": \"PASS\",\n  \"fixture_count\": 11,\n  \"checks\": [\n    {\n      \"file\": \"empirical_pending.json\",\n      \"expected_accept\": true,\n      \"reason\": \"structure_only_pending_evidence\"\n    },\n    {\n      \"file\": \"invalid_conclusion.json\",\n      \"expected_accept\": false,\n      \"reason\": \"mp_conclusion\"\n    },\n    {\n      \"file\": \"invalid_cycle.json\",\n      \"expected_accept\": false,\n      \"reason\": \"cycle\"\n    },\n    {\n      \"file\": \"invalid_duplicate_id.json\",\n      \"expected_accept\": false,\n      \"reason\": \"duplicate_id\"\n    },\n    {\n      \"file\": \"invalid_empirical_promotion.json\",\n      \"expected_accept\": false,\n      \"reason\": \"empirical_promotion\"\n    },\n    {\n      \"file\": \"invalid_evidence_target.json\",\n      \"expected_accept\": false,\n      \"reason\": \"evidence_target\"\n    },\n    {\n      \"file\": \"invalid_missing_premise.json\",\n      \"expected_accept\": false,\n      \"reason\": \"missing_premise\"\n    },\n    {\n      \"file\": \"invalid_scope.json\",\n      \"expected_accept\": false,\n      \"reason\": \"scope_mismatch\"\n    },\n    {\n      \"file\": \"invalid_self_approval.json\",\n      \"expected_accept\": false,\n      \"reason\": \"claim_fields\"\n    },\n    {\n      \"file\": \"lean_anchor_pending.json\",\n      \"expected_accept\": true,\n      \"reason\": \"structure_only_pending_evidence\"\n    },\n    {\n      \"file\": \"valid_structure_pending.json\",\n      \"expected_accept\": true,\n      \"reason\": \"structure_only_pending_evidence\"\n    }\n  ],\n  \"limit\": \"Not the Rust implementation; no scientific proof certification\"\n}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "python3",
+        "tools/check_schema.py"
+      ],
+      "exit_code": 2,
+      "status": "SKIP",
+      "stdout": "SKIP: jsonschema absent\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "python3",
+        "tools/ssch_reference.py"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "stdout": "{\"bayes_risk\": \"19/50\", \"experiment\": \"ssch_one_decision_exact_v1\", \"risk0\": \"1/5\", \"risk1\": \"4/5\", \"scope\": \"exact finite synthetic instance\"}\n",
+      "stderr": ""
+    }
+  ]
+}

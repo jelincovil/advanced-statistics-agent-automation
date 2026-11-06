@@ -1,0 +1,149 @@
+{
+  "version": "1.0",
+  "cases": [
+    {
+      "id": "N01",
+      "mutation": "Hipótesis omitida",
+      "expected": "Bloquear conclusión incondicional",
+      "implementation_status": "pending"
+    },
+    {
+      "id": "N02",
+      "mutation": "Signo de conclusión cambiado",
+      "expected": "Rechazar wrapper/AST",
+      "implementation_status": "pending"
+    },
+    {
+      "id": "N03",
+      "mutation": "Finito convertido en numerable",
+      "expected": "Rechazar ampliación de alcance",
+      "implementation_status": "pending"
+    },
+    {
+      "id": "N04",
+      "mutation": "sorryAx o axiom nuevo",
+      "expected": "Rechazar prueba",
+      "implementation_status": "pending"
+    },
+    {
+      "id": "N05",
+      "mutation": "Hash de evidencia cambiado",
+      "expected": "Marcar stale y descendientes",
+      "implementation_status": "pending"
+    },
+    {
+      "id": "N06",
+      "mutation": "Premisa inexistente",
+      "expected": "Rechazar referencia",
+      "implementation_status": "pending"
+    },
+    {
+      "id": "N07",
+      "mutation": "Ciclo de soporte",
+      "expected": "Rechazar derivación circular",
+      "implementation_status": "pending"
+    },
+    {
+      "id": "N08",
+      "mutation": "Simulación a teorema universal",
+      "expected": "Rechazar promoción",
+      "implementation_status": "pending"
+    },
+    {
+      "id": "N09",
+      "mutation": "Offset Unicode incorrecto",
+      "expected": "Marcar mapping pendiente",
+      "implementation_status": "pending"
+    },
+    {
+      "id": "N10",
+      "mutation": "Modelo se autoaprueba",
+      "expected": "Rechazar campo/ignorar estado candidato",
+      "implementation_status": "pending"
+    },
+    {
+      "id": "N11",
+      "mutation": "JSON duplicado/NaN",
+      "expected": "Rechazar entrada",
+      "implementation_status": "pending"
+    },
+    {
+      "id": "N12",
+      "mutation": "Ruta fuera de raíz/symlink",
+      "expected": "Rechazar acceso",
+      "implementation_status": "pending"
+    },
+    {
+      "id": "N13",
+      "mutation": "Timeout de solver",
+      "expected": "INCOMPLETE, nunca sin conflictos",
+      "implementation_status": "pending"
+    },
+    {
+      "id": "N14",
+      "mutation": "Cero extensiones",
+      "expected": "No inferir aceptación por vacuidad",
+      "implementation_status": "pending"
+    },
+    {
+      "id": "N15",
+      "mutation": "Cambio seed/criterio post hoc",
+      "expected": "Nueva evidencia y protocolo",
+      "implementation_status": "pending"
+    },
+    {
+      "id": "N16",
+      "mutation": "Mismo nombre Lean distinto tipo",
+      "expected": "Rechazar vínculo",
+      "implementation_status": "pending"
+    },
+    {
+      "id": "N17",
+      "mutation": "Salida Python cero sin artefacto",
+      "expected": "No aceptar evidencia",
+      "implementation_status": "pending"
+    },
+    {
+      "id": "N18",
+      "mutation": "Premisa pendiente",
+      "expected": "Conservar obligación",
+      "implementation_status": "pending"
+    },
+    {
+      "id": "N19",
+      "mutation": "Reglas alternativas una circular",
+      "expected": "Aceptar solo derivación acíclica válida",
+      "implementation_status": "pending"
+    },
+    {
+      "id": "N20",
+      "mutation": "Presupuesto GLM ausente",
+      "expected": "Replay; live pendiente",
+      "implementation_status": "pending"
+    },
+    {
+      "id": "N21",
+      "mutation": "AST Typst no evaluable",
+      "expected": "Inventariar unresolved",
+      "implementation_status": "pending"
+    },
+    {
+      "id": "N22",
+      "mutation": "Preferencia creada por LLM sin respaldo",
+      "expected": "No activar en proyección",
+      "implementation_status": "pending"
+    },
+    {
+      "id": "N23",
+      "mutation": "Episodios confundidos con pasos",
+      "expected": "Rechazar cambio de régimen",
+      "implementation_status": "pending"
+    },
+    {
+      "id": "N24",
+      "mutation": "No significativo implica igualdad",
+      "expected": "Hallazgo editorial, no aprobación",
+      "implementation_status": "pending"
+    }
+  ]
+}

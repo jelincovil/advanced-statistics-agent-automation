@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "claims": [
+    {
+      "id": "C.ssch.risk",
+      "book_key": null,
+      "kind": "formal",
+      "statement": "C.ssch.risk — ejemplo contractual, sin evidencia ejecutada",
+      "expression": {
+        "op": "atom",
+        "id": "ssch_risk_19_50"
+      },
+      "scope": {
+        "experiment": "ssch_one_decision_exact_v1",
+        "result": "19/50"
+      },
+      "assumptions": []
+    }
+  ],
+  "arguments": [
+    {
+      "id": "A.ssch",
+      "conclusion": "C.ssch.risk",
+      "premises": [],
+      "rule": "EMPIRICAL_RECORD",
+      "evidence_specs": [
+        "E.ssch"
+      ]
+    }
+  ],
+  "evidence_specs": [
+    {
+      "id": "E.ssch",
+      "kind": "python",
+      "claim_id": "C.ssch.risk",
+      "runner_id": "python.ssch.exact",
+      "target": "tools/ssch_reference.py",
+      "scope": {
+        "experiment": "ssch_one_decision_exact_v1",
+        "result": "19/50"
+      },
+      "availability": "pending"
+    }
+  ]
+}

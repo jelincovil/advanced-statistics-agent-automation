@@ -1,0 +1,13 @@
+{
+  "provider": "configured_glm_endpoint",
+  "base_url_env": "ARG_GLM_BASE_URL",
+  "api_key_env": "ARG_GLM_API_KEY",
+  "model_env": "ARG_GLM_MODEL",
+  "expected_model": "GLM 5.3 (confirmar identificador real)",
+  "live_enabled": false,
+  "temperature": 0,
+  "seed": null,
+  "max_requests": 0,
+  "store_raw_responses": true,
+  "mode": "replay"
+}
