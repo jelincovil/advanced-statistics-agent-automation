@@ -1,13 +1,13 @@
 {
-  "phase": "F1",
+  "phase": "F2",
   "base_commit": "1c98d6b",
-  "implementation_commit": "eb4832e",
+  "implementation_commit": "b73a49d",
   "completed_gates": [
     "F0",
-    "F1"
+    "F1",
+    "F2"
   ],
   "pending_gates": [
-    "F2",
     "F3",
     "F4",
     "F5",
@@ -17,18 +17,13 @@
   ],
   "blockers": [],
   "commands_run": [
-    "F0: python3 tools/validate_package.py -> PASS (11 fixtures)",
-    "F0: python3 tools/check_schema.py -> PASS",
-    "F0: ./verificar.sh -> exit 0: 9 módulos, 66 teoremas, 0 sorry",
-    "F0: python3 verificacion/comprobar_{hallazgos,identidades,secundarios}.py -> OK x3",
-    "F0: typst compile main.typ -> exit 0, 275 pp, 6.1 MB",
-    "F1: cargo add jsonschema --no-default-features typst-syntax petgraph -> 103 paquetes fijados en Cargo.lock",
-    "F1: rustup (perfil minimal + rustfmt + clippy) -> rustc 1.99.1; rust-toolchain.toml pineado",
-    "F1: cargo fmt --check -> OK",
-    "F1: cargo clippy --all-targets --locked -- -D warnings -> OK",
-    "F1: cargo test --locked -> 26 tests ok (21 unit + 5 contratos)",
-    "F1: cargo build/test --locked --offline -> OK",
-    "F1: cargo run -- doctor --repo .. -> exit 0, 12 sondas OK (manifiesto spec 39 archivos verificados)"
+    "F0: controles de línea base — ver BASELINE.md (todos verdes)",
+    "F1: build/test/clippy/fmt/doctor — ver CHANGELOG F1 (26 tests)",
+    "F2: cargo fmt --check -> OK",
+    "F2: cargo clippy --all-targets --locked -- -D warnings -> OK",
+    "F2: cargo test --locked -> 47 tests ok (21 lib + 21 checker + 5 contratos)",
+    "F2: check --kernel examples/valid_structure_pending.json -> ACEPTADO_CONDICIONAL, exit 0",
+    "F2: check --kernel examples/invalid_scope.json -> RECHAZADO ScopeMismatch, exit 3"
   ],
-  "next_action": "F2: checker independiente — resolución de IDs, DAG de soporte (petgraph), AST exacta, reglas del registro, obligaciones, scope, estados derivados e invalidación transitiva; pruebas P01-P10 y N01-N18 aplicables"
+  "next_action": "F3: evidencias — adaptadores Lean (exporter de declaraciones elaboradas con axiomas) y Python (SSCH racional por enumeración), specs y receipts reales, cache con hashes; piloto de cuatro claves del capítulo 5 y SSCH exacto"
 }

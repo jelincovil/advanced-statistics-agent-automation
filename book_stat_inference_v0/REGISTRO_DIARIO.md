@@ -1419,3 +1419,30 @@ rustfmt/clippy). Puertas F0 y F1: PASSED (fmt/clippy -D warnings/test
 ### Pendiente
 F2 (checker: reglas, DAG, obligaciones, estados) → F8. Commits locales
 por fase, sin push. GLM: replay + LIVE_PROVIDER_PENDING (sin endpoint).
+
+## 2026-11-06 (t30) — Argumentos F2: el checker del canon
+
+### Entregable
+`argumentos/src/check.rs` (~470 líneas): motor del checker — resolución
+de IDs, grafo de dependencia petgraph con dos familias de aristas
+(conclusión→premisa y afirmación→supuesto, la semántica del validador
+del paquete confirmada por su fixture de ciclo), las 7 reglas de
+docs/04, obligaciones como unión sin duplicados, igualdad de alcance
+premisa↔conclusión con excepción documentada para la regla condicional
+(docs/04.6 declara el escenario), estados ortogonales derivados,
+invalidación transitiva por hash stale, canonicalización determinista
+con SHA-256 y guarda de rutas. CLI `argumentos check`. Tres decisiones
+documentadas en CHANGELOG (supuestos como referencias; alcance;
+MODUS_PONENS alineado al contrato exacto del paquete).
+
+### Verificación
+Puerta F2: fmt ✓, clippy -D warnings ✓, **47 tests** (P01–P07 como
+fixtures estructurales + N01–N08/N10–N12/N18–N19 + contraste directo
+con los seis negativos de reglas del paquete, cada uno rechazado por su
+razón clasificada) ✓, smoke CLI positivo/negativo con exit codes
+contractuales ✓. No aplicable a F2 (puertas F3–F6): P08–P10, N09, N13–
+N17, N20–N24 — declarado, no pasado por alto.
+
+### Pendiente
+F3 (adaptadores Lean/Python + piloto de 4 claves y SSCH) → F8. Commits
+locales por fase, sin push.

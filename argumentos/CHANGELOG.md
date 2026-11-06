@@ -1,5 +1,67 @@
 # CHANGELOG — argumentos
 
+## F2 — Checker independiente (2026-11-06)
+
+`src/check.rs` (~470 líneas): el motor del canon. Sin red, sin LLM, sin
+procesos — recibe objetos cargados y emite un reporte reproducible.
+
+- **Resolución de IDs** (N06): conclusión, premisas, specs y supuestos
+  deben referenciar afirmaciones existentes.
+- **Grafo de dependencia** (petgraph, DiGraphMap + Dfs): dos familias de
+  aristas — conclusión→premisa (argumentos) y afirmación→supuesto
+  (docs/03: los supuestos referencian otras afirmaciones). Ciclo
+  per-argumento (N07): si la conclusión es alcanzable desde las premisas
+  del propio argumento, la derivación es circular; las reglas
+  alternativas acíclicas siguen válidas (N19).
+- **Reglas del registro** (docs/04): LEAN_ANCHOR (spec lean + alcance
+  compatible + axiomas estándar + recibo reproducido), LEAN_APPLY (el
+  wrapper esperado es parte del spec — prohibido aprobar porque `lean`
+  compiló otro teorema), AND_INTRO (AST exacta And(P,Q)), MODUS_PONENS
+  (AST exacta: una premisa Implies(A,B), la otra A, conclusión B —
+  contrato del paquete), EMPIRICAL_RECORD (solo afirmaciones empíricas;
+  N08: sin promoción a teorema), CONDITIONAL_APPLICATION (conclusión
+  condicional; H queda abierta), ALIAS_EXACT (misma expresión y alcance).
+- **Obligaciones**: unión sin duplicados (docs/04); monótonas — la regla
+  solo descarga con evidencia del tipo requerido (P06, N18).
+- **Alcance** (N03): igualdad exacta premisa↔conclusión, con la excepción
+  de CONDITIONAL_APPLICATION que puede añadir claves (el escenario,
+  docs/04.6) pero nunca cambiar las existentes.
+- **Estados ortogonales** (docs/04): structure/formal/empirical/editorial
+  derivados de la decisión — `reproduced` no implica `lean_checked`.
+- **Invalidación transitiva** (N05): recibo con `spec_hash` distinto al
+  hash canónico del spec → stale y ejes stale.
+- **Canonicalización** (P07): reporte con IDs ordenados, arrays ordenados
+  y hash SHA-256 determinista; permutar entradas no lo cambia.
+- **Guarda de rutas** (N12): `..` y symlinks rechazados.
+- CLI `argumentos check --kernel PATH [--receipts PATH]`: reporte humano
+  por argumento con los cuatro ejes; exit 0/2/3 contractuales.
+
+Decisiones documentadas: (1) los supuestos referencian afirmaciones y son
+aristas de dependencia — semántica del validador del paquete, confirmada
+por su fixture de ciclo; (2) igualdad de alcance premisa↔conclusión
+salvo la regla condicional — el validador del paquete usa igualdad
+estricta, docs/04.6 exige poder declarar el escenario; (3) MODUS_PONENS
+alineado al contrato exacto del paquete (una premisa es Implies(A,B)).
+
+Pruebas: **21 tests del checker** — P01–P07 (P01–P05 como fixtures
+estructurales del piloto: alcance finito registrado, optimizadores no
+afirmados sin wrapper, dominancia par a par, hipótesis
+Nonempty/Fintype conservadas, SSCH empírico acotado) y N01, N02, N03,
+N04, N05, N06, N07, N08, N10, N11, N12, N18, N19 + contraste directo
+con los fixtures del paquete (el positivo aceptado en estructura; los
+seis negativos de reglas rechazados por su razón clasificada). Las dos
+propiedades del plan (cambiar evidencia nunca mantiene estado vigente;
+permutar entradas no cambia el reporte canónico) están cubiertas como
+tests deterministas dirigidos (N05 y P07) — proptest no aporta valor
+adicional sobre estos casos y no se añadió.
+
+Puerta F2: `cargo fmt --check` ✓ · `cargo clippy --all-targets --locked
+-- -D warnings` ✓ · `cargo test --locked` ✓ (47 tests: 21 lib + 21
+checker + 5 contratos) · smoke CLI: fixture positivo →
+ACEPTADO_CONDICIONAL exit 0; `invalid_scope` → RECHAZADO exit 3.
+**PASSED.** Subconjunto no aplicable a F2 (puertas de F3–F6): P08–P10,
+N09, N13–N17, N20–N24.
+
 ## F1 — Contratos y entorno Rust (2026-11-06)
 
 Workspace Cargo `argumentos/` (crate único con fronteras por módulo,

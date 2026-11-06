@@ -39,14 +39,114 @@ enum Command_ {
         #[arg(long)]
         repo: Option<PathBuf>,
     },
+    /// Checker independiente: IDs, DAG, AST exacta, reglas, obligaciones y estados.
+    Check {
+        /// Ruta del documento kernel (JSON estricto).
+        #[arg(long)]
+        kernel: PathBuf,
+        /// Directorio o archivo de recibos (JSON estricto).
+        #[arg(long)]
+        receipts: Option<PathBuf>,
+    },
 }
 
 fn main() {
     let cli = Cli::parse();
     let code = match cli.command {
         Command_::Doctor { repo } => doctor(repo.as_deref().unwrap_or(Path::new("."))),
+        Command_::Check { kernel, receipts } => run_check(&kernel, receipts.as_deref()),
     };
     std::process::exit(code);
+}
+
+/// `argumentos check`: carga kernel y recibos (estricto), ejecuta el checker
+/// y reporta. Exit 0 si todo argumento es aceptado (posiblemente condicional);
+/// 3 si hay rechazos o pendientes; 2 si la entrada viola el contrato.
+fn run_check(kernel_path: &Path, receipts_path: Option<&Path>) -> i32 {
+    let kernel = match argumentos::model::load_kernel(kernel_path) {
+        Ok(k) => k,
+        Err(e) => {
+            eprintln!("error de contrato en {}: {}", kernel_path.display(), e);
+            return exit::ENTRADA_INVALIDA;
+        }
+    };
+    let mut receipts = Vec::new();
+    if let Some(rp) = receipts_path {
+        let files: Vec<PathBuf> = if rp.is_dir() {
+            let mut v: Vec<PathBuf> = match std::fs::read_dir(rp) {
+                Ok(rd) => rd
+                    .filter_map(|e| e.ok())
+                    .map(|e| e.path())
+                    .filter(|p| p.extension().is_some_and(|x| x == "json"))
+                    .collect(),
+                Err(_) => Vec::new(),
+            };
+            v.sort();
+            v
+        } else {
+            vec![rp.to_path_buf()]
+        };
+        for f in files {
+            match argumentos::receipt::load_receipt(&f) {
+                Ok(r) => receipts.push(r),
+                Err(e) => {
+                    eprintln!("error de contrato en {}: {}", f.display(), e);
+                    return exit::ENTRADA_INVALIDA;
+                }
+            }
+        }
+    }
+    let report = argumentos::check::check(&argumentos::check::CheckInput {
+        kernel: &kernel,
+        receipts: &receipts,
+    });
+    println!(
+        "kernel: {} claims, {} argumentos, {} specs",
+        kernel.claims.len(),
+        kernel.arguments.len(),
+        kernel.evidence_specs.len()
+    );
+    println!("hash canónico del reporte: {}", report.canonical_hash);
+    let mut bloqueados = 0;
+    for (id, res) in &report.results {
+        let estado = match &res.decision {
+            argumentos::check::Decision::Accepted => "ACEPTADO".to_string(),
+            argumentos::check::Decision::AcceptedConditional { open } => format!(
+                "ACEPTADO_CONDICIONAL (hipótesis abiertas: {})",
+                open.join(", ")
+            ),
+            argumentos::check::Decision::Rejected { reason } => {
+                format!("RECHAZADO: {}", reason.detalle())
+            }
+            argumentos::check::Decision::UnsupportedRule => "REGLA_NO_SOPORTADA".to_string(),
+            argumentos::check::Decision::Pending { reason } => format!("PENDIENTE: {}", reason),
+        };
+        println!(
+            "  [{}] {} — estructura={:?} formal={:?} empírico={:?}",
+            id, estado, res.structure, res.formal, res.empirical
+        );
+        if !matches!(
+            res.decision,
+            argumentos::check::Decision::Accepted
+                | argumentos::check::Decision::AcceptedConditional { .. }
+        ) {
+            bloqueados += 1;
+        }
+    }
+    if bloqueados == 0 {
+        println!(
+            "check: {} argumentos procesados, sin bloqueos.",
+            report.results.len()
+        );
+        exit::OK
+    } else {
+        println!(
+            "check: {} de {} argumentos rechazados o pendientes.",
+            bloqueados,
+            report.results.len()
+        );
+        exit::DEPENDENCIA_BLOQUEANTE
+    }
 }
 
 /// Una sonda del entorno: nombre, estado y detalle.
