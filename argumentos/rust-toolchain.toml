@@ -1,0 +1,6 @@
+# Toolchain fijada del proyecto (docs/02: comprobar compatibilidad y fijar).
+# Instalada vía rustup (perfil minimal + rustfmt + clippy) el 2026-11-06.
+[toolchain]
+channel = "1.99.1"
+profile = "minimal"
+components = ["rustfmt", "clippy"]

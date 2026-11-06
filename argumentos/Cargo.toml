@@ -1,0 +1,20 @@
+[package]
+name = "argumentos"
+version = "0.1.0"
+edition = "2021"
+description = "Canon de argumentos verificables del libro: kernel JSON, checker local y auditoría"
+license = "MIT"
+
+[dependencies]
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+clap = { version = "4", features = ["derive"] }
+thiserror = "2"
+sha2 = "0.10"
+jsonschema = { version = "0.60.2", default-features = false }
+typst-syntax = "0.15.1"
+petgraph = "0.8.3"
+
+# Añadidas con `cargo add` (versiones resueltas contra crates.io en F1):
+# jsonschema (sin features de red), typst-syntax (alineada con el typst 0.15.1 del repo),
+# petgraph (DAG de soporte, fase F2).

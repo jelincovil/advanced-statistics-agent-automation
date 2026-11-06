@@ -1,12 +1,12 @@
 {
-  "phase": "F0",
+  "phase": "F1",
   "base_commit": "1c98d6b",
-  "implementation_commit": null,
+  "implementation_commit": "eb4832e",
   "completed_gates": [
-    "F0"
+    "F0",
+    "F1"
   ],
   "pending_gates": [
-    "F1",
     "F2",
     "F3",
     "F4",
@@ -17,13 +17,18 @@
   ],
   "blockers": [],
   "commands_run": [
-    "python3 tools/validate_package.py -> PASS (11 fixtures, package self-check)",
-    "python3 tools/check_schema.py -> PASS (jsonschema disponible en el sistema)",
-    "./verificar.sh -> exit 0: 9 módulos, 66 teoremas, 0 sorry, axiomas [propext, Classical.choice, Quot.sound] x65 + [propext] x1",
-    "python3 verificacion/comprobar_hallazgos.py -> OK",
-    "python3 verificacion/comprobar_identidades.py -> OK",
-    "python3 verificacion/comprobar_secundarios.py -> OK",
-    "typst compile main.typ -> ver BASELINE.md (resultado de la corrida de línea base)"
+    "F0: python3 tools/validate_package.py -> PASS (11 fixtures)",
+    "F0: python3 tools/check_schema.py -> PASS",
+    "F0: ./verificar.sh -> exit 0: 9 módulos, 66 teoremas, 0 sorry",
+    "F0: python3 verificacion/comprobar_{hallazgos,identidades,secundarios}.py -> OK x3",
+    "F0: typst compile main.typ -> exit 0, 275 pp, 6.1 MB",
+    "F1: cargo add jsonschema --no-default-features typst-syntax petgraph -> 103 paquetes fijados en Cargo.lock",
+    "F1: rustup (perfil minimal + rustfmt + clippy) -> rustc 1.99.1; rust-toolchain.toml pineado",
+    "F1: cargo fmt --check -> OK",
+    "F1: cargo clippy --all-targets --locked -- -D warnings -> OK",
+    "F1: cargo test --locked -> 26 tests ok (21 unit + 5 contratos)",
+    "F1: cargo build/test --locked --offline -> OK",
+    "F1: cargo run -- doctor --repo .. -> exit 0, 12 sondas OK (manifiesto spec 39 archivos verificados)"
   ],
-  "next_action": "F1: workspace Cargo + CLI argumentos doctor + tipos serde con deny_unknown_fields + dependencias oficiales resueltas y Cargo.lock fijado"
+  "next_action": "F2: checker independiente — resolución de IDs, DAG de soporte (petgraph), AST exacta, reglas del registro, obligaciones, scope, estados derivados e invalidación transitiva; pruebas P01-P10 y N01-N18 aplicables"
 }

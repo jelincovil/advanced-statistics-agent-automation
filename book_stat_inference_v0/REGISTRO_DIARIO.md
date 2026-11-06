@@ -1397,3 +1397,25 @@ corregido y re-testeado, H2 resuelto con el teorema nuevo, H3 declarado.
 ### Pendiente
 Commit de t27+t28 (informe de auditoría + correcciones + registro) a la
 palabra del autor. Sin push.
+
+## 2026-11-06 (t29) — Argumentos F0+F1: arranque del canon
+
+### Entregable
+Arranque del proyecto ARGUMENTOS (paquete
+`argumentos/spec/argumentos_construccion_v1/`, construcción F0–F8). F0:
+baseline completo en `argumentos/BASELINE.md` (HEAD real vs 0460b3f
+documentado, inventario del árbol, controles de línea base ejecutados:
+validate_package PASS, verificar.sh exit 0, comprobar_*.py OK, typst
+compile exit 0 275 pp; riesgos de docs/10 re-verificados — dos
+observaciones del paquete desactualizadas). F1: workspace Cargo con
+JSON estricto propio (claves duplicadas, NaN/Infinity, no finitos
+rechazados), tipos del kernel v1 con validación en capas (esquema
+embebido + serde + unicidad), recibos con consistencia código+esquema,
+CLI `doctor` (12 sondas, manifiesto del spec verificado por SHA-256) y
+26 tests. Toolchain rustup 1.99.1 pineada (el Rust de sistema carecía de
+rustfmt/clippy). Puertas F0 y F1: PASSED (fmt/clippy -D warnings/test
+--locked/offline/doctor).
+
+### Pendiente
+F2 (checker: reglas, DAG, obligaciones, estados) → F8. Commits locales
+por fase, sin push. GLM: replay + LIVE_PROVIDER_PENDING (sin endpoint).
