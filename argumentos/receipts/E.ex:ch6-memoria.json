@@ -4,7 +4,7 @@
   "spec_id": "E.ex:ch6-memoria",
   "spec_hash": "39a2a760d62d49f5f886bcb69d80d4b838822d1f8ebbdf1e48bd74eb54f65ae5",
   "source_commit": "local",
-  "environment_hash": "98f08c6db348df6e12a1081a557cfe06d35923adf79aa469a26af277a24084df",
+  "environment_hash": "b0a0578b0363b906fa248635e4ce7b8e3af1dd07894b62a9bcd47655a4a848f4",
   "checker_version": "0.1.0",
   "command_argv": [
     "lean",
@@ -12,14 +12,14 @@
   ],
   "working_directory": "..",
   "input_hashes": {
-    "lean_export.lean": "d12631a1482234b087c479f19b324417553530ba7e5e3ce9e3bf51a1df2ed750",
+    "lean_export.lean": "04534dfd03def93bf87eab27a0f4eed8bf718e1b0dfc6655ff68e6144cb91482",
     "ssch_bayes_racional.py": "af949182cb60e7cfc146980a08e7b97e6ebc11ac52afa6858de41c10dcc55cfb"
   },
-  "started_at": "2026-11-07T20:59:11Z",
-  "finished_at": "2026-11-07T20:59:11Z",
+  "started_at": "2026-11-07T21:21:16Z",
+  "finished_at": "2026-11-07T21:21:16Z",
   "exit_status": 0,
   "termination": "completed",
-  "stdout_sha256": "03cd92ea0afdb202fe85515c5a6ed679e8b498638d7ac8d1e7b3264526dc6f93",
+  "stdout_sha256": "705f1f60aaf44c525f0d5ad2143e3c807c7a3fe113e0bc615195206b85e56c4a",
   "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
   "artifacts": [],
   "execution_passed": true,

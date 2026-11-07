@@ -40,26 +40,10 @@
   "proxima_accion": "Formalizar o mantener pendiente"
  },
  {
-  "claim_id": "C.thm:ch8-bellman-pi",
-  "book_key": "thm:ch8-bellman-pi",
-  "reason_code": "NO_FORMAL_PROOF",
-  "fuente": "capitulos/cap03_mdp.typ (theorem: Bellman para una política estacionaria)",
-  "impacto": "Sin respaldo formal",
-  "proxima_accion": "Formalizar o mantener pendiente"
- },
- {
   "claim_id": "C.thm:ch8-bellman-opt",
   "book_key": "thm:ch8-bellman-opt",
   "reason_code": "NO_FORMAL_PROOF",
   "fuente": "capitulos/cap03_mdp.typ (theorem: Bellman de optimalidad)",
-  "impacto": "Sin respaldo formal",
-  "proxima_accion": "Formalizar o mantener pendiente"
- },
- {
-  "claim_id": "C.thm:ch8-vi-conv",
-  "book_key": "thm:ch8-vi-conv",
-  "reason_code": "NO_FORMAL_PROOF",
-  "fuente": "capitulos/cap03_mdp.typ (theorem: Convergencia de Value Iteration)",
   "impacto": "Sin respaldo formal",
   "proxima_accion": "Formalizar o mantener pendiente"
  },
@@ -116,14 +100,6 @@
   "book_key": "ex:ch8-bandit-ssch",
   "reason_code": "NO_FORMAL_PROOF",
   "fuente": "capitulos/cap03_mdp.typ (example: SSCH: muestreo posterior frente a decisión final)",
-  "impacto": "Sin respaldo formal",
-  "proxima_accion": "Formalizar o mantener pendiente"
- },
- {
-  "claim_id": "C.cor:ch8-principio",
-  "book_key": "cor:ch8-principio",
-  "reason_code": "NO_FORMAL_PROOF",
-  "fuente": "capitulos/cap03_mdp.typ (corollary: Principio de continuación óptima)",
   "impacto": "Sin respaldo formal",
   "proxima_accion": "Formalizar o mantener pendiente"
  },
@@ -1448,7 +1424,7 @@
   "proxima_accion": "Formalizar o mantener pendiente"
  },
  {
-  "claim_id": "C.unnamed.example.181",
+  "claim_id": "C.unnamed.example.178",
   "book_key": "",
   "reason_code": "SEMANTIC_MAPPING_UNRESOLVED",
   "fuente": "capitulos/cap04_herramientas.typ (sin key)",

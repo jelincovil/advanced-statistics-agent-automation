@@ -40,5 +40,8 @@
  "ex:ssch-cap07": "ssch_minimax_riesgos",
  "ex:ssch-cap08": "ssch_mdp_bellman",
  "prop:ch8-VQ": "prop_ch8_VQ",
- "prop:ch8-acotacion": "prop_ch8_acotacion"
+ "prop:ch8-acotacion": "prop_ch8_acotacion",
+ "thm:ch8-bellman-pi": "ch8_bellman_pi",
+ "thm:ch8-vi-conv": "ch8_vi_conv",
+ "cor:ch8-principio": "ch8_principio"
 }

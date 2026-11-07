@@ -1621,3 +1621,41 @@ prop_ch8_acotacion), 0 sorry, axiomas limpios. Kernel: **42 argumentos**
 
 ### Pendiente
 182 pendientes restantes (101 formal + 81 empirical + 1 sin clave).
+
+## 2026-11-07 (t40) — Formalización de pendientes: thm:ch8-bellman-pi, thm:ch8-vi-conv, cor:ch8-principio
+
+### Entregable
+Tres pendientes del canon formalizados en Cap03MDP.lean:
+1. ch8_bellman_pi (Bellman para una política estacionaria, cap03:54):
+   V^π(s) = r(s,π(s)) + γ·Σ_{s'} P(s'|s,π(s))·V^π(s') — versión
+   determinista de la mezcla Σ_a π(a|s)·[…]; es el wrapper público de
+   Vpi_fix (punto fijo de la serie de Neumann), prueba en un término.
+2. ch8_vi_conv (Convergencia de Value Iteration, cap03:101):
+   ‖V_k − V*‖_∞ ≤ γ^k·‖V_0 − V*‖_∞ con V_k = (T*)^k V_0 (ToptIter) y
+   V* como hipótesis de punto fijo (hW). Inducción en k con
+   ch8_contraccion; la cota no necesita γ < 1 y no se impone.
+3. ch8_principio (Principio de continuación óptima, cap03:195): una
+   política greedy respecto de V* (i) alcanza V* (T^π V* = V* por
+   greedy + punto fijo, y unicidad del punto fijo de T^π, lema privado
+   Tpol_fix_unico análogo a ch8_punto_fijo_unico) y (ii) V* domina a
+   toda política determinista estacionaria (nonneg_of_fix con
+   d = V* − T^{π'} V* ≥ 0, como en thm:ch8-mejora).
+
+Fidelidad declarada en docstrings: políticas deterministas
+estacionarias; V* hipótesis de punto fijo, no límite; el caso V_0 = 0
+de vi-conv y la optimalidad sobre políticas con historia no se
+formalizan.
+
+### Verificación
+verificar.sh: 9 módulos, **72 teoremas** (69 + 3), 0 sorry, axiomas
+[propext, Classical.choice, Quot.sound] ×72. Dashboard regenerado
+(prop_ch8_acotacion, que faltaba desde t39, + los 3 nuevos). Kernel:
+**45 argumentos** (todos ACEPTADOS, exit 0), **179 pendientes** (−3).
+Exporter 45 targets. Puertas: cargo fmt, clippy −D warnings, 65 tests,
+check end-to-end.
+
+### Pendiente
+179 pendientes restantes (96 formal + 82 empirical + 1 sin clave).
+Siguientes más accesibles: cor:ch7-bayes-especificas (pérdida
+cuadrática → media posterior, absoluta → mediana; cap02) y el resto
+del bloque MDP.

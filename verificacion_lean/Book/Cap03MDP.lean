@@ -953,4 +953,154 @@ theorem prop_ch8_acotacion (π : S → A)
     linarith
   exact le_trans (Finset.le_sup' (f := fun s' => |Vpi r P γ π s'|) (Finset.mem_univ s)) hfinal
 
+/-! ### Formalización de pendientes del canon (thm:ch8-bellman-pi,
+thm:ch8-vi-conv, cor:ch8-principio) -/
+
+/-- book: capitulos/cap03_mdp.typ:54 (key: thm:ch8-bellman-pi) —
+ecuación de Bellman para una política estacionaria:
+`V^π(s) = Σ_a π(a|s)·[r(s,a) + γ·Σ_{s'} P(s'|s,a)·V^π(s')]`. En una
+política determinista la mezcla sobre acciones colapsa a `a = π(s)`.
+La prueba es el punto fijo de la serie de Neumann (`Vpi_fix`), que ya
+sostiene a `thm:ch8-mejora` y `cor:ch8-parada`.
+Fidelidad declarada: versión con política determinista estacionaria
+(la suma `Σ_a π(a|s)·` de una política estocástica no se formaliza).
+Origen: F-correction 2026-11-07 (nuevo; formalización de pendiente). -/
+theorem ch8_bellman_pi (π : S → A)
+    (hP0 : ∀ s a s', 0 ≤ P s a s') (hP1 : ∀ s a, ∑ s', P s a s' = 1)
+    (hγ0 : 0 ≤ γ) (hγ1 : γ < 1) (s : S) :
+    Vpi r P γ π s
+      = r s (π s) + γ * ∑ s', P s (π s) s' * Vpi r P γ π s' :=
+  Vpi_fix r P γ π hP0 hP1 hγ0 hγ1 s
+
+/-- book: capitulos/cap03_mdp.typ:101 (key: thm:ch8-vi-conv) —
+convergencia de Value Iteration: con `V_k = (T*)^k V_0` (`ToptIter`) y
+`V*` el punto fijo de `T*` (hipótesis `hW`, la forma del capítulo),
+`‖V_k − V*‖_∞ ≤ γ^k·‖V_0 − V*‖_∞`. Prueba: inducción en `k` con la
+contracción `ch8_contraccion` y `T* V* = V*` en cada paso.
+Fidelidad declarada: `V*` entra como hipótesis de punto fijo, no como
+límite; el caso particular del libro con `V_0 = 0`
+(cota `γ^k·R_max/(1−γ)`) no se incluye. La hipótesis `γ < 1` no es
+necesaria para esta cota y no se impone.
+Origen: F-correction 2026-11-07 (nuevo; formalización de pendiente). -/
+theorem ch8_vi_conv (hP0 : ∀ s a s', 0 ≤ P s a s')
+    (hP1 : ∀ s a, ∑ s', P s a s' = 1) (hγ0 : 0 ≤ γ)
+    (V₀ W : S → ℝ) (hW : ∀ s, Topt r P γ W s = W s) (k : ℕ) :
+    snorm (fun s => ToptIter r P γ k V₀ s - W s)
+      ≤ γ ^ k * snorm (fun s => V₀ s - W s) := by
+  induction k with
+  | zero =>
+      have h0 : (fun s => ToptIter r P γ 0 V₀ s - W s)
+          = (fun s => V₀ s - W s) := by
+        funext s
+        simp only [ToptIter]
+      rw [h0]
+      exact le_of_eq (by rw [pow_zero, one_mul])
+  | succ k ih =>
+      have heq : (fun s => ToptIter r P γ (k + 1) V₀ s - W s)
+          = (fun s => Topt r P γ (ToptIter r P γ k V₀) s - Topt r P γ W s) := by
+        funext s
+        simp only [ToptIter]
+        rw [hW s]
+      rw [heq]
+      calc snorm (fun s => Topt r P γ (ToptIter r P γ k V₀) s - Topt r P γ W s)
+          ≤ γ * snorm (fun s => ToptIter r P γ k V₀ s - W s) :=
+            snorm_le _ _ (fun s =>
+              ch8_contraccion r P γ hP0 hP1 hγ0 (ToptIter r P γ k V₀) W s)
+        _ ≤ γ * (γ ^ k * snorm (fun s => V₀ s - W s)) :=
+            mul_le_mul_of_nonneg_left ih hγ0
+        _ = γ ^ (k + 1) * snorm (fun s => V₀ s - W s) := by rw [pow_succ]; ring
+
+/-- Unicidad del punto fijo del operador de política `T^π` (base no
+enunciada; análoga a `ch8_punto_fijo_unico` para `T*`). -/
+private theorem Tpol_fix_unico (π : S → A)
+    (hP0 : ∀ s a s', 0 ≤ P s a s') (hP1 : ∀ s a, ∑ s', P s a s' = 1)
+    (hγ0 : 0 ≤ γ) (hγ1 : γ < 1) (V W : S → ℝ)
+    (hV : ∀ s, Tpol r P γ π V s = V s) (hW : ∀ s, Tpol r P γ π W s = W s) :
+    V = W := by
+  have hu : ∀ s, V s - W s
+      = γ * mvec (pmat P π) (fun s' => V s' - W s') s := by
+    intro s
+    rw [← hV s, ← hW s]
+    exact Tpol_sub r P γ π V W s
+  have hbound : ∀ s, |V s - W s|
+      ≤ γ * snorm (fun s' => V s' - W s') := by
+    intro s
+    rw [hu s, abs_mul, abs_of_nonneg hγ0]
+    exact mul_le_mul_of_nonneg_left
+      (mvec_abs_bound (pmat P π) (fun s' => V s' - W s')
+        (snorm (fun s'' => V s'' - W s''))
+        (pmat_nonneg P hP0 π) (pmat_row_sum P hP1 π)
+        (fun s' => le_snorm (fun s'' => V s'' - W s'') s') s) hγ0
+  have hsn : snorm (fun s' => V s' - W s')
+      ≤ γ * snorm (fun s' => V s' - W s') :=
+    snorm_le _ _ hbound
+  have h1 : 0 ≤ 1 - γ := by linarith
+  have h2 : 0 ≤ snorm (fun s' => V s' - W s') :=
+    snorm_nonneg (fun s' => V s' - W s')
+  have h3 : snorm (fun s' => V s' - W s')
+      - γ * snorm (fun s' => V s' - W s') ≤ 0 := by linarith
+  have h4 : snorm (fun s' => V s' - W s') ≤ 0 := by
+    nlinarith [h1, h2, h3]
+  funext s
+  have h6 : γ * snorm (fun s' => V s' - W s') = 0 := by
+    have h7 : snorm (fun s' => V s' - W s') = 0 := le_antisymm h4 h2
+    rw [h7]
+    ring
+  have habs : |V s - W s| ≤ 0 := le_trans (hbound s) (by rw [h6])
+  have h5 : V s - W s = 0 :=
+    abs_eq_zero.mp (le_antisymm habs (abs_nonneg _))
+  linarith
+
+/-- book: capitulos/cap03_mdp.typ:195 (key: cor:ch8-principio) —
+principio de continuación óptima: en el MDP finito descontado, una
+política greedy respecto de `V*` es óptima. Con `V*` como punto fijo
+de `T*` (hipótesis `hW`, la forma del capítulo): (i) la política
+greedy alcanza el valor óptimo, `V^π = V*`, porque `T^π V* = V*` (greedy
++ punto fijo) y el punto fijo de `T^π` es único (`Tpol_fix_unico`);
+(ii) `V*` domina a toda política determinista estacionaria `π'`
+(`nonneg_of_fix` con `d = V* − T^{π'} V* ≥ 0`, como en `thm:ch8-mejora`).
+Fidelidad declarada: la optimalidad se enuncia sobre la clase de
+políticas deterministas estacionarias del libro, no sobre políticas con
+historia; `V*` es hipótesis, no límite.
+Origen: F-correction 2026-11-07 (nuevo; formalización de pendiente). -/
+theorem ch8_principio (π : S → A)
+    (hP0 : ∀ s a s', 0 ≤ P s a s') (hP1 : ∀ s a, ∑ s', P s a s' = 1)
+    (hγ0 : 0 ≤ γ) (hγ1 : γ < 1) (W : S → ℝ)
+    (hW : ∀ s, Topt r P γ W s = W s)
+    (hgreedy : ∀ s a, r s (π s) + γ * ∑ s', P s (π s) s' * W s'
+      ≥ r s a + γ * ∑ s', P s a s' * W s') :
+    (∀ s, Vpi r P γ π s = W s)
+    ∧ (∀ π' : S → A, ∀ s, Vpi r P γ π' s ≤ W s) := by
+  have hgreedy_eq : ∀ s, Topt r P γ W s = Tpol r P γ π W s := by
+    intro s
+    refine le_antisymm ?_ (le_Topt r P γ π W s)
+    exact (Finset.sup'_le_iff Finset.univ_nonempty _).mpr (fun a _ => hgreedy s a)
+  have hVfix : ∀ s, Tpol r P γ π (Vpi r P γ π) s = Vpi r P γ π s :=
+    fun s => (Vpi_fix r P γ π hP0 hP1 hγ0 hγ1 s).symm
+  have hWfix : ∀ s, Tpol r P γ π W s = W s := by
+    intro s
+    rw [← hgreedy_eq s, hW s]
+  have hEq : Vpi r P γ π = W :=
+    Tpol_fix_unico r P γ π hP0 hP1 hγ0 hγ1 (Vpi r P γ π) W hVfix hWfix
+  refine ⟨fun s => congrFun hEq s, ?_⟩
+  intro π' s
+  have hid : ∀ s' : S, W s' - Vpi r P γ π' s'
+      = (W s' - Tpol r P γ π' W s') + γ * mvec (pmat P π')
+          (fun s'' => W s'' - Vpi r P γ π' s'') s' := by
+    intro s'
+    have hfix := Vpi_fix r P γ π' hP0 hP1 hγ0 hγ1 s'
+    have hsub := Tpol_sub r P γ π' W (Vpi r P γ π') s'
+    rw [hfix]
+    linarith
+  have hd : ∀ s' : S, 0 ≤ W s' - Tpol r P γ π' W s' := by
+    intro s'
+    have h1 := le_Topt r P γ π' W s'
+    rw [hW s'] at h1
+    linarith
+  have hu := nonneg_of_fix γ (fun s'' => W s'' - Vpi r P γ π' s'')
+      (fun s'' => W s'' - Tpol r P γ π' W s'') (pmat P π')
+      hγ0 hγ1 hid hd (pmat_nonneg P hP0 π') (pmat_row_sum P hP1 π')
+  have hpos := hu s
+  linarith
+
 end MDP

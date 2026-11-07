@@ -3189,6 +3189,15 @@
    ]
   },
   {
+   "id": "A.thm:ch8-bellman-pi",
+   "conclusion": "C.thm:ch8-bellman-pi",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.thm:ch8-bellman-pi"
+   ]
+  },
+  {
    "id": "A.thm:ch8-contraccion",
    "conclusion": "C.thm:ch8-contraccion",
    "premises": [],
@@ -3204,6 +3213,15 @@
    "rule": "LEAN_ANCHOR",
    "evidence_specs": [
     "E.cor:ch8-punto-fijo"
+   ]
+  },
+  {
+   "id": "A.thm:ch8-vi-conv",
+   "conclusion": "C.thm:ch8-vi-conv",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.thm:ch8-vi-conv"
    ]
   },
   {
@@ -3231,6 +3249,15 @@
    "rule": "LEAN_ANCHOR",
    "evidence_specs": [
     "E.cor:ch8-pi-finita"
+   ]
+  },
+  {
+   "id": "A.cor:ch8-principio",
+   "conclusion": "C.cor:ch8-principio",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.cor:ch8-principio"
    ]
   },
   {
@@ -3590,6 +3617,18 @@
    "availability": "candidate"
   },
   {
+   "id": "E.thm:ch8-bellman-pi",
+   "kind": "lean",
+   "claim_id": "C.thm:ch8-bellman-pi",
+   "runner_id": "lean-export",
+   "target": "ch8_bellman_pi",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
+  {
    "id": "E.thm:ch8-contraccion",
    "kind": "lean",
    "claim_id": "C.thm:ch8-contraccion",
@@ -3607,6 +3646,18 @@
    "claim_id": "C.cor:ch8-punto-fijo",
    "runner_id": "lean-export",
    "target": "ch8_punto_fijo_unico",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.thm:ch8-vi-conv",
+   "kind": "lean",
+   "claim_id": "C.thm:ch8-vi-conv",
+   "runner_id": "lean-export",
+   "target": "ch8_vi_conv",
    "scope": {
     "domain": "finite",
     "lean_axioms": "propext,Classical.choice,Quot.sound"
@@ -3643,6 +3694,18 @@
    "claim_id": "C.cor:ch8-pi-finita",
    "runner_id": "lean-export",
    "target": "ch8_pi_finita_sin_repeticion",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.cor:ch8-principio",
+   "kind": "lean",
+   "claim_id": "C.cor:ch8-principio",
+   "runner_id": "lean-export",
+   "target": "ch8_principio",
    "scope": {
     "domain": "finite",
     "lean_axioms": "propext,Classical.choice,Quot.sound"
