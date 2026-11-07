@@ -39,5 +39,6 @@
  "ex:ssch-cap09": "ssch_regla_ordinario",
  "ex:ssch-cap07": "ssch_minimax_riesgos",
  "ex:ssch-cap08": "ssch_mdp_bellman",
- "prop:ch8-VQ": "prop_ch8_VQ"
+ "prop:ch8-VQ": "prop_ch8_VQ",
+ "prop:ch8-acotacion": "prop_ch8_acotacion"
 }

@@ -898,4 +898,59 @@ theorem prop_ch8_VQ (π : S → A)
 
 
 
+
+/-- book: capitulos/cap03_mdp.typ:47 (key: prop:ch8-acotacion) —
+acotación del valor: si |r(s,a)| ≤ B para todo par, entonces
+|V^π(s)| ≤ B/(1-γ). Prueba: M = sup|V^π| satisface M ≤ B + γ·M
+(por Bellman + Finset.abs_sum_le_sum_abs), luego M ≤ B/(1-γ).
+Fidelidad declarada: versión finita; el libro enuncia con R_max.
+Origen: F-correction 2026-11-06 (nuevo; formalización de pendiente). -/
+theorem prop_ch8_acotacion (π : S → A)
+    (hP0 : ∀ s a s', 0 ≤ P s a s') (hP1 : ∀ s a, ∑ s', P s a s' = 1)
+    (hγ0 : 0 ≤ γ) (hγ1 : γ < 1) (B : ℝ)
+    (hB : ∀ s a, |r s a| ≤ B) (s : S) :
+    |Vpi r P γ π s| ≤ B / (1 - γ) := by
+  set M : ℝ := (Finset.univ : Finset S).sup' Finset.univ_nonempty
+    (fun s' => |Vpi r P γ π s'|) with hM
+  have hmvec : ∀ s' : S, |mvec (pmat P π) (Vpi r P γ π) s'| ≤ M := by
+    intro s'
+    rw [mvec]
+    calc |∑ s'', (pmat P π) s' s'' * Vpi r P γ π s''|
+        ≤ ∑ s'', |(pmat P π) s' s'' * Vpi r P γ π s''| :=
+          Finset.abs_sum_le_sum_abs _ _
+      _ = ∑ s'', (pmat P π) s' s'' * |Vpi r P γ π s''| := by
+          refine Finset.sum_congr rfl fun s'' _ => ?_
+          rw [abs_mul, abs_of_nonneg (pmat_nonneg P hP0 π s' s'')]
+      _ ≤ ∑ s'', (pmat P π) s' s'' * M := by
+          refine Finset.sum_le_sum fun s'' _ => mul_le_mul_of_nonneg_left
+            (Finset.le_sup' (f := fun s''' => |Vpi r P γ π s'''|) (Finset.mem_univ s''))
+            (pmat_nonneg P hP0 π s' s'')
+      _ = M := by
+          rw [← Finset.sum_mul, pmat_row_sum P hP1 π s', one_mul]
+  have hpaso : ∀ s' : S, |Vpi r P γ π s'| ≤ B + γ * M := by
+    intro s'
+    have hbell := Vpi_fix r P γ π hP0 hP1 hγ0 hγ1 s'
+    rw [hbell, Tpol, rvec]
+    have hr : |r s' (π s')| ≤ B := hB s' (π s')
+    have hm : |mvec (pmat P π) (Vpi r P γ π) s'| ≤ M := hmvec s'
+    apply abs_le.mpr
+    constructor
+    · have h1 : -B ≤ r s' (π s') := by have := abs_le.mp hr; linarith
+      have h2 : -M ≤ mvec (pmat P π) (Vpi r P γ π) s' := by have := abs_le.mp hm; linarith
+      have h3 : γ * (-M) ≤ γ * mvec (pmat P π) (Vpi r P γ π) s' := mul_le_mul_of_nonneg_left h2 hγ0
+      linarith
+    · have h1 : r s' (π s') ≤ B := by have := abs_le.mp hr; linarith
+      have h2 : mvec (pmat P π) (Vpi r P γ π) s' ≤ M := by have := abs_le.mp hm; linarith
+      have h3 : γ * mvec (pmat P π) (Vpi r P γ π) s' ≤ γ * M := mul_le_mul_of_nonneg_left h2 hγ0
+      linarith
+  have hsup : M ≤ B + γ * M := by
+    apply Finset.sup'_le
+    intro s' _
+    exact hpaso s'
+  have hfinal : M ≤ B / (1 - γ) := by
+    have hpos : 0 < 1 - γ := by linarith
+    field_simp
+    linarith
+  exact le_trans (Finset.le_sup' (f := fun s' => |Vpi r P γ π s'|) (Finset.mem_univ s)) hfinal
+
 end MDP

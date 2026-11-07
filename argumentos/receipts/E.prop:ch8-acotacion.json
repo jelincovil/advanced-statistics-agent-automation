@@ -1,0 +1,35 @@
+{
+  "schema_version": "1.0",
+  "id": "R.E.prop:ch8-acotacion",
+  "spec_id": "E.prop:ch8-acotacion",
+  "spec_hash": "8cf5dc517e8bb77fe653e931a82bc7bf24eba9c91f5abe355f4bf8870d5c72b7",
+  "source_commit": "local",
+  "environment_hash": "98f08c6db348df6e12a1081a557cfe06d35923adf79aa469a26af277a24084df",
+  "checker_version": "0.1.0",
+  "command_argv": [
+    "lean",
+    "argumentos/evidence/lean_export.lean"
+  ],
+  "working_directory": "..",
+  "input_hashes": {
+    "lean_export.lean": "d12631a1482234b087c479f19b324417553530ba7e5e3ce9e3bf51a1df2ed750",
+    "ssch_bayes_racional.py": "af949182cb60e7cfc146980a08e7b97e6ebc11ac52afa6858de41c10dcc55cfb"
+  },
+  "started_at": "2026-11-07T20:59:11Z",
+  "finished_at": "2026-11-07T20:59:11Z",
+  "exit_status": 0,
+  "termination": "completed",
+  "stdout_sha256": "03cd92ea0afdb202fe85515c5a6ed679e8b498638d7ac8d1e7b3264526dc6f93",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "artifacts": [],
+  "execution_passed": true,
+  "scientific_criterion_met": true,
+  "observed_checks": [
+    {
+      "id": "target_encontrado:prop_ch8_acotacion",
+      "status": "pass",
+      "detail": "3 axiomas, 257 dependencias"
+    }
+  ],
+  "trust_mode": "locally_reproduced"
+}

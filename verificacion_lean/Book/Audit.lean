@@ -75,3 +75,4 @@ import Book.Cap07OPE
 #print axioms ch11_monitoreo
 #print axioms ch11_mdp_validacion
 #print axioms ch11_margen_elemental
+#print axioms prop_ch8_acotacion

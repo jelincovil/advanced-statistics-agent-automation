@@ -40,14 +40,6 @@
   "proxima_accion": "Formalizar o mantener pendiente"
  },
  {
-  "claim_id": "C.prop:ch8-acotacion",
-  "book_key": "prop:ch8-acotacion",
-  "reason_code": "NO_FORMAL_PROOF",
-  "fuente": "capitulos/cap03_mdp.typ (proposition: Acotación)",
-  "impacto": "Sin respaldo formal",
-  "proxima_accion": "Formalizar o mantener pendiente"
- },
- {
   "claim_id": "C.thm:ch8-bellman-pi",
   "book_key": "thm:ch8-bellman-pi",
   "reason_code": "NO_FORMAL_PROOF",
@@ -1456,7 +1448,7 @@
   "proxima_accion": "Formalizar o mantener pendiente"
  },
  {
-  "claim_id": "C.unnamed.example.182",
+  "claim_id": "C.unnamed.example.181",
   "book_key": "",
   "reason_code": "SEMANTIC_MAPPING_UNRESOLVED",
   "fuente": "capitulos/cap04_herramientas.typ (sin key)",

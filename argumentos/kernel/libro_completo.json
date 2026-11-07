@@ -3180,6 +3180,15 @@
    ]
   },
   {
+   "id": "A.prop:ch8-acotacion",
+   "conclusion": "C.prop:ch8-acotacion",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.prop:ch8-acotacion"
+   ]
+  },
+  {
    "id": "A.thm:ch8-contraccion",
    "conclusion": "C.thm:ch8-contraccion",
    "premises": [],
@@ -3562,6 +3571,18 @@
    "claim_id": "C.prop:ch8-VQ",
    "runner_id": "lean-export",
    "target": "prop_ch8_VQ",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.prop:ch8-acotacion",
+   "kind": "lean",
+   "claim_id": "C.prop:ch8-acotacion",
+   "runner_id": "lean-export",
+   "target": "prop_ch8_acotacion",
    "scope": {
     "domain": "finite",
     "lean_axioms": "propext,Classical.choice,Quot.sound"

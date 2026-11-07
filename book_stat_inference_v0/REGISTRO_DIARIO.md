@@ -1603,3 +1603,21 @@ Pendientes: 183 (una menos: prop:ch8-VQ formalizado).
 ### Pendiente
 prop_ch8_acotacion (acotación del valor por serie geométrica) y los 182
 pendientes restantes.
+
+## 2026-11-06 (t39) — Formalización de pendientes: prop:ch8-VQ y prop:ch8-acotacion
+
+### Entregable
+Dos pendientes del canon formalizados en Cap03MDP.lean:
+1. prop_ch8_VQ (Relación entre valores, cap03:44): def Qpi + identidad
+   V^π(s) = Q^π(s,π(s)) por la ecuación de Bellman (Vpi_fix).
+2. prop_ch8_acotacion (Acotación, cap03:47): |V^π(s)| ≤ B/(1-γ) por
+   el punto fijo de la cota M ≤ B + γ·M, con Finset.abs_sum_le_sum_abs
+   para acotar |mvec(P^π, V^π)| ≤ M.
+
+### Verificación
+verificar.sh: 9 módulos, **69 teoremas** (66 + Qpi + prop_ch8_VQ +
+prop_ch8_acotacion), 0 sorry, axiomas limpios. Kernel: **42 argumentos**
+(todos ACEPTADOS, exit 0), **182 pendientes** (−2).
+
+### Pendiente
+182 pendientes restantes (101 formal + 81 empirical + 1 sin clave).
