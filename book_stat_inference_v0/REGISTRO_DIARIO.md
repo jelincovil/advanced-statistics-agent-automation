@@ -1527,3 +1527,20 @@ referencia COINCIDE. 65 tests. Puerta F6 PASSED.
 
 ### Pendiente
 F7 (migración integral del corpus) → F8. Commits locales, sin push.
+
+## 2026-11-06 (t35) — Argumentos F7: migración integral del corpus
+
+### Entregable
+Kernel completo del libro (kernel/libro_completo.json): 218 claims (136
+formal, 82 empirical), 35 argumentos LEAN_ANCHOR, 35 evidence specs.
+Pendientes (kernel/pendientes.json): 183 NO_FORMAL_PROOF + 1
+SEMANTIC_MAPPING_UNRESOLVED. Inventario cruzado con Lean: 35 de 219
+afirmaciones objetivas tienen respaldo formal. Clasificación corregida:
+examples con Lean → formal. Cobertura: 219/219 (100%).
+
+### Verificación
+checker: 35 PENDIENTE (sin recibo), 0 RECHAZADO, exit 3. Cobertura
+219/219. 65 tests. Puerta F7 PASSED.
+
+### Pendiente
+F8 (cierre reproducible) — última fase. Commits locales, sin push.

@@ -1,0 +1,3796 @@
+{
+ "schema_version": "1.0",
+ "claims": [
+  {
+   "id": "C.ex:ch7-perdidas",
+   "book_key": "ex:ch7-perdidas",
+   "kind": "empirical",
+   "statement": "Example: Pérdidas y objetivos (capitulos/cap02_wald.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "ex:ch7-perdidas"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.ex:ch7-james-stein",
+   "book_key": "ex:ch7-james-stein",
+   "kind": "empirical",
+   "statement": "Example: James–Stein y la dimensión del parámetro (capitulos/cap02_wald.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "ex:ch7-james-stein"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.thm:ch7-bayes",
+   "book_key": "thm:ch7-bayes",
+   "kind": "formal",
+   "statement": "Theorem: Minimización de la pérdida posterior (capitulos/cap02_wald.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "thm:ch7-bayes"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.cor:ch7-bayes-especificas",
+   "book_key": "cor:ch7-bayes-especificas",
+   "kind": "formal",
+   "statement": "Corollary: Acciones posteriores para pérdidas habituales (capitulos/cap02_wald.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "cor:ch7-bayes-especificas"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.thm:ch7-admisibilidad-bayes",
+   "book_key": "thm:ch7-admisibilidad-bayes",
+   "kind": "formal",
+   "statement": "Theorem: Admisibilidad bayesiana en un modelo finito (capitulos/cap02_wald.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "thm:ch7-admisibilidad-bayes"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.thm:ch7-complete-class",
+   "book_key": "thm:ch7-complete-class",
+   "kind": "formal",
+   "statement": "Theorem: Clase esencialmente completa en un problema finito (capitulos/cap02_wald.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "thm:ch7-complete-class"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.thm:ch7-minimax-bayes",
+   "book_key": "thm:ch7-minimax-bayes",
+   "kind": "formal",
+   "statement": "Theorem: Certificación minimax mediante Bayes (capitulos/cap02_wald.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "thm:ch7-minimax-bayes"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.ex:ch2-bernoulli-minimax",
+   "book_key": "ex:ch2-bernoulli-minimax",
+   "kind": "empirical",
+   "statement": "Example: Estimación Bernoulli con riesgo constante (capitulos/cap02_wald.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "ex:ch2-bernoulli-minimax"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.prop:ch4-test-decision",
+   "book_key": "prop:ch4-test-decision",
+   "kind": "formal",
+   "statement": "Proposition: Test como regla de decisión (capitulos/cap02_wald.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "prop:ch4-test-decision"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.ex:ssch-cap07",
+   "book_key": "ex:ssch-cap07",
+   "kind": "formal",
+   "statement": "Example: SSCH: señal, pérdida y clase de reglas (capitulos/cap02_wald.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "ex:ssch-cap07"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.prop:ch8-VQ",
+   "book_key": "prop:ch8-VQ",
+   "kind": "formal",
+   "statement": "Proposition: Relación entre valores (capitulos/cap03_mdp.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "prop:ch8-VQ"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.prop:ch8-acotacion",
+   "book_key": "prop:ch8-acotacion",
+   "kind": "formal",
+   "statement": "Proposition: Acotación (capitulos/cap03_mdp.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "prop:ch8-acotacion"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.thm:ch8-bellman-pi",
+   "book_key": "thm:ch8-bellman-pi",
+   "kind": "formal",
+   "statement": "Theorem: Bellman para una política estacionaria (capitulos/cap03_mdp.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "thm:ch8-bellman-pi"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.thm:ch8-bellman-opt",
+   "book_key": "thm:ch8-bellman-opt",
+   "kind": "formal",
+   "statement": "Theorem: Bellman de optimalidad (capitulos/cap03_mdp.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "thm:ch8-bellman-opt"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.thm:ch8-contraccion",
+   "book_key": "thm:ch8-contraccion",
+   "kind": "formal",
+   "statement": "Theorem: Contracción en norma supremo (capitulos/cap03_mdp.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "thm:ch8-contraccion"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.cor:ch8-punto-fijo",
+   "book_key": "cor:ch8-punto-fijo",
+   "kind": "formal",
+   "statement": "Corollary: Puntos fijos únicos (capitulos/cap03_mdp.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "cor:ch8-punto-fijo"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.thm:ch8-vi-conv",
+   "book_key": "thm:ch8-vi-conv",
+   "kind": "formal",
+   "statement": "Theorem: Convergencia de Value Iteration (capitulos/cap03_mdp.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "thm:ch8-vi-conv"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.cor:ch8-parada",
+   "book_key": "cor:ch8-parada",
+   "kind": "formal",
+   "statement": "Corollary: Certificados de parada (capitulos/cap03_mdp.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "cor:ch8-parada"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.thm:ch8-mejora",
+   "book_key": "thm:ch8-mejora",
+   "kind": "formal",
+   "statement": "Theorem: Mejora de políticas (capitulos/cap03_mdp.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "thm:ch8-mejora"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.cor:ch8-pi-finita",
+   "book_key": "cor:ch8-pi-finita",
+   "kind": "formal",
+   "statement": "Corollary: Terminación finita (capitulos/cap03_mdp.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "cor:ch8-pi-finita"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.prop:ch8-mab-mdp",
+   "book_key": "prop:ch8-mab-mdp",
+   "kind": "formal",
+   "statement": "Proposition: Estado físico y estado de información (capitulos/cap03_mdp.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "prop:ch8-mab-mdp"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.thm:ch8-ucb1",
+   "book_key": "thm:ch8-ucb1",
+   "kind": "formal",
+   "statement": "Theorem: UCB1: garantía bajo recompensas acotadas (capitulos/cap03_mdp.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "thm:ch8-ucb1"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.prop:ch8-thompson",
+   "book_key": "prop:ch8-thompson",
+   "kind": "formal",
+   "statement": "Proposition: Thompson Sampling y decisión de Bayes (capitulos/cap03_mdp.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "prop:ch8-thompson"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.thm:ch8-lai-robbins",
+   "book_key": "thm:ch8-lai-robbins",
+   "kind": "formal",
+   "statement": "Theorem: Cota asintótica en bandidos Bernoulli (capitulos/cap03_mdp.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "thm:ch8-lai-robbins"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.ex:ssch-bandits-cap08",
+   "book_key": "ex:ssch-bandits-cap08",
+   "kind": "empirical",
+   "statement": "Example: SSCH: una comparación calculable de exploración (capitulos/cap03_mdp.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "ex:ssch-bandits-cap08"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.prop:ch8-mab-mdp-thompson",
+   "book_key": "prop:ch8-mab-mdp-thompson",
+   "kind": "formal",
+   "statement": "Proposition: Última ronda (capitulos/cap03_mdp.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "prop:ch8-mab-mdp-thompson"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.ex:ch8-bandit-ssch",
+   "book_key": "ex:ch8-bandit-ssch",
+   "kind": "empirical",
+   "statement": "Example: SSCH: muestreo posterior frente a decisión final (capitulos/cap03_mdp.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "ex:ch8-bandit-ssch"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.cor:ch8-principio",
+   "book_key": "cor:ch8-principio",
+   "kind": "formal",
+   "statement": "Corollary: Principio de continuación óptima (capitulos/cap03_mdp.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "cor:ch8-principio"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.thm:ch8-condiciones-contraccion",
+   "book_key": "thm:ch8-condiciones-contraccion",
+   "kind": "formal",
+   "statement": "Proposition: Condiciones suficientes (capitulos/cap03_mdp.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "thm:ch8-condiciones-contraccion"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.prop:ch8-perdida",
+   "book_key": "prop:ch8-perdida",
+   "kind": "formal",
+   "statement": "Proposition: Proyección y norma pertinente (capitulos/cap03_mdp.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "prop:ch8-perdida"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.ex:ssch-cap08",
+   "book_key": "ex:ssch-cap08",
+   "kind": "formal",
+   "statement": "Example: SSCH: modelo reducido de dos estados (capitulos/cap03_mdp.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "ex:ssch-cap08"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.ex:ch8-frozenlake",
+   "book_key": "ex:ch8-frozenlake",
+   "kind": "empirical",
+   "statement": "Example: Value Iteration con modelo tabular explícito (capitulos/cap03_mdp.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "ex:ch8-frozenlake"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.ex:ch6-motivacion",
+   "book_key": "ex:ch6-motivacion",
+   "kind": "empirical",
+   "statement": "Example: Motivación: estimar una decisión con modelos auxiliares (capitulos/cap04_herramientas.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "ex:ch6-motivacion"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.ex:ch1-estadisticos-fundamentales",
+   "book_key": "ex:ch1-estadisticos-fundamentales",
+   "kind": "empirical",
+   "statement": "Example: Estadísticos Fundamentales (capitulos/cap04_herramientas.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "ex:ch1-estadisticos-fundamentales"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.ex:ch1-calculo-numerico",
+   "book_key": "ex:ch1-calculo-numerico",
+   "kind": "empirical",
+   "statement": "Example: Cálculo Numérico de Sesgo, Varianza y ECM (capitulos/cap04_herramientas.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "ex:ch1-calculo-numerico"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.ex:ch1-perdidas-comunes",
+   "book_key": "ex:ch1-perdidas-comunes",
+   "kind": "empirical",
+   "statement": "Example: Pérdidas Comunes (capitulos/cap04_herramientas.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "ex:ch1-perdidas-comunes"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.thm:ch1-logparticion",
+   "book_key": "thm:ch1-logparticion",
+   "kind": "formal",
+   "statement": "Theorem: Propiedades de la Función Log-Partición (capitulos/cap04_herramientas.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "thm:ch1-logparticion"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.cor:ch1-covarianza-hessiano",
+   "book_key": "cor:ch1-covarianza-hessiano",
+   "kind": "formal",
+   "statement": "Corollary:  (capitulos/cap04_herramientas.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "cor:ch1-covarianza-hessiano"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.ex:ch1-normal",
+   "book_key": "ex:ch1-normal",
+   "kind": "empirical",
+   "statement": "Example: Familia Normal con Varianza Conocida (capitulos/cap04_herramientas.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "ex:ch1-normal"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.ex:ch1-binomial",
+   "book_key": "ex:ch1-binomial",
+   "kind": "empirical",
+   "statement": "Example: Familia Bernoulli/Binomial (capitulos/cap04_herramientas.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "ex:ch1-binomial"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.ex:ch1-poisson",
+   "book_key": "ex:ch1-poisson",
+   "kind": "empirical",
+   "statement": "Example: Familia Poisson (capitulos/cap04_herramientas.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "ex:ch1-poisson"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.thm:ch1-suficiencia-natural",
+   "book_key": "thm:ch1-suficiencia-natural",
+   "kind": "formal",
+   "statement": "Theorem: El Estadístico Natural es Suficiente (capitulos/cap04_herramientas.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "thm:ch1-suficiencia-natural"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.ex:ch1-beta-binomial",
+   "book_key": "ex:ch1-beta-binomial",
+   "kind": "empirical",
+   "statement": "Example: Beta-Binomial (capitulos/cap04_herramientas.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "ex:ch1-beta-binomial"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.ex:ch1-gamma-poisson",
+   "book_key": "ex:ch1-gamma-poisson",
+   "kind": "empirical",
+   "statement": "Example: Gamma-Poisson (capitulos/cap04_herramientas.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "ex:ch1-gamma-poisson"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.ex:ch1-normal-gamma",
+   "book_key": "ex:ch1-normal-gamma",
+   "kind": "empirical",
+   "statement": "Example: Normal-Gamma para recompensas continuas (capitulos/cap04_herramientas.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "ex:ch1-normal-gamma"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.ex:ch1-t-student",
+   "book_key": "ex:ch1-t-student",
+   "kind": "empirical",
+   "statement": "Example: Distribución $t$ de Student (capitulos/cap04_herramientas.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "ex:ch1-t-student"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.ex:ch1-mezcla-normal",
+   "book_key": "ex:ch1-mezcla-normal",
+   "kind": "empirical",
+   "statement": "Example: Mezcla de dos normales (capitulos/cap04_herramientas.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "ex:ch1-mezcla-normal"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.ex:ch1-gumbel",
+   "book_key": "ex:ch1-gumbel",
+   "kind": "empirical",
+   "statement": "Example: Distribución Gumbel (capitulos/cap04_herramientas.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "ex:ch1-gumbel"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.thm:ch2-neyman-fisher",
+   "book_key": "thm:ch2-neyman-fisher",
+   "kind": "formal",
+   "statement": "Theorem: Factorización de Neyman-Fisher (capitulos/cap04_herramientas.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "thm:ch2-neyman-fisher"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.ex:ch2-normal-suficiencia",
+   "book_key": "ex:ch2-normal-suficiencia",
+   "kind": "empirical",
+   "statement": "Example: Suficiencia en la Distribución Normal (capitulos/cap04_herramientas.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "ex:ch2-normal-suficiencia"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.ex:ch2-poisson-suficiencia",
+   "book_key": "ex:ch2-poisson-suficiencia",
+   "kind": "empirical",
+   "statement": "Example: Suficiencia en la Distribución de Poisson (capitulos/cap04_herramientas.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "ex:ch2-poisson-suficiencia"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.thm:ch2-lehmann-scheffe",
+   "book_key": "thm:ch2-lehmann-scheffe",
+   "kind": "formal",
+   "statement": "Theorem: Caracterización de Suficiencia Minimal (Lehmann-Scheffé) (capitulos/cap04_herramientas.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "thm:ch2-lehmann-scheffe"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.ex:ch2-minimal-exponencial",
+   "book_key": "ex:ch2-minimal-exponencial",
+   "kind": "empirical",
+   "statement": "Example: Suficiencia Minimal en Familias Exponenciales (capitulos/cap04_herramientas.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "ex:ch2-minimal-exponencial"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.thm:ch2-completitud-exponencial",
+   "book_key": "thm:ch2-completitud-exponencial",
+   "kind": "formal",
+   "statement": "Theorem: Completitud en Familias Exponenciales (capitulos/cap04_herramientas.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "thm:ch2-completitud-exponencial"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.cor:ch2-smc",
+   "book_key": "cor:ch2-smc",
+   "kind": "formal",
+   "statement": "Corollary:  (capitulos/cap04_herramientas.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "cor:ch2-smc"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.ex:ch2-multinomial-ssch",
+   "book_key": "ex:ch2-multinomial-ssch",
+   "kind": "empirical",
+   "statement": "Example: Familia Exponencial Multinomial para SSCH (capitulos/cap04_herramientas.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "ex:ch2-multinomial-ssch"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.ex:ch2-ancilar-localizacion",
+   "book_key": "ex:ch2-ancilar-localizacion",
+   "kind": "empirical",
+   "statement": "Example: Ancilaridad en Modelo de Localización (capitulos/cap04_herramientas.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "ex:ch2-ancilar-localizacion"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.thm:ch2-basu",
+   "book_key": "thm:ch2-basu",
+   "kind": "formal",
+   "statement": "Theorem: Teorema de Basu (capitulos/cap04_herramientas.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "thm:ch2-basu"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.ex:ch2-basu-aplicacion",
+   "book_key": "ex:ch2-basu-aplicacion",
+   "kind": "empirical",
+   "statement": "Example: Aplicación del Teorema de Basu (capitulos/cap04_herramientas.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "ex:ch2-basu-aplicacion"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.thm:ch2-equivarianza",
+   "book_key": "thm:ch2-equivarianza",
+   "kind": "formal",
+   "statement": "Theorem: Principio de Equivarianza (capitulos/cap04_herramientas.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "thm:ch2-equivarianza"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.ex:ch2-traslaciones",
+   "book_key": "ex:ch2-traslaciones",
+   "kind": "empirical",
+   "statement": "Example: Equivarianza bajo Traslaciones (capitulos/cap04_herramientas.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "ex:ch2-traslaciones"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.ex:ch2-escala",
+   "book_key": "ex:ch2-escala",
+   "kind": "empirical",
+   "statement": "Example: Equivarianza bajo Escala (capitulos/cap04_herramientas.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "ex:ch2-escala"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.thm:ch3-rao-blackwell",
+   "book_key": "thm:ch3-rao-blackwell",
+   "kind": "formal",
+   "statement": "Theorem: Rao-Blackwell (capitulos/cap04_herramientas.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "thm:ch3-rao-blackwell"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.cor:ch3-rb-insesgado",
+   "book_key": "cor:ch3-rb-insesgado",
+   "kind": "formal",
+   "statement": "Corollary:  (capitulos/cap04_herramientas.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "cor:ch3-rb-insesgado"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.ex:ch3-rb-bernoulli",
+   "book_key": "ex:ch3-rb-bernoulli",
+   "kind": "empirical",
+   "statement": "Example: Rao-Blackwellización en Bernoulli (capitulos/cap04_herramientas.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "ex:ch3-rb-bernoulli"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.thm:ch3-lehmann-scheffe",
+   "book_key": "thm:ch3-lehmann-scheffe",
+   "kind": "formal",
+   "statement": "Theorem: Lehmann-Scheffé (capitulos/cap04_herramientas.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "thm:ch3-lehmann-scheffe"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.cor:ch3-umvue-exponencial",
+   "book_key": "cor:ch3-umvue-exponencial",
+   "kind": "formal",
+   "statement": "Corollary:  (capitulos/cap04_herramientas.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "cor:ch3-umvue-exponencial"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.thm:ch3-cramer-rao",
+   "book_key": "thm:ch3-cramer-rao",
+   "kind": "formal",
+   "statement": "Theorem: Cota Inferior de Cramér-Rao (capitulos/cap04_herramientas.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "thm:ch3-cramer-rao"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.prop:ch3-info-aditiva",
+   "book_key": "prop:ch3-info-aditiva",
+   "kind": "formal",
+   "statement": "Proposition: Aditividad de la Información (capitulos/cap04_herramientas.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "prop:ch3-info-aditiva"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.cor:ch3-cr-iid",
+   "book_key": "cor:ch3-cr-iid",
+   "kind": "formal",
+   "statement": "Corollary: Cota de Cramér-Rao para Muestras iid (capitulos/cap04_herramientas.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "cor:ch3-cr-iid"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.thm:ch3-mle-propiedades",
+   "book_key": "thm:ch3-mle-propiedades",
+   "kind": "formal",
+   "statement": "Theorem: Propiedades del MLE bajo Regularidad (capitulos/cap04_herramientas.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "thm:ch3-mle-propiedades"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.ex:ch3-mle-normal",
+   "book_key": "ex:ch3-mle-normal",
+   "kind": "empirical",
+   "statement": "Example: MLE para la Normal (capitulos/cap04_herramientas.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "ex:ch3-mle-normal"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.ex:ch4-regularidad",
+   "book_key": "ex:ch4-regularidad",
+   "kind": "empirical",
+   "statement": "Example: Regularidad, mala especificación y frontera (capitulos/cap04_herramientas.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "ex:ch4-regularidad"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.ex:ssch-mcmc-vi-cap03",
+   "book_key": "ex:ssch-mcmc-vi-cap03",
+   "kind": "empirical",
+   "statement": "Example: SSCH --- Estimación Bayesiana de Probabilidades de Transición (capitulos/cap04_herramientas.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "ex:ssch-mcmc-vi-cap03"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.ex:ch3-mcmc-ssch",
+   "book_key": "ex:ch3-mcmc-ssch",
+   "kind": "empirical",
+   "statement": "Example: MCMC para el SSCH con Prior No Conjugado (capitulos/cap04_herramientas.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "ex:ch3-mcmc-ssch"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.thm:ch4-neyman-pearson",
+   "book_key": "thm:ch4-neyman-pearson",
+   "kind": "formal",
+   "statement": "Theorem: Lema de Neyman-Pearson (capitulos/cap04_herramientas.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "thm:ch4-neyman-pearson"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.ex:ch4-mp-normal",
+   "book_key": "ex:ch4-mp-normal",
+   "kind": "empirical",
+   "statement": "Example: Test MP para Normal (capitulos/cap04_herramientas.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "ex:ch4-mp-normal"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.thm:ch4-mlr",
+   "book_key": "thm:ch4-mlr",
+   "kind": "formal",
+   "statement": "Theorem: Existencia de UMP en Familias MLR (capitulos/cap04_herramientas.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "thm:ch4-mlr"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.cor:ch4-exp-mlr",
+   "book_key": "cor:ch4-exp-mlr",
+   "kind": "formal",
+   "statement": "Corollary:  (capitulos/cap04_herramientas.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "cor:ch4-exp-mlr"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.thm:ch4-umpu",
+   "book_key": "thm:ch4-umpu",
+   "kind": "formal",
+   "statement": "Theorem: UMPU para Hipótesis Bilateral (capitulos/cap04_herramientas.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "thm:ch4-umpu"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.thm:ch4-inversion",
+   "book_key": "thm:ch4-inversion",
+   "kind": "formal",
+   "statement": "Theorem: Inversión de Tests (capitulos/cap04_herramientas.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "thm:ch4-inversion"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.cor:ch4-ic-z",
+   "book_key": "cor:ch4-ic-z",
+   "kind": "formal",
+   "statement": "Corollary: IC a partir de Test Z (capitulos/cap04_herramientas.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "cor:ch4-ic-z"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.prop:ch4-multiplicidad",
+   "book_key": "prop:ch4-multiplicidad",
+   "kind": "formal",
+   "statement": "Proposition: Problema de Multiplicidad (capitulos/cap04_herramientas.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "prop:ch4-multiplicidad"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.thm:ch4-bonferroni",
+   "book_key": "thm:ch4-bonferroni",
+   "kind": "formal",
+   "statement": "Theorem: Corrección de Bonferroni (capitulos/cap04_herramientas.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "thm:ch4-bonferroni"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.ex:ch4-bonferroni-ssch",
+   "book_key": "ex:ch4-bonferroni-ssch",
+   "kind": "empirical",
+   "statement": "Example: Pruebas Múltiples en SSCH con Corrección de Bonferroni (capitulos/cap04_herramientas.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "ex:ch4-bonferroni-ssch"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.thm:ch4-holm",
+   "book_key": "thm:ch4-holm",
+   "kind": "formal",
+   "statement": "Theorem: Procedimiento de Holm (capitulos/cap04_herramientas.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "thm:ch4-holm"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.thm:ch4-bh",
+   "book_key": "thm:ch4-bh",
+   "kind": "formal",
+   "statement": "Theorem: Benjamini-Hochberg para FDR (capitulos/cap04_herramientas.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "thm:ch4-bh"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.thm:ch5-clt",
+   "book_key": "thm:ch5-clt",
+   "kind": "formal",
+   "statement": "Theorem: CLT Clásico de Lindeberg-Lévy (capitulos/cap04_herramientas.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "thm:ch5-clt"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.thm:ch5-lindeberg",
+   "book_key": "thm:ch5-lindeberg",
+   "kind": "formal",
+   "statement": "Theorem: CLT de Lindeberg-Feller (capitulos/cap04_herramientas.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "thm:ch5-lindeberg"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.thm:ch4-clt-mixing",
+   "book_key": "thm:ch4-clt-mixing",
+   "kind": "formal",
+   "statement": "Theorem: CLT bajo mezcla fuerte (capitulos/cap04_herramientas.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "thm:ch4-clt-mixing"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.ex:ch4-ar1",
+   "book_key": "ex:ch4-ar1",
+   "kind": "empirical",
+   "statement": "Example: La correlación cambia el error estándar (capitulos/cap04_herramientas.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "ex:ch4-ar1"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.thm:ch5-delta",
+   "book_key": "thm:ch5-delta",
+   "kind": "formal",
+   "statement": "Theorem: Delta Method Univariado (capitulos/cap04_herramientas.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "thm:ch5-delta"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.thm:ch5-delta-multi",
+   "book_key": "thm:ch5-delta-multi",
+   "kind": "formal",
+   "statement": "Theorem: Delta Method Multivariado (capitulos/cap04_herramientas.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "thm:ch5-delta-multi"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.ex:ch5-cociente",
+   "book_key": "ex:ch5-cociente",
+   "kind": "empirical",
+   "statement": "Example: Varianza Asintótica del Cociente (capitulos/cap04_herramientas.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "ex:ch5-cociente"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.thm:ch5-gc",
+   "book_key": "thm:ch5-gc",
+   "kind": "formal",
+   "statement": "Theorem: Glivenko-Cantelli (capitulos/cap04_herramientas.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "thm:ch5-gc"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.thm:ch5-donsker",
+   "book_key": "thm:ch5-donsker",
+   "kind": "formal",
+   "statement": "Theorem: Donsker (capitulos/cap04_herramientas.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "thm:ch5-donsker"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.ex:ch5-bandas",
+   "book_key": "ex:ch5-bandas",
+   "kind": "empirical",
+   "statement": "Example: Bandas de Confianza para la CDF vía Donsker (capitulos/cap04_herramientas.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "ex:ch5-bandas"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.ex:ch4-no-parametrico",
+   "book_key": "ex:ch4-no-parametrico",
+   "kind": "empirical",
+   "statement": "Example: No paramétrico: distribución y suavizado (capitulos/cap04_herramientas.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "ex:ch4-no-parametrico"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.thm:ch5-bootstrap-media",
+   "book_key": "thm:ch5-bootstrap-media",
+   "kind": "formal",
+   "statement": "Theorem: Consistencia del Bootstrap para la Media (capitulos/cap04_herramientas.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "thm:ch5-bootstrap-media"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.def:ch5-ic-t",
+   "book_key": "def:ch5-ic-t",
+   "kind": "empirical",
+   "statement": "Example: IC Bootstrap Percentil-t (capitulos/cap04_herramientas.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "def:ch5-ic-t"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.ex:ch4-bootstrap-unidad",
+   "book_key": "ex:ch4-bootstrap-unidad",
+   "kind": "empirical",
+   "statement": "Example: Bootstrap que respeta el muestreo (capitulos/cap04_herramientas.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "ex:ch4-bootstrap-unidad"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.prop:ch5-clt-retornos",
+   "book_key": "prop:ch5-clt-retornos",
+   "kind": "formal",
+   "statement": "Proposition: CLT para Retornos Monte Carlo (capitulos/cap04_herramientas.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "prop:ch5-clt-retornos"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.prop:ch5-delta-q",
+   "book_key": "prop:ch5-delta-q",
+   "kind": "formal",
+   "statement": "Proposition: Delta Method para Funciones de Q (capitulos/cap04_herramientas.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "prop:ch5-delta-q"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.ex:ch5-qdelta",
+   "book_key": "ex:ch5-qdelta",
+   "kind": "empirical",
+   "statement": "Example: Propagación de Varianza: MDP de 3 estados y 2 acciones (capitulos/cap04_herramientas.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "ex:ch5-qdelta"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.ex:ch6-parcialmente-lineal",
+   "book_key": "ex:ch6-parcialmente-lineal",
+   "kind": "empirical",
+   "statement": "Example: Regresión parcialmente lineal (capitulos/cap04_herramientas.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "ex:ch6-parcialmente-lineal"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.ex:ch6-cox",
+   "book_key": "ex:ch6-cox",
+   "kind": "empirical",
+   "statement": "Example: Modelo de Cox (capitulos/cap04_herramientas.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "ex:ch6-cox"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.ex:ch6-aipw-intro",
+   "book_key": "ex:ch6-aipw-intro",
+   "kind": "empirical",
+   "statement": "Example: ATE como funcional de la ley observada (capitulos/cap04_herramientas.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "ex:ch6-aipw-intro"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.ex:ch6-ope",
+   "book_key": "ex:ch6-ope",
+   "kind": "empirical",
+   "statement": "Example: Objetivo de OPE (capitulos/cap04_herramientas.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "ex:ch6-ope"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.ex:ch6-scores-canonicos",
+   "book_key": "ex:ch6-scores-canonicos",
+   "kind": "empirical",
+   "statement": "Example: Scores de perturbaciones concretas (capitulos/cap04_herramientas.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "ex:ch6-scores-canonicos"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.prop:ch6-descomposicion",
+   "book_key": "prop:ch6-descomposicion",
+   "kind": "formal",
+   "statement": "Proposition: Descomposición ortogonal correcta (capitulos/cap04_herramientas.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "prop:ch6-descomposicion"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.prop:ch6-ral",
+   "book_key": "prop:ch6-ral",
+   "kind": "formal",
+   "statement": "Proposition: Expansión asintóticamente lineal (capitulos/cap04_herramientas.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "prop:ch6-ral"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.ex:ch4-if-media-cuantil",
+   "book_key": "ex:ch4-if-media-cuantil",
+   "kind": "empirical",
+   "statement": "Example: Media y cuantil sin modelo paramétrico (capitulos/cap04_herramientas.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "ex:ch4-if-media-cuantil"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.thm:ch6-cota",
+   "book_key": "thm:ch6-cota",
+   "kind": "formal",
+   "statement": "Theorem: Cota de eficiencia (capitulos/cap04_herramientas.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "thm:ch6-cota"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.cor:ch6-varianza-minima",
+   "book_key": "cor:ch6-varianza-minima",
+   "kind": "formal",
+   "statement": "Corollary: Varianza de referencia (capitulos/cap04_herramientas.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "cor:ch6-varianza-minima"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.thm:ch6-neyman",
+   "book_key": "thm:ch6-neyman",
+   "kind": "formal",
+   "statement": "Proposition: Ortogonalidad, sesgo y eficiencia (capitulos/cap04_herramientas.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "thm:ch6-neyman"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.thm:ch6-dr",
+   "book_key": "thm:ch6-dr",
+   "kind": "formal",
+   "statement": "Theorem: Identidad exacta de doble robustez (capitulos/cap04_herramientas.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "thm:ch6-dr"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.thm:ch6-kallus",
+   "book_key": "thm:ch6-kallus",
+   "kind": "formal",
+   "statement": "Theorem: Gradiente canónico en el modelo Markov finito (capitulos/cap04_herramientas.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "thm:ch6-kallus"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.cor:ch6-dr-ope",
+   "book_key": "cor:ch6-dr-ope",
+   "kind": "formal",
+   "statement": "Corollary: Estimador aumentado para OPE (capitulos/cap04_herramientas.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "cor:ch6-dr-ope"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.ex:ch6-dr-ssch",
+   "book_key": "ex:ch6-dr-ssch",
+   "kind": "empirical",
+   "statement": "Example: OPE de una decisión: cálculo completo (capitulos/cap04_herramientas.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "ex:ch6-dr-ssch"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.thm:ch6-dml",
+   "book_key": "thm:ch6-dml",
+   "kind": "formal",
+   "statement": "Theorem: Un caso suficiente para AIPW con cross-fitting (capitulos/cap04_herramientas.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "thm:ch6-dml"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.thm:ch6-crossfit",
+   "book_key": "thm:ch6-crossfit",
+   "kind": "formal",
+   "statement": "Proposition: Unidad de partición (capitulos/cap04_herramientas.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "thm:ch6-crossfit"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.thm:ch6-rubin-dag",
+   "book_key": "thm:ch6-rubin-dag",
+   "kind": "formal",
+   "statement": "Proposition: Ajuste gráfico y resultados potenciales (capitulos/cap04_herramientas.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "thm:ch6-rubin-dag"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.ex:ssch-causal-cap06",
+   "book_key": "ex:ssch-causal-cap06",
+   "kind": "empirical",
+   "statement": "Example: SSCH: confusión y estandarización (capitulos/cap04_herramientas.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "ex:ssch-causal-cap06"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.thm:ch9-isomorfismo",
+   "book_key": "thm:ch9-isomorfismo",
+   "kind": "formal",
+   "statement": "Theorem: Representación que preserva el riesgo (capitulos/cap05_incrustacion.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "thm:ch9-isomorfismo"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.thm:ch9-secuencial",
+   "book_key": "thm:ch9-secuencial",
+   "kind": "formal",
+   "statement": "Theorem: Programación dinámica bayesiana de observación y parada (capitulos/cap05_incrustacion.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "thm:ch9-secuencial"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.cor:ch9-bellman",
+   "book_key": "cor:ch9-bellman",
+   "kind": "formal",
+   "statement": "Corollary: Bellman para el retorno bayesiano (capitulos/cap05_incrustacion.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "cor:ch9-bellman"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.thm:ch9-admisibilidad",
+   "book_key": "thm:ch9-admisibilidad",
+   "kind": "formal",
+   "statement": "Theorem: Admisibilidad y no dominancia (capitulos/cap05_incrustacion.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "thm:ch9-admisibilidad"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.cor:ch9-bayes",
+   "book_key": "cor:ch9-bayes",
+   "kind": "formal",
+   "statement": "Corollary: Criterio de Bayes (capitulos/cap05_incrustacion.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "cor:ch9-bayes"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.ex:ch9-state",
+   "book_key": "ex:ch9-state",
+   "kind": "empirical",
+   "statement": "Example: Memoria suficiente para observaciones normales (capitulos/cap05_incrustacion.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "ex:ch9-state"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.cor:ch7-traduccion",
+   "book_key": "cor:ch7-traduccion",
+   "kind": "formal",
+   "statement": "Corollary: Traducción del criterio minimax (capitulos/cap05_incrustacion.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "cor:ch7-traduccion"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.ex:ssch-cap09",
+   "book_key": "ex:ssch-cap09",
+   "kind": "formal",
+   "statement": "Example: SSCH: decidir a partir de una señal (capitulos/cap05_incrustacion.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "ex:ssch-cap09"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.ex:ch9-estados-infinitos",
+   "book_key": "ex:ch9-estados-infinitos",
+   "kind": "empirical",
+   "statement": "Example: Espacio de Estados Infinito (capitulos/cap06_fallos.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "ex:ch9-estados-infinitos"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.ex:ch9-observabilidad-parcial",
+   "book_key": "ex:ch9-observabilidad-parcial",
+   "kind": "formal",
+   "statement": "Example: Observabilidad Parcial (capitulos/cap06_fallos.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "ex:ch9-observabilidad-parcial"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.ex:ch9-horizonte-infinito",
+   "book_key": "ex:ch9-horizonte-infinito",
+   "kind": "empirical",
+   "statement": "Example: Horizonte Infinito sin Ergodicidad (capitulos/cap06_fallos.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "ex:ch9-horizonte-infinito"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.ex:ch9-confounding",
+   "book_key": "ex:ch9-confounding",
+   "kind": "formal",
+   "statement": "Example: Confounding No Observado (capitulos/cap06_fallos.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "ex:ch9-confounding"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.thm:ch9-ic",
+   "book_key": "thm:ch9-ic",
+   "kind": "formal",
+   "statement": "Proposition: Transporte de conjuntos de confianza (capitulos/cap06_fallos.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "thm:ch9-ic"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.thm:ch9-eficiencia",
+   "book_key": "thm:ch9-eficiencia",
+   "kind": "empirical",
+   "statement": "Example: Eficiencia no equivale a normalidad de cualquier funcional (capitulos/cap06_fallos.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "thm:ch9-eficiencia"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.ex:ch9-fallo-mixing",
+   "book_key": "ex:ch9-fallo-mixing",
+   "kind": "formal",
+   "statement": "Example: Fallo por Violación de Mixing (capitulos/cap06_fallos.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "ex:ch9-fallo-mixing"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.ex:ch9-fallo-overlap",
+   "book_key": "ex:ch9-fallo-overlap",
+   "kind": "formal",
+   "statement": "Example: Fallo por Overlap Insuficiente (capitulos/cap06_fallos.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "ex:ch9-fallo-overlap"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.ex:ch9-fallo-noest",
+   "book_key": "ex:ch9-fallo-noest",
+   "kind": "empirical",
+   "statement": "Example: Fallo por No-Estacionariedad (capitulos/cap06_fallos.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "ex:ch9-fallo-noest"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.thm:ch5-clt-agentes",
+   "book_key": "thm:ch5-clt-agentes",
+   "kind": "formal",
+   "statement": "Proposition: CLT para una contribución estacionaria (capitulos/cap06_fallos.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "thm:ch5-clt-agentes"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.ex:ch5-cadena",
+   "book_key": "ex:ch5-cadena",
+   "kind": "formal",
+   "statement": "Example: Cálculo de $sigma_(L R)^2$ en una Cadena de Markov de 2 estados (capitulos/cap06_fallos.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "ex:ch5-cadena"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.ex:ch6-memoria",
+   "book_key": "ex:ch6-memoria",
+   "kind": "formal",
+   "statement": "Example: Dos historias con el mismo estado resumido (capitulos/cap06_fallos.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "ex:ch6-memoria"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.ex:ch6-horizonte-pesos",
+   "book_key": "ex:ch6-horizonte-pesos",
+   "kind": "empirical",
+   "statement": "Example: Costo de un horizonte largo (capitulos/cap06_fallos.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "ex:ch6-horizonte-pesos"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.ex:ch6-tasas",
+   "book_key": "ex:ch6-tasas",
+   "kind": "empirical",
+   "statement": "Example: Tasas compatibles e incompatibles (capitulos/cap06_fallos.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "ex:ch6-tasas"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.ex:ch6-minimax-dominada",
+   "book_key": "ex:ch6-minimax-dominada",
+   "kind": "formal",
+   "statement": "Example: Una política minimax puede ser dominada (capitulos/cap06_fallos.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "ex:ch6-minimax-dominada"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.ex:appD-irreducible",
+   "book_key": "ex:appD-irreducible",
+   "kind": "empirical",
+   "statement": "Example: Violación de Irreducibilidad (capitulos/cap06_fallos.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "ex:appD-irreducible"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.ex:appD-aperiodico",
+   "book_key": "ex:appD-aperiodico",
+   "kind": "empirical",
+   "statement": "Example: Violación de Aperiodicidad (capitulos/cap06_fallos.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "ex:appD-aperiodico"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.ex:appD-lento",
+   "book_key": "ex:appD-lento",
+   "kind": "empirical",
+   "statement": "Example: Mixing Lento (Polinomial) (capitulos/cap06_fallos.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "ex:appD-lento"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.thm:ch10-identificacion",
+   "book_key": "thm:ch10-identificacion",
+   "kind": "formal",
+   "statement": "Theorem: Identificación del valor de una política (capitulos/cap07_ope.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "thm:ch10-identificacion"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.prop:ch10-dm",
+   "book_key": "prop:ch10-dm",
+   "kind": "formal",
+   "statement": "Proposition: Error y variabilidad de DM (capitulos/cap07_ope.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "prop:ch10-dm"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.thm:ch10-is-insesgado",
+   "book_key": "thm:ch10-is-insesgado",
+   "kind": "formal",
+   "statement": "Theorem: Insesgadez de IS (capitulos/cap07_ope.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "thm:ch10-is-insesgado"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.thm:ch10-curse",
+   "book_key": "thm:ch10-curse",
+   "kind": "formal",
+   "statement": "Theorem: Cota de varianza y crecimiento posible (capitulos/cap07_ope.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "thm:ch10-curse"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.cor:ch10-curse",
+   "book_key": "cor:ch10-curse",
+   "kind": "formal",
+   "statement": "Corollary: Implicación para el diseño de evaluación (capitulos/cap07_ope.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "cor:ch10-curse"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.prop:ch10-is-shift",
+   "book_key": "prop:ch10-is-shift",
+   "kind": "formal",
+   "statement": "Proposition: IS con cambio de población inicial (capitulos/cap07_ope.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "prop:ch10-is-shift"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.prop:ch10-dro-garantia",
+   "book_key": "prop:ch10-dro-garantia",
+   "kind": "formal",
+   "statement": "Proposition: Alcance de una cota robusta (capitulos/cap07_ope.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "prop:ch10-dro-garantia"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.ex:ssch-dist-shift-cap10",
+   "book_key": "ex:ssch-dist-shift-cap10",
+   "kind": "empirical",
+   "statement": "Example: SSCH: cambio de composición poblacional (capitulos/cap07_ope.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "ex:ssch-dist-shift-cap10"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.ex:ch10-shift-ssch",
+   "book_key": "ex:ch10-shift-ssch",
+   "kind": "empirical",
+   "statement": "Example: SSCH: cambio de población y de respuesta (capitulos/cap07_ope.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "ex:ch10-shift-ssch"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.thm:ch10-dr",
+   "book_key": "thm:ch10-dr",
+   "kind": "formal",
+   "statement": "Theorem: Identidad de doble robustez (capitulos/cap07_ope.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "thm:ch10-dr"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.thm:ch10-dr-eficiencia",
+   "book_key": "thm:ch10-dr-eficiencia",
+   "kind": "formal",
+   "statement": "Proposition: Inferencia eficiente en una decisión (capitulos/cap07_ope.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "thm:ch10-dr-eficiencia"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.prop:ch10-var-dr",
+   "book_key": "prop:ch10-var-dr",
+   "kind": "formal",
+   "statement": "Example: DR puede aumentar la varianza (capitulos/cap07_ope.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "prop:ch10-var-dr"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.thm:ch10-truncamiento",
+   "book_key": "thm:ch10-truncamiento",
+   "kind": "formal",
+   "statement": "Theorem: Sesgo y varianza por truncamiento (capitulos/cap07_ope.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "thm:ch10-truncamiento"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.ex:ch10-pipeline",
+   "book_key": "ex:ch10-pipeline",
+   "kind": "empirical",
+   "statement": "Example: Pipeline de monitoreo (capitulos/cap07_ope.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "ex:ch10-pipeline"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.ex:ssch-cap10",
+   "book_key": "ex:ssch-cap10",
+   "kind": "empirical",
+   "statement": "Example: SSCH: dos decisiones con cálculo completo (capitulos/cap07_ope.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "ex:ssch-cap10"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.prop:ch11-ergodico",
+   "book_key": "prop:ch11-ergodico",
+   "kind": "formal",
+   "statement": "Proposition: Alcance del caso finito (capitulos/cap08_intervalos.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "prop:ch11-ergodico"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.thm:ch11-tasa-tabular",
+   "book_key": "thm:ch11-tasa-tabular",
+   "kind": "formal",
+   "statement": "Theorem: Una cota espectral bajo reversibilidad (capitulos/cap08_intervalos.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "thm:ch11-tasa-tabular"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.prop:ch11-impacto",
+   "book_key": "prop:ch11-impacto",
+   "kind": "empirical",
+   "statement": "Example: Dependencia y tamaño efectivo de una media (capitulos/cap08_intervalos.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "prop:ch11-impacto"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.thm:ch11-clt-mixing",
+   "book_key": "thm:ch11-clt-mixing",
+   "kind": "formal",
+   "statement": "Theorem: CLT bajo mixing fuerte (capitulos/cap08_intervalos.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "thm:ch11-clt-mixing"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.cor:ch11-ic",
+   "book_key": "cor:ch11-ic",
+   "kind": "formal",
+   "statement": "Corollary: Intervalo por studentización (capitulos/cap08_intervalos.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "cor:ch11-ic"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.thm:ch11-var-consistente",
+   "book_key": "thm:ch11-var-consistente",
+   "kind": "formal",
+   "statement": "Proposition: Consistencia: una ruta suficiente para HAC (capitulos/cap08_intervalos.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "thm:ch11-var-consistente"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.thm:ch11-n",
+   "book_key": "thm:ch11-n",
+   "kind": "formal",
+   "statement": "Proposition: Planificación normal aproximada (capitulos/cap08_intervalos.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "thm:ch11-n"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.thm:ch11-pg-theorem",
+   "book_key": "thm:ch11-pg-theorem",
+   "kind": "formal",
+   "statement": "Theorem: Identidad del gradiente de política (capitulos/cap08_intervalos.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "thm:ch11-pg-theorem"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.prop:ch11-baseline",
+   "book_key": "prop:ch11-baseline",
+   "kind": "formal",
+   "statement": "Proposition: Baseline: centrado y varianza (capitulos/cap08_intervalos.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "prop:ch11-baseline"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.ex:ssch-drl-cap11",
+   "book_key": "ex:ssch-drl-cap11",
+   "kind": "formal",
+   "statement": "Example: SSCH: baseline con cálculo exacto (capitulos/cap08_intervalos.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "ex:ssch-drl-cap11"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.prop:ch11-reinforce-if",
+   "book_key": "prop:ch11-reinforce-if",
+   "kind": "formal",
+   "statement": "Proposition: Momentos del gradiente y función de influencia (capitulos/cap08_intervalos.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "prop:ch11-reinforce-if"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.ex:ch11-pg-ssch",
+   "book_key": "ex:ch11-pg-ssch",
+   "kind": "formal",
+   "statement": "Example: Estado continuo y gradiente verificable (capitulos/cap08_intervalos.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "ex:ch11-pg-ssch"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.ex:ssch-cap11",
+   "book_key": "ex:ssch-cap11",
+   "kind": "empirical",
+   "statement": "Example: SSCH: intervalo y comparación pareada (capitulos/cap08_intervalos.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "ex:ssch-cap11"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.prop:ch2-suficiencia-politicas",
+   "book_key": "prop:ch2-suficiencia-politicas",
+   "kind": "formal",
+   "statement": "Proposition: Suficiencia y Políticas Óptimas (capitulos/cap09_verificacion.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "prop:ch2-suficiencia-politicas"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.prop:ch3-valor-cr",
+   "book_key": "prop:ch3-valor-cr",
+   "kind": "formal",
+   "statement": "Proposition: Estimación de Valores y Cramér-Rao (capitulos/cap09_verificacion.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "prop:ch3-valor-cr"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.prop:ch3-rb-q",
+   "book_key": "prop:ch3-rb-q",
+   "kind": "formal",
+   "statement": "Proposition: Rao-Blackwell para Q-Estimadores (capitulos/cap09_verificacion.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "prop:ch3-rb-q"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.ex:ssch-trazability",
+   "book_key": "ex:ssch-trazability",
+   "kind": "empirical",
+   "statement": "Example: Trazabilidad en SSCH (capitulos/cap09_verificacion.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "ex:ssch-trazability"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.ex:ssch-cap01",
+   "book_key": "ex:ssch-cap01",
+   "kind": "empirical",
+   "statement": "Example: SSCH — El MDP Clínico como Modelo Paramétrico (capitulos/cap10_casos.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "ex:ssch-cap01"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.ex:ssch-cap02",
+   "book_key": "ex:ssch-cap02",
+   "kind": "empirical",
+   "statement": "Example: SSCH — Estadístico Suficiente para las Transiciones (capitulos/cap10_casos.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "ex:ssch-cap02"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.ex:ssch-cap03-b",
+   "book_key": "ex:ssch-cap03-b",
+   "kind": "empirical",
+   "statement": "Example: SSCH — Estimación de las Probabilidades de Transición (capitulos/cap10_casos.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "ex:ssch-cap03-b"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.ex:ssch-cap04-b",
+   "book_key": "ex:ssch-cap04-b",
+   "kind": "empirical",
+   "statement": "Example: SSCH: comparación de dos políticas del simulador (capitulos/cap10_casos.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "ex:ssch-cap04-b"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.ex:ssch-cap05-b",
+   "book_key": "ex:ssch-cap05-b",
+   "kind": "empirical",
+   "statement": "Example: SSCH — Distribución Asintótica de $hat(V)^pi$ (capitulos/cap10_casos.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "ex:ssch-cap05-b"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.ex:ssch-cap06",
+   "book_key": "ex:ssch-cap06",
+   "kind": "empirical",
+   "statement": "Example: SSCH — OPE Semiparamétrica con Datos Observacionales (capitulos/cap10_casos.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "ex:ssch-cap06"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.ex:ssch-confound",
+   "book_key": "ex:ssch-confound",
+   "kind": "empirical",
+   "statement": "Example: SSCH con Confounding (capitulos/cap12_problemas.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "ex:ssch-confound"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.thm:ch12-pomdp-identification",
+   "book_key": "thm:ch12-pomdp-identification",
+   "kind": "formal",
+   "statement": "Theorem: Identificación en POMDPs (capitulos/cap12_problemas.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "thm:ch12-pomdp-identification"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.ex:ssch-pomdp",
+   "book_key": "ex:ssch-pomdp",
+   "kind": "empirical",
+   "statement": "Example: SSCH como POMDP (capitulos/cap12_problemas.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "ex:ssch-pomdp"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.prop:ch12-logprobs",
+   "book_key": "prop:ch12-logprobs",
+   "kind": "formal",
+   "statement": "Proposition: Estimación de Propensity vía Log-Probs (capitulos/cap12_problemas.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "prop:ch12-logprobs"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.prop:ch12-sesgo-disc",
+   "book_key": "prop:ch12-sesgo-disc",
+   "kind": "formal",
+   "statement": "Proposition: Sesgo de Discretización (capitulos/cap12_problemas.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "prop:ch12-sesgo-disc"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.ex:ssch-reliable",
+   "book_key": "ex:ssch-reliable",
+   "kind": "empirical",
+   "statement": "Example: Agente SSCH Confiable (capitulos/cap12_problemas.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "ex:ssch-reliable"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.ex:ssch-integration",
+   "book_key": "ex:ssch-integration",
+   "kind": "empirical",
+   "statement": "Example: Integración en SSCH (capitulos/cap12_problemas.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "ex:ssch-integration"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.ex:ssch-limitations",
+   "book_key": "ex:ssch-limitations",
+   "kind": "empirical",
+   "statement": "Example: Limitaciones en SSCH (capitulos/cap12_problemas.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "ex:ssch-limitations"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.ex:ssch-cap12",
+   "book_key": "ex:ssch-cap12",
+   "kind": "empirical",
+   "statement": "Example: SSCH: preguntas que acompañan una decisión (capitulos/cap12_problemas.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "ex:ssch-cap12"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.ex:appE-borel",
+   "book_key": "ex:appE-borel",
+   "kind": "empirical",
+   "statement": "Example: σ-Álgebra de Borel (apendices/apendice_medido.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "ex:appE-borel"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.prop:appE-composicion",
+   "book_key": "prop:appE-composicion",
+   "kind": "formal",
+   "statement": "Proposition: Composición de Funciones Medibles (apendices/apendice_medido.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "prop:appE-composicion"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.ex:appE-estadisticos",
+   "book_key": "ex:appE-estadisticos",
+   "kind": "empirical",
+   "statement": "Example: Medibilidad de Estadísticos (apendices/apendice_medido.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "ex:appE-estadisticos"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.thm:appE-radon-nikodym",
+   "book_key": "thm:appE-radon-nikodym",
+   "kind": "formal",
+   "statement": "Theorem: Teorema de Radon-Nikodym (apendices/apendice_medido.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "thm:appE-radon-nikodym"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.prop:appE-markov-filtracion",
+   "book_key": "prop:appE-markov-filtracion",
+   "kind": "formal",
+   "statement": "Proposition: Propiedad de Markov y Filtraciones (apendices/apendice_medido.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "prop:appE-markov-filtracion"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.prop:appE-estimadores-medibles",
+   "book_key": "prop:appE-estimadores-medibles",
+   "kind": "formal",
+   "statement": "Proposition: Medibilidad de Estimadores Comunes (apendices/apendice_medido.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "prop:appE-estimadores-medibles"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.prop:appE-dominacion-continuo",
+   "book_key": "prop:appE-dominacion-continuo",
+   "kind": "formal",
+   "statement": "Proposition: Dominación en Modelos Continuos (apendices/apendice_medido.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "prop:appE-dominacion-continuo"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.ex:appE-gaussiano",
+   "book_key": "ex:appE-gaussiano",
+   "kind": "empirical",
+   "statement": "Example: Modelo Gaussiano (apendices/apendice_medido.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "ex:appE-gaussiano"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.thm:appE-funcion-implicita",
+   "book_key": "thm:appE-funcion-implicita",
+   "kind": "formal",
+   "statement": "Theorem: Teorema de la Función Implícita (apendices/apendice_medido.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "thm:appE-funcion-implicita"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.prop:appE-condiciones-funcion-implicita",
+   "book_key": "prop:appE-condiciones-funcion-implicita",
+   "kind": "formal",
+   "statement": "Proposition: Condiciones de Regularidad para el Teorema de la Función Implícita (apendices/apendice_medido.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "prop:appE-condiciones-funcion-implicita"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.thm:appE-convergencia-dominada",
+   "book_key": "thm:appE-convergencia-dominada",
+   "kind": "formal",
+   "statement": "Theorem: Teorema de Convergencia Dominada de Lebesgue (apendices/apendice_medido.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "thm:appE-convergencia-dominada"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.ex:appE-l2",
+   "book_key": "ex:appE-l2",
+   "kind": "empirical",
+   "statement": "Example: Espacio $L^2(P)$ (apendices/apendice_medido.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "ex:appE-l2"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.thm:appE-proyeccion",
+   "book_key": "thm:appE-proyeccion",
+   "kind": "formal",
+   "statement": "Theorem: Teorema de Proyección (apendices/apendice_medido.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "thm:appE-proyeccion"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.prop:appD-relaciones",
+   "book_key": "prop:appD-relaciones",
+   "kind": "formal",
+   "statement": "Proposition: Relaciones entre Coeficientes (apendices/apendice_regularidad.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "prop:appD-relaciones"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.thm:appD-ergodico",
+   "book_key": "thm:appD-ergodico",
+   "kind": "formal",
+   "statement": "Theorem: Ergodicidad Geométrica de Cadenas de Markov (apendices/apendice_regularidad.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "thm:appD-ergodico"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.cor:appD-mdp-finito",
+   "book_key": "cor:appD-mdp-finito",
+   "kind": "formal",
+   "statement": "Corollary: MDPs con Estados Finitos (apendices/apendice_regularidad.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "cor:appD-mdp-finito"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.prop:appD-verificacion",
+   "book_key": "prop:appD-verificacion",
+   "kind": "formal",
+   "statement": "Proposition: Verificación de Irreducibilidad (apendices/apendice_regularidad.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "prop:appD-verificacion"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.prop:appD-aperiodicidad",
+   "book_key": "prop:appD-aperiodicidad",
+   "kind": "formal",
+   "statement": "Proposition: Verificación de Aperiodicidad (apendices/apendice_regularidad.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "prop:appD-aperiodicidad"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.thm:appD-ibragimov",
+   "book_key": "thm:appD-ibragimov",
+   "kind": "formal",
+   "statement": "Theorem: CLT de Ibragimov para Procesos $alpha$-Mixing (apendices/apendice_regularidad.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "thm:appD-ibragimov"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.cor:appD-clt-mdp",
+   "book_key": "cor:appD-clt-mdp",
+   "kind": "formal",
+   "statement": "Corollary: Condición Suficiente para MDPs (apendices/apendice_regularidad.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "cor:appD-clt-mdp"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.thm:appD-gordin",
+   "book_key": "thm:appD-gordin",
+   "kind": "formal",
+   "statement": "Theorem: CLT funcional para una cadena finita (apendices/apendice_regularidad.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "thm:appD-gordin"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.thm:appD-hac-consistencia",
+   "book_key": "thm:appD-hac-consistencia",
+   "kind": "formal",
+   "statement": "Theorem: Consistencia del Estimador HAC (apendices/apendice_regularidad.typ)",
+   "expression": {
+    "op": "atom",
+    "id": "thm:appD-hac-consistencia"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  }
+ ],
+ "arguments": [
+  {
+   "id": "A.thm:ch7-bayes",
+   "conclusion": "C.thm:ch7-bayes",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.thm:ch7-bayes"
+   ]
+  },
+  {
+   "id": "A.thm:ch7-admisibilidad-bayes",
+   "conclusion": "C.thm:ch7-admisibilidad-bayes",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.thm:ch7-admisibilidad-bayes"
+   ]
+  },
+  {
+   "id": "A.thm:ch7-complete-class",
+   "conclusion": "C.thm:ch7-complete-class",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.thm:ch7-complete-class"
+   ]
+  },
+  {
+   "id": "A.thm:ch7-minimax-bayes",
+   "conclusion": "C.thm:ch7-minimax-bayes",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.thm:ch7-minimax-bayes"
+   ]
+  },
+  {
+   "id": "A.ex:ssch-cap07",
+   "conclusion": "C.ex:ssch-cap07",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.ex:ssch-cap07"
+   ]
+  },
+  {
+   "id": "A.thm:ch8-contraccion",
+   "conclusion": "C.thm:ch8-contraccion",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.thm:ch8-contraccion"
+   ]
+  },
+  {
+   "id": "A.cor:ch8-punto-fijo",
+   "conclusion": "C.cor:ch8-punto-fijo",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.cor:ch8-punto-fijo"
+   ]
+  },
+  {
+   "id": "A.cor:ch8-parada",
+   "conclusion": "C.cor:ch8-parada",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.cor:ch8-parada"
+   ]
+  },
+  {
+   "id": "A.thm:ch8-mejora",
+   "conclusion": "C.thm:ch8-mejora",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.thm:ch8-mejora"
+   ]
+  },
+  {
+   "id": "A.cor:ch8-pi-finita",
+   "conclusion": "C.cor:ch8-pi-finita",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.cor:ch8-pi-finita"
+   ]
+  },
+  {
+   "id": "A.ex:ssch-cap08",
+   "conclusion": "C.ex:ssch-cap08",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.ex:ssch-cap08"
+   ]
+  },
+  {
+   "id": "A.thm:ch9-isomorfismo",
+   "conclusion": "C.thm:ch9-isomorfismo",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.thm:ch9-isomorfismo"
+   ]
+  },
+  {
+   "id": "A.thm:ch9-secuencial",
+   "conclusion": "C.thm:ch9-secuencial",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.thm:ch9-secuencial"
+   ]
+  },
+  {
+   "id": "A.cor:ch9-bellman",
+   "conclusion": "C.cor:ch9-bellman",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.cor:ch9-bellman"
+   ]
+  },
+  {
+   "id": "A.thm:ch9-admisibilidad",
+   "conclusion": "C.thm:ch9-admisibilidad",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.thm:ch9-admisibilidad"
+   ]
+  },
+  {
+   "id": "A.cor:ch9-bayes",
+   "conclusion": "C.cor:ch9-bayes",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.cor:ch9-bayes"
+   ]
+  },
+  {
+   "id": "A.cor:ch7-traduccion",
+   "conclusion": "C.cor:ch7-traduccion",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.cor:ch7-traduccion"
+   ]
+  },
+  {
+   "id": "A.ex:ssch-cap09",
+   "conclusion": "C.ex:ssch-cap09",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.ex:ssch-cap09"
+   ]
+  },
+  {
+   "id": "A.ex:ch9-observabilidad-parcial",
+   "conclusion": "C.ex:ch9-observabilidad-parcial",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.ex:ch9-observabilidad-parcial"
+   ]
+  },
+  {
+   "id": "A.ex:ch9-confounding",
+   "conclusion": "C.ex:ch9-confounding",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.ex:ch9-confounding"
+   ]
+  },
+  {
+   "id": "A.thm:ch9-ic",
+   "conclusion": "C.thm:ch9-ic",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.thm:ch9-ic"
+   ]
+  },
+  {
+   "id": "A.ex:ch9-fallo-mixing",
+   "conclusion": "C.ex:ch9-fallo-mixing",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.ex:ch9-fallo-mixing"
+   ]
+  },
+  {
+   "id": "A.ex:ch9-fallo-overlap",
+   "conclusion": "C.ex:ch9-fallo-overlap",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.ex:ch9-fallo-overlap"
+   ]
+  },
+  {
+   "id": "A.ex:ch5-cadena",
+   "conclusion": "C.ex:ch5-cadena",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.ex:ch5-cadena"
+   ]
+  },
+  {
+   "id": "A.ex:ch6-memoria",
+   "conclusion": "C.ex:ch6-memoria",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.ex:ch6-memoria"
+   ]
+  },
+  {
+   "id": "A.ex:ch6-minimax-dominada",
+   "conclusion": "C.ex:ch6-minimax-dominada",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.ex:ch6-minimax-dominada"
+   ]
+  },
+  {
+   "id": "A.thm:ch10-identificacion",
+   "conclusion": "C.thm:ch10-identificacion",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.thm:ch10-identificacion"
+   ]
+  },
+  {
+   "id": "A.thm:ch10-is-insesgado",
+   "conclusion": "C.thm:ch10-is-insesgado",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.thm:ch10-is-insesgado"
+   ]
+  },
+  {
+   "id": "A.thm:ch10-curse",
+   "conclusion": "C.thm:ch10-curse",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.thm:ch10-curse"
+   ]
+  },
+  {
+   "id": "A.thm:ch10-dr",
+   "conclusion": "C.thm:ch10-dr",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.thm:ch10-dr"
+   ]
+  },
+  {
+   "id": "A.prop:ch10-var-dr",
+   "conclusion": "C.prop:ch10-var-dr",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.prop:ch10-var-dr"
+   ]
+  },
+  {
+   "id": "A.thm:ch11-tasa-tabular",
+   "conclusion": "C.thm:ch11-tasa-tabular",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.thm:ch11-tasa-tabular"
+   ]
+  },
+  {
+   "id": "A.prop:ch11-baseline",
+   "conclusion": "C.prop:ch11-baseline",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.prop:ch11-baseline"
+   ]
+  },
+  {
+   "id": "A.ex:ssch-drl-cap11",
+   "conclusion": "C.ex:ssch-drl-cap11",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.ex:ssch-drl-cap11"
+   ]
+  },
+  {
+   "id": "A.ex:ch11-pg-ssch",
+   "conclusion": "C.ex:ch11-pg-ssch",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.ex:ch11-pg-ssch"
+   ]
+  }
+ ],
+ "evidence_specs": [
+  {
+   "id": "E.thm:ch7-bayes",
+   "kind": "lean",
+   "claim_id": "C.thm:ch7-bayes",
+   "runner_id": "lean-export",
+   "target": "ch7_bayes",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "pending"
+  },
+  {
+   "id": "E.thm:ch7-admisibilidad-bayes",
+   "kind": "lean",
+   "claim_id": "C.thm:ch7-admisibilidad-bayes",
+   "runner_id": "lean-export",
+   "target": "ch7_admisibilidad_bayes",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "pending"
+  },
+  {
+   "id": "E.thm:ch7-complete-class",
+   "kind": "lean",
+   "claim_id": "C.thm:ch7-complete-class",
+   "runner_id": "lean-export",
+   "target": "ch7_complete_class_bayes",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "pending"
+  },
+  {
+   "id": "E.thm:ch7-minimax-bayes",
+   "kind": "lean",
+   "claim_id": "C.thm:ch7-minimax-bayes",
+   "runner_id": "lean-export",
+   "target": "ch7_minimax_bayes",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "pending"
+  },
+  {
+   "id": "E.ex:ssch-cap07",
+   "kind": "lean",
+   "claim_id": "C.ex:ssch-cap07",
+   "runner_id": "lean-export",
+   "target": "ssch_minimax",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "pending"
+  },
+  {
+   "id": "E.thm:ch8-contraccion",
+   "kind": "lean",
+   "claim_id": "C.thm:ch8-contraccion",
+   "runner_id": "lean-export",
+   "target": "ch8_contraccion",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "pending"
+  },
+  {
+   "id": "E.cor:ch8-punto-fijo",
+   "kind": "lean",
+   "claim_id": "C.cor:ch8-punto-fijo",
+   "runner_id": "lean-export",
+   "target": "ch8_punto_fijo_unico",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "pending"
+  },
+  {
+   "id": "E.cor:ch8-parada",
+   "kind": "lean",
+   "claim_id": "C.cor:ch8-parada",
+   "runner_id": "lean-export",
+   "target": "ch8_parada",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "pending"
+  },
+  {
+   "id": "E.thm:ch8-mejora",
+   "kind": "lean",
+   "claim_id": "C.thm:ch8-mejora",
+   "runner_id": "lean-export",
+   "target": "ch8_mejora",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "pending"
+  },
+  {
+   "id": "E.cor:ch8-pi-finita",
+   "kind": "lean",
+   "claim_id": "C.cor:ch8-pi-finita",
+   "runner_id": "lean-export",
+   "target": "ch8_pi_finita_sin_repeticion",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "pending"
+  },
+  {
+   "id": "E.ex:ssch-cap08",
+   "kind": "lean",
+   "claim_id": "C.ex:ssch-cap08",
+   "runner_id": "lean-export",
+   "target": "ssch_mdp_bellman",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "pending"
+  },
+  {
+   "id": "E.thm:ch9-isomorfismo",
+   "kind": "lean",
+   "claim_id": "C.thm:ch9-isomorfismo",
+   "runner_id": "lean-export",
+   "target": "ch9_isomorfismo",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "pending"
+  },
+  {
+   "id": "E.thm:ch9-secuencial",
+   "kind": "lean",
+   "claim_id": "C.thm:ch9-secuencial",
+   "runner_id": "lean-export",
+   "target": "ch9_secuencial_cota",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "pending"
+  },
+  {
+   "id": "E.cor:ch9-bellman",
+   "kind": "lean",
+   "claim_id": "C.cor:ch9-bellman",
+   "runner_id": "lean-export",
+   "target": "ch9_bellman",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "pending"
+  },
+  {
+   "id": "E.thm:ch9-admisibilidad",
+   "kind": "lean",
+   "claim_id": "C.thm:ch9-admisibilidad",
+   "runner_id": "lean-export",
+   "target": "ch9_admisibilidad",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "pending"
+  },
+  {
+   "id": "E.cor:ch9-bayes",
+   "kind": "lean",
+   "claim_id": "C.cor:ch9-bayes",
+   "runner_id": "lean-export",
+   "target": "ch9_bayes",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "pending"
+  },
+  {
+   "id": "E.cor:ch7-traduccion",
+   "kind": "lean",
+   "claim_id": "C.cor:ch7-traduccion",
+   "runner_id": "lean-export",
+   "target": "ch7_traduccion_optimos",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "pending"
+  },
+  {
+   "id": "E.ex:ssch-cap09",
+   "kind": "lean",
+   "claim_id": "C.ex:ssch-cap09",
+   "runner_id": "lean-export",
+   "target": "ssch_regla_ordinario",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "pending"
+  },
+  {
+   "id": "E.ex:ch9-observabilidad-parcial",
+   "kind": "lean",
+   "claim_id": "C.ex:ch9-observabilidad-parcial",
+   "runner_id": "lean-export",
+   "target": "ex_ch9_observabilidad_parcial",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "pending"
+  },
+  {
+   "id": "E.ex:ch9-confounding",
+   "kind": "lean",
+   "claim_id": "C.ex:ch9-confounding",
+   "runner_id": "lean-export",
+   "target": "ex_ch9_confounding",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "pending"
+  },
+  {
+   "id": "E.thm:ch9-ic",
+   "kind": "lean",
+   "claim_id": "C.thm:ch9-ic",
+   "runner_id": "lean-export",
+   "target": "ch9_ic",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "pending"
+  },
+  {
+   "id": "E.ex:ch9-fallo-mixing",
+   "kind": "lean",
+   "claim_id": "C.ex:ch9-fallo-mixing",
+   "runner_id": "lean-export",
+   "target": "ex_ch9_fallo_mixing",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "pending"
+  },
+  {
+   "id": "E.ex:ch9-fallo-overlap",
+   "kind": "lean",
+   "claim_id": "C.ex:ch9-fallo-overlap",
+   "runner_id": "lean-export",
+   "target": "ex_ch9_fallo_overlap",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "pending"
+  },
+  {
+   "id": "E.ex:ch5-cadena",
+   "kind": "lean",
+   "claim_id": "C.ex:ch5-cadena",
+   "runner_id": "lean-export",
+   "target": "ex_ch5_cadena",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "pending"
+  },
+  {
+   "id": "E.ex:ch6-memoria",
+   "kind": "lean",
+   "claim_id": "C.ex:ch6-memoria",
+   "runner_id": "lean-export",
+   "target": "ex_ch6_memoria",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "pending"
+  },
+  {
+   "id": "E.ex:ch6-minimax-dominada",
+   "kind": "lean",
+   "claim_id": "C.ex:ch6-minimax-dominada",
+   "runner_id": "lean-export",
+   "target": "ex_ch6_minimax_dominada",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "pending"
+  },
+  {
+   "id": "E.thm:ch10-identificacion",
+   "kind": "lean",
+   "claim_id": "C.thm:ch10-identificacion",
+   "runner_id": "lean-export",
+   "target": "ch10_identificacion",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "pending"
+  },
+  {
+   "id": "E.thm:ch10-is-insesgado",
+   "kind": "lean",
+   "claim_id": "C.thm:ch10-is-insesgado",
+   "runner_id": "lean-export",
+   "target": "ch10_is_insesgado",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "pending"
+  },
+  {
+   "id": "E.thm:ch10-curse",
+   "kind": "lean",
+   "claim_id": "C.thm:ch10-curse",
+   "runner_id": "lean-export",
+   "target": "ch10_curse_ejemplo",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "pending"
+  },
+  {
+   "id": "E.thm:ch10-dr",
+   "kind": "lean",
+   "claim_id": "C.thm:ch10-dr",
+   "runner_id": "lean-export",
+   "target": "ch10_dr_sesgo_m",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "pending"
+  },
+  {
+   "id": "E.prop:ch10-var-dr",
+   "kind": "lean",
+   "claim_id": "C.prop:ch10-var-dr",
+   "runner_id": "lean-export",
+   "target": "ch10_var_dr",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "pending"
+  },
+  {
+   "id": "E.thm:ch11-tasa-tabular",
+   "kind": "lean",
+   "claim_id": "C.thm:ch11-tasa-tabular",
+   "runner_id": "lean-export",
+   "target": "ch11_tasa_tabular",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "pending"
+  },
+  {
+   "id": "E.prop:ch11-baseline",
+   "kind": "lean",
+   "claim_id": "C.prop:ch11-baseline",
+   "runner_id": "lean-export",
+   "target": "ch11_baseline",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "pending"
+  },
+  {
+   "id": "E.ex:ssch-drl-cap11",
+   "kind": "lean",
+   "claim_id": "C.ex:ssch-drl-cap11",
+   "runner_id": "lean-export",
+   "target": "ch11_baseline_ejemplo",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "pending"
+  },
+  {
+   "id": "E.ex:ch11-pg-ssch",
+   "kind": "lean",
+   "claim_id": "C.ex:ch11-pg-ssch",
+   "runner_id": "lean-export",
+   "target": "ex_ch11_pg_ssch",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "pending"
+  }
+ ]
+}

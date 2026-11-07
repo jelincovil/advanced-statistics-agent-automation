@@ -1,0 +1,1466 @@
+[
+ {
+  "claim_id": "C.ex:ch7-perdidas",
+  "book_key": "ex:ch7-perdidas",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap02_wald.typ (example: Pérdidas y objetivos)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.ex:ch7-james-stein",
+  "book_key": "ex:ch7-james-stein",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap02_wald.typ (example: James–Stein y la dimensión del parámetro)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.cor:ch7-bayes-especificas",
+  "book_key": "cor:ch7-bayes-especificas",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap02_wald.typ (corollary: Acciones posteriores para pérdidas habituales)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.ex:ch2-bernoulli-minimax",
+  "book_key": "ex:ch2-bernoulli-minimax",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap02_wald.typ (example: Estimación Bernoulli con riesgo constante)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.prop:ch4-test-decision",
+  "book_key": "prop:ch4-test-decision",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap02_wald.typ (proposition: Test como regla de decisión)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.prop:ch8-VQ",
+  "book_key": "prop:ch8-VQ",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap03_mdp.typ (proposition: Relación entre valores)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.prop:ch8-acotacion",
+  "book_key": "prop:ch8-acotacion",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap03_mdp.typ (proposition: Acotación)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.thm:ch8-bellman-pi",
+  "book_key": "thm:ch8-bellman-pi",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap03_mdp.typ (theorem: Bellman para una política estacionaria)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.thm:ch8-bellman-opt",
+  "book_key": "thm:ch8-bellman-opt",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap03_mdp.typ (theorem: Bellman de optimalidad)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.thm:ch8-vi-conv",
+  "book_key": "thm:ch8-vi-conv",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap03_mdp.typ (theorem: Convergencia de Value Iteration)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.prop:ch8-mab-mdp",
+  "book_key": "prop:ch8-mab-mdp",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap03_mdp.typ (proposition: Estado físico y estado de información)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.thm:ch8-ucb1",
+  "book_key": "thm:ch8-ucb1",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap03_mdp.typ (theorem: UCB1: garantía bajo recompensas acotadas)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.prop:ch8-thompson",
+  "book_key": "prop:ch8-thompson",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap03_mdp.typ (proposition: Thompson Sampling y decisión de Bayes)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.thm:ch8-lai-robbins",
+  "book_key": "thm:ch8-lai-robbins",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap03_mdp.typ (theorem: Cota asintótica en bandidos Bernoulli)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.ex:ssch-bandits-cap08",
+  "book_key": "ex:ssch-bandits-cap08",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap03_mdp.typ (example: SSCH: una comparación calculable de exploración)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.prop:ch8-mab-mdp-thompson",
+  "book_key": "prop:ch8-mab-mdp-thompson",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap03_mdp.typ (proposition: Última ronda)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.ex:ch8-bandit-ssch",
+  "book_key": "ex:ch8-bandit-ssch",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap03_mdp.typ (example: SSCH: muestreo posterior frente a decisión final)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.cor:ch8-principio",
+  "book_key": "cor:ch8-principio",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap03_mdp.typ (corollary: Principio de continuación óptima)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.thm:ch8-condiciones-contraccion",
+  "book_key": "thm:ch8-condiciones-contraccion",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap03_mdp.typ (proposition: Condiciones suficientes)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.prop:ch8-perdida",
+  "book_key": "prop:ch8-perdida",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap03_mdp.typ (proposition: Proyección y norma pertinente)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.ex:ch8-frozenlake",
+  "book_key": "ex:ch8-frozenlake",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap03_mdp.typ (example: Value Iteration con modelo tabular explícito)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.ex:ch6-motivacion",
+  "book_key": "ex:ch6-motivacion",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap04_herramientas.typ (example: Motivación: estimar una decisión con modelos auxiliares)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.ex:ch1-estadisticos-fundamentales",
+  "book_key": "ex:ch1-estadisticos-fundamentales",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap04_herramientas.typ (example: Estadísticos Fundamentales)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.ex:ch1-calculo-numerico",
+  "book_key": "ex:ch1-calculo-numerico",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap04_herramientas.typ (example: Cálculo Numérico de Sesgo, Varianza y ECM)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.ex:ch1-perdidas-comunes",
+  "book_key": "ex:ch1-perdidas-comunes",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap04_herramientas.typ (example: Pérdidas Comunes)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.thm:ch1-logparticion",
+  "book_key": "thm:ch1-logparticion",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap04_herramientas.typ (theorem: Propiedades de la Función Log-Partición)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.cor:ch1-covarianza-hessiano",
+  "book_key": "cor:ch1-covarianza-hessiano",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap04_herramientas.typ (corollary: )",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.ex:ch1-normal",
+  "book_key": "ex:ch1-normal",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap04_herramientas.typ (example: Familia Normal con Varianza Conocida)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.ex:ch1-binomial",
+  "book_key": "ex:ch1-binomial",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap04_herramientas.typ (example: Familia Bernoulli/Binomial)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.ex:ch1-poisson",
+  "book_key": "ex:ch1-poisson",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap04_herramientas.typ (example: Familia Poisson)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.thm:ch1-suficiencia-natural",
+  "book_key": "thm:ch1-suficiencia-natural",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap04_herramientas.typ (theorem: El Estadístico Natural es Suficiente)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.ex:ch1-beta-binomial",
+  "book_key": "ex:ch1-beta-binomial",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap04_herramientas.typ (example: Beta-Binomial)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.ex:ch1-gamma-poisson",
+  "book_key": "ex:ch1-gamma-poisson",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap04_herramientas.typ (example: Gamma-Poisson)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.ex:ch1-normal-gamma",
+  "book_key": "ex:ch1-normal-gamma",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap04_herramientas.typ (example: Normal-Gamma para recompensas continuas)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.ex:ch1-t-student",
+  "book_key": "ex:ch1-t-student",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap04_herramientas.typ (example: Distribución $t$ de Student)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.ex:ch1-mezcla-normal",
+  "book_key": "ex:ch1-mezcla-normal",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap04_herramientas.typ (example: Mezcla de dos normales)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.ex:ch1-gumbel",
+  "book_key": "ex:ch1-gumbel",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap04_herramientas.typ (example: Distribución Gumbel)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.thm:ch2-neyman-fisher",
+  "book_key": "thm:ch2-neyman-fisher",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap04_herramientas.typ (theorem: Factorización de Neyman-Fisher)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.ex:ch2-normal-suficiencia",
+  "book_key": "ex:ch2-normal-suficiencia",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap04_herramientas.typ (example: Suficiencia en la Distribución Normal)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.ex:ch2-poisson-suficiencia",
+  "book_key": "ex:ch2-poisson-suficiencia",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap04_herramientas.typ (example: Suficiencia en la Distribución de Poisson)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.thm:ch2-lehmann-scheffe",
+  "book_key": "thm:ch2-lehmann-scheffe",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap04_herramientas.typ (theorem: Caracterización de Suficiencia Minimal (Lehmann-Scheffé))",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.ex:ch2-minimal-exponencial",
+  "book_key": "ex:ch2-minimal-exponencial",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap04_herramientas.typ (example: Suficiencia Minimal en Familias Exponenciales)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.thm:ch2-completitud-exponencial",
+  "book_key": "thm:ch2-completitud-exponencial",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap04_herramientas.typ (theorem: Completitud en Familias Exponenciales)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.cor:ch2-smc",
+  "book_key": "cor:ch2-smc",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap04_herramientas.typ (corollary: )",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.ex:ch2-multinomial-ssch",
+  "book_key": "ex:ch2-multinomial-ssch",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap04_herramientas.typ (example: Familia Exponencial Multinomial para SSCH)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.ex:ch2-ancilar-localizacion",
+  "book_key": "ex:ch2-ancilar-localizacion",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap04_herramientas.typ (example: Ancilaridad en Modelo de Localización)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.thm:ch2-basu",
+  "book_key": "thm:ch2-basu",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap04_herramientas.typ (theorem: Teorema de Basu)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.ex:ch2-basu-aplicacion",
+  "book_key": "ex:ch2-basu-aplicacion",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap04_herramientas.typ (example: Aplicación del Teorema de Basu)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.thm:ch2-equivarianza",
+  "book_key": "thm:ch2-equivarianza",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap04_herramientas.typ (theorem: Principio de Equivarianza)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.ex:ch2-traslaciones",
+  "book_key": "ex:ch2-traslaciones",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap04_herramientas.typ (example: Equivarianza bajo Traslaciones)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.ex:ch2-escala",
+  "book_key": "ex:ch2-escala",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap04_herramientas.typ (example: Equivarianza bajo Escala)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.thm:ch3-rao-blackwell",
+  "book_key": "thm:ch3-rao-blackwell",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap04_herramientas.typ (theorem: Rao-Blackwell)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.cor:ch3-rb-insesgado",
+  "book_key": "cor:ch3-rb-insesgado",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap04_herramientas.typ (corollary: )",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.ex:ch3-rb-bernoulli",
+  "book_key": "ex:ch3-rb-bernoulli",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap04_herramientas.typ (example: Rao-Blackwellización en Bernoulli)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.thm:ch3-lehmann-scheffe",
+  "book_key": "thm:ch3-lehmann-scheffe",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap04_herramientas.typ (theorem: Lehmann-Scheffé)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.cor:ch3-umvue-exponencial",
+  "book_key": "cor:ch3-umvue-exponencial",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap04_herramientas.typ (corollary: )",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.thm:ch3-cramer-rao",
+  "book_key": "thm:ch3-cramer-rao",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap04_herramientas.typ (theorem: Cota Inferior de Cramér-Rao)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.prop:ch3-info-aditiva",
+  "book_key": "prop:ch3-info-aditiva",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap04_herramientas.typ (proposition: Aditividad de la Información)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.cor:ch3-cr-iid",
+  "book_key": "cor:ch3-cr-iid",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap04_herramientas.typ (corollary: Cota de Cramér-Rao para Muestras iid)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.thm:ch3-mle-propiedades",
+  "book_key": "thm:ch3-mle-propiedades",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap04_herramientas.typ (theorem: Propiedades del MLE bajo Regularidad)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.ex:ch3-mle-normal",
+  "book_key": "ex:ch3-mle-normal",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap04_herramientas.typ (example: MLE para la Normal)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.ex:ch4-regularidad",
+  "book_key": "ex:ch4-regularidad",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap04_herramientas.typ (example: Regularidad, mala especificación y frontera)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.ex:ssch-mcmc-vi-cap03",
+  "book_key": "ex:ssch-mcmc-vi-cap03",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap04_herramientas.typ (example: SSCH --- Estimación Bayesiana de Probabilidades de Transición)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.ex:ch3-mcmc-ssch",
+  "book_key": "ex:ch3-mcmc-ssch",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap04_herramientas.typ (example: MCMC para el SSCH con Prior No Conjugado)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.thm:ch4-neyman-pearson",
+  "book_key": "thm:ch4-neyman-pearson",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap04_herramientas.typ (theorem: Lema de Neyman-Pearson)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.ex:ch4-mp-normal",
+  "book_key": "ex:ch4-mp-normal",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap04_herramientas.typ (example: Test MP para Normal)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.thm:ch4-mlr",
+  "book_key": "thm:ch4-mlr",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap04_herramientas.typ (theorem: Existencia de UMP en Familias MLR)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.cor:ch4-exp-mlr",
+  "book_key": "cor:ch4-exp-mlr",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap04_herramientas.typ (corollary: )",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.thm:ch4-umpu",
+  "book_key": "thm:ch4-umpu",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap04_herramientas.typ (theorem: UMPU para Hipótesis Bilateral)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.thm:ch4-inversion",
+  "book_key": "thm:ch4-inversion",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap04_herramientas.typ (theorem: Inversión de Tests)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.cor:ch4-ic-z",
+  "book_key": "cor:ch4-ic-z",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap04_herramientas.typ (corollary: IC a partir de Test Z)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.prop:ch4-multiplicidad",
+  "book_key": "prop:ch4-multiplicidad",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap04_herramientas.typ (proposition: Problema de Multiplicidad)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.thm:ch4-bonferroni",
+  "book_key": "thm:ch4-bonferroni",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap04_herramientas.typ (theorem: Corrección de Bonferroni)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.ex:ch4-bonferroni-ssch",
+  "book_key": "ex:ch4-bonferroni-ssch",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap04_herramientas.typ (example: Pruebas Múltiples en SSCH con Corrección de Bonferroni)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.thm:ch4-holm",
+  "book_key": "thm:ch4-holm",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap04_herramientas.typ (theorem: Procedimiento de Holm)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.thm:ch4-bh",
+  "book_key": "thm:ch4-bh",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap04_herramientas.typ (theorem: Benjamini-Hochberg para FDR)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.thm:ch5-clt",
+  "book_key": "thm:ch5-clt",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap04_herramientas.typ (theorem: CLT Clásico de Lindeberg-Lévy)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.thm:ch5-lindeberg",
+  "book_key": "thm:ch5-lindeberg",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap04_herramientas.typ (theorem: CLT de Lindeberg-Feller)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.thm:ch4-clt-mixing",
+  "book_key": "thm:ch4-clt-mixing",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap04_herramientas.typ (theorem: CLT bajo mezcla fuerte)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.ex:ch4-ar1",
+  "book_key": "ex:ch4-ar1",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap04_herramientas.typ (example: La correlación cambia el error estándar)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.thm:ch5-delta",
+  "book_key": "thm:ch5-delta",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap04_herramientas.typ (theorem: Delta Method Univariado)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.thm:ch5-delta-multi",
+  "book_key": "thm:ch5-delta-multi",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap04_herramientas.typ (theorem: Delta Method Multivariado)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.ex:ch5-cociente",
+  "book_key": "ex:ch5-cociente",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap04_herramientas.typ (example: Varianza Asintótica del Cociente)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.thm:ch5-gc",
+  "book_key": "thm:ch5-gc",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap04_herramientas.typ (theorem: Glivenko-Cantelli)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.thm:ch5-donsker",
+  "book_key": "thm:ch5-donsker",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap04_herramientas.typ (theorem: Donsker)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.ex:ch5-bandas",
+  "book_key": "ex:ch5-bandas",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap04_herramientas.typ (example: Bandas de Confianza para la CDF vía Donsker)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.ex:ch4-no-parametrico",
+  "book_key": "ex:ch4-no-parametrico",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap04_herramientas.typ (example: No paramétrico: distribución y suavizado)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.thm:ch5-bootstrap-media",
+  "book_key": "thm:ch5-bootstrap-media",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap04_herramientas.typ (theorem: Consistencia del Bootstrap para la Media)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.def:ch5-ic-t",
+  "book_key": "def:ch5-ic-t",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap04_herramientas.typ (example: IC Bootstrap Percentil-t)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.ex:ch4-bootstrap-unidad",
+  "book_key": "ex:ch4-bootstrap-unidad",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap04_herramientas.typ (example: Bootstrap que respeta el muestreo)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.prop:ch5-clt-retornos",
+  "book_key": "prop:ch5-clt-retornos",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap04_herramientas.typ (proposition: CLT para Retornos Monte Carlo)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.prop:ch5-delta-q",
+  "book_key": "prop:ch5-delta-q",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap04_herramientas.typ (proposition: Delta Method para Funciones de Q)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.ex:ch5-qdelta",
+  "book_key": "ex:ch5-qdelta",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap04_herramientas.typ (example: Propagación de Varianza: MDP de 3 estados y 2 acciones)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.ex:ch6-parcialmente-lineal",
+  "book_key": "ex:ch6-parcialmente-lineal",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap04_herramientas.typ (example: Regresión parcialmente lineal)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.ex:ch6-cox",
+  "book_key": "ex:ch6-cox",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap04_herramientas.typ (example: Modelo de Cox)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.ex:ch6-aipw-intro",
+  "book_key": "ex:ch6-aipw-intro",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap04_herramientas.typ (example: ATE como funcional de la ley observada)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.ex:ch6-ope",
+  "book_key": "ex:ch6-ope",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap04_herramientas.typ (example: Objetivo de OPE)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.ex:ch6-scores-canonicos",
+  "book_key": "ex:ch6-scores-canonicos",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap04_herramientas.typ (example: Scores de perturbaciones concretas)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.prop:ch6-descomposicion",
+  "book_key": "prop:ch6-descomposicion",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap04_herramientas.typ (proposition: Descomposición ortogonal correcta)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.prop:ch6-ral",
+  "book_key": "prop:ch6-ral",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap04_herramientas.typ (proposition: Expansión asintóticamente lineal)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.ex:ch4-if-media-cuantil",
+  "book_key": "ex:ch4-if-media-cuantil",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap04_herramientas.typ (example: Media y cuantil sin modelo paramétrico)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.thm:ch6-cota",
+  "book_key": "thm:ch6-cota",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap04_herramientas.typ (theorem: Cota de eficiencia)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.cor:ch6-varianza-minima",
+  "book_key": "cor:ch6-varianza-minima",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap04_herramientas.typ (corollary: Varianza de referencia)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.thm:ch6-neyman",
+  "book_key": "thm:ch6-neyman",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap04_herramientas.typ (proposition: Ortogonalidad, sesgo y eficiencia)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.thm:ch6-dr",
+  "book_key": "thm:ch6-dr",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap04_herramientas.typ (theorem: Identidad exacta de doble robustez)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.thm:ch6-kallus",
+  "book_key": "thm:ch6-kallus",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap04_herramientas.typ (theorem: Gradiente canónico en el modelo Markov finito)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.cor:ch6-dr-ope",
+  "book_key": "cor:ch6-dr-ope",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap04_herramientas.typ (corollary: Estimador aumentado para OPE)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.ex:ch6-dr-ssch",
+  "book_key": "ex:ch6-dr-ssch",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap04_herramientas.typ (example: OPE de una decisión: cálculo completo)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.thm:ch6-dml",
+  "book_key": "thm:ch6-dml",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap04_herramientas.typ (theorem: Un caso suficiente para AIPW con cross-fitting)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.thm:ch6-crossfit",
+  "book_key": "thm:ch6-crossfit",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap04_herramientas.typ (proposition: Unidad de partición)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.thm:ch6-rubin-dag",
+  "book_key": "thm:ch6-rubin-dag",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap04_herramientas.typ (proposition: Ajuste gráfico y resultados potenciales)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.ex:ssch-causal-cap06",
+  "book_key": "ex:ssch-causal-cap06",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap04_herramientas.typ (example: SSCH: confusión y estandarización)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.ex:ch9-state",
+  "book_key": "ex:ch9-state",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap05_incrustacion.typ (example: Memoria suficiente para observaciones normales)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.ex:ch9-estados-infinitos",
+  "book_key": "ex:ch9-estados-infinitos",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap06_fallos.typ (example: Espacio de Estados Infinito)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.ex:ch9-horizonte-infinito",
+  "book_key": "ex:ch9-horizonte-infinito",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap06_fallos.typ (example: Horizonte Infinito sin Ergodicidad)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.thm:ch9-eficiencia",
+  "book_key": "thm:ch9-eficiencia",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap06_fallos.typ (example: Eficiencia no equivale a normalidad de cualquier funcional)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.ex:ch9-fallo-noest",
+  "book_key": "ex:ch9-fallo-noest",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap06_fallos.typ (example: Fallo por No-Estacionariedad)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.thm:ch5-clt-agentes",
+  "book_key": "thm:ch5-clt-agentes",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap06_fallos.typ (proposition: CLT para una contribución estacionaria)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.ex:ch6-horizonte-pesos",
+  "book_key": "ex:ch6-horizonte-pesos",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap06_fallos.typ (example: Costo de un horizonte largo)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.ex:ch6-tasas",
+  "book_key": "ex:ch6-tasas",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap06_fallos.typ (example: Tasas compatibles e incompatibles)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.ex:appD-irreducible",
+  "book_key": "ex:appD-irreducible",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap06_fallos.typ (example: Violación de Irreducibilidad)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.ex:appD-aperiodico",
+  "book_key": "ex:appD-aperiodico",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap06_fallos.typ (example: Violación de Aperiodicidad)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.ex:appD-lento",
+  "book_key": "ex:appD-lento",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap06_fallos.typ (example: Mixing Lento (Polinomial))",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.prop:ch10-dm",
+  "book_key": "prop:ch10-dm",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap07_ope.typ (proposition: Error y variabilidad de DM)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.cor:ch10-curse",
+  "book_key": "cor:ch10-curse",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap07_ope.typ (corollary: Implicación para el diseño de evaluación)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.prop:ch10-is-shift",
+  "book_key": "prop:ch10-is-shift",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap07_ope.typ (proposition: IS con cambio de población inicial)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.prop:ch10-dro-garantia",
+  "book_key": "prop:ch10-dro-garantia",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap07_ope.typ (proposition: Alcance de una cota robusta)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.ex:ssch-dist-shift-cap10",
+  "book_key": "ex:ssch-dist-shift-cap10",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap07_ope.typ (example: SSCH: cambio de composición poblacional)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.ex:ch10-shift-ssch",
+  "book_key": "ex:ch10-shift-ssch",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap07_ope.typ (example: SSCH: cambio de población y de respuesta)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.thm:ch10-dr-eficiencia",
+  "book_key": "thm:ch10-dr-eficiencia",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap07_ope.typ (proposition: Inferencia eficiente en una decisión)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.thm:ch10-truncamiento",
+  "book_key": "thm:ch10-truncamiento",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap07_ope.typ (theorem: Sesgo y varianza por truncamiento)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.ex:ch10-pipeline",
+  "book_key": "ex:ch10-pipeline",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap07_ope.typ (example: Pipeline de monitoreo)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.ex:ssch-cap10",
+  "book_key": "ex:ssch-cap10",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap07_ope.typ (example: SSCH: dos decisiones con cálculo completo)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.prop:ch11-ergodico",
+  "book_key": "prop:ch11-ergodico",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap08_intervalos.typ (proposition: Alcance del caso finito)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.prop:ch11-impacto",
+  "book_key": "prop:ch11-impacto",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap08_intervalos.typ (example: Dependencia y tamaño efectivo de una media)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.thm:ch11-clt-mixing",
+  "book_key": "thm:ch11-clt-mixing",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap08_intervalos.typ (theorem: CLT bajo mixing fuerte)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.cor:ch11-ic",
+  "book_key": "cor:ch11-ic",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap08_intervalos.typ (corollary: Intervalo por studentización)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.thm:ch11-var-consistente",
+  "book_key": "thm:ch11-var-consistente",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap08_intervalos.typ (proposition: Consistencia: una ruta suficiente para HAC)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.thm:ch11-n",
+  "book_key": "thm:ch11-n",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap08_intervalos.typ (proposition: Planificación normal aproximada)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.thm:ch11-pg-theorem",
+  "book_key": "thm:ch11-pg-theorem",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap08_intervalos.typ (theorem: Identidad del gradiente de política)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.prop:ch11-reinforce-if",
+  "book_key": "prop:ch11-reinforce-if",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap08_intervalos.typ (proposition: Momentos del gradiente y función de influencia)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.ex:ssch-cap11",
+  "book_key": "ex:ssch-cap11",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap08_intervalos.typ (example: SSCH: intervalo y comparación pareada)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.prop:ch2-suficiencia-politicas",
+  "book_key": "prop:ch2-suficiencia-politicas",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap09_verificacion.typ (proposition: Suficiencia y Políticas Óptimas)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.prop:ch3-valor-cr",
+  "book_key": "prop:ch3-valor-cr",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap09_verificacion.typ (proposition: Estimación de Valores y Cramér-Rao)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.prop:ch3-rb-q",
+  "book_key": "prop:ch3-rb-q",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap09_verificacion.typ (proposition: Rao-Blackwell para Q-Estimadores)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.ex:ssch-trazability",
+  "book_key": "ex:ssch-trazability",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap09_verificacion.typ (example: Trazabilidad en SSCH)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.ex:ssch-cap01",
+  "book_key": "ex:ssch-cap01",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap10_casos.typ (example: SSCH — El MDP Clínico como Modelo Paramétrico)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.ex:ssch-cap02",
+  "book_key": "ex:ssch-cap02",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap10_casos.typ (example: SSCH — Estadístico Suficiente para las Transiciones)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.ex:ssch-cap03-b",
+  "book_key": "ex:ssch-cap03-b",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap10_casos.typ (example: SSCH — Estimación de las Probabilidades de Transición)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.ex:ssch-cap04-b",
+  "book_key": "ex:ssch-cap04-b",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap10_casos.typ (example: SSCH: comparación de dos políticas del simulador)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.ex:ssch-cap05-b",
+  "book_key": "ex:ssch-cap05-b",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap10_casos.typ (example: SSCH — Distribución Asintótica de $hat(V)^pi$)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.ex:ssch-cap06",
+  "book_key": "ex:ssch-cap06",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap10_casos.typ (example: SSCH — OPE Semiparamétrica con Datos Observacionales)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.ex:ssch-confound",
+  "book_key": "ex:ssch-confound",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap12_problemas.typ (example: SSCH con Confounding)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.thm:ch12-pomdp-identification",
+  "book_key": "thm:ch12-pomdp-identification",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap12_problemas.typ (theorem: Identificación en POMDPs)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.ex:ssch-pomdp",
+  "book_key": "ex:ssch-pomdp",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap12_problemas.typ (example: SSCH como POMDP)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.prop:ch12-logprobs",
+  "book_key": "prop:ch12-logprobs",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap12_problemas.typ (proposition: Estimación de Propensity vía Log-Probs)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.prop:ch12-sesgo-disc",
+  "book_key": "prop:ch12-sesgo-disc",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap12_problemas.typ (proposition: Sesgo de Discretización)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.ex:ssch-reliable",
+  "book_key": "ex:ssch-reliable",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap12_problemas.typ (example: Agente SSCH Confiable)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.ex:ssch-integration",
+  "book_key": "ex:ssch-integration",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap12_problemas.typ (example: Integración en SSCH)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.ex:ssch-limitations",
+  "book_key": "ex:ssch-limitations",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap12_problemas.typ (example: Limitaciones en SSCH)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.ex:ssch-cap12",
+  "book_key": "ex:ssch-cap12",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "capitulos/cap12_problemas.typ (example: SSCH: preguntas que acompañan una decisión)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.ex:appE-borel",
+  "book_key": "ex:appE-borel",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "apendices/apendice_medido.typ (example: σ-Álgebra de Borel)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.prop:appE-composicion",
+  "book_key": "prop:appE-composicion",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "apendices/apendice_medido.typ (proposition: Composición de Funciones Medibles)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.ex:appE-estadisticos",
+  "book_key": "ex:appE-estadisticos",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "apendices/apendice_medido.typ (example: Medibilidad de Estadísticos)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.thm:appE-radon-nikodym",
+  "book_key": "thm:appE-radon-nikodym",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "apendices/apendice_medido.typ (theorem: Teorema de Radon-Nikodym)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.prop:appE-markov-filtracion",
+  "book_key": "prop:appE-markov-filtracion",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "apendices/apendice_medido.typ (proposition: Propiedad de Markov y Filtraciones)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.prop:appE-estimadores-medibles",
+  "book_key": "prop:appE-estimadores-medibles",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "apendices/apendice_medido.typ (proposition: Medibilidad de Estimadores Comunes)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.prop:appE-dominacion-continuo",
+  "book_key": "prop:appE-dominacion-continuo",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "apendices/apendice_medido.typ (proposition: Dominación en Modelos Continuos)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.ex:appE-gaussiano",
+  "book_key": "ex:appE-gaussiano",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "apendices/apendice_medido.typ (example: Modelo Gaussiano)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.thm:appE-funcion-implicita",
+  "book_key": "thm:appE-funcion-implicita",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "apendices/apendice_medido.typ (theorem: Teorema de la Función Implícita)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.prop:appE-condiciones-funcion-implicita",
+  "book_key": "prop:appE-condiciones-funcion-implicita",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "apendices/apendice_medido.typ (proposition: Condiciones de Regularidad para el Teorema de la Función Implícita)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.thm:appE-convergencia-dominada",
+  "book_key": "thm:appE-convergencia-dominada",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "apendices/apendice_medido.typ (theorem: Teorema de Convergencia Dominada de Lebesgue)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.ex:appE-l2",
+  "book_key": "ex:appE-l2",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "apendices/apendice_medido.typ (example: Espacio $L^2(P)$)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.thm:appE-proyeccion",
+  "book_key": "thm:appE-proyeccion",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "apendices/apendice_medido.typ (theorem: Teorema de Proyección)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.prop:appD-relaciones",
+  "book_key": "prop:appD-relaciones",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "apendices/apendice_regularidad.typ (proposition: Relaciones entre Coeficientes)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.thm:appD-ergodico",
+  "book_key": "thm:appD-ergodico",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "apendices/apendice_regularidad.typ (theorem: Ergodicidad Geométrica de Cadenas de Markov)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.cor:appD-mdp-finito",
+  "book_key": "cor:appD-mdp-finito",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "apendices/apendice_regularidad.typ (corollary: MDPs con Estados Finitos)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.prop:appD-verificacion",
+  "book_key": "prop:appD-verificacion",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "apendices/apendice_regularidad.typ (proposition: Verificación de Irreducibilidad)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.prop:appD-aperiodicidad",
+  "book_key": "prop:appD-aperiodicidad",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "apendices/apendice_regularidad.typ (proposition: Verificación de Aperiodicidad)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.thm:appD-ibragimov",
+  "book_key": "thm:appD-ibragimov",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "apendices/apendice_regularidad.typ (theorem: CLT de Ibragimov para Procesos $alpha$-Mixing)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.cor:appD-clt-mdp",
+  "book_key": "cor:appD-clt-mdp",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "apendices/apendice_regularidad.typ (corollary: Condición Suficiente para MDPs)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.thm:appD-gordin",
+  "book_key": "thm:appD-gordin",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "apendices/apendice_regularidad.typ (theorem: CLT funcional para una cadena finita)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.thm:appD-hac-consistencia",
+  "book_key": "thm:appD-hac-consistencia",
+  "reason_code": "NO_FORMAL_PROOF",
+  "fuente": "apendices/apendice_regularidad.typ (theorem: Consistencia del Estimador HAC)",
+  "impacto": "Sin respaldo formal",
+  "proxima_accion": "Formalizar o mantener pendiente"
+ }
+]

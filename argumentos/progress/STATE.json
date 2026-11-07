@@ -1,15 +1,16 @@
 {
-  "phase": "F6",
+  "phase": "F7",
   "base_commit": "1c98d6b",
-  "implementation_commit": "f644071",
-  "completed_gates": ["F0", "F1", "F2", "F3", "F4", "F5", "F6"],
-  "pending_gates": ["F7", "F8"],
+  "implementation_commit": "30f4540",
+  "completed_gates": ["F0", "F1", "F2", "F3", "F4", "F5", "F6", "F7"],
+  "pending_gates": ["F8"],
   "blockers": [],
   "commands_run": [
-    "F0-F5: ver CHANGELOG.md",
-    "F6: cargo fmt --check -> OK; cargo clippy -D warnings -> OK; cargo test --locked -> 65 tests ok",
-    "F6: cargo run -- argue --kernel kernel/piloto_ch5_ssch.json -> 6 argumentos, 0 ataques, todos GroundedIn, referencia COINCIDE",
-    "F6: cargo run -- argue --kernel kernel/piloto_ch5_ssch.json --preferred -> idem, aceptación crédula = escéptica = todas"
+    "F0-F6: ver CHANGELOG.md",
+    "F7: python3 (generación del kernel completo) -> 218 claims, 35 argumentos, 35 specs, 183 pendientes",
+    "F7: cargo run -- check --kernel kernel/libro_completo.json -> 35 PENDIENTE (sin recibo), 0 RECHAZADO, exit 3",
+    "F7: verificación de cobertura -> 219/219 bloques objetivos cubiertos (218 en kernel + 1 sin key en pendientes)",
+    "F7: cargo fmt --check -> OK; cargo clippy -D warnings -> OK; cargo test --locked -> 65 tests ok"
   ],
-  "next_action": "F7: migración integral del corpus objetivo (todas las afirmaciones del libro principal, no solo piloto)"
+  "next_action": "F8: cierre reproducible — suite completa, lint, recuperación desde checkpoint, reconstrucción del piloto desde checkout limpio, FINAL.md, manifiesto, CLI help, ejemplo end-to-end y paquete de release local"
 }

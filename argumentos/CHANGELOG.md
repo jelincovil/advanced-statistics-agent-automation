@@ -1,5 +1,34 @@
 # CHANGELOG — argumentos
 
+## F7 — Migración integral (2026-11-06)
+
+- **Inventario completo**: 394 bloques `thm-env` del libro (23 archivos,
+  14 capítulos + 8 apéndices + main.typ). Clasificación: 219
+  afirmaciones objetivas (96 examples + 61 theorems + 41 propositions +
+  21 corollaries), 175 no objetivas (135 definitions + 36 notes + 4
+  problems).
+- **Kernel completo** (`kernel/libro_completo.json`, 89 KB): 218 claims
+  (136 formal + 82 empirical), 35 argumentos LEAN_ANCHOR, 35 evidence
+  specs. Los 218 bloques con key están en el kernel; 1 bloque sin key
+  queda como SEMANTIC_MAPPING_UNRESOLVED en pendientes.
+- **Pendientes** (`kernel/pendientes.json`, 65 KB): 183 claims sin
+  respaldo Lean (reason_code NO_FORMAL_PROOF), 1 sin clave
+  (SEMANTIC_MAPPING_UNRESOLVED). Cada pendiente tiene claim_id,
+  book_key, razón, fuente, impacto y próxima acción (docs/12).
+- **Clasificación**: examples con respaldo Lean → formal (verificación
+  exacta); examples sin → empirical; theorems/propositions/corollaries
+  → formal. Corregido tras el rechazo inicial del checker.
+- **Cobertura**: 219/219 bloques objetivos (100%) — cada bloque
+  detectado tiene decisión (en kernel) o pendiente (declarado).
+- **Validación**: checker sobre el kernel completo: 35 PENDIENTE
+  (spec sin recibo — esperado, faltan recibos del exporter Lean para
+  los 30 teoremas adicionales), 0 RECHAZADO. Exit 3 (correcto: hay
+  dependencias bloqueantes pendientes).
+
+Puerta F7: cobertura 219/219 ✓ · `cargo fmt --check` ✓ ·
+`cargo clippy -D warnings` ✓ · `cargo test --locked` ✓ (65 tests) ·
+checker sin rechazos ✓. **PASSED.**
+
 ## F6 — ASPIC+ y argumentación (2026-11-06)
 
 - **Decisión arquitectónica**: pickaxe-rs se evaluó (compiló con
