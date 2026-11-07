@@ -1,0 +1,3970 @@
+{
+  "files": [
+    "main.typ",
+    "prefacio.typ",
+    "notacion.typ",
+    "capitulos/intro.typ",
+    "capitulos/cap01_dos_tradiciones.typ",
+    "capitulos/cap02_wald.typ",
+    "capitulos/cap03_mdp.typ",
+    "capitulos/cap04_herramientas.typ",
+    "capitulos/cap05_incrustacion.typ",
+    "capitulos/cap06_fallos.typ",
+    "capitulos/cap07_ope.typ",
+    "capitulos/cap08_intervalos.typ",
+    "capitulos/cap09_verificacion.typ",
+    "capitulos/cap10_casos.typ",
+    "capitulos/cap11_despliegue.typ",
+    "capitulos/cap12_problemas.typ",
+    "apendices/apendice_demostraciones.typ",
+    "apendices/apendice_glosario.typ",
+    "apendices/apendice_langgraph.typ",
+    "apendices/apendice_medido.typ",
+    "apendices/apendice_tablas.typ",
+    "apendices/apendice_regularidad.typ",
+    "apendices/apendice_reproduccion.typ"
+  ],
+  "blocks": [
+    {
+      "file": "capitulos/intro.typ",
+      "kind": "definition",
+      "name": "Representación de una decisión estadística",
+      "key": "def:isomorfismo-informal",
+      "content_start": 1932,
+      "content_end": 2424,
+      "file_sha256": "60e542f755e5d99ea7b0bad552e1a901632510782389d24ff44a51643b7e4fbe"
+    },
+    {
+      "file": "capitulos/cap02_wald.typ",
+      "kind": "definition",
+      "name": "Problema estadístico de decisión",
+      "key": "def:ch7-problema",
+      "content_start": 1435,
+      "content_end": 1947,
+      "file_sha256": "89a2fd46251995eb74452b8ab21eac448a64ce92a8390d820218d9b6e511455e"
+    },
+    {
+      "file": "capitulos/cap02_wald.typ",
+      "kind": "definition",
+      "name": "Regla y clase de decisiones",
+      "key": "def:ch7-regla",
+      "content_start": 2303,
+      "content_end": 2683,
+      "file_sha256": "89a2fd46251995eb74452b8ab21eac448a64ce92a8390d820218d9b6e511455e"
+    },
+    {
+      "file": "capitulos/cap02_wald.typ",
+      "kind": "example",
+      "name": "Pérdidas y objetivos",
+      "key": "ex:ch7-perdidas",
+      "content_start": 3157,
+      "content_end": 3794,
+      "file_sha256": "89a2fd46251995eb74452b8ab21eac448a64ce92a8390d820218d9b6e511455e"
+    },
+    {
+      "file": "capitulos/cap02_wald.typ",
+      "kind": "definition",
+      "name": "Dominancia",
+      "key": "def:ch7-dominancia",
+      "content_start": 3923,
+      "content_end": 4081,
+      "file_sha256": "89a2fd46251995eb74452b8ab21eac448a64ce92a8390d820218d9b6e511455e"
+    },
+    {
+      "file": "capitulos/cap02_wald.typ",
+      "kind": "definition",
+      "name": "Admisibilidad",
+      "key": "def:ch7-admisibilidad",
+      "content_start": 4159,
+      "content_end": 4370,
+      "file_sha256": "89a2fd46251995eb74452b8ab21eac448a64ce92a8390d820218d9b6e511455e"
+    },
+    {
+      "file": "capitulos/cap02_wald.typ",
+      "kind": "example",
+      "name": "James–Stein y la dimensión del parámetro",
+      "key": "ex:ch7-james-stein",
+      "content_start": 4474,
+      "content_end": 5016,
+      "file_sha256": "89a2fd46251995eb74452b8ab21eac448a64ce92a8390d820218d9b6e511455e"
+    },
+    {
+      "file": "capitulos/cap02_wald.typ",
+      "kind": "definition",
+      "name": "Prior y riesgo de Bayes",
+      "key": "def:ch7-riesgo-bayes",
+      "content_start": 5364,
+      "content_end": 5608,
+      "file_sha256": "89a2fd46251995eb74452b8ab21eac448a64ce92a8390d820218d9b6e511455e"
+    },
+    {
+      "file": "capitulos/cap02_wald.typ",
+      "kind": "definition",
+      "name": "Regla de Bayes",
+      "key": "def:ch7-regla-bayes",
+      "content_start": 5685,
+      "content_end": 5819,
+      "file_sha256": "89a2fd46251995eb74452b8ab21eac448a64ce92a8390d820218d9b6e511455e"
+    },
+    {
+      "file": "capitulos/cap02_wald.typ",
+      "kind": "theorem",
+      "name": "Minimización de la pérdida posterior",
+      "key": "thm:ch7-bayes",
+      "content_start": 5952,
+      "content_end": 6508,
+      "file_sha256": "89a2fd46251995eb74452b8ab21eac448a64ce92a8390d820218d9b6e511455e"
+    },
+    {
+      "file": "capitulos/cap02_wald.typ",
+      "kind": "corollary",
+      "name": "Acciones posteriores para pérdidas habituales",
+      "key": "cor:ch7-bayes-especificas",
+      "content_start": 7067,
+      "content_end": 7831,
+      "file_sha256": "89a2fd46251995eb74452b8ab21eac448a64ce92a8390d820218d9b6e511455e"
+    },
+    {
+      "file": "capitulos/cap02_wald.typ",
+      "kind": "theorem",
+      "name": "Admisibilidad bayesiana en un modelo finito",
+      "key": "thm:ch7-admisibilidad-bayes",
+      "content_start": 8026,
+      "content_end": 8342,
+      "file_sha256": "89a2fd46251995eb74452b8ab21eac448a64ce92a8390d820218d9b6e511455e"
+    },
+    {
+      "file": "capitulos/cap02_wald.typ",
+      "kind": "theorem",
+      "name": "Clase esencialmente completa en un problema finito",
+      "key": "thm:ch7-complete-class",
+      "content_start": 8820,
+      "content_end": 9274,
+      "file_sha256": "89a2fd46251995eb74452b8ab21eac448a64ce92a8390d820218d9b6e511455e"
+    },
+    {
+      "file": "capitulos/cap02_wald.typ",
+      "kind": "definition",
+      "name": "Riesgo máximo y regla minimax",
+      "key": "def:ch7-minimax",
+      "content_start": 9952,
+      "content_end": 10163,
+      "file_sha256": "89a2fd46251995eb74452b8ab21eac448a64ce92a8390d820218d9b6e511455e"
+    },
+    {
+      "file": "capitulos/cap02_wald.typ",
+      "kind": "theorem",
+      "name": "Certificación minimax mediante Bayes",
+      "key": "thm:ch7-minimax-bayes",
+      "content_start": 10300,
+      "content_end": 10579,
+      "file_sha256": "89a2fd46251995eb74452b8ab21eac448a64ce92a8390d820218d9b6e511455e"
+    },
+    {
+      "file": "capitulos/cap02_wald.typ",
+      "kind": "definition",
+      "name": "Prior menos favorable",
+      "key": "def:ch7-menos-favorable",
+      "content_start": 10986,
+      "content_end": 11278,
+      "file_sha256": "89a2fd46251995eb74452b8ab21eac448a64ce92a8390d820218d9b6e511455e"
+    },
+    {
+      "file": "capitulos/cap02_wald.typ",
+      "kind": "example",
+      "name": "Estimación Bernoulli con riesgo constante",
+      "key": "ex:ch2-bernoulli-minimax",
+      "content_start": 11386,
+      "content_end": 11944,
+      "file_sha256": "89a2fd46251995eb74452b8ab21eac448a64ce92a8390d820218d9b6e511455e"
+    },
+    {
+      "file": "capitulos/cap02_wald.typ",
+      "kind": "proposition",
+      "name": "Test como regla de decisión",
+      "key": "prop:ch4-test-decision",
+      "content_start": 12091,
+      "content_end": 12499,
+      "file_sha256": "89a2fd46251995eb74452b8ab21eac448a64ce92a8390d820218d9b6e511455e"
+    },
+    {
+      "file": "capitulos/cap02_wald.typ",
+      "kind": "example",
+      "name": "SSCH: señal, pérdida y clase de reglas",
+      "key": "ex:ssch-cap07",
+      "content_start": 14642,
+      "content_end": 15869,
+      "file_sha256": "89a2fd46251995eb74452b8ab21eac448a64ce92a8390d820218d9b6e511455e"
+    },
+    {
+      "file": "capitulos/cap03_mdp.typ",
+      "kind": "definition",
+      "name": "Proceso de decisión de Markov",
+      "key": "def:ch8-mdp",
+      "content_start": 1511,
+      "content_end": 1854,
+      "file_sha256": "783c165ab1543657982ad002f31c56172466b177146404a260c187ec50aed8f8"
+    },
+    {
+      "file": "capitulos/cap03_mdp.typ",
+      "kind": "definition",
+      "name": "Política",
+      "key": "def:ch8-politica",
+      "content_start": 2331,
+      "content_end": 2619,
+      "file_sha256": "783c165ab1543657982ad002f31c56172466b177146404a260c187ec50aed8f8"
+    },
+    {
+      "file": "capitulos/cap03_mdp.typ",
+      "kind": "definition",
+      "name": "Propiedad de Markov",
+      "key": "def:ch8-markov",
+      "content_start": 2696,
+      "content_end": 2943,
+      "file_sha256": "783c165ab1543657982ad002f31c56172466b177146404a260c187ec50aed8f8"
+    },
+    {
+      "file": "capitulos/cap03_mdp.typ",
+      "kind": "definition",
+      "name": "Valor de estado",
+      "key": "def:ch8-V",
+      "content_start": 3052,
+      "content_end": 3150,
+      "file_sha256": "783c165ab1543657982ad002f31c56172466b177146404a260c187ec50aed8f8"
+    },
+    {
+      "file": "capitulos/cap03_mdp.typ",
+      "kind": "definition",
+      "name": "Valor de acción",
+      "key": "def:ch8-Q",
+      "content_start": 3219,
+      "content_end": 3455,
+      "file_sha256": "783c165ab1543657982ad002f31c56172466b177146404a260c187ec50aed8f8"
+    },
+    {
+      "file": "capitulos/cap03_mdp.typ",
+      "kind": "proposition",
+      "name": "Relación entre valores",
+      "key": "prop:ch8-VQ",
+      "content_start": 3534,
+      "content_end": 3628,
+      "file_sha256": "783c165ab1543657982ad002f31c56172466b177146404a260c187ec50aed8f8"
+    },
+    {
+      "file": "capitulos/cap03_mdp.typ",
+      "kind": "proposition",
+      "name": "Acotación",
+      "key": "prop:ch8-acotacion",
+      "content_start": 3701,
+      "content_end": 3840,
+      "file_sha256": "783c165ab1543657982ad002f31c56172466b177146404a260c187ec50aed8f8"
+    },
+    {
+      "file": "capitulos/cap03_mdp.typ",
+      "kind": "theorem",
+      "name": "Bellman para una política estacionaria",
+      "key": "thm:ch8-bellman-pi",
+      "content_start": 3984,
+      "content_end": 4054,
+      "file_sha256": "783c165ab1543657982ad002f31c56172466b177146404a260c187ec50aed8f8"
+    },
+    {
+      "file": "capitulos/cap03_mdp.typ",
+      "kind": "definition",
+      "name": "Valor óptimo",
+      "key": "def:ch8-optimo",
+      "content_start": 4383,
+      "content_end": 4538,
+      "file_sha256": "783c165ab1543657982ad002f31c56172466b177146404a260c187ec50aed8f8"
+    },
+    {
+      "file": "capitulos/cap03_mdp.typ",
+      "kind": "theorem",
+      "name": "Bellman de optimalidad",
+      "key": "thm:ch8-bellman-opt",
+      "content_start": 4654,
+      "content_end": 5031,
+      "file_sha256": "783c165ab1543657982ad002f31c56172466b177146404a260c187ec50aed8f8"
+    },
+    {
+      "file": "capitulos/cap03_mdp.typ",
+      "kind": "definition",
+      "name": "Operadores de Bellman",
+      "key": "def:ch8-operador",
+      "content_start": 5621,
+      "content_end": 5784,
+      "file_sha256": "783c165ab1543657982ad002f31c56172466b177146404a260c187ec50aed8f8"
+    },
+    {
+      "file": "capitulos/cap03_mdp.typ",
+      "kind": "theorem",
+      "name": "Contracción en norma supremo",
+      "key": "thm:ch8-contraccion",
+      "content_start": 5873,
+      "content_end": 5957,
+      "file_sha256": "783c165ab1543657982ad002f31c56172466b177146404a260c187ec50aed8f8"
+    },
+    {
+      "file": "capitulos/cap03_mdp.typ",
+      "kind": "corollary",
+      "name": "Puntos fijos únicos",
+      "key": "cor:ch8-punto-fijo",
+      "content_start": 6353,
+      "content_end": 6496,
+      "file_sha256": "783c165ab1543657982ad002f31c56172466b177146404a260c187ec50aed8f8"
+    },
+    {
+      "file": "capitulos/cap03_mdp.typ",
+      "kind": "theorem",
+      "name": "Convergencia de Value Iteration",
+      "key": "thm:ch8-vi-conv",
+      "content_start": 7278,
+      "content_end": 7396,
+      "file_sha256": "783c165ab1543657982ad002f31c56172466b177146404a260c187ec50aed8f8"
+    },
+    {
+      "file": "capitulos/cap03_mdp.typ",
+      "kind": "corollary",
+      "name": "Certificados de parada",
+      "key": "cor:ch8-parada",
+      "content_start": 7584,
+      "content_end": 8048,
+      "file_sha256": "783c165ab1543657982ad002f31c56172466b177146404a260c187ec50aed8f8"
+    },
+    {
+      "file": "capitulos/cap03_mdp.typ",
+      "kind": "theorem",
+      "name": "Mejora de políticas",
+      "key": "thm:ch8-mejora",
+      "content_start": 8764,
+      "content_end": 8949,
+      "file_sha256": "783c165ab1543657982ad002f31c56172466b177146404a260c187ec50aed8f8"
+    },
+    {
+      "file": "capitulos/cap03_mdp.typ",
+      "kind": "corollary",
+      "name": "Terminación finita",
+      "key": "cor:ch8-pi-finita",
+      "content_start": 9290,
+      "content_end": 9582,
+      "file_sha256": "783c165ab1543657982ad002f31c56172466b177146404a260c187ec50aed8f8"
+    },
+    {
+      "file": "capitulos/cap03_mdp.typ",
+      "kind": "definition",
+      "name": "Bandido estocástico",
+      "key": "def:ch8-mab",
+      "content_start": 9996,
+      "content_end": 10413,
+      "file_sha256": "783c165ab1543657982ad002f31c56172466b177146404a260c187ec50aed8f8"
+    },
+    {
+      "file": "capitulos/cap03_mdp.typ",
+      "kind": "proposition",
+      "name": "Estado físico y estado de información",
+      "key": "prop:ch8-mab-mdp",
+      "content_start": 10513,
+      "content_end": 10890,
+      "file_sha256": "783c165ab1543657982ad002f31c56172466b177146404a260c187ec50aed8f8"
+    },
+    {
+      "file": "capitulos/cap03_mdp.typ",
+      "kind": "theorem",
+      "name": "UCB1: garantía bajo recompensas acotadas",
+      "key": "thm:ch8-ucb1",
+      "content_start": 10985,
+      "content_end": 11355,
+      "file_sha256": "783c165ab1543657982ad002f31c56172466b177146404a260c187ec50aed8f8"
+    },
+    {
+      "file": "capitulos/cap03_mdp.typ",
+      "kind": "proposition",
+      "name": "Thompson Sampling y decisión de Bayes",
+      "key": "prop:ch8-thompson",
+      "content_start": 11783,
+      "content_end": 12126,
+      "file_sha256": "783c165ab1543657982ad002f31c56172466b177146404a260c187ec50aed8f8"
+    },
+    {
+      "file": "capitulos/cap03_mdp.typ",
+      "kind": "theorem",
+      "name": "Cota asintótica en bandidos Bernoulli",
+      "key": "thm:ch8-lai-robbins",
+      "content_start": 12414,
+      "content_end": 12804,
+      "file_sha256": "783c165ab1543657982ad002f31c56172466b177146404a260c187ec50aed8f8"
+    },
+    {
+      "file": "capitulos/cap03_mdp.typ",
+      "kind": "example",
+      "name": "SSCH: una comparación calculable de exploración",
+      "key": "ex:ssch-bandits-cap08",
+      "content_start": 13370,
+      "content_end": 14088,
+      "file_sha256": "783c165ab1543657982ad002f31c56172466b177146404a260c187ec50aed8f8"
+    },
+    {
+      "file": "capitulos/cap03_mdp.typ",
+      "kind": "definition",
+      "name": "Estado posterior Beta–Bernoulli",
+      "key": "def:ch8-mab-thompson",
+      "content_start": 14248,
+      "content_end": 14554,
+      "file_sha256": "783c165ab1543657982ad002f31c56172466b177146404a260c187ec50aed8f8"
+    },
+    {
+      "file": "capitulos/cap03_mdp.typ",
+      "kind": "proposition",
+      "name": "Última ronda",
+      "key": "prop:ch8-mab-mdp-thompson",
+      "content_start": 14637,
+      "content_end": 14945,
+      "file_sha256": "783c165ab1543657982ad002f31c56172466b177146404a260c187ec50aed8f8"
+    },
+    {
+      "file": "capitulos/cap03_mdp.typ",
+      "kind": "example",
+      "name": "SSCH: muestreo posterior frente a decisión final",
+      "key": "ex:ch8-bandit-ssch",
+      "content_start": 15073,
+      "content_end": 15777,
+      "file_sha256": "783c165ab1543657982ad002f31c56172466b177146404a260c187ec50aed8f8"
+    },
+    {
+      "file": "capitulos/cap03_mdp.typ",
+      "kind": "note",
+      "name": "Alcance de la representación",
+      "key": "thm:ch8-wald-bellman",
+      "content_start": 15963,
+      "content_end": 16720,
+      "file_sha256": "783c165ab1543657982ad002f31c56172466b177146404a260c187ec50aed8f8"
+    },
+    {
+      "file": "capitulos/cap03_mdp.typ",
+      "kind": "corollary",
+      "name": "Principio de continuación óptima",
+      "key": "cor:ch8-principio",
+      "content_start": 16814,
+      "content_end": 17122,
+      "file_sha256": "783c165ab1543657982ad002f31c56172466b177146404a260c187ec50aed8f8"
+    },
+    {
+      "file": "capitulos/cap03_mdp.typ",
+      "kind": "proposition",
+      "name": "Condiciones suficientes",
+      "key": "thm:ch8-condiciones-contraccion",
+      "content_start": 17308,
+      "content_end": 17683,
+      "file_sha256": "783c165ab1543657982ad002f31c56172466b177146404a260c187ec50aed8f8"
+    },
+    {
+      "file": "capitulos/cap03_mdp.typ",
+      "kind": "proposition",
+      "name": "Proyección y norma pertinente",
+      "key": "prop:ch8-perdida",
+      "content_start": 17774,
+      "content_end": 18476,
+      "file_sha256": "783c165ab1543657982ad002f31c56172466b177146404a260c187ec50aed8f8"
+    },
+    {
+      "file": "capitulos/cap03_mdp.typ",
+      "kind": "example",
+      "name": "SSCH: modelo reducido de dos estados",
+      "key": "ex:ssch-cap08",
+      "content_start": 20428,
+      "content_end": 21455,
+      "file_sha256": "783c165ab1543657982ad002f31c56172466b177146404a260c187ec50aed8f8"
+    },
+    {
+      "file": "capitulos/cap03_mdp.typ",
+      "kind": "example",
+      "name": "Value Iteration con modelo tabular explícito",
+      "key": "ex:ch8-frozenlake",
+      "content_start": 21649,
+      "content_end": 23441,
+      "file_sha256": "783c165ab1543657982ad002f31c56172466b177146404a260c187ec50aed8f8"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "example",
+      "name": "Motivación: estimar una decisión con modelos auxiliares",
+      "key": "ex:ch6-motivacion",
+      "content_start": 1008,
+      "content_end": 1774,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "definition",
+      "name": "Modelo Estadístico Paramétrico",
+      "key": "def:ch1-modelo-parametrico",
+      "content_start": 2622,
+      "content_end": 3169,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "definition",
+      "name": "Función de Densidad/Masa",
+      "key": "def:ch1-densidad",
+      "content_start": 3256,
+      "content_end": 3677,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "definition",
+      "name": "Función de Verosimilitud",
+      "key": "def:ch1-verosimilitud",
+      "content_start": 3769,
+      "content_end": 4161,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "definition",
+      "name": "Los Cinco Componentes de la Inferencia",
+      "key": "def:ch1-cinco-componentes",
+      "content_start": 4270,
+      "content_end": 4829,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "note",
+      "name": "Tres regímenes, un mismo objetivo",
+      "key": "rem:ch4-tres-modelos",
+      "content_start": 9964,
+      "content_end": 11337,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "definition",
+      "name": "Función Medible",
+      "key": "def:medible-operativa",
+      "content_start": 11481,
+      "content_end": 12078,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "example",
+      "name": "Intuición",
+      "key": "",
+      "content_start": 11745,
+      "content_end": 12076,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "definition",
+      "name": "Estadístico",
+      "key": "def:ch1-estadistico",
+      "content_start": 12155,
+      "content_end": 12323,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "definition",
+      "name": "Estimador",
+      "key": "def:ch1-estimador",
+      "content_start": 12395,
+      "content_end": 12837,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "example",
+      "name": "Estadísticos Fundamentales",
+      "key": "ex:ch1-estadisticos-fundamentales",
+      "content_start": 12940,
+      "content_end": 13527,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "definition",
+      "name": "Sesgo",
+      "key": "def:ch1-sesgo",
+      "content_start": 13843,
+      "content_end": 14184,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "definition",
+      "name": "Varianza y Error Cuadrático Medio",
+      "key": "def:ch1-varianza-ecm",
+      "content_start": 14284,
+      "content_end": 14686,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "example",
+      "name": "Cálculo Numérico de Sesgo, Varianza y ECM",
+      "key": "ex:ch1-calculo-numerico",
+      "content_start": 15272,
+      "content_end": 16188,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "definition",
+      "name": "Función de Pérdida y Riesgo",
+      "key": "def:ch1-perdida-riesgo",
+      "content_start": 16285,
+      "content_end": 16644,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "example",
+      "name": "Pérdidas Comunes",
+      "key": "ex:ch1-perdidas-comunes",
+      "content_start": 16727,
+      "content_end": 17140,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "definition",
+      "name": "Familia Exponencial en Forma Canónica",
+      "key": "def:ch1-familia-exponencial",
+      "content_start": 18155,
+      "content_end": 19057,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "theorem",
+      "name": "Propiedades de la Función Log-Partición",
+      "key": "thm:ch1-logparticion",
+      "content_start": 19161,
+      "content_end": 19646,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "corollary",
+      "name": "",
+      "key": "cor:ch1-covarianza-hessiano",
+      "content_start": 20693,
+      "content_end": 20927,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "example",
+      "name": "Familia Normal con Varianza Conocida",
+      "key": "ex:ch1-normal",
+      "content_start": 21019,
+      "content_end": 21786,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "example",
+      "name": "Familia Bernoulli/Binomial",
+      "key": "ex:ch1-binomial",
+      "content_start": 21870,
+      "content_end": 22310,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "example",
+      "name": "Familia Poisson",
+      "key": "ex:ch1-poisson",
+      "content_start": 22382,
+      "content_end": 22837,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "theorem",
+      "name": "El Estadístico Natural es Suficiente",
+      "key": "thm:ch1-suficiencia-natural",
+      "content_start": 23134,
+      "content_end": 23300,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "definition",
+      "name": "Familia Conjugada",
+      "key": "def:ch1-conjugada",
+      "content_start": 25285,
+      "content_end": 25727,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "example",
+      "name": "Beta-Binomial",
+      "key": "ex:ch1-beta-binomial",
+      "content_start": 25803,
+      "content_end": 26313,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "example",
+      "name": "Gamma-Poisson",
+      "key": "ex:ch1-gamma-poisson",
+      "content_start": 26389,
+      "content_end": 26902,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "example",
+      "name": "Normal-Gamma para recompensas continuas",
+      "key": "ex:ch1-normal-gamma",
+      "content_start": 27003,
+      "content_end": 28571,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "definition",
+      "name": "Familia de localización-escala",
+      "key": "def:ch1-localizacion-escala",
+      "content_start": 29186,
+      "content_end": 29446,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "example",
+      "name": "Distribución $t$ de Student",
+      "key": "ex:ch1-t-student",
+      "content_start": 29533,
+      "content_end": 30534,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "definition",
+      "name": "Familia de mezclas finitas",
+      "key": "def:ch1-mezclas",
+      "content_start": 30621,
+      "content_end": 30878,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "example",
+      "name": "Mezcla de dos normales",
+      "key": "ex:ch1-mezcla-normal",
+      "content_start": 30963,
+      "content_end": 31413,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "definition",
+      "name": "Familia de valores extremos",
+      "key": "def:ch1-valores-extremos",
+      "content_start": 31510,
+      "content_end": 31839,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "example",
+      "name": "Distribución Gumbel",
+      "key": "ex:ch1-gumbel",
+      "content_start": 31915,
+      "content_end": 32483,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "definition",
+      "name": "Suficiencia",
+      "key": "def:ch2-suficiencia",
+      "content_start": 33164,
+      "content_end": 33599,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "theorem",
+      "name": "Factorización de Neyman-Fisher",
+      "key": "thm:ch2-neyman-fisher",
+      "content_start": 33694,
+      "content_end": 34059,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "example",
+      "name": "Suficiencia en la Distribución Normal",
+      "key": "ex:ch2-normal-suficiencia",
+      "content_start": 34600,
+      "content_end": 35447,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "example",
+      "name": "Suficiencia en la Distribución de Poisson",
+      "key": "ex:ch2-poisson-suficiencia",
+      "content_start": 35558,
+      "content_end": 36151,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "definition",
+      "name": "Suficiencia Minimal",
+      "key": "def:ch2-suficiencia-minimal",
+      "content_start": 36545,
+      "content_end": 36757,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "theorem",
+      "name": "Caracterización de Suficiencia Minimal (Lehmann-Scheffé)",
+      "key": "thm:ch2-lehmann-scheffe",
+      "content_start": 36928,
+      "content_end": 37420,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "example",
+      "name": "Suficiencia Minimal en Familias Exponenciales",
+      "key": "ex:ch2-minimal-exponencial",
+      "content_start": 37926,
+      "content_end": 38449,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "definition",
+      "name": "Completitud",
+      "key": "def:ch2-completitud",
+      "content_start": 38778,
+      "content_end": 39061,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "definition",
+      "name": "Completitud Acotada",
+      "key": "def:ch2-completitud-acotada",
+      "content_start": 39153,
+      "content_end": 39279,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "theorem",
+      "name": "Completitud en Familias Exponenciales",
+      "key": "thm:ch2-completitud-exponencial",
+      "content_start": 39429,
+      "content_end": 39610,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "corollary",
+      "name": "",
+      "key": "cor:ch2-smc",
+      "content_start": 40086,
+      "content_end": 40207,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "example",
+      "name": "Familia Exponencial Multinomial para SSCH",
+      "key": "ex:ch2-multinomial-ssch",
+      "content_start": 40314,
+      "content_end": 41251,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "definition",
+      "name": "Estadístico Ancilar",
+      "key": "def:ch2-ancilar",
+      "content_start": 41393,
+      "content_end": 41587,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "example",
+      "name": "Ancilaridad en Modelo de Localización",
+      "key": "ex:ch2-ancilar-localizacion",
+      "content_start": 41695,
+      "content_end": 42320,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "theorem",
+      "name": "Teorema de Basu",
+      "key": "thm:ch2-basu",
+      "content_start": 42390,
+      "content_end": 42576,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "example",
+      "name": "Aplicación del Teorema de Basu",
+      "key": "ex:ch2-basu-aplicacion",
+      "content_start": 43312,
+      "content_end": 44004,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "definition",
+      "name": "Grupo de Transformaciones e Invariancia",
+      "key": "def:ch2-invariancia",
+      "content_start": 44317,
+      "content_end": 44703,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "definition",
+      "name": "Estimador Equivariante",
+      "key": "def:ch2-equivariante",
+      "content_start": 44791,
+      "content_end": 44974,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "theorem",
+      "name": "Principio de Equivarianza",
+      "key": "thm:ch2-equivarianza",
+      "content_start": 45062,
+      "content_end": 45419,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "example",
+      "name": "Equivarianza bajo Traslaciones",
+      "key": "ex:ch2-traslaciones",
+      "content_start": 45905,
+      "content_end": 46660,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "example",
+      "name": "Equivarianza bajo Escala",
+      "key": "ex:ch2-escala",
+      "content_start": 46740,
+      "content_end": 47246,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "definition",
+      "name": "Error Cuadrático Medio",
+      "key": "def:ch3-ecm",
+      "content_start": 47865,
+      "content_end": 48006,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "theorem",
+      "name": "Rao-Blackwell",
+      "key": "thm:ch3-rao-blackwell",
+      "content_start": 48308,
+      "content_end": 48817,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "corollary",
+      "name": "",
+      "key": "cor:ch3-rb-insesgado",
+      "content_start": 49567,
+      "content_end": 49701,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "example",
+      "name": "Rao-Blackwellización en Bernoulli",
+      "key": "ex:ch3-rb-bernoulli",
+      "content_start": 49797,
+      "content_end": 50182,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "definition",
+      "name": "UMVUE",
+      "key": "def:ch3-umvue",
+      "content_start": 50315,
+      "content_end": 50670,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "theorem",
+      "name": "Lehmann-Scheffé",
+      "key": "thm:ch3-lehmann-scheffe",
+      "content_start": 50752,
+      "content_end": 51062,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "corollary",
+      "name": "",
+      "key": "cor:ch3-umvue-exponencial",
+      "content_start": 52228,
+      "content_end": 52434,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "definition",
+      "name": "Información de Fisher",
+      "key": "def:ch3-fisher",
+      "content_start": 52695,
+      "content_end": 53034,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "definition",
+      "name": "Función Score",
+      "key": "def:ch3-score",
+      "content_start": 53107,
+      "content_end": 53284,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "theorem",
+      "name": "Cota Inferior de Cramér-Rao",
+      "key": "thm:ch3-cramer-rao",
+      "content_start": 53373,
+      "content_end": 54014,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "definition",
+      "name": "Eficiencia",
+      "key": "def:ch3-eficiencia",
+      "content_start": 54938,
+      "content_end": 55082,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "proposition",
+      "name": "Aditividad de la Información",
+      "key": "prop:ch3-info-aditiva",
+      "content_start": 55359,
+      "content_end": 55523,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "corollary",
+      "name": "Cota de Cramér-Rao para Muestras iid",
+      "key": "cor:ch3-cr-iid",
+      "content_start": 55925,
+      "content_end": 56181,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "definition",
+      "name": "Función de Verosimilitud",
+      "key": "def:ch3-verosimilitud",
+      "content_start": 56329,
+      "content_end": 56576,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "definition",
+      "name": "Estimador de Máxima Verosimilitud",
+      "key": "def:ch3-mle",
+      "content_start": 56667,
+      "content_end": 56806,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "theorem",
+      "name": "Propiedades del MLE bajo Regularidad",
+      "key": "thm:ch3-mle-propiedades",
+      "content_start": 56946,
+      "content_end": 57792,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "example",
+      "name": "MLE para la Normal",
+      "key": "ex:ch3-mle-normal",
+      "content_start": 58608,
+      "content_end": 59039,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "example",
+      "name": "Regularidad, mala especificación y frontera",
+      "key": "ex:ch4-regularidad",
+      "content_start": 59144,
+      "content_end": 60090,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "definition",
+      "name": "Algoritmo de Metropolis-Hastings",
+      "key": "def:ch3-mh",
+      "content_start": 60764,
+      "content_end": 61633,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "definition",
+      "name": "Inferencia Variacional y ELBO",
+      "key": "def:ch3-vi",
+      "content_start": 61718,
+      "content_end": 62343,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "note",
+      "name": "Comparación MCMC vs. VI",
+      "key": "prop:ch3-mcmc-vi-comp",
+      "content_start": 62587,
+      "content_end": 63079,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "example",
+      "name": "SSCH --- Estimación Bayesiana de Probabilidades de Transición",
+      "key": "ex:ssch-mcmc-vi-cap03",
+      "content_start": 63310,
+      "content_end": 64016,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "example",
+      "name": "MCMC para el SSCH con Prior No Conjugado",
+      "key": "ex:ch3-mcmc-ssch",
+      "content_start": 65986,
+      "content_end": 66639,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "definition",
+      "name": "Hipótesis Estadísticas",
+      "key": "def:ch4-hipotesis",
+      "content_start": 67064,
+      "content_end": 67521,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "definition",
+      "name": "Test y Región Crítica",
+      "key": "def:ch4-test",
+      "content_start": 67602,
+      "content_end": 67935,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "definition",
+      "name": "Errores Tipo I y II",
+      "key": "def:ch4-errores",
+      "content_start": 68015,
+      "content_end": 68397,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "definition",
+      "name": "Función de Potencia",
+      "key": "def:ch4-potencia",
+      "content_start": 68479,
+      "content_end": 68712,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "definition",
+      "name": "Tamaño y Nivel",
+      "key": "def:ch4-tamano",
+      "content_start": 68787,
+      "content_end": 68942,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "theorem",
+      "name": "Lema de Neyman-Pearson",
+      "key": "thm:ch4-neyman-pearson",
+      "content_start": 69029,
+      "content_end": 69668,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "example",
+      "name": "Test MP para Normal",
+      "key": "ex:ch4-mp-normal",
+      "content_start": 70265,
+      "content_end": 70656,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "definition",
+      "name": "Test UMP",
+      "key": "def:ch4-ump",
+      "content_start": 70773,
+      "content_end": 71024,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "theorem",
+      "name": "Existencia de UMP en Familias MLR",
+      "key": "thm:ch4-mlr",
+      "content_start": 71111,
+      "content_end": 71588,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "corollary",
+      "name": "",
+      "key": "cor:ch4-exp-mlr",
+      "content_start": 71999,
+      "content_end": 72186,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "definition",
+      "name": "Test Insesgado y UMPU",
+      "key": "def:ch4-umpu",
+      "content_start": 72360,
+      "content_end": 72575,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "theorem",
+      "name": "UMPU para Hipótesis Bilateral",
+      "key": "thm:ch4-umpu",
+      "content_start": 72660,
+      "content_end": 73142,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "definition",
+      "name": "Intervalo de Confianza",
+      "key": "def:ch4-ic",
+      "content_start": 73399,
+      "content_end": 73597,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "theorem",
+      "name": "Inversión de Tests",
+      "key": "thm:ch4-inversion",
+      "content_start": 73676,
+      "content_end": 73917,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "corollary",
+      "name": "IC a partir de Test Z",
+      "key": "cor:ch4-ic-z",
+      "content_start": 74249,
+      "content_end": 74509,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "definition",
+      "name": "FWER y FDR",
+      "key": "def:ch4-fwer-fdr",
+      "content_start": 74721,
+      "content_end": 74934,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "proposition",
+      "name": "Problema de Multiplicidad",
+      "key": "prop:ch4-multiplicidad",
+      "content_start": 75251,
+      "content_end": 75428,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "theorem",
+      "name": "Corrección de Bonferroni",
+      "key": "thm:ch4-bonferroni",
+      "content_start": 75668,
+      "content_end": 75841,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "example",
+      "name": "Pruebas Múltiples en SSCH con Corrección de Bonferroni",
+      "key": "ex:ch4-bonferroni-ssch",
+      "content_start": 76193,
+      "content_end": 77374,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "theorem",
+      "name": "Procedimiento de Holm",
+      "key": "thm:ch4-holm",
+      "content_start": 77450,
+      "content_end": 77837,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "theorem",
+      "name": "Benjamini-Hochberg para FDR",
+      "key": "thm:ch4-bh",
+      "content_start": 77917,
+      "content_end": 78440,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "theorem",
+      "name": "CLT Clásico de Lindeberg-Lévy",
+      "key": "thm:ch5-clt",
+      "content_start": 79449,
+      "content_end": 79729,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "theorem",
+      "name": "CLT de Lindeberg-Feller",
+      "key": "thm:ch5-lindeberg",
+      "content_start": 80952,
+      "content_end": 81481,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "theorem",
+      "name": "CLT bajo mezcla fuerte",
+      "key": "thm:ch4-clt-mixing",
+      "content_start": 82523,
+      "content_end": 83172,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "example",
+      "name": "La correlación cambia el error estándar",
+      "key": "ex:ch4-ar1",
+      "content_start": 83265,
+      "content_end": 83764,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "theorem",
+      "name": "Delta Method Univariado",
+      "key": "thm:ch5-delta",
+      "content_start": 84466,
+      "content_end": 84724,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "theorem",
+      "name": "Delta Method Multivariado",
+      "key": "thm:ch5-delta-multi",
+      "content_start": 85950,
+      "content_end": 86256,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "example",
+      "name": "Varianza Asintótica del Cociente",
+      "key": "ex:ch5-cociente",
+      "content_start": 87227,
+      "content_end": 88243,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "definition",
+      "name": "Función de Distribución Empírica",
+      "key": "def:ch5-empirica",
+      "content_start": 88383,
+      "content_end": 88500,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "theorem",
+      "name": "Glivenko-Cantelli",
+      "key": "thm:ch5-gc",
+      "content_start": 89198,
+      "content_end": 89377,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "definition",
+      "name": "Proceso Empírico",
+      "key": "def:ch5-proceso",
+      "content_start": 90028,
+      "content_end": 90107,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "theorem",
+      "name": "Donsker",
+      "key": "thm:ch5-donsker",
+      "content_start": 91047,
+      "content_end": 91435,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "example",
+      "name": "Bandas de Confianza para la CDF vía Donsker",
+      "key": "ex:ch5-bandas",
+      "content_start": 92275,
+      "content_end": 93209,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "example",
+      "name": "No paramétrico: distribución y suavizado",
+      "key": "ex:ch4-no-parametrico",
+      "content_start": 93315,
+      "content_end": 94262,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "definition",
+      "name": "Bootstrap No Paramétrico",
+      "key": "def:ch5-bootstrap",
+      "content_start": 94661,
+      "content_end": 94991,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "theorem",
+      "name": "Consistencia del Bootstrap para la Media",
+      "key": "thm:ch5-bootstrap-media",
+      "content_start": 95533,
+      "content_end": 95798,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "definition",
+      "name": "IC Bootstrap Percentil",
+      "key": "def:ch5-ic-percentil",
+      "content_start": 96377,
+      "content_end": 96580,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "example",
+      "name": "IC Bootstrap Percentil-t",
+      "key": "def:ch5-ic-t",
+      "content_start": 96947,
+      "content_end": 97160,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "note",
+      "name": "Alcance de los refinamientos de cobertura",
+      "key": "thm:ch5-cobertura",
+      "content_start": 97257,
+      "content_end": 97806,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "example",
+      "name": "Bootstrap que respeta el muestreo",
+      "key": "ex:ch4-bootstrap-unidad",
+      "content_start": 97905,
+      "content_end": 98750,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "proposition",
+      "name": "CLT para Retornos Monte Carlo",
+      "key": "prop:ch5-clt-retornos",
+      "content_start": 98903,
+      "content_end": 99138,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "proposition",
+      "name": "Delta Method para Funciones de Q",
+      "key": "prop:ch5-delta-q",
+      "content_start": 99897,
+      "content_end": 100344,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "example",
+      "name": "Propagación de Varianza: MDP de 3 estados y 2 acciones",
+      "key": "ex:ch5-qdelta",
+      "content_start": 101366,
+      "content_end": 102384,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "definition",
+      "name": "Modelo y objetivo semiparamétricos",
+      "key": "def:ch6-semiparametrico",
+      "content_start": 103229,
+      "content_end": 103688,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "example",
+      "name": "Regresión parcialmente lineal",
+      "key": "ex:ch6-parcialmente-lineal",
+      "content_start": 104148,
+      "content_end": 104814,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "example",
+      "name": "Modelo de Cox",
+      "key": "ex:ch6-cox",
+      "content_start": 104878,
+      "content_end": 105303,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "example",
+      "name": "ATE como funcional de la ley observada",
+      "key": "ex:ch6-aipw-intro",
+      "content_start": 105399,
+      "content_end": 105851,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "example",
+      "name": "Objetivo de OPE",
+      "key": "ex:ch6-ope",
+      "content_start": 105917,
+      "content_end": 106402,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "definition",
+      "name": "Submodelo regular y score",
+      "key": "def:ch6-score-camino",
+      "content_start": 106809,
+      "content_end": 107214,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "example",
+      "name": "Scores de perturbaciones concretas",
+      "key": "ex:ch6-scores-canonicos",
+      "content_start": 107312,
+      "content_end": 107953,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "definition",
+      "name": "Espacio tangente",
+      "key": "def:ch6-tangente",
+      "content_start": 108029,
+      "content_end": 108194,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "definition",
+      "name": "Espacio tangente auxiliar",
+      "key": "def:ch6-tangente-nuisance",
+      "content_start": 108288,
+      "content_end": 108529,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "note",
+      "name": "Qué se mantiene fijo",
+      "key": "rem:ch6-traduccion-nuisance",
+      "content_start": 108615,
+      "content_end": 108999,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "proposition",
+      "name": "Descomposición ortogonal correcta",
+      "key": "prop:ch6-descomposicion",
+      "content_start": 109101,
+      "content_end": 109437,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "definition",
+      "name": "Función de influencia",
+      "key": "def:ch6-if",
+      "content_start": 109564,
+      "content_end": 109951,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "proposition",
+      "name": "Expansión asintóticamente lineal",
+      "key": "prop:ch6-ral",
+      "content_start": 110042,
+      "content_end": 110496,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "example",
+      "name": "Media y cuantil sin modelo paramétrico",
+      "key": "ex:ch4-if-media-cuantil",
+      "content_start": 110600,
+      "content_end": 111131,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "definition",
+      "name": "Gradiente canónico",
+      "key": "def:ch6-if-eficiente",
+      "content_start": 111269,
+      "content_end": 111734,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "note",
+      "name": "Ejemplos de la distinción score–IF",
+      "key": "rem:ch6-if-ejemplos",
+      "content_start": 111828,
+      "content_end": 112357,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "theorem",
+      "name": "Cota de eficiencia",
+      "key": "thm:ch6-cota",
+      "content_start": 112428,
+      "content_end": 112584,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "corollary",
+      "name": "Varianza de referencia",
+      "key": "cor:ch6-varianza-minima",
+      "content_start": 112934,
+      "content_end": 113183,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "definition",
+      "name": "Ortogonalidad de un momento",
+      "key": "def:ch6-neyman",
+      "content_start": 113315,
+      "content_end": 113622,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "proposition",
+      "name": "Ortogonalidad, sesgo y eficiencia",
+      "key": "thm:ch6-neyman",
+      "content_start": 113714,
+      "content_end": 114166,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "definition",
+      "name": "Estimador AIPW y doble robustez",
+      "key": "def:ch6-dr",
+      "content_start": 114762,
+      "content_end": 115145,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "theorem",
+      "name": "Identidad exacta de doble robustez",
+      "key": "thm:ch6-dr",
+      "content_start": 115268,
+      "content_end": 115789,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "theorem",
+      "name": "Gradiente canónico en el modelo Markov finito",
+      "key": "thm:ch6-kallus",
+      "content_start": 117690,
+      "content_end": 118256,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "corollary",
+      "name": "Estimador aumentado para OPE",
+      "key": "cor:ch6-dr-ope",
+      "content_start": 118880,
+      "content_end": 119664,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "example",
+      "name": "OPE de una decisión: cálculo completo",
+      "key": "ex:ch6-dr-ssch",
+      "content_start": 119759,
+      "content_end": 120722,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "definition",
+      "name": "DML mediante momentos ortogonales",
+      "key": "def:ch6-dml",
+      "content_start": 120856,
+      "content_end": 121244,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "theorem",
+      "name": "Un caso suficiente para AIPW con cross-fitting",
+      "key": "thm:ch6-dml",
+      "content_start": 121689,
+      "content_end": 122426,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "definition",
+      "name": "Tasas de producto",
+      "key": "def:ch6-nuisance-rates",
+      "content_start": 122978,
+      "content_end": 123376,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "proposition",
+      "name": "Unidad de partición",
+      "key": "thm:ch6-crossfit",
+      "content_start": 123457,
+      "content_end": 123865,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "note",
+      "name": "Diagnósticos y límites de verificación",
+      "key": "prop:ch6-verificacion-tasas",
+      "content_start": 123971,
+      "content_end": 124471,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "definition",
+      "name": "DAG causal",
+      "key": "def:ch6-dag",
+      "content_start": 125371,
+      "content_end": 125677,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "definition",
+      "name": "Criterio backdoor",
+      "key": "def:ch6-backdoor",
+      "content_start": 125754,
+      "content_end": 126057,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "proposition",
+      "name": "Ajuste gráfico y resultados potenciales",
+      "key": "thm:ch6-rubin-dag",
+      "content_start": 126159,
+      "content_end": 126641,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap04_herramientas.typ",
+      "kind": "example",
+      "name": "SSCH: confusión y estandarización",
+      "key": "ex:ssch-causal-cap06",
+      "content_start": 127057,
+      "content_end": 128003,
+      "file_sha256": "6839a1bdca10cd035b09b2200d8da7981d74515ae39138b3c3a406afac94c9ef"
+    },
+    {
+      "file": "capitulos/cap05_incrustacion.typ",
+      "kind": "definition",
+      "name": "Problema estadístico de decisión",
+      "key": "def:ch9-wald",
+      "content_start": 1676,
+      "content_end": 2321,
+      "file_sha256": "72f4f325f5439b7b54666fd6ef299b0b025bfeaa98cd6afbe1aac9219eb89af7"
+    },
+    {
+      "file": "capitulos/cap05_incrustacion.typ",
+      "kind": "definition",
+      "name": "MDP de una decisión con estado terminal",
+      "key": "def:ch9-mdp",
+      "content_start": 2727,
+      "content_end": 3410,
+      "file_sha256": "72f4f325f5439b7b54666fd6ef299b0b025bfeaa98cd6afbe1aac9219eb89af7"
+    },
+    {
+      "file": "capitulos/cap05_incrustacion.typ",
+      "kind": "theorem",
+      "name": "Representación que preserva el riesgo",
+      "key": "thm:ch9-isomorfismo",
+      "content_start": 3654,
+      "content_end": 4420,
+      "file_sha256": "72f4f325f5439b7b54666fd6ef299b0b025bfeaa98cd6afbe1aac9219eb89af7"
+    },
+    {
+      "file": "capitulos/cap05_incrustacion.typ",
+      "kind": "note",
+      "name": "Alcance de la construcción",
+      "key": "note:ch9-extension-no-demostrada",
+      "content_start": 5089,
+      "content_end": 5832,
+      "file_sha256": "72f4f325f5439b7b54666fd6ef299b0b025bfeaa98cd6afbe1aac9219eb89af7"
+    },
+    {
+      "file": "capitulos/cap05_incrustacion.typ",
+      "kind": "theorem",
+      "name": "Programación dinámica bayesiana de observación y parada",
+      "key": "thm:ch9-secuencial",
+      "content_start": 7514,
+      "content_end": 8073,
+      "file_sha256": "72f4f325f5439b7b54666fd6ef299b0b025bfeaa98cd6afbe1aac9219eb89af7"
+    },
+    {
+      "file": "capitulos/cap05_incrustacion.typ",
+      "kind": "corollary",
+      "name": "Bellman para el retorno bayesiano",
+      "key": "cor:ch9-bellman",
+      "content_start": 8614,
+      "content_end": 9020,
+      "file_sha256": "72f4f325f5439b7b54666fd6ef299b0b025bfeaa98cd6afbe1aac9219eb89af7"
+    },
+    {
+      "file": "capitulos/cap05_incrustacion.typ",
+      "kind": "theorem",
+      "name": "Admisibilidad y no dominancia",
+      "key": "thm:ch9-admisibilidad",
+      "content_start": 10954,
+      "content_end": 11412,
+      "file_sha256": "72f4f325f5439b7b54666fd6ef299b0b025bfeaa98cd6afbe1aac9219eb89af7"
+    },
+    {
+      "file": "capitulos/cap05_incrustacion.typ",
+      "kind": "corollary",
+      "name": "Criterio de Bayes",
+      "key": "cor:ch9-bayes",
+      "content_start": 11539,
+      "content_end": 12030,
+      "file_sha256": "72f4f325f5439b7b54666fd6ef299b0b025bfeaa98cd6afbe1aac9219eb89af7"
+    },
+    {
+      "file": "capitulos/cap05_incrustacion.typ",
+      "kind": "note",
+      "name": "Tres requisitos distintos para el estado",
+      "key": "thm:ch9-state",
+      "content_start": 12539,
+      "content_end": 13253,
+      "file_sha256": "72f4f325f5439b7b54666fd6ef299b0b025bfeaa98cd6afbe1aac9219eb89af7"
+    },
+    {
+      "file": "capitulos/cap05_incrustacion.typ",
+      "kind": "example",
+      "name": "Memoria suficiente para observaciones normales",
+      "key": "ex:ch9-state",
+      "content_start": 13395,
+      "content_end": 14167,
+      "file_sha256": "72f4f325f5439b7b54666fd6ef299b0b025bfeaa98cd6afbe1aac9219eb89af7"
+    },
+    {
+      "file": "capitulos/cap05_incrustacion.typ",
+      "kind": "note",
+      "name": "Identidad que debe conservarse",
+      "key": "thm:ch7-isomorfismo",
+      "content_start": 14403,
+      "content_end": 14700,
+      "file_sha256": "72f4f325f5439b7b54666fd6ef299b0b025bfeaa98cd6afbe1aac9219eb89af7"
+    },
+    {
+      "file": "capitulos/cap05_incrustacion.typ",
+      "kind": "corollary",
+      "name": "Traducción del criterio minimax",
+      "key": "cor:ch7-traduccion",
+      "content_start": 14794,
+      "content_end": 15273,
+      "file_sha256": "72f4f325f5439b7b54666fd6ef299b0b025bfeaa98cd6afbe1aac9219eb89af7"
+    },
+    {
+      "file": "capitulos/cap05_incrustacion.typ",
+      "kind": "note",
+      "name": "Alcance secuencial demostrado",
+      "key": "cor:ch7-secuencial",
+      "content_start": 15411,
+      "content_end": 15822,
+      "file_sha256": "72f4f325f5439b7b54666fd6ef299b0b025bfeaa98cd6afbe1aac9219eb89af7"
+    },
+    {
+      "file": "capitulos/cap05_incrustacion.typ",
+      "kind": "example",
+      "name": "SSCH: decidir a partir de una señal",
+      "key": "ex:ssch-cap09",
+      "content_start": 19641,
+      "content_end": 21397,
+      "file_sha256": "72f4f325f5439b7b54666fd6ef299b0b025bfeaa98cd6afbe1aac9219eb89af7"
+    },
+    {
+      "file": "capitulos/cap06_fallos.typ",
+      "kind": "example",
+      "name": "Espacio de Estados Infinito",
+      "key": "ex:ch9-estados-infinitos",
+      "content_start": 1586,
+      "content_end": 2709,
+      "file_sha256": "cfb56320933b0b534237c8a0108b1c8131ca4dd45db407b87ad3d1b2bc4b4003"
+    },
+    {
+      "file": "capitulos/cap06_fallos.typ",
+      "kind": "example",
+      "name": "Observabilidad Parcial",
+      "key": "ex:ch9-observabilidad-parcial",
+      "content_start": 2858,
+      "content_end": 3846,
+      "file_sha256": "cfb56320933b0b534237c8a0108b1c8131ca4dd45db407b87ad3d1b2bc4b4003"
+    },
+    {
+      "file": "capitulos/cap06_fallos.typ",
+      "kind": "example",
+      "name": "Horizonte Infinito sin Ergodicidad",
+      "key": "ex:ch9-horizonte-infinito",
+      "content_start": 4008,
+      "content_end": 4734,
+      "file_sha256": "cfb56320933b0b534237c8a0108b1c8131ca4dd45db407b87ad3d1b2bc4b4003"
+    },
+    {
+      "file": "capitulos/cap06_fallos.typ",
+      "kind": "example",
+      "name": "Confounding No Observado",
+      "key": "ex:ch9-confounding",
+      "content_start": 4875,
+      "content_end": 5739,
+      "file_sha256": "cfb56320933b0b534237c8a0108b1c8131ca4dd45db407b87ad3d1b2bc4b4003"
+    },
+    {
+      "file": "capitulos/cap06_fallos.typ",
+      "kind": "definition",
+      "name": "Garantía Transferible",
+      "key": "def:ch9-transferible",
+      "content_start": 7252,
+      "content_end": 7652,
+      "file_sha256": "cfb56320933b0b534237c8a0108b1c8131ca4dd45db407b87ad3d1b2bc4b4003"
+    },
+    {
+      "file": "capitulos/cap06_fallos.typ",
+      "kind": "note",
+      "name": "Condiciones suficientes según el régimen",
+      "key": "thm:ch9-condiciones",
+      "content_start": 7807,
+      "content_end": 8827,
+      "file_sha256": "cfb56320933b0b534237c8a0108b1c8131ca4dd45db407b87ad3d1b2bc4b4003"
+    },
+    {
+      "file": "capitulos/cap06_fallos.typ",
+      "kind": "proposition",
+      "name": "Transporte de conjuntos de confianza",
+      "key": "thm:ch9-ic",
+      "content_start": 10112,
+      "content_end": 10924,
+      "file_sha256": "cfb56320933b0b534237c8a0108b1c8131ca4dd45db407b87ad3d1b2bc4b4003"
+    },
+    {
+      "file": "capitulos/cap06_fallos.typ",
+      "kind": "note",
+      "name": "Hipótesis y potencia bajo una transformación",
+      "key": "thm:ch9-tests",
+      "content_start": 11068,
+      "content_end": 11723,
+      "file_sha256": "cfb56320933b0b534237c8a0108b1c8131ca4dd45db407b87ad3d1b2bc4b4003"
+    },
+    {
+      "file": "capitulos/cap06_fallos.typ",
+      "kind": "note",
+      "name": "Correspondencias que requieren una prueba propia",
+      "key": "prop:ch9-tabla",
+      "content_start": 11866,
+      "content_end": 12554,
+      "file_sha256": "cfb56320933b0b534237c8a0108b1c8131ca4dd45db407b87ad3d1b2bc4b4003"
+    },
+    {
+      "file": "capitulos/cap06_fallos.typ",
+      "kind": "example",
+      "name": "Eficiencia no equivale a normalidad de cualquier funcional",
+      "key": "thm:ch9-eficiencia",
+      "content_start": 12715,
+      "content_end": 13300,
+      "file_sha256": "cfb56320933b0b534237c8a0108b1c8131ca4dd45db407b87ad3d1b2bc4b4003"
+    },
+    {
+      "file": "capitulos/cap06_fallos.typ",
+      "kind": "example",
+      "name": "Fallo por Violación de Mixing",
+      "key": "ex:ch9-fallo-mixing",
+      "content_start": 13441,
+      "content_end": 14055,
+      "file_sha256": "cfb56320933b0b534237c8a0108b1c8131ca4dd45db407b87ad3d1b2bc4b4003"
+    },
+    {
+      "file": "capitulos/cap06_fallos.typ",
+      "kind": "example",
+      "name": "Fallo por Overlap Insuficiente",
+      "key": "ex:ch9-fallo-overlap",
+      "content_start": 14198,
+      "content_end": 15204,
+      "file_sha256": "cfb56320933b0b534237c8a0108b1c8131ca4dd45db407b87ad3d1b2bc4b4003"
+    },
+    {
+      "file": "capitulos/cap06_fallos.typ",
+      "kind": "example",
+      "name": "Fallo por No-Estacionariedad",
+      "key": "ex:ch9-fallo-noest",
+      "content_start": 15344,
+      "content_end": 15841,
+      "file_sha256": "cfb56320933b0b534237c8a0108b1c8131ca4dd45db407b87ad3d1b2bc4b4003"
+    },
+    {
+      "file": "capitulos/cap06_fallos.typ",
+      "kind": "note",
+      "name": "Protocolo antes de invocar una garantía",
+      "key": "prop:ch9-protocolo",
+      "content_start": 15988,
+      "content_end": 16485,
+      "file_sha256": "cfb56320933b0b534237c8a0108b1c8131ca4dd45db407b87ad3d1b2bc4b4003"
+    },
+    {
+      "file": "capitulos/cap06_fallos.typ",
+      "kind": "definition",
+      "name": "Condición de Mixing para CLT",
+      "key": "def:ch5-mixing-clt",
+      "content_start": 17409,
+      "content_end": 17970,
+      "file_sha256": "cfb56320933b0b534237c8a0108b1c8131ca4dd45db407b87ad3d1b2bc4b4003"
+    },
+    {
+      "file": "capitulos/cap06_fallos.typ",
+      "kind": "proposition",
+      "name": "CLT para una contribución estacionaria",
+      "key": "thm:ch5-clt-agentes",
+      "content_start": 18513,
+      "content_end": 19082,
+      "file_sha256": "cfb56320933b0b534237c8a0108b1c8131ca4dd45db407b87ad3d1b2bc4b4003"
+    },
+    {
+      "file": "capitulos/cap06_fallos.typ",
+      "kind": "example",
+      "name": "Cálculo de $sigma_(L R)^2$ en una Cadena de Markov de 2 estados",
+      "key": "ex:ch5-cadena",
+      "content_start": 19640,
+      "content_end": 20436,
+      "file_sha256": "cfb56320933b0b534237c8a0108b1c8131ca4dd45db407b87ad3d1b2bc4b4003"
+    },
+    {
+      "file": "capitulos/cap06_fallos.typ",
+      "kind": "note",
+      "name": "Diagnóstico empírico de dependencia",
+      "key": "prop:ch5-verificacion",
+      "content_start": 20578,
+      "content_end": 21482,
+      "file_sha256": "cfb56320933b0b534237c8a0108b1c8131ca4dd45db407b87ad3d1b2bc4b4003"
+    },
+    {
+      "file": "capitulos/cap06_fallos.typ",
+      "kind": "example",
+      "name": "Dos historias con el mismo estado resumido",
+      "key": "ex:ch6-memoria",
+      "content_start": 23138,
+      "content_end": 23625,
+      "file_sha256": "cfb56320933b0b534237c8a0108b1c8131ca4dd45db407b87ad3d1b2bc4b4003"
+    },
+    {
+      "file": "capitulos/cap06_fallos.typ",
+      "kind": "example",
+      "name": "Costo de un horizonte largo",
+      "key": "ex:ch6-horizonte-pesos",
+      "content_start": 25669,
+      "content_end": 26324,
+      "file_sha256": "cfb56320933b0b534237c8a0108b1c8131ca4dd45db407b87ad3d1b2bc4b4003"
+    },
+    {
+      "file": "capitulos/cap06_fallos.typ",
+      "kind": "example",
+      "name": "Tasas compatibles e incompatibles",
+      "key": "ex:ch6-tasas",
+      "content_start": 27304,
+      "content_end": 28295,
+      "file_sha256": "cfb56320933b0b534237c8a0108b1c8131ca4dd45db407b87ad3d1b2bc4b4003"
+    },
+    {
+      "file": "capitulos/cap06_fallos.typ",
+      "kind": "example",
+      "name": "Una política minimax puede ser dominada",
+      "key": "ex:ch6-minimax-dominada",
+      "content_start": 31241,
+      "content_end": 31829,
+      "file_sha256": "cfb56320933b0b534237c8a0108b1c8131ca4dd45db407b87ad3d1b2bc4b4003"
+    },
+    {
+      "file": "capitulos/cap06_fallos.typ",
+      "kind": "example",
+      "name": "Violación de Irreducibilidad",
+      "key": "ex:appD-irreducible",
+      "content_start": 34197,
+      "content_end": 34890,
+      "file_sha256": "cfb56320933b0b534237c8a0108b1c8131ca4dd45db407b87ad3d1b2bc4b4003"
+    },
+    {
+      "file": "capitulos/cap06_fallos.typ",
+      "kind": "example",
+      "name": "Violación de Aperiodicidad",
+      "key": "ex:appD-aperiodico",
+      "content_start": 34977,
+      "content_end": 35566,
+      "file_sha256": "cfb56320933b0b534237c8a0108b1c8131ca4dd45db407b87ad3d1b2bc4b4003"
+    },
+    {
+      "file": "capitulos/cap06_fallos.typ",
+      "kind": "example",
+      "name": "Mixing Lento (Polinomial)",
+      "key": "ex:appD-lento",
+      "content_start": 35646,
+      "content_end": 36348,
+      "file_sha256": "cfb56320933b0b534237c8a0108b1c8131ca4dd45db407b87ad3d1b2bc4b4003"
+    },
+    {
+      "file": "capitulos/cap07_ope.typ",
+      "kind": "definition",
+      "name": "Experimento y objetivo de OPE",
+      "key": "def:ch10-ope",
+      "content_start": 2570,
+      "content_end": 3316,
+      "file_sha256": "bb3cbe38a1bcc0f1c918903111446a3f03110c4013f21170ccae6c90eda9ea67"
+    },
+    {
+      "file": "capitulos/cap07_ope.typ",
+      "kind": "definition",
+      "name": "Retorno y funciones de valor",
+      "key": "def:ch10-retorno",
+      "content_start": 3790,
+      "content_end": 4125,
+      "file_sha256": "bb3cbe38a1bcc0f1c918903111446a3f03110c4013f21170ccae6c90eda9ea67"
+    },
+    {
+      "file": "capitulos/cap07_ope.typ",
+      "kind": "definition",
+      "name": "Coeficiente de overlap",
+      "key": "def:ch10-rho-max",
+      "content_start": 5983,
+      "content_end": 6250,
+      "file_sha256": "bb3cbe38a1bcc0f1c918903111446a3f03110c4013f21170ccae6c90eda9ea67"
+    },
+    {
+      "file": "capitulos/cap07_ope.typ",
+      "kind": "theorem",
+      "name": "Identificación del valor de una política",
+      "key": "thm:ch10-identificacion",
+      "content_start": 7244,
+      "content_end": 7499,
+      "file_sha256": "bb3cbe38a1bcc0f1c918903111446a3f03110c4013f21170ccae6c90eda9ea67"
+    },
+    {
+      "file": "capitulos/cap07_ope.typ",
+      "kind": "definition",
+      "name": "Estimador DM",
+      "key": "def:ch10-dm",
+      "content_start": 8664,
+      "content_end": 9084,
+      "file_sha256": "bb3cbe38a1bcc0f1c918903111446a3f03110c4013f21170ccae6c90eda9ea67"
+    },
+    {
+      "file": "capitulos/cap07_ope.typ",
+      "kind": "proposition",
+      "name": "Error y variabilidad de DM",
+      "key": "prop:ch10-dm",
+      "content_start": 9213,
+      "content_end": 9517,
+      "file_sha256": "bb3cbe38a1bcc0f1c918903111446a3f03110c4013f21170ccae6c90eda9ea67"
+    },
+    {
+      "file": "capitulos/cap07_ope.typ",
+      "kind": "definition",
+      "name": "Razón de importancia por trayectoria",
+      "key": "def:ch10-rho",
+      "content_start": 10150,
+      "content_end": 10452,
+      "file_sha256": "bb3cbe38a1bcc0f1c918903111446a3f03110c4013f21170ccae6c90eda9ea67"
+    },
+    {
+      "file": "capitulos/cap07_ope.typ",
+      "kind": "definition",
+      "name": "Estimador IS",
+      "key": "def:ch10-is",
+      "content_start": 10566,
+      "content_end": 10874,
+      "file_sha256": "bb3cbe38a1bcc0f1c918903111446a3f03110c4013f21170ccae6c90eda9ea67"
+    },
+    {
+      "file": "capitulos/cap07_ope.typ",
+      "kind": "theorem",
+      "name": "Insesgadez de IS",
+      "key": "thm:ch10-is-insesgado",
+      "content_start": 10998,
+      "content_end": 11244,
+      "file_sha256": "bb3cbe38a1bcc0f1c918903111446a3f03110c4013f21170ccae6c90eda9ea67"
+    },
+    {
+      "file": "capitulos/cap07_ope.typ",
+      "kind": "definition",
+      "name": "Per-Decision IS (PDIS)",
+      "key": "def:ch10-pdis",
+      "content_start": 11695,
+      "content_end": 11957,
+      "file_sha256": "bb3cbe38a1bcc0f1c918903111446a3f03110c4013f21170ccae6c90eda9ea67"
+    },
+    {
+      "file": "capitulos/cap07_ope.typ",
+      "kind": "theorem",
+      "name": "Cota de varianza y crecimiento posible",
+      "key": "thm:ch10-curse",
+      "content_start": 12478,
+      "content_end": 12706,
+      "file_sha256": "bb3cbe38a1bcc0f1c918903111446a3f03110c4013f21170ccae6c90eda9ea67"
+    },
+    {
+      "file": "capitulos/cap07_ope.typ",
+      "kind": "corollary",
+      "name": "Implicación para el diseño de evaluación",
+      "key": "cor:ch10-curse",
+      "content_start": 13680,
+      "content_end": 13960,
+      "file_sha256": "bb3cbe38a1bcc0f1c918903111446a3f03110c4013f21170ccae6c90eda9ea67"
+    },
+    {
+      "file": "capitulos/cap07_ope.typ",
+      "kind": "definition",
+      "name": "Cambio de población inicial",
+      "key": "def:ch10-covariate",
+      "content_start": 14784,
+      "content_end": 15167,
+      "file_sha256": "bb3cbe38a1bcc0f1c918903111446a3f03110c4013f21170ccae6c90eda9ea67"
+    },
+    {
+      "file": "capitulos/cap07_ope.typ",
+      "kind": "proposition",
+      "name": "IS con cambio de población inicial",
+      "key": "prop:ch10-is-shift",
+      "content_start": 15318,
+      "content_end": 15617,
+      "file_sha256": "bb3cbe38a1bcc0f1c918903111446a3f03110c4013f21170ccae6c90eda9ea67"
+    },
+    {
+      "file": "capitulos/cap07_ope.typ",
+      "kind": "definition",
+      "name": "Evaluación y optimización robustas",
+      "key": "def:ch10-dro",
+      "content_start": 16000,
+      "content_end": 16389,
+      "file_sha256": "bb3cbe38a1bcc0f1c918903111446a3f03110c4013f21170ccae6c90eda9ea67"
+    },
+    {
+      "file": "capitulos/cap07_ope.typ",
+      "kind": "proposition",
+      "name": "Alcance de una cota robusta",
+      "key": "prop:ch10-dro-garantia",
+      "content_start": 16530,
+      "content_end": 16958,
+      "file_sha256": "bb3cbe38a1bcc0f1c918903111446a3f03110c4013f21170ccae6c90eda9ea67"
+    },
+    {
+      "file": "capitulos/cap07_ope.typ",
+      "kind": "example",
+      "name": "SSCH: cambio de composición poblacional",
+      "key": "ex:ssch-dist-shift-cap10",
+      "content_start": 17629,
+      "content_end": 18428,
+      "file_sha256": "bb3cbe38a1bcc0f1c918903111446a3f03110c4013f21170ccae6c90eda9ea67"
+    },
+    {
+      "file": "capitulos/cap07_ope.typ",
+      "kind": "definition",
+      "name": "Dos razones de distribución distintas",
+      "key": "def:ch10-shift",
+      "content_start": 18927,
+      "content_end": 19277,
+      "file_sha256": "bb3cbe38a1bcc0f1c918903111446a3f03110c4013f21170ccae6c90eda9ea67"
+    },
+    {
+      "file": "capitulos/cap07_ope.typ",
+      "kind": "example",
+      "name": "SSCH: cambio de población y de respuesta",
+      "key": "ex:ch10-shift-ssch",
+      "content_start": 19775,
+      "content_end": 20565,
+      "file_sha256": "bb3cbe38a1bcc0f1c918903111446a3f03110c4013f21170ccae6c90eda9ea67"
+    },
+    {
+      "file": "capitulos/cap07_ope.typ",
+      "kind": "definition",
+      "name": "DR de una decisión y su extensión secuencial",
+      "key": "def:ch10-dr",
+      "content_start": 20786,
+      "content_end": 21476,
+      "file_sha256": "bb3cbe38a1bcc0f1c918903111446a3f03110c4013f21170ccae6c90eda9ea67"
+    },
+    {
+      "file": "capitulos/cap07_ope.typ",
+      "kind": "theorem",
+      "name": "Identidad de doble robustez",
+      "key": "thm:ch10-dr",
+      "content_start": 21881,
+      "content_end": 22304,
+      "file_sha256": "bb3cbe38a1bcc0f1c918903111446a3f03110c4013f21170ccae6c90eda9ea67"
+    },
+    {
+      "file": "capitulos/cap07_ope.typ",
+      "kind": "proposition",
+      "name": "Inferencia eficiente en una decisión",
+      "key": "thm:ch10-dr-eficiencia",
+      "content_start": 23299,
+      "content_end": 24100,
+      "file_sha256": "bb3cbe38a1bcc0f1c918903111446a3f03110c4013f21170ccae6c90eda9ea67"
+    },
+    {
+      "file": "capitulos/cap07_ope.typ",
+      "kind": "example",
+      "name": "DR puede aumentar la varianza",
+      "key": "prop:ch10-var-dr",
+      "content_start": 25050,
+      "content_end": 25437,
+      "file_sha256": "bb3cbe38a1bcc0f1c918903111446a3f03110c4013f21170ccae6c90eda9ea67"
+    },
+    {
+      "file": "capitulos/cap07_ope.typ",
+      "kind": "note",
+      "name": "Compromisos entre sesgo y varianza",
+      "key": "thm:ch10-tradeoff",
+      "content_start": 26503,
+      "content_end": 27113,
+      "file_sha256": "bb3cbe38a1bcc0f1c918903111446a3f03110c4013f21170ccae6c90eda9ea67"
+    },
+    {
+      "file": "capitulos/cap07_ope.typ",
+      "kind": "definition",
+      "name": "Tamaño efectivo basado en pesos",
+      "key": "def:ch10-ess",
+      "content_start": 28036,
+      "content_end": 28349,
+      "file_sha256": "bb3cbe38a1bcc0f1c918903111446a3f03110c4013f21170ccae6c90eda9ea67"
+    },
+    {
+      "file": "capitulos/cap07_ope.typ",
+      "kind": "definition",
+      "name": "Estados de la evaluación de soporte",
+      "key": "def:ch10-niveles",
+      "content_start": 29178,
+      "content_end": 29760,
+      "file_sha256": "bb3cbe38a1bcc0f1c918903111446a3f03110c4013f21170ccae6c90eda9ea67"
+    },
+    {
+      "file": "capitulos/cap07_ope.typ",
+      "kind": "theorem",
+      "name": "Sesgo y varianza por truncamiento",
+      "key": "thm:ch10-truncamiento",
+      "content_start": 29906,
+      "content_end": 30190,
+      "file_sha256": "bb3cbe38a1bcc0f1c918903111446a3f03110c4013f21170ccae6c90eda9ea67"
+    },
+    {
+      "file": "capitulos/cap07_ope.typ",
+      "kind": "note",
+      "name": "Elección del umbral",
+      "key": "prop:ch10-truncamiento",
+      "content_start": 30736,
+      "content_end": 31166,
+      "file_sha256": "bb3cbe38a1bcc0f1c918903111446a3f03110c4013f21170ccae6c90eda9ea67"
+    },
+    {
+      "file": "capitulos/cap07_ope.typ",
+      "kind": "definition",
+      "name": "Indicadores de monitoreo",
+      "key": "def:ch10-indicadores",
+      "content_start": 32555,
+      "content_end": 32915,
+      "file_sha256": "bb3cbe38a1bcc0f1c918903111446a3f03110c4013f21170ccae6c90eda9ea67"
+    },
+    {
+      "file": "capitulos/cap07_ope.typ",
+      "kind": "note",
+      "name": "Calibración de alertas",
+      "key": "prop:ch10-umbrales",
+      "content_start": 33049,
+      "content_end": 33400,
+      "file_sha256": "bb3cbe38a1bcc0f1c918903111446a3f03110c4013f21170ccae6c90eda9ea67"
+    },
+    {
+      "file": "capitulos/cap07_ope.typ",
+      "kind": "example",
+      "name": "Pipeline de monitoreo",
+      "key": "ex:ch10-pipeline",
+      "content_start": 33525,
+      "content_end": 34292,
+      "file_sha256": "bb3cbe38a1bcc0f1c918903111446a3f03110c4013f21170ccae6c90eda9ea67"
+    },
+    {
+      "file": "capitulos/cap07_ope.typ",
+      "kind": "example",
+      "name": "SSCH: dos decisiones con cálculo completo",
+      "key": "ex:ssch-cap10",
+      "content_start": 36554,
+      "content_end": 38429,
+      "file_sha256": "bb3cbe38a1bcc0f1c918903111446a3f03110c4013f21170ccae6c90eda9ea67"
+    },
+    {
+      "file": "capitulos/cap08_intervalos.typ",
+      "kind": "definition",
+      "name": "$alpha$-mixing",
+      "key": "def:ch11-alpha",
+      "content_start": 3831,
+      "content_end": 4207,
+      "file_sha256": "73487757c27b02db6fdc8ef306fce75bb20fa970aa70dc8c97ef57f213a79289"
+    },
+    {
+      "file": "capitulos/cap08_intervalos.typ",
+      "kind": "definition",
+      "name": "Mixing geométrico",
+      "key": "def:ch11-geometrico",
+      "content_start": 4337,
+      "content_end": 4528,
+      "file_sha256": "73487757c27b02db6fdc8ef306fce75bb20fa970aa70dc8c97ef57f213a79289"
+    },
+    {
+      "file": "capitulos/cap08_intervalos.typ",
+      "kind": "proposition",
+      "name": "Alcance del caso finito",
+      "key": "prop:ch11-ergodico",
+      "content_start": 4668,
+      "content_end": 5049,
+      "file_sha256": "73487757c27b02db6fdc8ef306fce75bb20fa970aa70dc8c97ef57f213a79289"
+    },
+    {
+      "file": "capitulos/cap08_intervalos.typ",
+      "kind": "theorem",
+      "name": "Una cota espectral bajo reversibilidad",
+      "key": "thm:ch11-tasa-tabular",
+      "content_start": 5565,
+      "content_end": 5906,
+      "file_sha256": "73487757c27b02db6fdc8ef306fce75bb20fa970aa70dc8c97ef57f213a79289"
+    },
+    {
+      "file": "capitulos/cap08_intervalos.typ",
+      "kind": "note",
+      "name": "Interpretación del gap",
+      "key": "cor:ch11-gap",
+      "content_start": 6454,
+      "content_end": 6905,
+      "file_sha256": "73487757c27b02db6fdc8ef306fce75bb20fa970aa70dc8c97ef57f213a79289"
+    },
+    {
+      "file": "capitulos/cap08_intervalos.typ",
+      "kind": "example",
+      "name": "Dependencia y tamaño efectivo de una media",
+      "key": "prop:ch11-impacto",
+      "content_start": 7047,
+      "content_end": 7575,
+      "file_sha256": "73487757c27b02db6fdc8ef306fce75bb20fa970aa70dc8c97ef57f213a79289"
+    },
+    {
+      "file": "capitulos/cap08_intervalos.typ",
+      "kind": "theorem",
+      "name": "CLT bajo mixing fuerte",
+      "key": "thm:ch11-clt-mixing",
+      "content_start": 9219,
+      "content_end": 9645,
+      "file_sha256": "73487757c27b02db6fdc8ef306fce75bb20fa970aa70dc8c97ef57f213a79289"
+    },
+    {
+      "file": "capitulos/cap08_intervalos.typ",
+      "kind": "note",
+      "name": "Alcance del Teorema 1 de SZLS",
+      "key": "thm:ch11-shi",
+      "content_start": 11515,
+      "content_end": 11981,
+      "file_sha256": "73487757c27b02db6fdc8ef306fce75bb20fa970aa70dc8c97ef57f213a79289"
+    },
+    {
+      "file": "capitulos/cap08_intervalos.typ",
+      "kind": "corollary",
+      "name": "Intervalo por studentización",
+      "key": "cor:ch11-ic",
+      "content_start": 12545,
+      "content_end": 12901,
+      "file_sha256": "73487757c27b02db6fdc8ef306fce75bb20fa970aa70dc8c97ef57f213a79289"
+    },
+    {
+      "file": "capitulos/cap08_intervalos.typ",
+      "kind": "definition",
+      "name": "Varianza de contribuciones por episodio",
+      "key": "def:ch11-var-if",
+      "content_start": 13434,
+      "content_end": 13819,
+      "file_sha256": "73487757c27b02db6fdc8ef306fce75bb20fa970aa70dc8c97ef57f213a79289"
+    },
+    {
+      "file": "capitulos/cap08_intervalos.typ",
+      "kind": "definition",
+      "name": "Varianza HAC con pesos de Bartlett",
+      "key": "def:ch11-hac",
+      "content_start": 13959,
+      "content_end": 14422,
+      "file_sha256": "73487757c27b02db6fdc8ef306fce75bb20fa970aa70dc8c97ef57f213a79289"
+    },
+    {
+      "file": "capitulos/cap08_intervalos.typ",
+      "kind": "proposition",
+      "name": "Consistencia: una ruta suficiente para HAC",
+      "key": "thm:ch11-var-consistente",
+      "content_start": 14580,
+      "content_end": 14803,
+      "file_sha256": "73487757c27b02db6fdc8ef306fce75bb20fa970aa70dc8c97ef57f213a79289"
+    },
+    {
+      "file": "capitulos/cap08_intervalos.typ",
+      "kind": "definition",
+      "name": "SAVE y orden de aprendizaje",
+      "key": "def:ch11-save",
+      "content_start": 16987,
+      "content_end": 17382,
+      "file_sha256": "73487757c27b02db6fdc8ef306fce75bb20fa970aa70dc8c97ef57f213a79289"
+    },
+    {
+      "file": "capitulos/cap08_intervalos.typ",
+      "kind": "note",
+      "name": "Margen y tasas de valor",
+      "key": "thm:ch11-szls-tasas",
+      "content_start": 18077,
+      "content_end": 18319,
+      "file_sha256": "73487757c27b02db6fdc8ef306fce75bb20fa970aa70dc8c97ef57f213a79289"
+    },
+    {
+      "file": "capitulos/cap08_intervalos.typ",
+      "kind": "note",
+      "name": "Qué se puede atribuir a SAVE",
+      "key": "prop:ch11-save",
+      "content_start": 18997,
+      "content_end": 19380,
+      "file_sha256": "73487757c27b02db6fdc8ef306fce75bb20fa970aa70dc8c97ef57f213a79289"
+    },
+    {
+      "file": "capitulos/cap08_intervalos.typ",
+      "kind": "proposition",
+      "name": "Planificación normal aproximada",
+      "key": "thm:ch11-n",
+      "content_start": 19600,
+      "content_end": 20032,
+      "file_sha256": "73487757c27b02db6fdc8ef306fce75bb20fa970aa70dc8c97ef57f213a79289"
+    },
+    {
+      "file": "capitulos/cap08_intervalos.typ",
+      "kind": "definition",
+      "name": "Objetivo diferenciable de política",
+      "key": "def:ch11-pg",
+      "content_start": 22439,
+      "content_end": 22739,
+      "file_sha256": "73487757c27b02db6fdc8ef306fce75bb20fa970aa70dc8c97ef57f213a79289"
+    },
+    {
+      "file": "capitulos/cap08_intervalos.typ",
+      "kind": "theorem",
+      "name": "Identidad del gradiente de política",
+      "key": "thm:ch11-pg-theorem",
+      "content_start": 22881,
+      "content_end": 23050,
+      "file_sha256": "73487757c27b02db6fdc8ef306fce75bb20fa970aa70dc8c97ef57f213a79289"
+    },
+    {
+      "file": "capitulos/cap08_intervalos.typ",
+      "kind": "definition",
+      "name": "REINFORCE",
+      "key": "def:ch11-reinforce",
+      "content_start": 23794,
+      "content_end": 24109,
+      "file_sha256": "73487757c27b02db6fdc8ef306fce75bb20fa970aa70dc8c97ef57f213a79289"
+    },
+    {
+      "file": "capitulos/cap08_intervalos.typ",
+      "kind": "proposition",
+      "name": "Baseline: centrado y varianza",
+      "key": "prop:ch11-baseline",
+      "content_start": 24254,
+      "content_end": 24585,
+      "file_sha256": "73487757c27b02db6fdc8ef306fce75bb20fa970aa70dc8c97ef57f213a79289"
+    },
+    {
+      "file": "capitulos/cap08_intervalos.typ",
+      "kind": "example",
+      "name": "SSCH: baseline con cálculo exacto",
+      "key": "ex:ssch-drl-cap11",
+      "content_start": 25119,
+      "content_end": 25795,
+      "file_sha256": "73487757c27b02db6fdc8ef306fce75bb20fa970aa70dc8c97ef57f213a79289"
+    },
+    {
+      "file": "capitulos/cap08_intervalos.typ",
+      "kind": "definition",
+      "name": "Gradiente y aproximación por un crítico",
+      "key": "def:ch11-pg-v2",
+      "content_start": 26352,
+      "content_end": 26686,
+      "file_sha256": "73487757c27b02db6fdc8ef306fce75bb20fa970aa70dc8c97ef57f213a79289"
+    },
+    {
+      "file": "capitulos/cap08_intervalos.typ",
+      "kind": "proposition",
+      "name": "Momentos del gradiente y función de influencia",
+      "key": "prop:ch11-reinforce-if",
+      "content_start": 26849,
+      "content_end": 27340,
+      "file_sha256": "73487757c27b02db6fdc8ef306fce75bb20fa970aa70dc8c97ef57f213a79289"
+    },
+    {
+      "file": "capitulos/cap08_intervalos.typ",
+      "kind": "example",
+      "name": "Estado continuo y gradiente verificable",
+      "key": "ex:ch11-pg-ssch",
+      "content_start": 27513,
+      "content_end": 28067,
+      "file_sha256": "73487757c27b02db6fdc8ef306fce75bb20fa970aa70dc8c97ef57f213a79289"
+    },
+    {
+      "file": "capitulos/cap08_intervalos.typ",
+      "kind": "example",
+      "name": "SSCH: intervalo y comparación pareada",
+      "key": "ex:ssch-cap11",
+      "content_start": 31256,
+      "content_end": 32743,
+      "file_sha256": "73487757c27b02db6fdc8ef306fce75bb20fa970aa70dc8c97ef57f213a79289"
+    },
+    {
+      "file": "capitulos/cap09_verificacion.typ",
+      "kind": "proposition",
+      "name": "Suficiencia y Políticas Óptimas",
+      "key": "prop:ch2-suficiencia-politicas",
+      "content_start": 12435,
+      "content_end": 12833,
+      "file_sha256": "34401129896cc6a19981d29e8b84a61ed8391e9b9d4bd5b0faf34687eece6476"
+    },
+    {
+      "file": "capitulos/cap09_verificacion.typ",
+      "kind": "proposition",
+      "name": "Estimación de Valores y Cramér-Rao",
+      "key": "prop:ch3-valor-cr",
+      "content_start": 17478,
+      "content_end": 17972,
+      "file_sha256": "34401129896cc6a19981d29e8b84a61ed8391e9b9d4bd5b0faf34687eece6476"
+    },
+    {
+      "file": "capitulos/cap09_verificacion.typ",
+      "kind": "proposition",
+      "name": "Rao-Blackwell para Q-Estimadores",
+      "key": "prop:ch3-rb-q",
+      "content_start": 18290,
+      "content_end": 18560,
+      "file_sha256": "34401129896cc6a19981d29e8b84a61ed8391e9b9d4bd5b0faf34687eece6476"
+    },
+    {
+      "file": "capitulos/cap09_verificacion.typ",
+      "kind": "note",
+      "name": "Propiedades de Trazabilidad",
+      "key": "prop:ch12-trazability",
+      "content_start": 32650,
+      "content_end": 33099,
+      "file_sha256": "34401129896cc6a19981d29e8b84a61ed8391e9b9d4bd5b0faf34687eece6476"
+    },
+    {
+      "file": "capitulos/cap09_verificacion.typ",
+      "kind": "example",
+      "name": "Trazabilidad en SSCH",
+      "key": "ex:ssch-trazability",
+      "content_start": 33200,
+      "content_end": 35694,
+      "file_sha256": "34401129896cc6a19981d29e8b84a61ed8391e9b9d4bd5b0faf34687eece6476"
+    },
+    {
+      "file": "capitulos/cap10_casos.typ",
+      "kind": "example",
+      "name": "SSCH — El MDP Clínico como Modelo Paramétrico",
+      "key": "ex:ssch-cap01",
+      "content_start": 1864,
+      "content_end": 3337,
+      "file_sha256": "99e5b21261e74d9b4c067064264a4913aad306b52154f05ffaf1dac0d2db45d5"
+    },
+    {
+      "file": "capitulos/cap10_casos.typ",
+      "kind": "example",
+      "name": "SSCH — Estadístico Suficiente para las Transiciones",
+      "key": "ex:ssch-cap02",
+      "content_start": 3580,
+      "content_end": 4813,
+      "file_sha256": "99e5b21261e74d9b4c067064264a4913aad306b52154f05ffaf1dac0d2db45d5"
+    },
+    {
+      "file": "capitulos/cap10_casos.typ",
+      "kind": "example",
+      "name": "SSCH — Estimación de las Probabilidades de Transición",
+      "key": "ex:ssch-cap03-b",
+      "content_start": 5045,
+      "content_end": 6046,
+      "file_sha256": "99e5b21261e74d9b4c067064264a4913aad306b52154f05ffaf1dac0d2db45d5"
+    },
+    {
+      "file": "capitulos/cap10_casos.typ",
+      "kind": "example",
+      "name": "SSCH: comparación de dos políticas del simulador",
+      "key": "ex:ssch-cap04-b",
+      "content_start": 6275,
+      "content_end": 7126,
+      "file_sha256": "99e5b21261e74d9b4c067064264a4913aad306b52154f05ffaf1dac0d2db45d5"
+    },
+    {
+      "file": "capitulos/cap10_casos.typ",
+      "kind": "example",
+      "name": "SSCH — Distribución Asintótica de $hat(V)^pi$",
+      "key": "ex:ssch-cap05-b",
+      "content_start": 7356,
+      "content_end": 8689,
+      "file_sha256": "99e5b21261e74d9b4c067064264a4913aad306b52154f05ffaf1dac0d2db45d5"
+    },
+    {
+      "file": "capitulos/cap10_casos.typ",
+      "kind": "example",
+      "name": "SSCH — OPE Semiparamétrica con Datos Observacionales",
+      "key": "ex:ssch-cap06",
+      "content_start": 12743,
+      "content_end": 14138,
+      "file_sha256": "99e5b21261e74d9b4c067064264a4913aad306b52154f05ffaf1dac0d2db45d5"
+    },
+    {
+      "file": "capitulos/cap11_despliegue.typ",
+      "kind": "definition",
+      "name": "MDP de Validación Estándar",
+      "key": "def:appE-mdp-test",
+      "content_start": 15096,
+      "content_end": 15528,
+      "file_sha256": "066b9e789d3820f1fd4b22c60225770c956e65df81f4a2948122817defd619cf"
+    },
+    {
+      "file": "capitulos/cap12_problemas.typ",
+      "kind": "definition",
+      "name": "Confounding No Observado",
+      "key": "def:ch12-confound",
+      "content_start": 3972,
+      "content_end": 4476,
+      "file_sha256": "6aabdb1895c191744ddd221ec42055c7842ce90da5c4023b7c9e7c30d886476f"
+    },
+    {
+      "file": "capitulos/cap12_problemas.typ",
+      "kind": "note",
+      "name": "Sesgo del estimador DR bajo confounding no observado",
+      "key": "thm:ch12-shi-confound",
+      "content_start": 5030,
+      "content_end": 5638,
+      "file_sha256": "6aabdb1895c191744ddd221ec42055c7842ce90da5c4023b7c9e7c30d886476f"
+    },
+    {
+      "file": "capitulos/cap12_problemas.typ",
+      "kind": "note",
+      "name": "Estrategias de Mitigación",
+      "key": "prop:ch12-mitigation",
+      "content_start": 5925,
+      "content_end": 6507,
+      "file_sha256": "6aabdb1895c191744ddd221ec42055c7842ce90da5c4023b7c9e7c30d886476f"
+    },
+    {
+      "file": "capitulos/cap12_problemas.typ",
+      "kind": "example",
+      "name": "SSCH con Confounding",
+      "key": "ex:ssch-confound",
+      "content_start": 6691,
+      "content_end": 7053,
+      "file_sha256": "6aabdb1895c191744ddd221ec42055c7842ce90da5c4023b7c9e7c30d886476f"
+    },
+    {
+      "file": "capitulos/cap12_problemas.typ",
+      "kind": "definition",
+      "name": "POMDP",
+      "key": "def:ch12-pomdp",
+      "content_start": 7488,
+      "content_end": 7960,
+      "file_sha256": "6aabdb1895c191744ddd221ec42055c7842ce90da5c4023b7c9e7c30d886476f"
+    },
+    {
+      "file": "capitulos/cap12_problemas.typ",
+      "kind": "theorem",
+      "name": "Identificación en POMDPs",
+      "key": "thm:ch12-pomdp-identification",
+      "content_start": 8241,
+      "content_end": 9234,
+      "file_sha256": "6aabdb1895c191744ddd221ec42055c7842ce90da5c4023b7c9e7c30d886476f"
+    },
+    {
+      "file": "capitulos/cap12_problemas.typ",
+      "kind": "note",
+      "name": "Estrategias para OPE en POMDPs",
+      "key": "prop:ch12-pomdp-strategies",
+      "content_start": 9543,
+      "content_end": 10052,
+      "file_sha256": "6aabdb1895c191744ddd221ec42055c7842ce90da5c4023b7c9e7c30d886476f"
+    },
+    {
+      "file": "capitulos/cap12_problemas.typ",
+      "kind": "example",
+      "name": "SSCH como POMDP",
+      "key": "ex:ssch-pomdp",
+      "content_start": 10252,
+      "content_end": 10553,
+      "file_sha256": "6aabdb1895c191744ddd221ec42055c7842ce90da5c4023b7c9e7c30d886476f"
+    },
+    {
+      "file": "capitulos/cap12_problemas.typ",
+      "kind": "definition",
+      "name": "LLM-Agent",
+      "key": "def:ch12-llm",
+      "content_start": 11017,
+      "content_end": 11299,
+      "file_sha256": "6aabdb1895c191744ddd221ec42055c7842ce90da5c4023b7c9e7c30d886476f"
+    },
+    {
+      "file": "capitulos/cap12_problemas.typ",
+      "kind": "definition",
+      "name": "Propensity Score para LLM-Actions",
+      "key": "def:ch12-propensity",
+      "content_start": 11438,
+      "content_end": 11693,
+      "file_sha256": "6aabdb1895c191744ddd221ec42055c7842ce90da5c4023b7c9e7c30d886476f"
+    },
+    {
+      "file": "capitulos/cap12_problemas.typ",
+      "kind": "proposition",
+      "name": "Estimación de Propensity vía Log-Probs",
+      "key": "prop:ch12-logprobs",
+      "content_start": 12151,
+      "content_end": 12396,
+      "file_sha256": "6aabdb1895c191744ddd221ec42055c7842ce90da5c4023b7c9e7c30d886476f"
+    },
+    {
+      "file": "capitulos/cap12_problemas.typ",
+      "kind": "definition",
+      "name": "Discretización por Templates",
+      "key": "def:ch12-templates",
+      "content_start": 13335,
+      "content_end": 13951,
+      "file_sha256": "6aabdb1895c191744ddd221ec42055c7842ce90da5c4023b7c9e7c30d886476f"
+    },
+    {
+      "file": "capitulos/cap12_problemas.typ",
+      "kind": "proposition",
+      "name": "Sesgo de Discretización",
+      "key": "prop:ch12-sesgo-disc",
+      "content_start": 14214,
+      "content_end": 14783,
+      "file_sha256": "6aabdb1895c191744ddd221ec42055c7842ce90da5c4023b7c9e7c30d886476f"
+    },
+    {
+      "file": "capitulos/cap12_problemas.typ",
+      "kind": "note",
+      "name": "DR para LLM-Agents: Condiciones",
+      "key": "thm:ch12-dr-llm",
+      "content_start": 14908,
+      "content_end": 15920,
+      "file_sha256": "6aabdb1895c191744ddd221ec42055c7842ce90da5c4023b7c9e7c30d886476f"
+    },
+    {
+      "file": "capitulos/cap12_problemas.typ",
+      "kind": "note",
+      "name": "Objetivos de garantía del diseño",
+      "key": "thm:ch12-garantias",
+      "content_start": 18580,
+      "content_end": 18960,
+      "file_sha256": "6aabdb1895c191744ddd221ec42055c7842ce90da5c4023b7c9e7c30d886476f"
+    },
+    {
+      "file": "capitulos/cap12_problemas.typ",
+      "kind": "note",
+      "name": "Problemas de Alto Impacto",
+      "key": "prop:ch12-high-impact",
+      "content_start": 20597,
+      "content_end": 21043,
+      "file_sha256": "6aabdb1895c191744ddd221ec42055c7842ce90da5c4023b7c9e7c30d886476f"
+    },
+    {
+      "file": "capitulos/cap12_problemas.typ",
+      "kind": "definition",
+      "name": "Agente Confiable",
+      "key": "def:ch12-reliable",
+      "content_start": 23011,
+      "content_end": 23433,
+      "file_sha256": "6aabdb1895c191744ddd221ec42055c7842ce90da5c4023b7c9e7c30d886476f"
+    },
+    {
+      "file": "capitulos/cap12_problemas.typ",
+      "kind": "note",
+      "name": "Resultados que pueden respaldar el diseño",
+      "key": "prop:ch12-framework-reliability",
+      "content_start": 23689,
+      "content_end": 24205,
+      "file_sha256": "6aabdb1895c191744ddd221ec42055c7842ce90da5c4023b7c9e7c30d886476f"
+    },
+    {
+      "file": "capitulos/cap12_problemas.typ",
+      "kind": "example",
+      "name": "Agente SSCH Confiable",
+      "key": "ex:ssch-reliable",
+      "content_start": 24401,
+      "content_end": 24808,
+      "file_sha256": "6aabdb1895c191744ddd221ec42055c7842ce90da5c4023b7c9e7c30d886476f"
+    },
+    {
+      "file": "capitulos/cap12_problemas.typ",
+      "kind": "definition",
+      "name": "Arquitectura del Agente",
+      "key": "def:ch12-architecture",
+      "content_start": 25326,
+      "content_end": 25843,
+      "file_sha256": "6aabdb1895c191744ddd221ec42055c7842ce90da5c4023b7c9e7c30d886476f"
+    },
+    {
+      "file": "capitulos/cap12_problemas.typ",
+      "kind": "note",
+      "name": "Flujo de Información",
+      "key": "prop:ch12-flow",
+      "content_start": 26093,
+      "content_end": 26606,
+      "file_sha256": "6aabdb1895c191744ddd221ec42055c7842ce90da5c4023b7c9e7c30d886476f"
+    },
+    {
+      "file": "capitulos/cap12_problemas.typ",
+      "kind": "example",
+      "name": "Integración en SSCH",
+      "key": "ex:ssch-integration",
+      "content_start": 26806,
+      "content_end": 27231,
+      "file_sha256": "6aabdb1895c191744ddd221ec42055c7842ce90da5c4023b7c9e7c30d886476f"
+    },
+    {
+      "file": "capitulos/cap12_problemas.typ",
+      "kind": "note",
+      "name": "Limitaciones del Marco",
+      "key": "prop:ch12-limitations",
+      "content_start": 27667,
+      "content_end": 28107,
+      "file_sha256": "6aabdb1895c191744ddd221ec42055c7842ce90da5c4023b7c9e7c30d886476f"
+    },
+    {
+      "file": "capitulos/cap12_problemas.typ",
+      "kind": "definition",
+      "name": "Estrategias de Mitigación",
+      "key": "def:ch12-mitigation-strategies",
+      "content_start": 28358,
+      "content_end": 28894,
+      "file_sha256": "6aabdb1895c191744ddd221ec42055c7842ce90da5c4023b7c9e7c30d886476f"
+    },
+    {
+      "file": "capitulos/cap12_problemas.typ",
+      "kind": "example",
+      "name": "Limitaciones en SSCH",
+      "key": "ex:ssch-limitations",
+      "content_start": 29117,
+      "content_end": 30078,
+      "file_sha256": "6aabdb1895c191744ddd221ec42055c7842ce90da5c4023b7c9e7c30d886476f"
+    },
+    {
+      "file": "capitulos/cap12_problemas.typ",
+      "kind": "example",
+      "name": "SSCH: preguntas que acompañan una decisión",
+      "key": "ex:ssch-cap12",
+      "content_start": 30304,
+      "content_end": 31786,
+      "file_sha256": "6aabdb1895c191744ddd221ec42055c7842ce90da5c4023b7c9e7c30d886476f"
+    },
+    {
+      "file": "capitulos/cap12_problemas.typ",
+      "kind": "problem",
+      "name": "Cotas eficientes bajo confounding parcial",
+      "key": "prob:confounding",
+      "content_start": 32725,
+      "content_end": 33013,
+      "file_sha256": "6aabdb1895c191744ddd221ec42055c7842ce90da5c4023b7c9e7c30d886476f"
+    },
+    {
+      "file": "capitulos/cap12_problemas.typ",
+      "kind": "problem",
+      "name": "Inferencia eficiente en POMDPs con estado latente finito",
+      "key": "prob:pomdp",
+      "content_start": 33786,
+      "content_end": 34133,
+      "file_sha256": "6aabdb1895c191744ddd221ec42055c7842ce90da5c4023b7c9e7c30d886476f"
+    },
+    {
+      "file": "capitulos/cap12_problemas.typ",
+      "kind": "problem",
+      "name": "OPE para políticas no evaluables",
+      "key": "prob:llm-ope",
+      "content_start": 34861,
+      "content_end": 35175,
+      "file_sha256": "6aabdb1895c191744ddd221ec42055c7842ce90da5c4023b7c9e7c30d886476f"
+    },
+    {
+      "file": "capitulos/cap12_problemas.typ",
+      "kind": "problem",
+      "name": "Condiciones de mixing en espacios de alta dimensión",
+      "key": "prob:mixing",
+      "content_start": 36087,
+      "content_end": 36402,
+      "file_sha256": "6aabdb1895c191744ddd221ec42055c7842ce90da5c4023b7c9e7c30d886476f"
+    },
+    {
+      "file": "apendices/apendice_langgraph.typ",
+      "kind": "note",
+      "name": "Nota de alcance: grafo de control vs. dinámica del ambiente",
+      "key": "note:appC-grafo-vs-ambiente",
+      "content_start": 1740,
+      "content_end": 2450,
+      "file_sha256": "4cc37e96125b00cbdec87c89ff584a50192bf1bec1ad27042a24abc7720512da"
+    },
+    {
+      "file": "apendices/apendice_langgraph.typ",
+      "kind": "definition",
+      "name": "StateGraph",
+      "key": "def:app-stategraph",
+      "content_start": 2523,
+      "content_end": 2886,
+      "file_sha256": "4cc37e96125b00cbdec87c89ff584a50192bf1bec1ad27042a24abc7720512da"
+    },
+    {
+      "file": "apendices/apendice_langgraph.typ",
+      "kind": "definition",
+      "name": "Node",
+      "key": "def:app-node",
+      "content_start": 2947,
+      "content_end": 3284,
+      "file_sha256": "4cc37e96125b00cbdec87c89ff584a50192bf1bec1ad27042a24abc7720512da"
+    },
+    {
+      "file": "apendices/apendice_langgraph.typ",
+      "kind": "definition",
+      "name": "StateSchema",
+      "key": "def:app-stateschema",
+      "content_start": 3359,
+      "content_end": 3685,
+      "file_sha256": "4cc37e96125b00cbdec87c89ff584a50192bf1bec1ad27042a24abc7720512da"
+    },
+    {
+      "file": "apendices/apendice_langgraph.typ",
+      "kind": "definition",
+      "name": "ConditionalEdge",
+      "key": "def:app-conditionaledge",
+      "content_start": 3768,
+      "content_end": 4128,
+      "file_sha256": "4cc37e96125b00cbdec87c89ff584a50192bf1bec1ad27042a24abc7720512da"
+    },
+    {
+      "file": "apendices/apendice_langgraph.typ",
+      "kind": "definition",
+      "name": "Checkpointer",
+      "key": "def:app-checkpointer",
+      "content_start": 4205,
+      "content_end": 4484,
+      "file_sha256": "4cc37e96125b00cbdec87c89ff584a50192bf1bec1ad27042a24abc7720512da"
+    },
+    {
+      "file": "apendices/apendice_medido.typ",
+      "kind": "definition",
+      "name": "$sigma$-Álgebra",
+      "key": "def:appE-sigma-algebra",
+      "content_start": 691,
+      "content_end": 1065,
+      "file_sha256": "277929c3c7c94cd898ecda8e7a9dd00e52da0108f5f9b315fa0486162d0df0d7"
+    },
+    {
+      "file": "apendices/apendice_medido.typ",
+      "kind": "definition",
+      "name": "Espacio Medible",
+      "key": "def:appE-espacio-medible",
+      "content_start": 1149,
+      "content_end": 1277,
+      "file_sha256": "277929c3c7c94cd898ecda8e7a9dd00e52da0108f5f9b315fa0486162d0df0d7"
+    },
+    {
+      "file": "apendices/apendice_medido.typ",
+      "kind": "example",
+      "name": "σ-Álgebra de Borel",
+      "key": "ex:appE-borel",
+      "content_start": 1352,
+      "content_end": 1599,
+      "file_sha256": "277929c3c7c94cd898ecda8e7a9dd00e52da0108f5f9b315fa0486162d0df0d7"
+    },
+    {
+      "file": "apendices/apendice_medido.typ",
+      "kind": "definition",
+      "name": "Función Medible",
+      "key": "def:appE-funcion-medible",
+      "content_start": 1736,
+      "content_end": 1909,
+      "file_sha256": "277929c3c7c94cd898ecda8e7a9dd00e52da0108f5f9b315fa0486162d0df0d7"
+    },
+    {
+      "file": "apendices/apendice_medido.typ",
+      "kind": "proposition",
+      "name": "Composición de Funciones Medibles",
+      "key": "prop:appE-composicion",
+      "content_start": 2010,
+      "content_end": 2140,
+      "file_sha256": "277929c3c7c94cd898ecda8e7a9dd00e52da0108f5f9b315fa0486162d0df0d7"
+    },
+    {
+      "file": "apendices/apendice_medido.typ",
+      "kind": "example",
+      "name": "Medibilidad de Estadísticos",
+      "key": "ex:appE-estadisticos",
+      "content_start": 2230,
+      "content_end": 2518,
+      "file_sha256": "277929c3c7c94cd898ecda8e7a9dd00e52da0108f5f9b315fa0486162d0df0d7"
+    },
+    {
+      "file": "apendices/apendice_medido.typ",
+      "kind": "definition",
+      "name": "Medida de Probabilidad",
+      "key": "def:appE-medida",
+      "content_start": 2661,
+      "content_end": 2933,
+      "file_sha256": "277929c3c7c94cd898ecda8e7a9dd00e52da0108f5f9b315fa0486162d0df0d7"
+    },
+    {
+      "file": "apendices/apendice_medido.typ",
+      "kind": "definition",
+      "name": "Espacio de Probabilidad",
+      "key": "def:appE-espacio-probabilidad",
+      "content_start": 3030,
+      "content_end": 3183,
+      "file_sha256": "277929c3c7c94cd898ecda8e7a9dd00e52da0108f5f9b315fa0486162d0df0d7"
+    },
+    {
+      "file": "apendices/apendice_medido.typ",
+      "kind": "definition",
+      "name": "Dominación",
+      "key": "def:appE-dominacion",
+      "content_start": 3258,
+      "content_end": 3603,
+      "file_sha256": "277929c3c7c94cd898ecda8e7a9dd00e52da0108f5f9b315fa0486162d0df0d7"
+    },
+    {
+      "file": "apendices/apendice_medido.typ",
+      "kind": "theorem",
+      "name": "Teorema de Radon-Nikodym",
+      "key": "thm:appE-radon-nikodym",
+      "content_start": 3691,
+      "content_end": 4116,
+      "file_sha256": "277929c3c7c94cd898ecda8e7a9dd00e52da0108f5f9b315fa0486162d0df0d7"
+    },
+    {
+      "file": "apendices/apendice_medido.typ",
+      "kind": "definition",
+      "name": "Espacio de Trayectorias",
+      "key": "def:appE-trayectorias",
+      "content_start": 4284,
+      "content_end": 4524,
+      "file_sha256": "277929c3c7c94cd898ecda8e7a9dd00e52da0108f5f9b315fa0486162d0df0d7"
+    },
+    {
+      "file": "apendices/apendice_medido.typ",
+      "kind": "definition",
+      "name": "σ-Álgebra de Trayectorias",
+      "key": "def:appE-sigma-trayectorias",
+      "content_start": 4623,
+      "content_end": 4916,
+      "file_sha256": "277929c3c7c94cd898ecda8e7a9dd00e52da0108f5f9b315fa0486162d0df0d7"
+    },
+    {
+      "file": "apendices/apendice_medido.typ",
+      "kind": "definition",
+      "name": "Filtración de Historias",
+      "key": "def:appE-filtracion",
+      "content_start": 5004,
+      "content_end": 5241,
+      "file_sha256": "277929c3c7c94cd898ecda8e7a9dd00e52da0108f5f9b315fa0486162d0df0d7"
+    },
+    {
+      "file": "apendices/apendice_medido.typ",
+      "kind": "proposition",
+      "name": "Propiedad de Markov y Filtraciones",
+      "key": "prop:appE-markov-filtracion",
+      "content_start": 5348,
+      "content_end": 5783,
+      "file_sha256": "277929c3c7c94cd898ecda8e7a9dd00e52da0108f5f9b315fa0486162d0df0d7"
+    },
+    {
+      "file": "apendices/apendice_medido.typ",
+      "kind": "definition",
+      "name": "Estimador Medible",
+      "key": "def:appE-estimador-medible",
+      "content_start": 5967,
+      "content_end": 6119,
+      "file_sha256": "277929c3c7c94cd898ecda8e7a9dd00e52da0108f5f9b315fa0486162d0df0d7"
+    },
+    {
+      "file": "apendices/apendice_medido.typ",
+      "kind": "proposition",
+      "name": "Medibilidad de Estimadores Comunes",
+      "key": "prop:appE-estimadores-medibles",
+      "content_start": 6229,
+      "content_end": 6754,
+      "file_sha256": "277929c3c7c94cd898ecda8e7a9dd00e52da0108f5f9b315fa0486162d0df0d7"
+    },
+    {
+      "file": "apendices/apendice_medido.typ",
+      "kind": "definition",
+      "name": "Política Medible",
+      "key": "def:appE-politica-medible",
+      "content_start": 6841,
+      "content_end": 7029,
+      "file_sha256": "277929c3c7c94cd898ecda8e7a9dd00e52da0108f5f9b315fa0486162d0df0d7"
+    },
+    {
+      "file": "apendices/apendice_medido.typ",
+      "kind": "definition",
+      "name": "Modelo con Estados Continuos",
+      "key": "def:appE-estados-continuos",
+      "content_start": 7219,
+      "content_end": 7597,
+      "file_sha256": "277929c3c7c94cd898ecda8e7a9dd00e52da0108f5f9b315fa0486162d0df0d7"
+    },
+    {
+      "file": "apendices/apendice_medido.typ",
+      "kind": "proposition",
+      "name": "Dominación en Modelos Continuos",
+      "key": "prop:appE-dominacion-continuo",
+      "content_start": 7704,
+      "content_end": 7933,
+      "file_sha256": "277929c3c7c94cd898ecda8e7a9dd00e52da0108f5f9b315fa0486162d0df0d7"
+    },
+    {
+      "file": "apendices/apendice_medido.typ",
+      "kind": "example",
+      "name": "Modelo Gaussiano",
+      "key": "ex:appE-gaussiano",
+      "content_start": 8008,
+      "content_end": 8233,
+      "file_sha256": "277929c3c7c94cd898ecda8e7a9dd00e52da0108f5f9b315fa0486162d0df0d7"
+    },
+    {
+      "file": "apendices/apendice_medido.typ",
+      "kind": "theorem",
+      "name": "Teorema de la Función Implícita",
+      "key": "thm:appE-funcion-implicita",
+      "content_start": 8421,
+      "content_end": 8908,
+      "file_sha256": "277929c3c7c94cd898ecda8e7a9dd00e52da0108f5f9b315fa0486162d0df0d7"
+    },
+    {
+      "file": "apendices/apendice_medido.typ",
+      "kind": "proposition",
+      "name": "Condiciones de Regularidad para el Teorema de la Función Implícita",
+      "key": "prop:appE-condiciones-funcion-implicita",
+      "content_start": 9061,
+      "content_end": 9534,
+      "file_sha256": "277929c3c7c94cd898ecda8e7a9dd00e52da0108f5f9b315fa0486162d0df0d7"
+    },
+    {
+      "file": "apendices/apendice_medido.typ",
+      "kind": "definition",
+      "name": "Integrabilidad",
+      "key": "def:appE-integrabilidad",
+      "content_start": 9685,
+      "content_end": 9818,
+      "file_sha256": "277929c3c7c94cd898ecda8e7a9dd00e52da0108f5f9b315fa0486162d0df0d7"
+    },
+    {
+      "file": "apendices/apendice_medido.typ",
+      "kind": "theorem",
+      "name": "Teorema de Convergencia Dominada de Lebesgue",
+      "key": "thm:appE-convergencia-dominada",
+      "content_start": 9934,
+      "content_end": 10182,
+      "file_sha256": "277929c3c7c94cd898ecda8e7a9dd00e52da0108f5f9b315fa0486162d0df0d7"
+    },
+    {
+      "file": "apendices/apendice_medido.typ",
+      "kind": "definition",
+      "name": "Espacio de Hilbert",
+      "key": "def:appE-hilbert",
+      "content_start": 10331,
+      "content_end": 10505,
+      "file_sha256": "277929c3c7c94cd898ecda8e7a9dd00e52da0108f5f9b315fa0486162d0df0d7"
+    },
+    {
+      "file": "apendices/apendice_medido.typ",
+      "kind": "example",
+      "name": "Espacio $L^2(P)$",
+      "key": "ex:appE-l2",
+      "content_start": 10573,
+      "content_end": 10845,
+      "file_sha256": "277929c3c7c94cd898ecda8e7a9dd00e52da0108f5f9b315fa0486162d0df0d7"
+    },
+    {
+      "file": "apendices/apendice_medido.typ",
+      "kind": "theorem",
+      "name": "Teorema de Proyección",
+      "key": "thm:appE-proyeccion",
+      "content_start": 10928,
+      "content_end": 11213,
+      "file_sha256": "277929c3c7c94cd898ecda8e7a9dd00e52da0108f5f9b315fa0486162d0df0d7"
+    },
+    {
+      "file": "apendices/apendice_tablas.typ",
+      "kind": "note",
+      "name": "Catálogo A1–A5 para SZLS",
+      "key": "note:appE-A1-A5",
+      "content_start": 8055,
+      "content_end": 8671,
+      "file_sha256": "bae1656cd565537511886797b50fc9c949ee5f84ce14dfa45e6f330ec31bade1"
+    },
+    {
+      "file": "apendices/apendice_regularidad.typ",
+      "kind": "definition",
+      "name": "$alpha$-Mixing (Strong Mixing)",
+      "key": "def:appD-alpha",
+      "content_start": 677,
+      "content_end": 1013,
+      "file_sha256": "d0e175e7b9635a1ee9888aa653a2d6185796584593c2842e35326b40a489212e"
+    },
+    {
+      "file": "apendices/apendice_regularidad.typ",
+      "kind": "definition",
+      "name": "$beta$-Mixing (Absolute Regularity)",
+      "key": "def:appD-beta",
+      "content_start": 1106,
+      "content_end": 1266,
+      "file_sha256": "d0e175e7b9635a1ee9888aa653a2d6185796584593c2842e35326b40a489212e"
+    },
+    {
+      "file": "apendices/apendice_regularidad.typ",
+      "kind": "definition",
+      "name": "$phi.alt$-Mixing (Uniform Mixing)",
+      "key": "def:appD-phi",
+      "content_start": 1356,
+      "content_end": 1482,
+      "file_sha256": "d0e175e7b9635a1ee9888aa653a2d6185796584593c2842e35326b40a489212e"
+    },
+    {
+      "file": "apendices/apendice_regularidad.typ",
+      "kind": "proposition",
+      "name": "Relaciones entre Coeficientes",
+      "key": "prop:appD-relaciones",
+      "content_start": 1577,
+      "content_end": 1753,
+      "file_sha256": "d0e175e7b9635a1ee9888aa653a2d6185796584593c2842e35326b40a489212e"
+    },
+    {
+      "file": "apendices/apendice_regularidad.typ",
+      "kind": "definition",
+      "name": "Mixing Geométrico",
+      "key": "def:appD-geometrico",
+      "content_start": 1877,
+      "content_end": 2100,
+      "file_sha256": "d0e175e7b9635a1ee9888aa653a2d6185796584593c2842e35326b40a489212e"
+    },
+    {
+      "file": "apendices/apendice_regularidad.typ",
+      "kind": "definition",
+      "name": "Mixing Polinomial",
+      "key": "def:appD-polinomial",
+      "content_start": 2181,
+      "content_end": 2294,
+      "file_sha256": "d0e175e7b9635a1ee9888aa653a2d6185796584593c2842e35326b40a489212e"
+    },
+    {
+      "file": "apendices/apendice_regularidad.typ",
+      "kind": "theorem",
+      "name": "Ergodicidad Geométrica de Cadenas de Markov",
+      "key": "thm:appD-ergodico",
+      "content_start": 3199,
+      "content_end": 3705,
+      "file_sha256": "d0e175e7b9635a1ee9888aa653a2d6185796584593c2842e35326b40a489212e"
+    },
+    {
+      "file": "apendices/apendice_regularidad.typ",
+      "kind": "corollary",
+      "name": "MDPs con Estados Finitos",
+      "key": "cor:appD-mdp-finito",
+      "content_start": 3792,
+      "content_end": 4278,
+      "file_sha256": "d0e175e7b9635a1ee9888aa653a2d6185796584593c2842e35326b40a489212e"
+    },
+    {
+      "file": "apendices/apendice_regularidad.typ",
+      "kind": "proposition",
+      "name": "Verificación de Irreducibilidad",
+      "key": "prop:appD-verificacion",
+      "content_start": 4378,
+      "content_end": 4700,
+      "file_sha256": "d0e175e7b9635a1ee9888aa653a2d6185796584593c2842e35326b40a489212e"
+    },
+    {
+      "file": "apendices/apendice_regularidad.typ",
+      "kind": "proposition",
+      "name": "Verificación de Aperiodicidad",
+      "key": "prop:appD-aperiodicidad",
+      "content_start": 4799,
+      "content_end": 5127,
+      "file_sha256": "d0e175e7b9635a1ee9888aa653a2d6185796584593c2842e35326b40a489212e"
+    },
+    {
+      "file": "apendices/apendice_regularidad.typ",
+      "kind": "theorem",
+      "name": "CLT de Ibragimov para Procesos $alpha$-Mixing",
+      "key": "thm:appD-ibragimov",
+      "content_start": 5281,
+      "content_end": 5686,
+      "file_sha256": "d0e175e7b9635a1ee9888aa653a2d6185796584593c2842e35326b40a489212e"
+    },
+    {
+      "file": "apendices/apendice_regularidad.typ",
+      "kind": "corollary",
+      "name": "Condición Suficiente para MDPs",
+      "key": "cor:appD-clt-mdp",
+      "content_start": 5777,
+      "content_end": 6103,
+      "file_sha256": "d0e175e7b9635a1ee9888aa653a2d6185796584593c2842e35326b40a489212e"
+    },
+    {
+      "file": "apendices/apendice_regularidad.typ",
+      "kind": "theorem",
+      "name": "CLT funcional para una cadena finita",
+      "key": "thm:appD-gordin",
+      "content_start": 6196,
+      "content_end": 7075,
+      "file_sha256": "d0e175e7b9635a1ee9888aa653a2d6185796584593c2842e35326b40a489212e"
+    },
+    {
+      "file": "apendices/apendice_regularidad.typ",
+      "kind": "definition",
+      "name": "Estimador HAC de Newey-West",
+      "key": "def:appD-hac",
+      "content_start": 7225,
+      "content_end": 7599,
+      "file_sha256": "d0e175e7b9635a1ee9888aa653a2d6185796584593c2842e35326b40a489212e"
+    },
+    {
+      "file": "apendices/apendice_regularidad.typ",
+      "kind": "theorem",
+      "name": "Consistencia del Estimador HAC",
+      "key": "thm:appD-hac-consistencia",
+      "content_start": 7696,
+      "content_end": 8315,
+      "file_sha256": "d0e175e7b9635a1ee9888aa653a2d6185796584593c2842e35326b40a489212e"
+    },
+    {
+      "file": "apendices/apendice_regularidad.typ",
+      "kind": "note",
+      "name": "Selección de Bandwidth",
+      "key": "prop:appD-bandwidth",
+      "content_start": 8396,
+      "content_end": 8803,
+      "file_sha256": "d0e175e7b9635a1ee9888aa653a2d6185796584593c2842e35326b40a489212e"
+    },
+    {
+      "file": "apendices/apendice_reproduccion.typ",
+      "kind": "definition",
+      "name": "Grilla experimental de la replicación",
+      "key": "def:appG-grid",
+      "content_start": 2017,
+      "content_end": 2849,
+      "file_sha256": "97fe57fa21d3dfcacae9c07ec2b5b672b71264df0dcb462e2bde4d1f1cb87fae"
+    }
+  ],
+  "unknown_macros": [],
+  "labels": [
+    "app:dem-crossfitting",
+    "app:demostraciones",
+    "app:glosario",
+    "app:laboratorio",
+    "app:langgraph",
+    "app:lg-codigo",
+    "app:lg-correspondencia",
+    "app:lg-diagrama-generico",
+    "app:lg-ontologia",
+    "app:lg-patrones",
+    "app:lg-value-iteration",
+    "app:lg-versiones",
+    "app:medido",
+    "app:regularidad",
+    "app:reproduccion",
+    "app:tab-cotas",
+    "app:tab-estimadores",
+    "app:tab-isomorfismo",
+    "app:tab-notacion-capitulo",
+    "app:tab-regularidad",
+    "app:tab-trazabilidad",
+    "app:tablas",
+    "auer2002finite",
+    "bellman1957dynamic",
+    "benjamini2001dependency",
+    "berger1985statistical",
+    "bickel1993efficient",
+    "bradley2005basic",
+    "casella2002statistical",
+    "ch:arquitectura",
+    "ch:asintotica",
+    "ch:casos",
+    "ch:despliegue",
+    "ch:estimacion",
+    "ch:fallos",
+    "ch:herramientas",
+    "ch:inferencia",
+    "ch:introduccion",
+    "ch:isomorfismo",
+    "ch:mdp-bellman",
+    "ch:ope",
+    "ch:problemas",
+    "ch:reduccion",
+    "ch:semiparametrica",
+    "ch:tests",
+    "ch:tradiciones",
+    "ch:verificacion",
+    "ch:wald",
+    "chernozhukov2018double",
+    "dem:ch1-logparticion",
+    "dem:ch1-suficiencia-natural",
+    "dem:ch10-curse",
+    "dem:ch10-dr",
+    "dem:ch10-dr-eficiencia",
+    "dem:ch10-is-insesgado",
+    "dem:ch11-kallus",
+    "dem:ch11-shi",
+    "dem:ch2-basu",
+    "dem:ch2-completitud-exp",
+    "dem:ch2-completitud-exponencial",
+    "dem:ch2-equivarianza",
+    "dem:ch2-james-stein",
+    "dem:ch2-lehmann-scheffe",
+    "dem:ch2-lehmann-scheffe-minimal",
+    "dem:ch2-neyman-fisher",
+    "dem:ch3-cramer-rao",
+    "dem:ch3-lehmann-scheffe",
+    "dem:ch3-mle-asintotica",
+    "dem:ch3-mle-asintotico",
+    "dem:ch3-rao-blackwell",
+    "dem:ch4-bh",
+    "dem:ch4-mlr",
+    "dem:ch4-neyman-pearson",
+    "dem:ch4-wilks",
+    "dem:ch5-bootstrap",
+    "dem:ch5-bootstrap-consist",
+    "dem:ch5-clt-ll",
+    "dem:ch5-delta",
+    "dem:ch6-bkrw",
+    "dem:ch6-cota",
+    "dem:ch6-dml",
+    "dem:ch6-doble-robustez",
+    "dem:ch6-if-ope",
+    "dem:ch7-bayes-minimax",
+    "dem:ch7-clase-completa",
+    "dem:ch7-existencia-bayes",
+    "dem:ch8-bellman-exp",
+    "dem:ch8-contraccion",
+    "dem:ch8-existencia",
+    "dem:ch8-parada",
+    "dem:ch9-isomorfismo",
+    "dem:ch9-suficiencia-markov",
+    "dem:ch9-transferencia-admis",
+    "dem:ch9-transferencia-bayes",
+    "duchi2021learning",
+    "dudik2011doubly",
+    "efron1993introduction",
+    "eq:ch1-momento-1",
+    "eq:ch1-momento-2",
+    "ex:ch1-bernoulli-beta-b",
+    "ex:ch1-diagnostico-medico",
+    "ex:ch1-diagnostico-medico-b",
+    "ex:ch11-ej1",
+    "ex:ch3-ej1",
+    "ex:ch3-mle-normal",
+    "ex:ch4-mp-normal",
+    "ex:ch5-bandas",
+    "ex:ch5-cociente",
+    "ex:ch6-aipw-intro",
+    "ex:ch6-cox",
+    "ex:ch8-frozenlake",
+    "ex:ssch-cap03",
+    "ex:ssch-cap04",
+    "ex:ssch-cap05",
+    "ferguson1967mathematical",
+    "gelman2013",
+    "hall1992bootstrap",
+    "hernan2020causal",
+    "jiang2016doubly",
+    "kallus2020double",
+    "kallus2022efficiently",
+    "kennedy2022semiparametric",
+    "kunsch1989jackknife",
+    "lab:F1",
+    "lab:F1.1",
+    "lab:F1.2",
+    "lab:F10",
+    "lab:F11",
+    "lab:F12",
+    "lab:F2",
+    "lab:F3",
+    "lab:F3.1",
+    "lab:F4",
+    "lab:F5",
+    "lab:F6",
+    "lab:F7",
+    "lab:F8",
+    "lab:F9",
+    "lai1985asymptotically",
+    "lattimore2020bandit",
+    "lehmann1998theory",
+    "lehmann2005testing",
+    "liu2018breaking",
+    "newey1987hac",
+    "notacion",
+    "pearl2009causality",
+    "prefacio",
+    "puterman2005markov",
+    "quinonero2009dataset",
+    "rodbard2009interpretation",
+    "sec:appB-abreviaciones",
+    "sec:appB-convenciones",
+    "sec:appB-general",
+    "sec:appB-inferencia",
+    "sec:appB-isomorfismo",
+    "sec:appB-mdp",
+    "sec:appB-ope",
+    "sec:appB-ssch",
+    "sec:appD-clt",
+    "sec:appD-mdp",
+    "sec:appD-mixing-def",
+    "sec:appD-protocolo",
+    "sec:appD-resumen",
+    "sec:appD-tabla",
+    "sec:appD-tasas",
+    "sec:appD-varianza",
+    "sec:appD-violaciones",
+    "sec:appE-checklist",
+    "sec:appE-codigo",
+    "sec:appE-dominacion-continuo",
+    "sec:appE-dr",
+    "sec:appE-funcion-implicita",
+    "sec:appE-hilbert",
+    "sec:appE-integrabilidad",
+    "sec:appE-interpretacion",
+    "sec:appE-limitaciones",
+    "sec:appE-mdp",
+    "sec:appE-medibilidad",
+    "sec:appE-medibilidad-estimadores",
+    "sec:appE-medidas",
+    "sec:appE-mixing",
+    "sec:appE-objetivos",
+    "sec:appE-overlap",
+    "sec:appE-resumen",
+    "sec:appE-sigma-algebras",
+    "sec:appE-trayectorias",
+    "sec:appG-codigo",
+    "sec:appG-diseno",
+    "sec:appG-escenarios",
+    "sec:appG-metricas",
+    "sec:appG-requisitos",
+    "sec:appG-resultados",
+    "sec:catalogo-datasets",
+    "sec:ch0-filosofia",
+    "sec:ch0-guia",
+    "sec:ch0-historia",
+    "sec:ch0-notacion",
+    "sec:ch0-tesis",
+    "sec:ch1-arquitectura-nodos",
+    "sec:ch1-conjugados",
+    "sec:ch1-criterios",
+    "sec:ch1-estadisticos",
+    "sec:ch1-estado-suficiente",
+    "sec:ch1-exponenciales",
+    "sec:ch1-incertidumbre-decision",
+    "sec:ch1-inferencia-homonimos",
+    "sec:ch1-modelo",
+    "sec:ch1-otras-familias",
+    "sec:ch1-suficiencia-intro",
+    "sec:ch1-trazabilidad",
+    "sec:ch10-comparacion",
+    "sec:ch10-curse",
+    "sec:ch10-diagnosticos",
+    "sec:ch10-dist-shift",
+    "sec:ch10-dm",
+    "sec:ch10-dr",
+    "sec:ch10-ejercicios",
+    "sec:ch10-fallback",
+    "sec:ch10-is",
+    "sec:ch10-langgraph",
+    "sec:ch10-lecturas",
+    "sec:ch10-problema",
+    "sec:ch10-shift",
+    "sec:ch10-supuestos",
+    "sec:ch10-teoria",
+    "sec:ch10-verificacion",
+    "sec:ch11-clt",
+    "sec:ch11-decisiones",
+    "sec:ch11-diagnostico",
+    "sec:ch11-drl",
+    "sec:ch11-ejercicios",
+    "sec:ch11-ic-agente",
+    "sec:ch11-langgraph",
+    "sec:ch11-lecturas",
+    "sec:ch11-mixing",
+    "sec:ch11-pg",
+    "sec:ch11-poder",
+    "sec:ch11-problema",
+    "sec:ch11-save",
+    "sec:ch11-shi",
+    "sec:ch11-tasas-explicitas",
+    "sec:ch11-teoria",
+    "sec:ch11-trazabilidad",
+    "sec:ch11-varianza",
+    "sec:ch12-confound",
+    "sec:ch12-e2e",
+    "sec:ch12-ejercicios",
+    "sec:ch12-fronteras",
+    "sec:ch12-integracion",
+    "sec:ch12-langgraph",
+    "sec:ch12-lecturas",
+    "sec:ch12-limitaciones",
+    "sec:ch12-llm",
+    "sec:ch12-pomdp",
+    "sec:ch12-reflexion",
+    "sec:ch12-teoria",
+    "sec:ch12-trazabilidad",
+    "sec:ch13-direcciones",
+    "sec:ch13-epilogo",
+    "sec:ch13-limitaciones",
+    "sec:ch13-mapa",
+    "sec:ch13-problemas-abiertos",
+    "sec:ch13-resultados",
+    "sec:ch2-ancillaridad",
+    "sec:ch2-completitud",
+    "sec:ch2-completitud-agentes",
+    "sec:ch2-equivarianza",
+    "sec:ch2-equivarianza-agentes",
+    "sec:ch2-estado-contexto",
+    "sec:ch2-estado-suficiente",
+    "sec:ch2-isomorfismo",
+    "sec:ch2-memoria",
+    "sec:ch2-suficiencia",
+    "sec:ch2-suficiencia-minimal",
+    "sec:ch2-trazabilidad",
+    "sec:ch3-bayes-comp",
+    "sec:ch3-cramer-rao",
+    "sec:ch3-estimacion-valor",
+    "sec:ch3-isomorfismo",
+    "sec:ch3-lehmann-scheffe",
+    "sec:ch3-limites",
+    "sec:ch3-mcmc-vi",
+    "sec:ch3-mle",
+    "sec:ch3-rao-blackwell",
+    "sec:ch3-rb-mc",
+    "sec:ch3-sesgo-varianza",
+    "sec:ch3-tradeoff",
+    "sec:ch3-trazabilidad",
+    "sec:ch4-ab-testing",
+    "sec:ch4-dualidad",
+    "sec:ch4-ejercicios",
+    "sec:ch4-ic-delta",
+    "sec:ch4-lecturas",
+    "sec:ch4-multiples",
+    "sec:ch4-multiples-politicas",
+    "sec:ch4-neyman-pearson",
+    "sec:ch4-trazabilidad",
+    "sec:ch4-ump",
+    "sec:ch4-umpu",
+    "sec:ch4-wald",
+    "sec:ch5-bootstrap",
+    "sec:ch5-bootstrap-agentes",
+    "sec:ch5-clt",
+    "sec:ch5-delta",
+    "sec:ch5-dependencia",
+    "sec:ch5-epistemica",
+    "sec:ch5-ic-decisiones",
+    "sec:ch5-procesos",
+    "sec:ch5-trazabilidad",
+    "sec:ch5-valor",
+    "sec:ch6-causal",
+    "sec:ch6-conjeturas-transferencia",
+    "sec:ch6-crossfit-condiciones",
+    "sec:ch6-dml",
+    "sec:ch6-dr",
+    "sec:ch6-dr-agentes",
+    "sec:ch6-eficiencia",
+    "sec:ch6-influencia",
+    "sec:ch6-modelos",
+    "sec:ch6-neyman",
+    "sec:ch6-ope-agentes",
+    "sec:ch6-ope-if",
+    "sec:ch6-robustez",
+    "sec:ch6-tangentes",
+    "sec:ch6-trazabilidad",
+    "sec:ch7-admisibilidad",
+    "sec:ch7-admisibilidad-bayes",
+    "sec:ch7-agente-decisor",
+    "sec:ch7-bayes",
+    "sec:ch7-bayesianas",
+    "sec:ch7-ejercicios",
+    "sec:ch7-isomorfismo",
+    "sec:ch7-langgraph",
+    "sec:ch7-lecturas",
+    "sec:ch7-metacriterios",
+    "sec:ch7-minimax",
+    "sec:ch7-problema-decision",
+    "sec:ch7-riesgo",
+    "sec:ch7-robustez",
+    "sec:ch7-teoria",
+    "sec:ch7-trazabilidad",
+    "sec:ch8-bandits",
+    "sec:ch8-bandits-thompson",
+    "sec:ch8-bellman",
+    "sec:ch8-contraccion-condiciones",
+    "sec:ch8-criterios",
+    "sec:ch8-ejercicios",
+    "sec:ch8-frozenlake",
+    "sec:ch8-langgraph",
+    "sec:ch8-lecturas",
+    "sec:ch8-mdp-def",
+    "sec:ch8-operadores",
+    "sec:ch8-pi",
+    "sec:ch8-teoria",
+    "sec:ch8-trazabilidad",
+    "sec:ch8-valor",
+    "sec:ch8-vi",
+    "sec:ch8-vi-flujo",
+    "sec:ch8-wald",
+    "sec:ch9-arquitectura",
+    "sec:ch9-contraejemplos",
+    "sec:ch9-ejercicios",
+    "sec:ch9-garantias",
+    "sec:ch9-isomorfismo",
+    "sec:ch9-lecturas",
+    "sec:ch9-limites",
+    "sec:ch9-marcos",
+    "sec:ch9-optimalidad",
+    "sec:ch9-secuencial",
+    "sec:ch9-state",
+    "sec:ch9-transferencia",
+    "sec:ch9-trazabilidad",
+    "sec:dem-ch1",
+    "sec:dem-ch10",
+    "sec:dem-ch11",
+    "sec:dem-ch2",
+    "sec:dem-ch3",
+    "sec:dem-ch4",
+    "sec:dem-ch5",
+    "sec:dem-ch6",
+    "sec:dem-ch7",
+    "sec:dem-ch8",
+    "sec:dem-ch9",
+    "sec:glosario-tablas",
+    "sec:ssch-intro",
+    "shi2022statistical",
+    "shi2024off",
+    "sutton2018reinforcement",
+    "thomas2015high",
+    "tsiatis2006semiparametric",
+    "vaart1998asymptotic",
+    "wald1950statistical"
+  ]
+}

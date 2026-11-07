@@ -1,5 +1,31 @@
 # CHANGELOG — argumentos
 
+## F4 — Libro y render (2026-11-06)
+
+- **Parser Typst** (`src/book.rs`): typst-syntax 0.15.1 (alineada con el
+  binario del repo). `scan_book` recorre `main.typ`, sigue los
+  `#include` (detectados como `ModuleInclude` en el AST) y escanea cada
+  archivo incluido. Extracción de bloques `thm-env` navegando el árbol
+  sintáctico (nada de regex): `FuncCall → Args → [Str(kind), Named(name),
+  Named(key), ContentBlock(body)]`. Rangos de bytes UTF-8 del contenido
+  sin corchetes. SHA-256 de cada archivo fuente.
+- **Inventario**: 23 archivos, **394 bloques thm-env**, 392 etiquetas
+  `<...>`, **0 macros desconocidas** (las estándar de Typst y las del
+  libro documentadas en el código). Inventario JSON serializable.
+- **Source maps**: cada bloque registra archivo, rango de bytes
+  [start, end) del contenido, y SHA-256 del archivo (docs/03).
+- **Render determinista**: fichas .typ por claim del kernel con
+  enunciado, alcance, supuestos y referencia al bloque del libro.
+  Verificado con doble render idéntico.
+- **Auditoría estructural**: cada `book_key` del kernel debe existir en
+  el inventario. Las 5 claves del piloto mapean; sin discrepancias.
+- CLI: `inventory`, `render`, `audit`.
+
+Puerta F4: `cargo fmt --check` ✓ · `cargo clippy -D warnings` ✓ ·
+`cargo test --locked` ✓ (47 tests) · `inventory` → 394 bloques, 0
+desconocidas ✓ · `render` → 6 fichas, determinismo ✓ · `audit` → sin
+discrepancias, exit 0 ✓. **PASSED.**
+
 ## F3 — Evidencias Lean y Python (2026-11-06)
 
 - **Exporter Lean** (`evidence/lean_export.lean`): consulta el entorno

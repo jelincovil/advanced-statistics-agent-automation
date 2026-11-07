@@ -1466,3 +1466,24 @@ recibos. Puerta F3 PASSED.
 
 ### Pendiente
 F4 (parser Typst + inventario + render) → F8. Commits locales, sin push.
+
+## 2026-11-06 (t32) — Argumentos F4: parser Typst, inventario y render
+
+### Entregable
+src/book.rs: parser Typst con typst-syntax 0.15.1 (alineada con el binario
+del repo). scan_book recorre main.typ, sigue los #include (ModuleInclude
+en el AST, no FuncCall) y escanea 23 archivos: 394 bloques thm-env con
+sus clases, nombres, claves y rangos de bytes UTF-8 del contenido;
+392 etiquetas; 0 macros desconocidas tras documentar las estándar y las
+del libro. render_fichas genera .typ determinista (verificado con doble
+render idéntico). audit_structural compara kernel vs libro: las 5 claves
+del piloto mapean a bloques existentes, sin discrepancias. CLI inventory,
+render y audit.
+
+### Verificación
+inventory → 23 archivos, 394 bloques, 0 macros desconocidas. render → 6
+fichas, determinismo verificado. audit → sin discrepancias, exit 0.
+fmt/clippy -D warnings/47 tests. Puerta F4 PASSED.
+
+### Pendiente
+F5 (GLM replay) → F8. Commits locales, sin push.

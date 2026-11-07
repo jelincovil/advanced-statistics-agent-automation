@@ -48,6 +48,36 @@ enum Command_ {
         #[arg(long)]
         receipts: Option<PathBuf>,
     },
+    /// Inventario de bloques del libro (parser Typst, sin LLM).
+    Inventory {
+        /// Ruta del libro (carpeta con main.typ).
+        #[arg(long)]
+        book: PathBuf,
+        /// Archivo de salida del inventario JSON.
+        #[arg(long)]
+        out: PathBuf,
+    },
+    /// Render determinista de fichas canónicas desde el kernel.
+    Render {
+        /// Ruta del kernel.
+        #[arg(long)]
+        kernel: PathBuf,
+        /// Ruta del inventario.
+        #[arg(long)]
+        inventory: PathBuf,
+        /// Directorio de salida.
+        #[arg(long)]
+        out: PathBuf,
+    },
+    /// Auditoría estructural del kernel contra el libro.
+    Audit {
+        /// Ruta del kernel.
+        #[arg(long)]
+        kernel: PathBuf,
+        /// Ruta del libro.
+        #[arg(long)]
+        book: PathBuf,
+    },
     /// Ejecuta los runners de evidencia del piloto y genera recibos.
     Evidence {
         /// Ruta del repositorio (para localizar verificacion_lean y runners).
@@ -65,6 +95,13 @@ fn main() {
         Command_::Doctor { repo } => doctor(repo.as_deref().unwrap_or(Path::new("."))),
         Command_::Check { kernel, receipts } => run_check(&kernel, receipts.as_deref()),
         Command_::Evidence { repo, out } => run_evidence(&repo, out.as_deref()),
+        Command_::Inventory { book, out } => run_inventory(&book, &out),
+        Command_::Render {
+            kernel,
+            inventory,
+            out,
+        } => run_render(&kernel, &inventory, &out),
+        Command_::Audit { kernel, book } => run_audit(&kernel, &book),
     };
     std::process::exit(code);
 }
@@ -619,4 +656,106 @@ pub fn run_ssch(repo: &std::path::Path) -> Result<String, String> {
         ));
     }
     Ok(String::from_utf8_lossy(&out.stdout).to_string())
+}
+
+/// `argumentos inventory`: escanea el libro y escribe el inventario JSON.
+fn run_inventory(book: &Path, out: &Path) -> i32 {
+    let inv = match argumentos::book::scan_book(book) {
+        Ok(i) => i,
+        Err(e) => {
+            eprintln!("error: {}", e);
+            return exit::FALLO_EJECUCION;
+        }
+    };
+    println!(
+        "libro: {} archivos, {} bloques thm-env, {} macros desconocidas, {} etiquetas",
+        inv.files.len(),
+        inv.blocks.len(),
+        inv.unknown_macros.len(),
+        inv.labels.len()
+    );
+    for m in &inv.unknown_macros {
+        println!("  macro desconocida: {}", m);
+    }
+    let json = serde_json::to_string_pretty(&inv).unwrap();
+    std::fs::write(out, json).unwrap();
+    println!("inventario escrito en {}", out.display());
+    exit::OK
+}
+
+/// `argumentos render`: genera fichas .typ desde el kernel + inventario.
+fn run_render(kernel_path: &Path, inventory_path: &Path, out: &Path) -> i32 {
+    let kernel = match argumentos::model::load_kernel(kernel_path) {
+        Ok(k) => k,
+        Err(e) => {
+            eprintln!("error: {}", e);
+            return exit::ENTRADA_INVALIDA;
+        }
+    };
+    let inv_text = std::fs::read_to_string(inventory_path).unwrap();
+    let inv: argumentos::book::BookInventory = serde_json::from_str(&inv_text).unwrap();
+    let n = match argumentos::book::render_fichas(&kernel, &inv, out) {
+        Ok(n) => n,
+        Err(e) => {
+            eprintln!("error: {}", e);
+            return exit::FALLO_EJECUCION;
+        }
+    };
+    println!("{} fichas generadas en {}", n, out.display());
+    // Verificar determinismo: regenerar y comparar.
+    let tmp = std::env::temp_dir().join(format!("argumentos-render-check-{}", std::process::id()));
+    let _ = argumentos::book::render_fichas(&kernel, &inv, &tmp);
+    let mut ok = true;
+    for entry in std::fs::read_dir(out).unwrap().flatten() {
+        let name = entry.file_name();
+        let a = std::fs::read(entry.path()).unwrap_or_default();
+        let b = std::fs::read(tmp.join(&name)).unwrap_or_default();
+        if a != b {
+            eprintln!("error: {} no es determinista", name.to_string_lossy());
+            ok = false;
+        }
+    }
+    let _ = std::fs::remove_dir_all(&tmp);
+    if ok {
+        println!("determinismo verificado: doble render idéntico");
+        exit::OK
+    } else {
+        exit::FALLO_EJECUCION
+    }
+}
+
+/// `argumentos audit`: compara el kernel contra el libro.
+fn run_audit(kernel_path: &Path, book: &Path) -> i32 {
+    let kernel = match argumentos::model::load_kernel(kernel_path) {
+        Ok(k) => k,
+        Err(e) => {
+            eprintln!("error: {}", e);
+            return exit::ENTRADA_INVALIDA;
+        }
+    };
+    let inv = match argumentos::book::scan_book(book) {
+        Ok(i) => i,
+        Err(e) => {
+            eprintln!("error: {}", e);
+            return exit::FALLO_EJECUCION;
+        }
+    };
+    let hallazgos = argumentos::book::audit_structural(&kernel, &inv);
+    if hallazgos.is_empty() {
+        println!(
+            "auditoría estructural: sin discrepancias ({} claims vs {} bloques)",
+            kernel.claims.len(),
+            inv.blocks.len()
+        );
+        exit::OK
+    } else {
+        println!(
+            "auditoría estructural: {} discrepancia(s):",
+            hallazgos.len()
+        );
+        for h in &hallazgos {
+            println!("  - {}", h);
+        }
+        exit::DEPENDENCIA_BLOQUEANTE
+    }
 }
