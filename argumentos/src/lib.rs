@@ -16,6 +16,7 @@
 
 pub mod book;
 pub mod check;
+pub mod extract;
 pub mod model;
 pub mod receipt;
 pub mod strict_json;

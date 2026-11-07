@@ -1,5 +1,36 @@
 # CHANGELOG — argumentos
 
+## F5 — Agente GLM: replay determinista (2026-11-06)
+
+- **Trait `Extractor`** (docs/12: no acoplar a langextract): entrada con
+  bloques y bytes exactos, salida con candidatos citados. Errores tipados.
+- **`ReplayExtractor`**: reproduce exactamente una respuesta archivada.
+  Determinista: la misma entrada produce la misma salida. Sin red.
+- **`LiveExtractor`**: stub que devuelve `ProviderUnavailable` sin
+  endpoint configurado. `LIVE_PROVIDER_PENDING` (docs/09 salida
+  alternativa) — no se afirma integración live terminada.
+- **`ProviderConfig`**: configuración del proveedor según
+  templates/provider.example.json (replay por defecto, sin credenciales).
+- **Alineador** (`verify_quote`): `text[start:end] == quote` con offsets
+  UTF-8 de BYTES (docs/06). Probado con «cañón» (2 bytes por carácter).
+- **Diff semántico**: comparación exacta de scope/kind/assumptions
+  primero, redacción después (docs/06). Clasificación en 9 tipos.
+- **`ClaimDraft`** con `deny_unknown_fields`: campos de aprobación del
+  modelo rechazados (ADR-10, N10).
+- CLI `propose`: construye la solicitud de extracción, ejecuta el
+  extractor, valida citas y escribe candidatos.
+
+Pruebas: **10 tests del extractor** — P08 (replay determinista dos veces,
+sin archivo → error claro), salida malformada aislada (JSON duplicado y
+estructura incorrecta), campos de aprobación rechazados, alineador con
+UTF-8 bytes («cañón»), rangos fuera de límites, LiveExtractor sin
+endpoint → ProviderUnavailable, configuración replay por defecto.
+
+Puerta F5: `cargo fmt --check` ✓ · `cargo clippy -D warnings` ✓ ·
+`cargo test --locked` ✓ (**57 tests**: 21 lib + 21 checker + 5 contratos
++ 10 extractor). **PASSED.** `LIVE_PROVIDER_PENDING` — sin endpoint GLM
+en esta VM.
+
 ## F4 — Libro y render (2026-11-06)
 
 - **Parser Typst** (`src/book.rs`): typst-syntax 0.15.1 (alineada con el

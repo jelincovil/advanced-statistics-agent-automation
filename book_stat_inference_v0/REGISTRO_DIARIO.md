@@ -1487,3 +1487,23 @@ fmt/clippy -D warnings/47 tests. Puerta F4 PASSED.
 
 ### Pendiente
 F5 (GLM replay) → F8. Commits locales, sin push.
+
+## 2026-11-06 (t33) — Argumentos F5: agente GLM con replay determinista
+
+### Entregable
+src/extract.rs: trait Extractor con ReplayExtractor (determinista, sin
+red) y LiveExtractor (stub sin endpoint → ProviderUnavailable /
+LIVE_PROVIDER_PENDING). ProviderConfig según template del paquete.
+Alineador verify_quote con offsets UTF-8 de bytes (probado con «cañón»).
+Diff semántico: scope/kind/assumptions primero, redacción después.
+ClaimDraft con deny_unknown_fields: campos de aprobación del modelo
+rechazados (ADR-10). CLI propose.
+
+### Verificación
+10 tests del extractor: replay determinista, salida malformada aislada,
+campos de aprobación rechazados, alineador UTF-8, LiveExtractor sin
+endpoint. Puerta F5: fmt/clippy -D warnings/57 tests. PASSED.
+LIVE_PROVIDER_PENDING.
+
+### Pendiente
+F6 (ASPIC+ / pickaxe) → F8. Commits locales, sin push.

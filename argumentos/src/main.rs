@@ -48,6 +48,21 @@ enum Command_ {
         #[arg(long)]
         receipts: Option<PathBuf>,
     },
+    /// Propone candidatos desde el libro (replay o live según configuración).
+    Propose {
+        /// Ruta del inventario del libro.
+        #[arg(long)]
+        inventory: PathBuf,
+        /// Ruta del directorio de replays archivados.
+        #[arg(long)]
+        replay: Option<PathBuf>,
+        /// Ruta de la configuración del proveedor.
+        #[arg(long)]
+        provider_config: Option<PathBuf>,
+        /// Directorio de salida de candidatos.
+        #[arg(long)]
+        out: Option<PathBuf>,
+    },
     /// Inventario de bloques del libro (parser Typst, sin LLM).
     Inventory {
         /// Ruta del libro (carpeta con main.typ).
@@ -95,6 +110,17 @@ fn main() {
         Command_::Doctor { repo } => doctor(repo.as_deref().unwrap_or(Path::new("."))),
         Command_::Check { kernel, receipts } => run_check(&kernel, receipts.as_deref()),
         Command_::Evidence { repo, out } => run_evidence(&repo, out.as_deref()),
+        Command_::Propose {
+            inventory,
+            replay,
+            provider_config,
+            out,
+        } => run_propose(
+            &inventory,
+            replay.as_deref(),
+            provider_config.as_deref(),
+            out.as_deref(),
+        ),
         Command_::Inventory { book, out } => run_inventory(&book, &out),
         Command_::Render {
             kernel,
@@ -758,4 +784,110 @@ fn run_audit(kernel_path: &Path, book: &Path) -> i32 {
         }
         exit::DEPENDENCIA_BLOQUEANTE
     }
+}
+
+/// `argumentos propose`: extrae candidatos del libro vía replay o live.
+fn run_propose(
+    inventory_path: &Path,
+    replay_dir: Option<&Path>,
+    provider_config_path: Option<&Path>,
+    out_dir: Option<&Path>,
+) -> i32 {
+    let inv_text = std::fs::read_to_string(inventory_path).unwrap();
+    let inv: argumentos::book::BookInventory = serde_json::from_str(&inv_text).unwrap();
+
+    // Configuración del proveedor.
+    let config = match provider_config_path {
+        Some(p) => match argumentos::extract::ProviderConfig::load(p) {
+            Ok(c) => c,
+            Err(e) => {
+                eprintln!("error de configuración: {}", e);
+                return exit::ENTRADA_INVALIDA;
+            }
+        },
+        None => argumentos::extract::ProviderConfig::replay_default(),
+    };
+
+    // Seleccionar el extractor.
+    let extractor: Box<dyn argumentos::extract::Extractor> =
+        if config.mode == "live" && config.endpoint_available() {
+            Box::new(argumentos::extract::LiveExtractor {
+                config: config.clone(),
+            })
+        } else {
+            let rd = replay_dir
+                .map(|p| p.to_path_buf())
+                .unwrap_or_else(|| Path::new("replay").to_path_buf());
+            Box::new(argumentos::extract::ReplayExtractor::new(rd))
+        };
+
+    // Construir la solicitud de extracción (bloques del piloto).
+    let pilot_keys = [
+        "thm:ch9-isomorfismo",
+        "cor:ch9-bayes",
+        "thm:ch9-admisibilidad",
+        "cor:ch7-traduccion",
+    ];
+    let blocks: Vec<argumentos::extract::BlockInput> = inv
+        .blocks
+        .iter()
+        .filter(|b| pilot_keys.contains(&b.key.as_str()))
+        .map(|b| {
+            // Leer el contenido del bloque desde el archivo fuente.
+            let book_root = inventory_path.parent().unwrap_or(Path::new("."));
+            let file_path = book_root.join(&b.file);
+            let text = std::fs::read_to_string(&file_path).unwrap_or_default();
+            let content = text
+                .get(b.content_start..b.content_end)
+                .unwrap_or("")
+                .to_string();
+            argumentos::extract::BlockInput {
+                key: b.key.clone(),
+                kind: b.kind.clone(),
+                name: b.name.clone(),
+                content,
+            }
+        })
+        .collect();
+    let request = argumentos::extract::ExtractionRequest {
+        prompt_version: "1.0".into(),
+        blocks,
+    };
+
+    // Ejecutar el extractor.
+    eprintln!("modo del extractor: {}", extractor.mode());
+    let response = match extractor.extract(&request) {
+        Ok(r) => r,
+        Err(e) => {
+            eprintln!("extractor: {}", e);
+            eprintln!("LIVE_PROVIDER_PENDING — continuando sin extracción");
+            return exit::DEPENDENCIA_BLOQUEANTE;
+        }
+    };
+
+    // Validar candidatos: citas alineadas, sin campos de aprobación.
+    let out = out_dir
+        .map(|p| p.to_path_buf())
+        .unwrap_or_else(|| Path::new("candidates").to_path_buf());
+    std::fs::create_dir_all(&out).unwrap();
+    let mut count = 0;
+    for cand in &response.candidates {
+        let block = request.blocks.iter().find(|b| b.key == cand.block_key);
+        if let Some(b) = block {
+            if let Err(e) = argumentos::extract::validate_candidate(cand, &b.content) {
+                eprintln!("candidato {} rechazado: {}", cand.claim.id, e);
+                continue;
+            }
+        }
+        let path = out.join(format!("{}.json", cand.claim.id.replace('.', "_")));
+        let json = serde_json::to_string_pretty(cand).unwrap();
+        std::fs::write(&path, json).unwrap();
+        count += 1;
+    }
+    eprintln!(
+        "{} candidatos validados y escritos en {}",
+        count,
+        out.display()
+    );
+    exit::OK
 }

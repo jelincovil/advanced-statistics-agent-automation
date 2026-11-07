@@ -1,16 +1,17 @@
 {
-  "phase": "F4",
+  "phase": "F5",
   "base_commit": "1c98d6b",
-  "implementation_commit": "03bbc53",
-  "completed_gates": ["F0", "F1", "F2", "F3", "F4"],
-  "pending_gates": ["F5", "F6", "F7", "F8"],
+  "implementation_commit": "1893a99",
+  "completed_gates": ["F0", "F1", "F2", "F3", "F4", "F5"],
+  "pending_gates": ["F6", "F7", "F8"],
   "blockers": [],
   "commands_run": [
-    "F0-F3: ver CHANGELOG.md",
-    "F4: cargo run -- inventory --book ../book_stat_inference_v0 --out inventory/libro.json -> 23 archivos, 394 bloques thm-env, 0 macros desconocidas, 392 etiquetas",
-    "F4: cargo run -- render --kernel kernel/piloto_ch5_ssch.json --inventory inventory/libro.json --out generated/ -> 6 fichas, determinismo verificado",
-    "F4: cargo run -- audit --kernel kernel/piloto_ch5_ssch.json --book ../book_stat_inference_v0 -> sin discrepancias, exit 0",
-    "F4: cargo fmt --check -> OK; cargo clippy -D warnings -> OK; cargo test --locked -> 47 tests ok"
+    "F0-F4: ver CHANGELOG.md",
+    "F5: cargo fmt --check -> OK; cargo clippy -D warnings -> OK; cargo test --locked -> 57 tests ok (10 del extractor)",
+    "F5: replay determinista verificado (misma entrada → misma salida, dos veces)",
+    "F5: salida malformada aislada (JSON duplicado y estructura incorrecta → error, no crash)",
+    "F5: campos de aprobación rechazados (deny_unknown_fields en ClaimDraft)",
+    "F5: LiveExtractor sin endpoint -> ProviderUnavailable (LIVE_PROVIDER_PENDING)"
   ],
-  "next_action": "F5: adaptador GLM con replay determinista (LIVE_PROVIDER_PENDING sin endpoint)"
+  "next_action": "F6: proyección ASPIC+ con pickaxe (o alternativa con enumeración exhaustiva si pickaxe no compila)"
 }
