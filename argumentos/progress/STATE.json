@@ -1,17 +1,15 @@
 {
-  "phase": "F5",
+  "phase": "F6",
   "base_commit": "1c98d6b",
-  "implementation_commit": "1893a99",
-  "completed_gates": ["F0", "F1", "F2", "F3", "F4", "F5"],
-  "pending_gates": ["F6", "F7", "F8"],
+  "implementation_commit": "f644071",
+  "completed_gates": ["F0", "F1", "F2", "F3", "F4", "F5", "F6"],
+  "pending_gates": ["F7", "F8"],
   "blockers": [],
   "commands_run": [
-    "F0-F4: ver CHANGELOG.md",
-    "F5: cargo fmt --check -> OK; cargo clippy -D warnings -> OK; cargo test --locked -> 57 tests ok (10 del extractor)",
-    "F5: replay determinista verificado (misma entrada → misma salida, dos veces)",
-    "F5: salida malformada aislada (JSON duplicado y estructura incorrecta → error, no crash)",
-    "F5: campos de aprobación rechazados (deny_unknown_fields en ClaimDraft)",
-    "F5: LiveExtractor sin endpoint -> ProviderUnavailable (LIVE_PROVIDER_PENDING)"
+    "F0-F5: ver CHANGELOG.md",
+    "F6: cargo fmt --check -> OK; cargo clippy -D warnings -> OK; cargo test --locked -> 65 tests ok",
+    "F6: cargo run -- argue --kernel kernel/piloto_ch5_ssch.json -> 6 argumentos, 0 ataques, todos GroundedIn, referencia COINCIDE",
+    "F6: cargo run -- argue --kernel kernel/piloto_ch5_ssch.json --preferred -> idem, aceptación crédula = escéptica = todas"
   ],
-  "next_action": "F6: proyección ASPIC+ con pickaxe (o alternativa con enumeración exhaustiva si pickaxe no compila)"
+  "next_action": "F7: migración integral del corpus objetivo (todas las afirmaciones del libro principal, no solo piloto)"
 }

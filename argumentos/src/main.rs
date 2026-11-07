@@ -48,6 +48,15 @@ enum Command_ {
         #[arg(long)]
         receipts: Option<PathBuf>,
     },
+    /// Análisis ASPIC+ del kernel: grounded y (opcional) preferred.
+    Argue {
+        /// Ruta del kernel.
+        #[arg(long)]
+        kernel: PathBuf,
+        /// Incluir semántica preferred (además de grounded).
+        #[arg(long)]
+        preferred: bool,
+    },
     /// Propone candidatos desde el libro (replay o live según configuración).
     Propose {
         /// Ruta del inventario del libro.
@@ -110,6 +119,7 @@ fn main() {
         Command_::Doctor { repo } => doctor(repo.as_deref().unwrap_or(Path::new("."))),
         Command_::Check { kernel, receipts } => run_check(&kernel, receipts.as_deref()),
         Command_::Evidence { repo, out } => run_evidence(&repo, out.as_deref()),
+        Command_::Argue { kernel, preferred } => run_argue(&kernel, preferred),
         Command_::Propose {
             inventory,
             replay,
@@ -889,5 +899,57 @@ fn run_propose(
         count,
         out.display()
     );
+    exit::OK
+}
+
+/// `argumentos argue`: proyección ASPIC+ y análisis de argumentación.
+fn run_argue(kernel_path: &Path, preferred: bool) -> i32 {
+    let kernel = match argumentos::model::load_kernel(kernel_path) {
+        Ok(k) => k,
+        Err(e) => {
+            eprintln!("error: {}", e);
+            return exit::ENTRADA_INVALIDA;
+        }
+    };
+    let report = match argumentos::aspic::analizar(&kernel, preferred) {
+        Ok(r) => r,
+        Err(e) => {
+            eprintln!("error ASPIC+: {}", e);
+            return exit::FALLO_EJECUCION;
+        }
+    };
+    println!("semántica: {}", report.semantics);
+    println!(
+        "argumentos: {}, ataques: {}",
+        report.argument_count, report.attack_count
+    );
+    if report.budget_exceeded {
+        println!("PRESUPUESTO EXCEDIDO: INCOMPLETE (no ausencia de conflictos)");
+        return exit::DEPENDENCIA_BLOQUEANTE;
+    }
+    println!("extensiones grounded: {}", report.extensions.len());
+    for (id, state) in &report.states {
+        println!(
+            "  [{}] {:?} ({})",
+            id,
+            state,
+            if report.credulous.contains(id) {
+                "crédula"
+            } else if report.sceptical.contains(id) {
+                "escéptica"
+            } else {
+                "-"
+            }
+        );
+    }
+    if let Some(match_ref) = report.reference_match {
+        println!(
+            "evaluador de referencia: {}",
+            if match_ref { "COINCIDE" } else { "DISCREPA" }
+        );
+        if !match_ref {
+            return exit::FALLO_EJECUCION;
+        }
+    }
     exit::OK
 }

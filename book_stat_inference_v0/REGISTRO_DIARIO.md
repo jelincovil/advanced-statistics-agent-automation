@@ -1507,3 +1507,23 @@ LIVE_PROVIDER_PENDING.
 
 ### Pendiente
 F6 (ASPIC+ / pickaxe) → F8. Commits locales, sin push.
+
+## 2026-11-06 (t34) — Argumentos F6: ASPIC+ con evaluador de referencia
+
+### Entregable
+src/aspic.rs: proyección del kernel al grafo de ataque abstracto, grounded
+por fixpoint de la función característica F(E), preferred por enumeración
+exhaustiva (≤8), presupuesto de 64 argumentos. Decisión: pickaxe-rs se
+evaluó pero devolvía grounded vacío para premisas sin reglas; se eliminó
+y se implementó el evaluador de referencia (más simple, correcto,
+revisable). Estados de argumentación (grounded_in/out/undecided/
+budget_exceeded), aceptación crédula vs escéptica, la proyección no
+eleva fuerza (ADR-06). CLI argue.
+
+### Verificación
+Casos docs/12: sin ataques→incluye, mutuo→vacío, cadena→{A,C},
+autataque→vacío. Piloto: 6 argumentos, 0 ataques, todos grounded_in,
+referencia COINCIDE. 65 tests. Puerta F6 PASSED.
+
+### Pendiente
+F7 (migración integral del corpus) → F8. Commits locales, sin push.

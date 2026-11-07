@@ -14,6 +14,7 @@
 //! representa un estado de aprobación aceptado por entrada: los estados
 //! son salidas del checker (fase F2).
 
+pub mod aspic;
 pub mod book;
 pub mod check;
 pub mod extract;

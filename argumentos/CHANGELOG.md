@@ -1,5 +1,40 @@
 # CHANGELOG — argumentos
 
+## F6 — ASPIC+ y argumentación (2026-11-06)
+
+- **Decisión arquitectónica**: pickaxe-rs se evaluó (compiló con
+  pickaxe-rs 0.1.0) pero devolvía extensiones grounded vacías para
+  sistemas de solo premisas sin reglas — su pipeline ASPIC+ construye
+  argumentos encadenando reglas, no desde premisas desnudas. Se eliminó
+  la dependencia y se implementó el **evaluador de referencia** como
+  método primario (docs/12: "el verificador de referencia enumera
+  conjuntos conflict-free y defensa para ≤8 argumentos"). Es más simple,
+  revisable y correcto para el caso del piloto.
+- **`src/aspic.rs`**: proyección del kernel al grafo de ataque abstracto;
+  grounded por **fixpoint de la función característica** F(E) = {a :
+  todo atacante de a es atacado por algún miembro de E} (Dung 1995);
+  preferred por enumeración exhaustiva de subconjuntos conflict-free
+  maximales (≤8 argumentos). Presupuesto: 64 argumentos máximo, al
+  exceder marca `BudgetExceeded` / INCOMPLETE.
+- **Estados de argumentación** (docs/04, eje `argumentation`):
+  `grounded_in`, `grounded_out`, `undecided`, `budget_exceeded`, `not_run`.
+- **Aceptación crédula** (alguna extensión) vs **escéptica** (todas)
+  reportadas por separado (docs/04).
+- **La proyección NO eleva fuerza** (ADR-06): `grounded_in` ≠
+  `lean_checked`; el eje formal lo decide el checker.
+- CLI `argue --kernel PATH [--preferred]`.
+
+Pruebas: **8 tests ASPIC+** — casos de referencia docs/12 (sin ataques
+→ grounded incluye; ataque mutuo → grounded vacío; cadena A→B→C →
+grounded {A,C}; autataque → grounded vacío), proyección del piloto
+(todos grounded_in, referencia coincide), preferred (crédula =
+escéptica sin ataques), presupuesto excedido (INCOMPLETE), proyección
+no eleva fuerza.
+
+Puerta F6: `cargo fmt --check` ✓ · `cargo clippy -D warnings` ✓ ·
+`cargo test --locked` ✓ (**65 tests**) · `argue` → 6 argumentos, 0
+ataques, todos grounded_in, referencia COINCIDE ✓. **PASSED.**
+
 ## F5 — Agente GLM: replay determinista (2026-11-06)
 
 - **Trait `Extractor`** (docs/12: no acoplar a langextract): entrada con
