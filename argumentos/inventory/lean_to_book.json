@@ -22,9 +22,9 @@
  "ex:ch6-memoria": "ex_ch6_memoria",
  "ex:ch6-minimax-dominada": "ex_ch6_minimax_dominada",
  "thm:ch10-identificacion": "ch10_identificacion",
- "thm:ch10-dr": "ch10_dr_sesgo_m",
+ "thm:ch10-dr": "ch10_dr",
  "thm:ch10-is-insesgado": "ch10_is_insesgado",
- "thm:ch10-curse": "ch10_curse_ejemplo",
+ "thm:ch10-curse": "ch10_curse",
  "prop:ch10-var-dr": "ch10_var_dr",
  "prop:ch11-baseline": "ch11_baseline",
  "ex:ssch-drl-cap11": "ch11_baseline_ejemplo",
@@ -37,6 +37,6 @@
  "def:appE-mdp-test": "ch11_mdp_validacion",
  "cap11-margen": "ch11_margen_elemental",
  "ex:ssch-cap09": "ssch_regla_ordinario",
- "ex:ssch-cap07": "ssch_minimax",
+ "ex:ssch-cap07": "ssch_minimax_riesgos",
  "ex:ssch-cap08": "ssch_mdp_bellman"
 }

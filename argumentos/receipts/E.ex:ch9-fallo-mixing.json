@@ -1,0 +1,35 @@
+{
+  "schema_version": "1.0",
+  "id": "R.E.ex:ch9-fallo-mixing",
+  "spec_id": "E.ex:ch9-fallo-mixing",
+  "spec_hash": "e303e7669cb4b3055bf2f147dd20e0dbb52219e2a5ae78852e4be1d7ee2b75f8",
+  "source_commit": "local",
+  "environment_hash": "3766ed126c741095f221bd316aa389f0bc2787b44e4fc321b2e664b8e5079d33",
+  "checker_version": "0.1.0",
+  "command_argv": [
+    "lean",
+    "argumentos/evidence/lean_export.lean"
+  ],
+  "working_directory": "..",
+  "input_hashes": {
+    "lean_export.lean": "6e081290cded9f46137f884dd6780c7ade4be65b47dad1bec037a687b03384b9",
+    "ssch_bayes_racional.py": "af949182cb60e7cfc146980a08e7b97e6ebc11ac52afa6858de41c10dcc55cfb"
+  },
+  "started_at": "2026-11-07T17:32:41Z",
+  "finished_at": "2026-11-07T17:32:41Z",
+  "exit_status": 0,
+  "termination": "completed",
+  "stdout_sha256": "43429b0c18198df4e4b4537d70f0f40f8e0a0fb3c3907897bbe29c9f62b20fe4",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "artifacts": [],
+  "execution_passed": true,
+  "scientific_criterion_met": true,
+  "observed_checks": [
+    {
+      "id": "target_encontrado:ex_ch9_fallo_mixing",
+      "status": "pass",
+      "detail": "3 axiomas, 181 dependencias"
+    }
+  ],
+  "trust_mode": "locally_reproduced"
+}

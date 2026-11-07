@@ -174,7 +174,7 @@ fn run_evidence(repo: &Path, out: Option<&Path>) -> i32 {
     let ssch_stdout_sha = format!("{:x}", Sha256::digest(ssch_out.as_bytes()));
 
     // 3) Cargar el kernel del piloto para obtener los specs.
-    let kernel_path = repo.join("argumentos/kernel/piloto_ch5_ssch.json");
+    let kernel_path = repo.join("argumentos/kernel/libro_completo.json");
     let kernel = match argumentos::model::load_kernel(&kernel_path) {
         Ok(k) => k,
         Err(e) => {

@@ -8,11 +8,17 @@
   elaborado vía las APIs públicas de Lean; nada de regex sobre mensajes de
   consola ajenos.
 
-  Los objetivos del piloto son las cuatro claves del capítulo 5 y sus
-  cinco teoremas (docs/08): ch9_isomorfismo, ch9_bayes, ch9_admisibilidad,
-  ch7_traduccion_optimos, ch7_traduccion.
+  Los objetivos son TODOS los teoremas con book_key en verificacion_lean
+  40 teoremas en total.
 -/
+import Book.Cap02Wald
+import Book.Cap03MDP
 import Book.Cap05Representacion
+import Book.Cap06Fronteras
+import Book.Cap07OPE
+import Book.Cap08Intervalos
+import Book.Cap11Despliegue
+import Book.SSCH
 import Lean.Util.CollectAxioms
 import Lean.Util.FoldConsts
 
@@ -21,8 +27,48 @@ open Lean Elab Command Meta
 namespace Argumentos.Exportador
 
 /-- Objetivos del piloto (cuatro claves, cinco teoremas). -/
-def objetivos : List Name :=
-  [`ch9_isomorfismo, `ch9_bayes, `ch9_admisibilidad, `ch7_traduccion_optimos, `ch7_traduccion]
+def objetivos : List Name := [
+  `ch10_curse,
+  `ch10_dr,
+  `ch10_identificacion,
+  `ch10_is_insesgado,
+  `ch10_var_dr,
+  `ch11_baseline,
+  `ch11_baseline_ejemplo,
+  `ch11_cuantizacion_ejemplo,
+  `ch11_margen_elemental,
+  `ch11_mdp_validacion,
+  `ch11_monitoreo,
+  `ch11_tasa_tabular,
+  `ch11_truncamiento,
+  `ch7_admisibilidad_bayes,
+  `ch7_bayes,
+  `ch7_complete_class_bayes,
+  `ch7_minimax_bayes,
+  `ch7_traduccion_optimos,
+  `ch8_contraccion,
+  `ch8_mejora,
+  `ch8_parada,
+  `ch8_pi_finita_sin_repeticion,
+  `ch8_punto_fijo_unico,
+  `ch9_admisibilidad,
+  `ch9_bayes,
+  `ch9_bellman,
+  `ch9_ic,
+  `ch9_isomorfismo,
+  `ch9_secuencial_cota,
+  `ex_ch11_pg_ssch,
+  `ex_ch5_cadena,
+  `ex_ch6_memoria,
+  `ex_ch6_minimax_dominada,
+  `ex_ch9_confounding,
+  `ex_ch9_fallo_mixing,
+  `ex_ch9_fallo_overlap,
+  `ex_ch9_observabilidad_parcial,
+  `ssch_mdp_bellman,
+  `ssch_minimax_riesgos,
+  `ssch_regla_ordinario
+]
 
 /-- Escapa una cadena para incluirla como literal JSON. -/
 def jsonEsc (s : String) : String :=

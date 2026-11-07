@@ -1563,3 +1563,23 @@ pendientes explícitos). Puerta F8 PASSED.
 ### Estado final
 Las nueve fases del plan F0-F8 están completas con sus puertas pasadas
 y commiteadas localmente (eb4832e → este commit). Sin push.
+
+## 2026-11-06 (t37) — Avance CORPUS_CLOSED: 40 argumentos verificados end-to-end
+
+### Entregable
+Exporter Lean ampliado de 5 a 40 targets (todos los teoremas con book_key
+en verificacion_lean). Kernel ampliado: 223 claims (141 formal, 82
+empirical), 40 argumentos LEAN_ANCHOR, 40 evidence specs. Recibos
+generados para los 40 targets. Claves que estaban en Lean pero sin bloque
+thm-env añadidas (cap11-cuantizacion, cap11-margen, cap11-monitoreo,
+cap11-truncamiento). Evidence command corregido para usar el kernel
+completo.
+
+### Verificación
+check --kernel libro_completo.json --receipts receipts/ → **40
+ACEPTADOS**, 0 RECHAZADO, 0 PENDIENTE, **exit 0**. Antes: 35 PENDIENTE,
+exit 3. El checker del corpus completo está en verde.
+
+### Estado CORPUS_CLOSED
+40/223 = 18% verificado. 183 pendientes NO_FORMAL_PROOF + 1
+SEMANTIC_MAPPING_UNRESOLVED. Avance significativo pero NO cerrado.

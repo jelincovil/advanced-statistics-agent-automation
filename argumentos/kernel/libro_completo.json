@@ -3052,6 +3052,76 @@
     "domain": "finite"
    },
    "assumptions": []
+  },
+  {
+   "id": "C.cap11-cuantizacion",
+   "book_key": "cap11-cuantizacion",
+   "kind": "formal",
+   "statement": "Verificado en Lean (ch11_cuantizacion_ejemplo); sin bloque thm-env en el libro",
+   "expression": {
+    "op": "atom",
+    "id": "cap11-cuantizacion"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.cap11-truncamiento",
+   "book_key": "cap11-truncamiento",
+   "kind": "formal",
+   "statement": "Verificado en Lean (ch11_truncamiento); sin bloque thm-env en el libro",
+   "expression": {
+    "op": "atom",
+    "id": "cap11-truncamiento"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.cap11-monitoreo",
+   "book_key": "cap11-monitoreo",
+   "kind": "formal",
+   "statement": "Verificado en Lean (ch11_monitoreo); sin bloque thm-env en el libro",
+   "expression": {
+    "op": "atom",
+    "id": "cap11-monitoreo"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.def:appE-mdp-test",
+   "book_key": "def:appE-mdp-test",
+   "kind": "formal",
+   "statement": "Verificado en Lean (ch11_mdp_validacion); sin bloque thm-env en el libro",
+   "expression": {
+    "op": "atom",
+    "id": "def:appE-mdp-test"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.cap11-margen",
+   "book_key": "cap11-margen",
+   "kind": "formal",
+   "statement": "Verificado en Lean (ch11_margen_elemental); sin bloque thm-env en el libro",
+   "expression": {
+    "op": "atom",
+    "id": "cap11-margen"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
   }
  ],
  "arguments": [
@@ -3369,6 +3439,51 @@
    "evidence_specs": [
     "E.ex:ch11-pg-ssch"
    ]
+  },
+  {
+   "id": "A.cap11-cuantizacion",
+   "conclusion": "C.cap11-cuantizacion",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.cap11-cuantizacion"
+   ]
+  },
+  {
+   "id": "A.cap11-truncamiento",
+   "conclusion": "C.cap11-truncamiento",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.cap11-truncamiento"
+   ]
+  },
+  {
+   "id": "A.cap11-monitoreo",
+   "conclusion": "C.cap11-monitoreo",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.cap11-monitoreo"
+   ]
+  },
+  {
+   "id": "A.def:appE-mdp-test",
+   "conclusion": "C.def:appE-mdp-test",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.def:appE-mdp-test"
+   ]
+  },
+  {
+   "id": "A.cap11-margen",
+   "conclusion": "C.cap11-margen",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.cap11-margen"
+   ]
   }
  ],
  "evidence_specs": [
@@ -3382,7 +3497,7 @@
     "domain": "finite",
     "lean_axioms": "propext,Classical.choice,Quot.sound"
    },
-   "availability": "pending"
+   "availability": "candidate"
   },
   {
    "id": "E.thm:ch7-admisibilidad-bayes",
@@ -3394,7 +3509,7 @@
     "domain": "finite",
     "lean_axioms": "propext,Classical.choice,Quot.sound"
    },
-   "availability": "pending"
+   "availability": "candidate"
   },
   {
    "id": "E.thm:ch7-complete-class",
@@ -3406,7 +3521,7 @@
     "domain": "finite",
     "lean_axioms": "propext,Classical.choice,Quot.sound"
    },
-   "availability": "pending"
+   "availability": "candidate"
   },
   {
    "id": "E.thm:ch7-minimax-bayes",
@@ -3418,19 +3533,19 @@
     "domain": "finite",
     "lean_axioms": "propext,Classical.choice,Quot.sound"
    },
-   "availability": "pending"
+   "availability": "candidate"
   },
   {
    "id": "E.ex:ssch-cap07",
    "kind": "lean",
    "claim_id": "C.ex:ssch-cap07",
    "runner_id": "lean-export",
-   "target": "ssch_minimax",
+   "target": "ssch_minimax_riesgos",
    "scope": {
     "domain": "finite",
     "lean_axioms": "propext,Classical.choice,Quot.sound"
    },
-   "availability": "pending"
+   "availability": "candidate"
   },
   {
    "id": "E.thm:ch8-contraccion",
@@ -3442,7 +3557,7 @@
     "domain": "finite",
     "lean_axioms": "propext,Classical.choice,Quot.sound"
    },
-   "availability": "pending"
+   "availability": "candidate"
   },
   {
    "id": "E.cor:ch8-punto-fijo",
@@ -3454,7 +3569,7 @@
     "domain": "finite",
     "lean_axioms": "propext,Classical.choice,Quot.sound"
    },
-   "availability": "pending"
+   "availability": "candidate"
   },
   {
    "id": "E.cor:ch8-parada",
@@ -3466,7 +3581,7 @@
     "domain": "finite",
     "lean_axioms": "propext,Classical.choice,Quot.sound"
    },
-   "availability": "pending"
+   "availability": "candidate"
   },
   {
    "id": "E.thm:ch8-mejora",
@@ -3478,7 +3593,7 @@
     "domain": "finite",
     "lean_axioms": "propext,Classical.choice,Quot.sound"
    },
-   "availability": "pending"
+   "availability": "candidate"
   },
   {
    "id": "E.cor:ch8-pi-finita",
@@ -3490,7 +3605,7 @@
     "domain": "finite",
     "lean_axioms": "propext,Classical.choice,Quot.sound"
    },
-   "availability": "pending"
+   "availability": "candidate"
   },
   {
    "id": "E.ex:ssch-cap08",
@@ -3502,7 +3617,7 @@
     "domain": "finite",
     "lean_axioms": "propext,Classical.choice,Quot.sound"
    },
-   "availability": "pending"
+   "availability": "candidate"
   },
   {
    "id": "E.thm:ch9-isomorfismo",
@@ -3514,7 +3629,7 @@
     "domain": "finite",
     "lean_axioms": "propext,Classical.choice,Quot.sound"
    },
-   "availability": "pending"
+   "availability": "candidate"
   },
   {
    "id": "E.thm:ch9-secuencial",
@@ -3526,7 +3641,7 @@
     "domain": "finite",
     "lean_axioms": "propext,Classical.choice,Quot.sound"
    },
-   "availability": "pending"
+   "availability": "candidate"
   },
   {
    "id": "E.cor:ch9-bellman",
@@ -3538,7 +3653,7 @@
     "domain": "finite",
     "lean_axioms": "propext,Classical.choice,Quot.sound"
    },
-   "availability": "pending"
+   "availability": "candidate"
   },
   {
    "id": "E.thm:ch9-admisibilidad",
@@ -3550,7 +3665,7 @@
     "domain": "finite",
     "lean_axioms": "propext,Classical.choice,Quot.sound"
    },
-   "availability": "pending"
+   "availability": "candidate"
   },
   {
    "id": "E.cor:ch9-bayes",
@@ -3562,7 +3677,7 @@
     "domain": "finite",
     "lean_axioms": "propext,Classical.choice,Quot.sound"
    },
-   "availability": "pending"
+   "availability": "candidate"
   },
   {
    "id": "E.cor:ch7-traduccion",
@@ -3574,7 +3689,7 @@
     "domain": "finite",
     "lean_axioms": "propext,Classical.choice,Quot.sound"
    },
-   "availability": "pending"
+   "availability": "candidate"
   },
   {
    "id": "E.ex:ssch-cap09",
@@ -3586,7 +3701,7 @@
     "domain": "finite",
     "lean_axioms": "propext,Classical.choice,Quot.sound"
    },
-   "availability": "pending"
+   "availability": "candidate"
   },
   {
    "id": "E.ex:ch9-observabilidad-parcial",
@@ -3598,7 +3713,7 @@
     "domain": "finite",
     "lean_axioms": "propext,Classical.choice,Quot.sound"
    },
-   "availability": "pending"
+   "availability": "candidate"
   },
   {
    "id": "E.ex:ch9-confounding",
@@ -3610,7 +3725,7 @@
     "domain": "finite",
     "lean_axioms": "propext,Classical.choice,Quot.sound"
    },
-   "availability": "pending"
+   "availability": "candidate"
   },
   {
    "id": "E.thm:ch9-ic",
@@ -3622,7 +3737,7 @@
     "domain": "finite",
     "lean_axioms": "propext,Classical.choice,Quot.sound"
    },
-   "availability": "pending"
+   "availability": "candidate"
   },
   {
    "id": "E.ex:ch9-fallo-mixing",
@@ -3634,7 +3749,7 @@
     "domain": "finite",
     "lean_axioms": "propext,Classical.choice,Quot.sound"
    },
-   "availability": "pending"
+   "availability": "candidate"
   },
   {
    "id": "E.ex:ch9-fallo-overlap",
@@ -3646,7 +3761,7 @@
     "domain": "finite",
     "lean_axioms": "propext,Classical.choice,Quot.sound"
    },
-   "availability": "pending"
+   "availability": "candidate"
   },
   {
    "id": "E.ex:ch5-cadena",
@@ -3658,7 +3773,7 @@
     "domain": "finite",
     "lean_axioms": "propext,Classical.choice,Quot.sound"
    },
-   "availability": "pending"
+   "availability": "candidate"
   },
   {
    "id": "E.ex:ch6-memoria",
@@ -3670,7 +3785,7 @@
     "domain": "finite",
     "lean_axioms": "propext,Classical.choice,Quot.sound"
    },
-   "availability": "pending"
+   "availability": "candidate"
   },
   {
    "id": "E.ex:ch6-minimax-dominada",
@@ -3682,7 +3797,7 @@
     "domain": "finite",
     "lean_axioms": "propext,Classical.choice,Quot.sound"
    },
-   "availability": "pending"
+   "availability": "candidate"
   },
   {
    "id": "E.thm:ch10-identificacion",
@@ -3694,7 +3809,7 @@
     "domain": "finite",
     "lean_axioms": "propext,Classical.choice,Quot.sound"
    },
-   "availability": "pending"
+   "availability": "candidate"
   },
   {
    "id": "E.thm:ch10-is-insesgado",
@@ -3706,31 +3821,31 @@
     "domain": "finite",
     "lean_axioms": "propext,Classical.choice,Quot.sound"
    },
-   "availability": "pending"
+   "availability": "candidate"
   },
   {
    "id": "E.thm:ch10-curse",
    "kind": "lean",
    "claim_id": "C.thm:ch10-curse",
    "runner_id": "lean-export",
-   "target": "ch10_curse_ejemplo",
+   "target": "ch10_curse",
    "scope": {
     "domain": "finite",
     "lean_axioms": "propext,Classical.choice,Quot.sound"
    },
-   "availability": "pending"
+   "availability": "candidate"
   },
   {
    "id": "E.thm:ch10-dr",
    "kind": "lean",
    "claim_id": "C.thm:ch10-dr",
    "runner_id": "lean-export",
-   "target": "ch10_dr_sesgo_m",
+   "target": "ch10_dr",
    "scope": {
     "domain": "finite",
     "lean_axioms": "propext,Classical.choice,Quot.sound"
    },
-   "availability": "pending"
+   "availability": "candidate"
   },
   {
    "id": "E.prop:ch10-var-dr",
@@ -3742,7 +3857,7 @@
     "domain": "finite",
     "lean_axioms": "propext,Classical.choice,Quot.sound"
    },
-   "availability": "pending"
+   "availability": "candidate"
   },
   {
    "id": "E.thm:ch11-tasa-tabular",
@@ -3754,7 +3869,7 @@
     "domain": "finite",
     "lean_axioms": "propext,Classical.choice,Quot.sound"
    },
-   "availability": "pending"
+   "availability": "candidate"
   },
   {
    "id": "E.prop:ch11-baseline",
@@ -3766,7 +3881,7 @@
     "domain": "finite",
     "lean_axioms": "propext,Classical.choice,Quot.sound"
    },
-   "availability": "pending"
+   "availability": "candidate"
   },
   {
    "id": "E.ex:ssch-drl-cap11",
@@ -3778,7 +3893,7 @@
     "domain": "finite",
     "lean_axioms": "propext,Classical.choice,Quot.sound"
    },
-   "availability": "pending"
+   "availability": "candidate"
   },
   {
    "id": "E.ex:ch11-pg-ssch",
@@ -3790,7 +3905,67 @@
     "domain": "finite",
     "lean_axioms": "propext,Classical.choice,Quot.sound"
    },
-   "availability": "pending"
+   "availability": "candidate"
+  },
+  {
+   "id": "E.cap11-cuantizacion",
+   "kind": "lean",
+   "claim_id": "C.cap11-cuantizacion",
+   "runner_id": "lean-export",
+   "target": "ch11_cuantizacion_ejemplo",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.cap11-truncamiento",
+   "kind": "lean",
+   "claim_id": "C.cap11-truncamiento",
+   "runner_id": "lean-export",
+   "target": "ch11_truncamiento",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.cap11-monitoreo",
+   "kind": "lean",
+   "claim_id": "C.cap11-monitoreo",
+   "runner_id": "lean-export",
+   "target": "ch11_monitoreo",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.def:appE-mdp-test",
+   "kind": "lean",
+   "claim_id": "C.def:appE-mdp-test",
+   "runner_id": "lean-export",
+   "target": "ch11_mdp_validacion",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.cap11-margen",
+   "kind": "lean",
+   "claim_id": "C.cap11-margen",
+   "runner_id": "lean-export",
+   "target": "ch11_margen_elemental",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
   }
  ]
 }

@@ -1462,5 +1462,13 @@
   "fuente": "apendices/apendice_regularidad.typ (theorem: Consistencia del Estimador HAC)",
   "impacto": "Sin respaldo formal",
   "proxima_accion": "Formalizar o mantener pendiente"
+ },
+ {
+  "claim_id": "C.unnamed.example.183",
+  "book_key": "",
+  "reason_code": "SEMANTIC_MAPPING_UNRESOLVED",
+  "fuente": "capitulos/cap04_herramientas.typ (sin key)",
+  "impacto": "Bloque sin clave",
+  "proxima_accion": "Asignar clave o descartar"
  }
 ]

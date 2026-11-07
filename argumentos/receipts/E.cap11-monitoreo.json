@@ -1,10 +1,10 @@
 {
   "schema_version": "1.0",
-  "id": "R.E.iso",
-  "spec_id": "E.iso",
-  "spec_hash": "df8d4a863f7cd874c865531121447ddfc4c6155c8e5b2609a8dca0d24db22d91",
+  "id": "R.E.cap11-monitoreo",
+  "spec_id": "E.cap11-monitoreo",
+  "spec_hash": "484e7a1b4ef0cfcf072750511a7089f79b475eb1569ec74d81cca1ed35ce3d3e",
   "source_commit": "local",
-  "environment_hash": "f979ca01ec2a6a09a1c4723d992eb02e76940643a9c501b7048104b99396e947",
+  "environment_hash": "3766ed126c741095f221bd316aa389f0bc2787b44e4fc321b2e664b8e5079d33",
   "checker_version": "0.1.0",
   "command_argv": [
     "lean",
@@ -12,23 +12,23 @@
   ],
   "working_directory": "..",
   "input_hashes": {
-    "lean_export.lean": "94c6293333429542abd8efa356ea271f94729ad7624f9518f0e50d8b3f5fab9e",
+    "lean_export.lean": "6e081290cded9f46137f884dd6780c7ade4be65b47dad1bec037a687b03384b9",
     "ssch_bayes_racional.py": "af949182cb60e7cfc146980a08e7b97e6ebc11ac52afa6858de41c10dcc55cfb"
   },
-  "started_at": "2026-11-07T13:19:59Z",
-  "finished_at": "2026-11-07T13:19:59Z",
+  "started_at": "2026-11-07T17:32:41Z",
+  "finished_at": "2026-11-07T17:32:41Z",
   "exit_status": 0,
   "termination": "completed",
-  "stdout_sha256": "a9cab92086e74aeb4e9080cc4f0e8120d7e5133bbf3df313e0901b85d7d798c7",
+  "stdout_sha256": "43429b0c18198df4e4b4537d70f0f40f8e0a0fb3c3907897bbe29c9f62b20fe4",
   "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
   "artifacts": [],
   "execution_passed": true,
   "scientific_criterion_met": true,
   "observed_checks": [
     {
-      "id": "target_encontrado:ch9_isomorfismo",
+      "id": "target_encontrado:ch11_monitoreo",
       "status": "pass",
-      "detail": "3 axiomas, 44 dependencias"
+      "detail": "3 axiomas, 192 dependencias"
     }
   ],
   "trust_mode": "locally_reproduced"
