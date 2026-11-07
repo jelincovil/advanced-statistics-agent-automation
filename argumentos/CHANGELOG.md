@@ -1,5 +1,34 @@
 # CHANGELOG — argumentos
 
+## F3 — Evidencias Lean y Python (2026-11-06)
+
+- **Exporter Lean** (`evidence/lean_export.lean`): consulta el entorno
+  elaborado vía APIs públicas (`Lean.collectAxioms`,
+  `Lean.ConstantInfo.getUsedConstantsAsSet`, `Meta.ppExpr`) — nada de
+  regex sobre consola. Emite JSONL a stdout: nombre fully-qualified, tipo
+  elaborado serializado estable, dependencias directas y axiomas
+  transitivos. Los 5 objetivos del piloto exportan con los 3 axiomas
+  estándar del proyecto y 44–120 dependencias directas cada uno.
+- **Runner Python SSCH** (`runners/ssch_bayes_racional.py`): enumeración
+  racional exacta con `fractions.Fraction`; riesgo de Bayes 19/50, R(0)
+  = 1/5, R(1) = 4/5; criterio preregistrado bayes == 19/50.
+- **Kernel del piloto** (`kernel/piloto_ch5_ssch.json`): 6 claims (5
+  formales del cap. 5 + 1 empírico SSCH), 6 argumentos (5 LEAN_ANCHOR +
+  1 EMPIRICAL_RECORD), 6 evidence_specs con scopes declarados
+  (finite_specialization, statement_scope por teorema, lean_axioms).
+- **CLI `evidence`**: ejecuta ambos runners, parsea las salidas, genera
+  recibos con hashes SHA-256 (spec_hash, stdout_sha, input_hashes de los
+  fuentes) y los escribe a `receipts/`.
+- **CLI `check --receipts`**: valida el kernel completo contra los
+  recibos. Los 6 argumentos ACEPTADOS: 5 formal=LeanChecked +
+  1 empirical=Reproduced. Exit 0.
+
+Puerta F3: `cargo fmt --check` ✓ · `cargo clippy -D warnings` ✓ ·
+`cargo test --locked` ✓ (47 tests) · `evidence --repo ..` genera 6
+recibos ✓ · `check --kernel kernel/piloto_ch5_ssch.json --receipts
+receipts/` → 6 ACEPTADOS exit 0 ✓ · los 6 recibos son JSON válido ✓.
+**PASSED.**
+
 ## F2 — Checker independiente (2026-11-06)
 
 `src/check.rs` (~470 líneas): el motor del canon. Sin red, sin LLM, sin

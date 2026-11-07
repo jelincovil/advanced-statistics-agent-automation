@@ -1446,3 +1446,23 @@ N17, N20–N24 — declarado, no pasado por alto.
 ### Pendiente
 F3 (adaptadores Lean/Python + piloto de 4 claves y SSCH) → F8. Commits
 locales por fase, sin push.
+
+## 2026-11-06 (t31) — Argumentos F3: evidencias Lean/Python y piloto verificado
+
+### Entregable
+Exporter Lean (evidence/lean_export.lean): consulta el entorno elaborado
+vía APIs públicas (collectAxioms, getUsedConstantsAsSet, ppExpr) — nada
+de regex sobre consola; 5 objetivos del piloto con 3 axiomas estándar y
+44-120 dependencias directas. Runner Python SSCH
+(runners/ssch_bayes_racional.py): enumeración racional exacta, Bayes
+19/50. Kernel del piloto (kernel/piloto_ch5_ssch.json): 6 claims, 6
+argumentos, 6 specs. CLI evidence: ejecuta ambos runners, genera 6
+recibos con hashes SHA-256. CLI check --receipts: valida end-to-end.
+
+### Verificación
+evidence --repo .. → 6 recibos. check → **6 ACEPTADOS** (5 LeanChecked +
+1 Reproduced), exit 0. fmt/clippy -D warnings/47 tests/JSON válido de
+recibos. Puerta F3 PASSED.
+
+### Pendiente
+F4 (parser Typst + inventario + render) → F8. Commits locales, sin push.

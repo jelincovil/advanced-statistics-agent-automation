@@ -1,0 +1,35 @@
+{
+  "schema_version": "1.0",
+  "id": "R.E.bayes",
+  "spec_id": "E.bayes",
+  "spec_hash": "322f939e9c9dbcc41077f607561b433dd3a1fd1a2bd2a08c72472351436a2bce",
+  "source_commit": "local",
+  "environment_hash": "f979ca01ec2a6a09a1c4723d992eb02e76940643a9c501b7048104b99396e947",
+  "checker_version": "0.1.0",
+  "command_argv": [
+    "lean",
+    "argumentos/evidence/lean_export.lean"
+  ],
+  "working_directory": "..",
+  "input_hashes": {
+    "lean_export.lean": "94c6293333429542abd8efa356ea271f94729ad7624f9518f0e50d8b3f5fab9e",
+    "ssch_bayes_racional.py": "af949182cb60e7cfc146980a08e7b97e6ebc11ac52afa6858de41c10dcc55cfb"
+  },
+  "started_at": "2026-11-07T03:31:42Z",
+  "finished_at": "2026-11-07T03:31:42Z",
+  "exit_status": 0,
+  "termination": "completed",
+  "stdout_sha256": "a9cab92086e74aeb4e9080cc4f0e8120d7e5133bbf3df313e0901b85d7d798c7",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "artifacts": [],
+  "execution_passed": true,
+  "scientific_criterion_met": true,
+  "observed_checks": [
+    {
+      "id": "target_encontrado:ch9_bayes",
+      "status": "pass",
+      "detail": "3 axiomas, 47 dependencias"
+    }
+  ],
+  "trust_mode": "locally_reproduced"
+}

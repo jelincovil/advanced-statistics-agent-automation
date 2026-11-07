@@ -1,0 +1,218 @@
+{
+  "schema_version": "1.0",
+  "claims": [
+    {
+      "id": "C.iso",
+      "book_key": "thm:ch9-isomorfismo",
+      "kind": "formal",
+      "statement": "Para el problema de Wald finito, la copia puntual de la regla conserva el objetivo salvo signo: J_θ(π_δ) = -R(θ,δ). Especialización finita (Finite X); el libro enuncia lo análogo para espacios generales.",
+      "expression": {"op": "atom", "id": "iso.eq"},
+      "scope": {
+        "domain": "finite",
+        "statement_scope": "exact_equality",
+        "carrier": "Finite_X"
+      },
+      "assumptions": []
+    },
+    {
+      "id": "C.bayes",
+      "book_key": "cor:ch9-bayes",
+      "kind": "formal",
+      "statement": "El promedio bajo un prior arbitrario viaja por la identidad: J_ν(π_δ) = -ρ_ν(δ). Igualdad ponderada; el conjunto de optimizadores no se afirma sin wrapper adicional (docs/05).",
+      "expression": {"op": "atom", "id": "bayes.eq"},
+      "scope": {
+        "domain": "finite",
+        "statement_scope": "weighted_equality",
+        "carrier": "Finite_Theta_Finite_X"
+      },
+      "assumptions": []
+    },
+    {
+      "id": "C.adm",
+      "book_key": "thm:ch9-admisibilidad",
+      "kind": "formal",
+      "statement": "Dominancia de reglas si y solo si retorno-dominancia de las políticas copiadas. Equivalencia par a par (dominates ↔ returnDominates); la admisibilidad cuantificada completa requeriría wrapper (docs/05).",
+      "expression": {
+        "op": "implies",
+        "antecedent": {"op": "atom", "id": "dominates"},
+        "consequent": {"op": "atom", "id": "return_dominates"}
+      },
+      "scope": {
+        "domain": "finite",
+        "statement_scope": "pairwise_dominance",
+        "carrier": "Finite_Theta_Finite_X"
+      },
+      "assumptions": []
+    },
+    {
+      "id": "C.trad.opt",
+      "book_key": "cor:ch7-traduccion",
+      "kind": "formal",
+      "statement": "Versión finita del intercambio minimax: inf_δ sup_θ R(θ,δ) = -sup_π inf_θ J_θ(π). Requiere Nonempty Θ y Fintype (X→A).",
+      "expression": {"op": "atom", "id": "trad.valores"},
+      "scope": {
+        "domain": "finite",
+        "statement_scope": "value_identity",
+        "carrier": "Finite_Theta_Nonempty_Finite_XA"
+      },
+      "assumptions": []
+    },
+    {
+      "id": "C.trad.optimos",
+      "book_key": "cor:ch7-traduccion",
+      "kind": "formal",
+      "statement": "Parte operativa: una regla δ₀ es minimax (ninguna regla mejora su peor caso) si y solo si su política copiada es maximin. Distinción explícita entre teorema de óptimos y teorema de valores (docs/08 P04).",
+      "expression": {"op": "atom", "id": "trad.optimos"},
+      "scope": {
+        "domain": "finite",
+        "statement_scope": "optima_identity",
+        "carrier": "Finite_Theta_Nonempty_Finite_XA"
+      },
+      "assumptions": []
+    },
+    {
+      "id": "C.ssch.bayes",
+      "book_key": null,
+      "kind": "empirical",
+      "statement": "En el experimento sintético SSCH (P0(X=1)=1/5, P1(X=1)=4/5, pérdida falso positivo 1 y falso negativo 4, prior ν(1)=3/10), la regla «seguir la señal» tiene riesgos R(0)=1/5 y R(1)=4/5, y riesgo de Bayes 19/50 exacto por enumeración racional.",
+      "expression": {"op": "atom", "id": "ssch.bayes_19_50"},
+      "scope": {
+        "domain": "finite",
+        "experiment": "ssch_enumeracion_racional",
+        "population": "dos_modelos_sinteticos",
+        "regla": "seguir_la_señal"
+      },
+      "assumptions": []
+    }
+  ],
+  "arguments": [
+    {
+      "id": "A.iso",
+      "conclusion": "C.iso",
+      "premises": [],
+      "rule": "LEAN_ANCHOR",
+      "evidence_specs": ["E.iso"]
+    },
+    {
+      "id": "A.bayes",
+      "conclusion": "C.bayes",
+      "premises": [],
+      "rule": "LEAN_ANCHOR",
+      "evidence_specs": ["E.bayes"]
+    },
+    {
+      "id": "A.adm",
+      "conclusion": "C.adm",
+      "premises": [],
+      "rule": "LEAN_ANCHOR",
+      "evidence_specs": ["E.adm"]
+    },
+    {
+      "id": "A.trad.opt",
+      "conclusion": "C.trad.opt",
+      "premises": [],
+      "rule": "LEAN_ANCHOR",
+      "evidence_specs": ["E.trad.opt"]
+    },
+    {
+      "id": "A.trad.optimos",
+      "conclusion": "C.trad.optimos",
+      "premises": [],
+      "rule": "LEAN_ANCHOR",
+      "evidence_specs": ["E.trad.optimos"]
+    },
+    {
+      "id": "A.ssch",
+      "conclusion": "C.ssch.bayes",
+      "premises": [],
+      "rule": "EMPIRICAL_RECORD",
+      "evidence_specs": ["E.ssch"]
+    }
+  ],
+  "evidence_specs": [
+    {
+      "id": "E.iso",
+      "kind": "lean",
+      "claim_id": "C.iso",
+      "runner_id": "lean-export",
+      "target": "ch9_isomorfismo",
+      "scope": {
+        "domain": "finite",
+        "statement_scope": "exact_equality",
+        "carrier": "Finite_X",
+        "lean_axioms": "propext,Classical.choice,Quot.sound"
+      },
+      "availability": "candidate"
+    },
+    {
+      "id": "E.bayes",
+      "kind": "lean",
+      "claim_id": "C.bayes",
+      "runner_id": "lean-export",
+      "target": "ch9_bayes",
+      "scope": {
+        "domain": "finite",
+        "statement_scope": "weighted_equality",
+        "carrier": "Finite_Theta_Finite_X",
+        "lean_axioms": "propext,Classical.choice,Quot.sound"
+      },
+      "availability": "candidate"
+    },
+    {
+      "id": "E.adm",
+      "kind": "lean",
+      "claim_id": "C.adm",
+      "runner_id": "lean-export",
+      "target": "ch9_admisibilidad",
+      "scope": {
+        "domain": "finite",
+        "statement_scope": "pairwise_dominance",
+        "carrier": "Finite_Theta_Finite_X",
+        "lean_axioms": "propext,Classical.choice,Quot.sound"
+      },
+      "availability": "candidate"
+    },
+    {
+      "id": "E.trad.opt",
+      "kind": "lean",
+      "claim_id": "C.trad.opt",
+      "runner_id": "lean-export",
+      "target": "ch7_traduccion",
+      "scope": {
+        "domain": "finite",
+        "statement_scope": "value_identity",
+        "carrier": "Finite_Theta_Nonempty_Finite_XA",
+        "lean_axioms": "propext,Classical.choice,Quot.sound"
+      },
+      "availability": "candidate"
+    },
+    {
+      "id": "E.trad.optimos",
+      "kind": "lean",
+      "claim_id": "C.trad.optimos",
+      "runner_id": "lean-export",
+      "target": "ch7_traduccion_optimos",
+      "scope": {
+        "domain": "finite",
+        "statement_scope": "optima_identity",
+        "carrier": "Finite_Theta_Nonempty_Finite_XA",
+        "lean_axioms": "propext,Classical.choice,Quot.sound"
+      },
+      "availability": "candidate"
+    },
+    {
+      "id": "E.ssch",
+      "kind": "python",
+      "claim_id": "C.ssch.bayes",
+      "runner_id": "ssch-racional",
+      "target": "ssch_bayes_racional",
+      "scope": {
+        "domain": "finite",
+        "experiment": "ssch_enumeracion_racional",
+        "population": "dos_modelos_sinteticos",
+        "regla": "seguir_la_señal"
+      },
+      "availability": "candidate"
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "schema_version": "1.0",
+  "id": "R.E.trad.optimos",
+  "spec_id": "E.trad.optimos",
+  "spec_hash": "8d6ad65fcf0de24a184bfb7ec11755e0d7c133073dc99472347ddb0d158782ad",
+  "source_commit": "local",
+  "environment_hash": "f979ca01ec2a6a09a1c4723d992eb02e76940643a9c501b7048104b99396e947",
+  "checker_version": "0.1.0",
+  "command_argv": [
+    "lean",
+    "argumentos/evidence/lean_export.lean"
+  ],
+  "working_directory": "..",
+  "input_hashes": {
+    "lean_export.lean": "94c6293333429542abd8efa356ea271f94729ad7624f9518f0e50d8b3f5fab9e",
+    "ssch_bayes_racional.py": "af949182cb60e7cfc146980a08e7b97e6ebc11ac52afa6858de41c10dcc55cfb"
+  },
+  "started_at": "2026-11-07T03:31:42Z",
+  "finished_at": "2026-11-07T03:31:42Z",
+  "exit_status": 0,
+  "termination": "completed",
+  "stdout_sha256": "a9cab92086e74aeb4e9080cc4f0e8120d7e5133bbf3df313e0901b85d7d798c7",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "artifacts": [],
+  "execution_passed": true,
+  "scientific_criterion_met": true,
+  "observed_checks": [
+    {
+      "id": "target_encontrado:ch7_traduccion_optimos",
+      "status": "pass",
+      "detail": "3 axiomas, 120 dependencias"
+    }
+  ],
+  "trust_mode": "locally_reproduced"
+}

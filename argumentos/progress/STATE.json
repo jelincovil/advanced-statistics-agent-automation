@@ -1,29 +1,17 @@
 {
-  "phase": "F2",
+  "phase": "F3",
   "base_commit": "1c98d6b",
-  "implementation_commit": "b73a49d",
-  "completed_gates": [
-    "F0",
-    "F1",
-    "F2"
-  ],
-  "pending_gates": [
-    "F3",
-    "F4",
-    "F5",
-    "F6",
-    "F7",
-    "F8"
-  ],
+  "implementation_commit": "b0fcfb0",
+  "completed_gates": ["F0", "F1", "F2", "F3"],
+  "pending_gates": ["F4", "F5", "F6", "F7", "F8"],
   "blockers": [],
   "commands_run": [
-    "F0: controles de línea base — ver BASELINE.md (todos verdes)",
-    "F1: build/test/clippy/fmt/doctor — ver CHANGELOG F1 (26 tests)",
-    "F2: cargo fmt --check -> OK",
-    "F2: cargo clippy --all-targets --locked -- -D warnings -> OK",
-    "F2: cargo test --locked -> 47 tests ok (21 lib + 21 checker + 5 contratos)",
-    "F2: check --kernel examples/valid_structure_pending.json -> ACEPTADO_CONDICIONAL, exit 0",
-    "F2: check --kernel examples/invalid_scope.json -> RECHAZADO ScopeMismatch, exit 3"
+    "F0-F2: ver CHANGELOG.md y BASELINE.md",
+    "F3: lean argumentos/evidence/lean_export.lean -> 5 líneas JSONL (5 teoremas, 3 axiomas estándar c/u, 44-120 dependencias directas)",
+    "F3: python3 runners/ssch_bayes_racional.py -> riesgo Bayes 19/50 exacto, criterio pass, exit 0",
+    "F3: cargo run -- evidence --repo .. -> 6 recibos generados en receipts/",
+    "F3: cargo run -- check --kernel kernel/piloto_ch5_ssch.json --receipts receipts/ -> 6 ACEPTADO (5 LeanChecked + 1 Reproduced), exit 0",
+    "F3: cargo fmt --check -> OK; cargo clippy -D warnings -> OK; cargo test --locked -> 47 tests ok"
   ],
-  "next_action": "F3: evidencias — adaptadores Lean (exporter de declaraciones elaboradas con axiomas) y Python (SSCH racional por enumeración), specs y receipts reales, cache con hashes; piloto de cuatro claves del capítulo 5 y SSCH exacto"
+  "next_action": "F4: parser Typst (typst-syntax), inventario de bloques del libro, source maps y render de fichas"
 }
