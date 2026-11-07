@@ -244,6 +244,114 @@ theorem ch7_bayes (ν : Θ → ℝ) (hν : ∀ θ, 0 ≤ ν θ) (hν1 : ∑ θ, 
     exact lt_irrefl 0 htotal
 
 
+/-! ## cor:ch7-bayes-especificas — acciones posteriores para pérdidas
+habituales (parte 1: cuadrática; parte 3: 0–1; la parte 2, absoluta /
+mediana, es formalización pendiente). -/
+
+/-- Media posterior de la cantidad real `t` bajo los pesos `w`: la media
+de la ley posterior en el problema finito. -/
+def postMean (w : Θ → ℝ) (t : Θ → ℝ) : ℝ := ∑ θ, w θ * t θ
+
+/-- book: capitulos/cap02_wald.typ:92 (key: cor:ch7-bayes-especificas) —
+[parte 1 de 3: pérdida cuadrática] bajo pérdida cuadrática escalar y
+segundo momento posterior finito (automático por finitud), la media
+posterior minimiza la pérdida esperada posterior:
+`∑_θ w_θ (t_θ − m)² ≤ ∑_θ w_θ (t_θ − a)²` con `m = postMean w t`, para
+toda acción real `a`. La prueba es la descomposición del libro (varianza
+posterior más distancia cuadrática a la media):
+`∑_θ w_θ (t_θ − a)² − ∑_θ w_θ (t_θ − m)² = (a − m)²`.
+Fidelidad declarada: `w` es la ley posterior `ν(dθ|x)` del libro — en el
+problema finito, un vector de masas con suma uno (`bayesPost` con
+predictiva no nula es el caso bayesiano); las acciones son reales, fuera
+de la `L : Θ → A → ℝ` abstracta del módulo. La no negatividad de `w` no
+se usa en la prueba; se declara por la lectura probabilística
+(convención del encabezado del módulo).
+Origen: F-correction 2026-11-07 (nuevo; formalización de pendiente). -/
+theorem cor_ch7_bayes_cuadratica (w : Θ → ℝ) (t : Θ → ℝ)
+    (hw0 : ∀ θ, 0 ≤ w θ) (hw1 : ∑ θ, w θ = 1) :
+    ∀ a : ℝ, ∑ θ, w θ * (t θ - postMean w t) ^ 2
+      ≤ ∑ θ, w θ * (t θ - a) ^ 2 := by
+  have hmean : postMean w t = ∑ θ, w θ * t θ := rfl
+  have hFa : ∀ a : ℝ, ∑ θ, w θ * (t θ - a) ^ 2
+      = (∑ θ, w θ * t θ ^ 2) - 2 * a * (∑ θ, w θ * t θ)
+        + a ^ 2 * (∑ θ, w θ) := by
+    intro a
+    have h1 : ∀ θ : Θ, w θ * (t θ - a) ^ 2
+        = (w θ * t θ ^ 2) + (-2 * a * (w θ * t θ)) + (a ^ 2 * w θ) := by
+      intro θ
+      ring
+    calc ∑ θ, w θ * (t θ - a) ^ 2
+        = ∑ θ, ((w θ * t θ ^ 2) + (-2 * a * (w θ * t θ)) + (a ^ 2 * w θ)) :=
+          Finset.sum_congr rfl fun θ _ => h1 θ
+      _ = (∑ θ, w θ * t θ ^ 2) + (∑ θ, -2 * a * (w θ * t θ))
+          + (∑ θ, a ^ 2 * w θ) := by
+          rw [Finset.sum_add_distrib, Finset.sum_add_distrib]
+      _ = (∑ θ, w θ * t θ ^ 2) - 2 * a * (∑ θ, w θ * t θ)
+          + a ^ 2 * (∑ θ, w θ) := by
+          have e2 : ∑ θ, -2 * a * (w θ * t θ)
+              = -2 * a * ∑ θ, w θ * t θ := by
+            rw [← Finset.mul_sum]
+          have e3 : ∑ θ, a ^ 2 * w θ = a ^ 2 * ∑ θ, w θ := by
+            rw [← Finset.mul_sum]
+          rw [e2, e3]
+          ring
+  have hdif : ∀ a : ℝ, ∑ θ, w θ * (t θ - a) ^ 2
+      - ∑ θ, w θ * (t θ - postMean w t) ^ 2
+      = (a - postMean w t) ^ 2 := by
+    intro a
+    rw [hFa a, hFa (postMean w t), hw1, hmean]
+    ring
+  intro a
+  have h1 := hdif a
+  have h2 : (0:ℝ) ≤ (a - postMean w t) ^ 2 := sq_nonneg _
+  linarith
+
+/-- Masa posterior de la categoría real `u` bajo los pesos `w`: suma de
+los pesos de los parámetros con `t θ = u` (pérdida 0–1). -/
+noncomputable def postMass (w : Θ → ℝ) (t : Θ → ℝ) (u : ℝ) : ℝ :=
+  ∑ θ, w θ * (if t θ = u then (1:ℝ) else 0)
+
+/-- book: capitulos/cap02_wald.typ:92 (key: cor:ch7-bayes-especificas) —
+[parte 3 de 3: pérdida 0–1] bajo pérdida 0–1 para una cantidad discreta,
+se elige una categoría de máxima masa posterior cuando ese máximo existe
+(aquí como hipótesis `hmoda`): si `v` maximiza `postMass w t ·`, entonces
+`v` minimiza la pérdida esperada `∑_θ w_θ · 1{t_θ ≠ u}`. La prueba es
+la del libro: esa pérdida es `1 − postMass w t u`, de modo que comparar
+pérdidas es comparar masas.
+Fidelidad declarada: `w` es la ley posterior (ídem parte 1); la
+advertencia del libro sobre posteriors continuos sin átomos (la pérdida
+exacta `1{a≠θ}` es uno casi seguramente y no justifica la moda de una
+densidad) no aplica en el caso finito y no se formaliza. La no
+negatividad de `w` no se usa en la prueba; se declara por la lectura
+probabilística (convención del módulo).
+Origen: F-correction 2026-11-07 (nuevo; formalización de pendiente). -/
+theorem cor_ch7_bayes_moda (w : Θ → ℝ) (t : Θ → ℝ)
+    (hw0 : ∀ θ, 0 ≤ w θ) (hw1 : ∑ θ, w θ = 1) (v : ℝ)
+    (hmoda : ∀ a : ℝ, postMass w t a ≤ postMass w t v) :
+    ∀ a : ℝ, ∑ θ, w θ * (if t θ = v then (0:ℝ) else 1)
+      ≤ ∑ θ, w θ * (if t θ = a then (0:ℝ) else 1) := by
+  have hloss : ∀ u : ℝ, ∑ θ, w θ * (if t θ = u then (0:ℝ) else 1)
+      = 1 - postMass w t u := by
+    intro u
+    have h1 : ∀ θ : Θ, w θ * (if t θ = u then (0:ℝ) else 1)
+        = w θ - w θ * (if t θ = u then (1:ℝ) else 0) := by
+      intro θ
+      by_cases h : t θ = u
+      · simp [h]
+      · simp [h]
+    calc ∑ θ, w θ * (if t θ = u then (0:ℝ) else 1)
+        = ∑ θ, (w θ - w θ * (if t θ = u then (1:ℝ) else 0)) :=
+          Finset.sum_congr rfl fun θ _ => h1 θ
+      _ = (∑ θ, w θ) - ∑ θ, w θ * (if t θ = u then (1:ℝ) else 0) := by
+          rw [Finset.sum_sub_distrib]
+      _ = 1 - postMass w t u := by
+          rw [hw1]
+          rfl
+  intro a
+  rw [hloss v, hloss a]
+  linarith [hmoda a]
+
+
 /-! ## thm:ch7-minimax-bayes y thm:ch7-admisibilidad-bayes (parte de #16–#17) -/
 
 /-- book: capitulos/cap02_wald.typ:123 (key: thm:ch7-minimax-bayes) —

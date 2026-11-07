@@ -53,6 +53,10 @@ import Book.Cap07OPE
 #print axioms ssch_minimax_cota
 #print axioms ssch_minimax
 #print axioms ch7_bayes
+#print axioms postMean
+#print axioms cor_ch7_bayes_cuadratica
+#print axioms postMass
+#print axioms cor_ch7_bayes_moda
 #print axioms ch7_minimax_bayes
 #print axioms ch7_minimax_bayes_constante
 #print axioms ch7_admisibilidad_bayes

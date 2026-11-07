@@ -1659,3 +1659,57 @@ check end-to-end.
 Siguientes más accesibles: cor:ch7-bayes-especificas (pérdida
 cuadrática → media posterior, absoluta → mediana; cap02) y el resto
 del bloque MDP.
+
+## 2026-11-07 (t41) — cor:ch7-bayes-especificas: partes 1 (cuadrática) y 3 (moda)
+
+### Entregable
+Primeras dos partes del corollary «Acciones posteriores para pérdidas
+habituales» (cap02:92) en Cap02Wald.lean, formalizadas como teoremas
+independientes con docstring `book:` de la misma clave (patrón
+cor:ch8-pi-finita):
+1. cor_ch7_bayes_cuadratica [parte 1]: bajo pérdida cuadrática escalar,
+   la media posterior m = postMean w t minimiza la pérdida esperada
+   ∑_θ w_θ (t_θ − a)². Prueba: la descomposición del libro,
+   ∑ w (t−a)² − ∑ w (t−m)² = (a−m)² (varianza posterior + distancia
+   cuadrática a la media), vía expansión y linealidad de sumas finitas.
+2. cor_ch7_bayes_moda [parte 3]: bajo pérdida 0–1 para una cantidad
+   discreta, una categoría v de máxima masa posterior (hipótesis hmoda,
+   «cuando ese máximo existe») minimiza ∑_θ w_θ·1{t_θ ≠ u}. Prueba: esa
+   pérdida es 1 − postMass w t u (def nueva), de modo que comparar
+   pérdidas es comparar masas.
+Defs auxiliares públicas: postMean (media posterior), postMass (masa
+posterior de una categoría; noncomputable por Real.decidableEq, como
+bayesPost).
+
+Fidelidad declarada en docstrings: w es la ley posterior ν(dθ|x) — en el
+problema finito, un vector de masas con suma uno; las acciones son
+reales (fuera de la L abstracta del módulo); segundo momento finito y
+existencia del máximo son automáticos por finitud; la advertencia del
+libro sobre posteriors continuos sin átomos no aplica al caso finito; la
+no negatividad de w no se usa en las pruebas (se declara por la lectura
+probabilística, convención del encabezado del módulo).
+
+### Decisiones
+- El kernel NO se toca en esta entrega: lean_anchor valida solo el
+  primer spec Lean de un argumento, así que el estado final correcto es
+  UN teorema-conjunción de las tres partes como único target. Las partes
+  quedan fuera del exporter (precedente ch8_pi_finita_conteo/optimo);
+  el pendiente cor:ch7-bayes-especificas sigue en kernel/pendientes.json
+  hasta completar la parte 2 (mediana), momento en que se añade el
+  wrapper cor_ch7_bayes_especificas con su spec y se retira el
+  pendiente.
+
+### Verificación
+verificar.sh: 9 módulos, **76 declaraciones auditadas** (72 + postMean,
+postMass y las 2 partes), 0 sorry, axiomas [propext, Classical.choice,
+Quot.sound] ×76. Dashboard regenerado (71 teoremas con book:, +2 filas).
+Kernel sin cambios: 45 argumentos, 179 pendientes (la clave
+cor:ch7-bayes-especificas sigue pendiente por su parte 2).
+
+### Pendiente
+Parte 2 (pérdida absoluta → mediana posterior): cualquier mediana
+ponderada m (masa de {t ≤ m} ≥ 1/2 y masa de {t ≥ m} ≥ 1/2) minimiza
+∑_θ w_θ |t_θ − a|; prueba prevista por cota puntual
+|t−a| − |t−m| ≥ (a−m)(1{t ≤ m} − 1{t > m}) y suma. Después: wrapper
+cor_ch7_bayes_especificas (conjunción de las tres partes) + wiring del
+kernel.
