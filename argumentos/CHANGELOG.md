@@ -1,5 +1,29 @@
 # CHANGELOG — argumentos
 
+## F8 — Cierre reproducible (2026-11-06)
+
+- **Pipeline end-to-end completo**: doctor (12 sondas OK) → inventory
+  (23 archivos, 394 bloques) → evidence (6 recibos) → check piloto (6
+  ACEPTADOS, exit 0) → audit (sin discrepancias) → render (6 fichas,
+  determinista) → argue (todos grounded_in, referencia COINCIDE) →
+  check corpus completo (35 PENDIENTE, 0 RECHAZADO, exit 3).
+- **`reports/FINAL.md`**: estado completo del proyecto con cobertura
+  exacta, pendientes explícitos, comandos de uso y límites declarados.
+- **`reports/manifest.json`**: manifiesto JSON con artefactos,
+  herramientas, cobertura y pruebas.
+- **CLI help**: 8 subcomandos documentados (doctor, inventory, check,
+  evidence, render, audit, argue, propose) con exit codes contractuales.
+- **Recuperación**: `cargo build --locked --offline` verificado tras
+  materializar dependencias.
+
+**Estados**: SOFTWARE_READY ✓ · CORPUS_INDEXED ✓ (218/219) ·
+PILOT_VERIFIED ✓ (6 claims end-to-end) · CORPUS_CLOSED **NO** (184
+pendientes explícitos).
+
+Puerta F8: suite (65 tests) ✓ · lint (fmt + clippy -D warnings) ✓ ·
+offline ✓ · end-to-end ✓ · FINAL.md ✓ · manifest ✓ · CLI help ✓.
+**PASSED.**
+
 ## F7 — Migración integral (2026-11-06)
 
 - **Inventario completo**: 394 bloques `thm-env` del libro (23 archivos,

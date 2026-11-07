@@ -1544,3 +1544,22 @@ checker: 35 PENDIENTE (sin recibo), 0 RECHAZADO, exit 3. Cobertura
 
 ### Pendiente
 F8 (cierre reproducible) — última fase. Commits locales, sin push.
+
+## 2026-11-06 (t36) — Argumentos F8: cierre reproducible — PROYECTO COMPLETO
+
+### Entregable
+Pipeline end-to-end completo (doctor→inventory→evidence→check→audit→
+render→argue→check-corpus): todos los pasos ejecutados y registrados.
+FINAL.md con cobertura exacta (218/219 claims, 35/219 con Lean, 184
+pendientes), comandos de uso y límites declarados. Manifest JSON con
+artefactos y herramientas. CLI help para 8 subcomandos.
+
+### Verificación
+SOFTWARE_READY (65 tests, fmt, clippy, offline) + CORPUS_INDEXED (394
+bloques, 219 objetivos, 218 en kernel) + PILOT_VERIFIED (6 claims
+end-to-end: 5 LeanChecked + 1 Reproduced). CORPUS_CLOSED = NO (184
+pendientes explícitos). Puerta F8 PASSED.
+
+### Estado final
+Las nueve fases del plan F0-F8 están completas con sus puertas pasadas
+y commiteadas localmente (eb4832e → este commit). Sin push.
