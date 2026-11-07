@@ -40,14 +40,6 @@
   "proxima_accion": "Formalizar o mantener pendiente"
  },
  {
-  "claim_id": "C.prop:ch8-VQ",
-  "book_key": "prop:ch8-VQ",
-  "reason_code": "NO_FORMAL_PROOF",
-  "fuente": "capitulos/cap03_mdp.typ (proposition: Relación entre valores)",
-  "impacto": "Sin respaldo formal",
-  "proxima_accion": "Formalizar o mantener pendiente"
- },
- {
   "claim_id": "C.prop:ch8-acotacion",
   "book_key": "prop:ch8-acotacion",
   "reason_code": "NO_FORMAL_PROOF",
@@ -1464,11 +1456,11 @@
   "proxima_accion": "Formalizar o mantener pendiente"
  },
  {
-  "claim_id": "C.unnamed.example.183",
+  "claim_id": "C.unnamed.example.182",
   "book_key": "",
   "reason_code": "SEMANTIC_MAPPING_UNRESOLVED",
   "fuente": "capitulos/cap04_herramientas.typ (sin key)",
-  "impacto": "Bloque sin clave",
-  "proxima_accion": "Asignar clave o descartar"
+  "impacto": "Sin clave",
+  "proxima_accion": "Asignar clave"
  }
 ]

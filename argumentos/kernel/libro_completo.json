@@ -3057,7 +3057,7 @@
    "id": "C.cap11-cuantizacion",
    "book_key": "cap11-cuantizacion",
    "kind": "formal",
-   "statement": "Verificado en Lean (ch11_cuantizacion_ejemplo); sin bloque thm-env en el libro",
+   "statement": "Verificado en Lean (ch11_cuantizacion_ejemplo)",
    "expression": {
     "op": "atom",
     "id": "cap11-cuantizacion"
@@ -3071,7 +3071,7 @@
    "id": "C.cap11-truncamiento",
    "book_key": "cap11-truncamiento",
    "kind": "formal",
-   "statement": "Verificado en Lean (ch11_truncamiento); sin bloque thm-env en el libro",
+   "statement": "Verificado en Lean (ch11_truncamiento)",
    "expression": {
     "op": "atom",
     "id": "cap11-truncamiento"
@@ -3085,7 +3085,7 @@
    "id": "C.cap11-monitoreo",
    "book_key": "cap11-monitoreo",
    "kind": "formal",
-   "statement": "Verificado en Lean (ch11_monitoreo); sin bloque thm-env en el libro",
+   "statement": "Verificado en Lean (ch11_monitoreo)",
    "expression": {
     "op": "atom",
     "id": "cap11-monitoreo"
@@ -3099,7 +3099,7 @@
    "id": "C.def:appE-mdp-test",
    "book_key": "def:appE-mdp-test",
    "kind": "formal",
-   "statement": "Verificado en Lean (ch11_mdp_validacion); sin bloque thm-env en el libro",
+   "statement": "Verificado en Lean (ch11_mdp_validacion)",
    "expression": {
     "op": "atom",
     "id": "def:appE-mdp-test"
@@ -3113,7 +3113,7 @@
    "id": "C.cap11-margen",
    "book_key": "cap11-margen",
    "kind": "formal",
-   "statement": "Verificado en Lean (ch11_margen_elemental); sin bloque thm-env en el libro",
+   "statement": "Verificado en Lean (ch11_margen_elemental)",
    "expression": {
     "op": "atom",
     "id": "cap11-margen"
@@ -3168,6 +3168,15 @@
    "rule": "LEAN_ANCHOR",
    "evidence_specs": [
     "E.ex:ssch-cap07"
+   ]
+  },
+  {
+   "id": "A.prop:ch8-VQ",
+   "conclusion": "C.prop:ch8-VQ",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.prop:ch8-VQ"
    ]
   },
   {
@@ -3541,6 +3550,18 @@
    "claim_id": "C.ex:ssch-cap07",
    "runner_id": "lean-export",
    "target": "ssch_minimax_riesgos",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.prop:ch8-VQ",
+   "kind": "lean",
+   "claim_id": "C.prop:ch8-VQ",
+   "runner_id": "lean-export",
+   "target": "prop_ch8_VQ",
    "scope": {
     "domain": "finite",
     "lean_axioms": "propext,Classical.choice,Quot.sound"

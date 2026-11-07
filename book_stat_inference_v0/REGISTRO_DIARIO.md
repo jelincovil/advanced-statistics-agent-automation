@@ -1583,3 +1583,23 @@ exit 3. El checker del corpus completo está en verde.
 ### Estado CORPUS_CLOSED
 40/223 = 18% verificado. 183 pendientes NO_FORMAL_PROOF + 1
 SEMANTIC_MAPPING_UNRESOLVED. Avance significativo pero NO cerrado.
+
+## 2026-11-06 (t38) — Formalización de pendiente: prop:ch8-VQ
+
+### Entregable
+Primer teorema del canon formalizado desde los 183 pendientes:
+`prop_ch8_VQ` (Relación entre valores, cap03_mdp.typ:44) — define
+`Qpi` (valor-acción) y prueba que `V^π(s) = Q^π(s, π(s))` para política
+determinista, usando la ecuación de Bellman (`Vpi_fix`). Con
+`prop_ch8_acotacion` (Acotación) intentado pero no cerrado — la prueba
+requiere la desigualdad del triángulo para series infinitas o el
+argumento del punto fijo de la cota, que no se completó en este turno.
+
+### Verificación
+verificar.sh: 9 módulos, **68 teoremas** (66 + Qpi + prop_ch8_VQ), 0
+sorry, axiomas limpios. Kernel: 41 argumentos, todos ACEPTADOS (exit 0).
+Pendientes: 183 (una menos: prop:ch8-VQ formalizado).
+
+### Pendiente
+prop_ch8_acotacion (acotación del valor por serie geométrica) y los 182
+pendientes restantes.

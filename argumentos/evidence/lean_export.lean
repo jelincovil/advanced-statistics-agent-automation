@@ -65,6 +65,7 @@ def objetivos : List Name := [
   `ex_ch9_fallo_mixing,
   `ex_ch9_fallo_overlap,
   `ex_ch9_observabilidad_parcial,
+  `prop_ch8_VQ,
   `ssch_mdp_bellman,
   `ssch_minimax_riesgos,
   `ssch_regla_ordinario

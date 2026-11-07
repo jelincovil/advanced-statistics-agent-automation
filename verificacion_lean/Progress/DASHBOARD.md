@@ -1,6 +1,6 @@
 # DASHBOARD — verificacion_lean
 
-Generado por `Progress/gen_dashboard.py` el 2026-11-06 desde `Book/*.lean` y `build/axioms.log`. No editar a mano.
+Generado por `Progress/gen_dashboard.py` el 2026-11-07 desde `Book/*.lean` y `build/axioms.log`. No editar a mano.
 
 ## Teoremas verificados
 
@@ -18,6 +18,7 @@ Generado por `Progress/gen_dashboard.py` el 2026-11-06 desde `Book/*.lean` y `bu
 | `ch8_contraccion` (`Cap03MDP.lean`) | `thm:ch8-contraccion` @ capitulos/cap03_mdp.typ:82 | ? | `propext, Classical.choice, Quot.sound` | OK |
 | `ch8_punto_fijo_unico` (`Cap03MDP.lean`) | `cor:ch8-punto-fijo` @ capitulos/cap03_mdp.typ:89 | ? | `propext, Classical.choice, Quot.sound` | OK |
 | `ch8_parada` (`Cap03MDP.lean`) | `cor:ch8-parada` @ capitulos/cap03_mdp.typ:107 | ? | `propext, Classical.choice, Quot.sound` | OK |
+| `prop_ch8_VQ` (`Cap03MDP.lean`) | `prop:ch8-VQ` @ capitulos/cap03_mdp.typ:44 | F-correction 2026-11-06 (nuevo; formalización de pendiente). -/ | `propext, Classical.choice, Quot.sound` | OK |
 | `ch9_isomorfismo` (`Cap05Representacion.lean`) | `thm:ch9-isomorfismo` @ capitulos/cap05_incrustacion.typ:41 | piloto 2026-11-03 (m_repr) | `propext, Classical.choice, Quot.sound` | OK |
 | `ch9_bayes` (`Cap05Representacion.lean`) | `cor:ch9-bayes` @ capitulos/cap05_incrustacion.typ:143 | piloto 2026-11-03 (m_bayes) | `propext, Classical.choice, Quot.sound` | OK |
 | `ch9_admisibilidad` (`Cap05Representacion.lean`) | `thm:ch9-admisibilidad` @ capitulos/cap05_incrustacion.typ:136 | piloto 2026-11-03 (m_admis) | `propext, Classical.choice, Quot.sound` | OK |

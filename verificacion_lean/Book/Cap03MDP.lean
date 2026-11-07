@@ -868,4 +868,34 @@ theorem ch8_parada (π : S → A) (V W : S → ℝ)
         _ ≤ 2 * γ * e :=
             mul_le_mul_of_nonneg_left h1 (by linarith : (0:ℝ) ≤ 2 * γ)
     exact hkey
+
+
+/-! ### Formalización de pendientes del canon (prop:ch8-VQ, prop:ch8-acotacion) -/
+
+/-- book: capitulos/cap03_mdp.typ:44 (key: prop:ch8-VQ) —
+valor-acción de una política determinista: `Q^π(s,a) = r(s,a) + γ·Σ_{s'} P(s'|s,a)·V^π(s')`.
+Definición auxiliar para la relación V-Q del libro.
+Origen: F-correction 2026-11-06 (nuevo; formalización de pendiente). -/
+noncomputable def Qpi (π : S → A) (s : S) (a : A) : ℝ :=
+  r s a + γ * ∑ s', P s a s' * Vpi r P γ π s'
+
+/-- book: capitulos/cap03_mdp.typ:44 (key: prop:ch8-VQ) —
+relación entre valores: para una política determinista,
+`V^π(s) = Q^π(s, π(s))`. La segunda identidad del libro
+(`V^π(s) = Σ_a π(a|s)·Q^π(s,a)`) se reduce a `Q^π(s,π(s))` en el caso
+determinista. La prueba es la ecuación de Bellman `Vpi_fix`.
+Fidelidad declarada: versión con política determinista (la suma sobre
+acciones de una política estocástica no se formaliza aquí).
+Origen: F-correction 2026-11-06 (nuevo; formalización de pendiente). -/
+theorem prop_ch8_VQ (π : S → A)
+    (hP0 : ∀ s a s', 0 ≤ P s a s') (hP1 : ∀ s a, ∑ s', P s a s' = 1)
+    (hγ0 : 0 ≤ γ) (hγ1 : γ < 1) (s : S) :
+    Qpi r P γ π s (π s) = r s (π s) + γ * ∑ s', P s (π s) s' * Vpi r P γ π s'
+    ∧ Vpi r P γ π s = Qpi r P γ π s (π s) := by
+  refine ⟨rfl, ?_⟩
+  -- V^π = T^π V^π (Bellman) = r^π + γ·mvec(P^π, V^π) = Q^π(s, π(s))
+  exact Vpi_fix r P γ π hP0 hP1 hγ0 hγ1 s
+
+
+
 end MDP

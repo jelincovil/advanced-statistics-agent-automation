@@ -1,0 +1,35 @@
+{
+  "schema_version": "1.0",
+  "id": "R.E.prop:ch8-VQ",
+  "spec_id": "E.prop:ch8-VQ",
+  "spec_hash": "03644bbf0b7a0ce36e4dd6d3331a5eb74a9bb2f80d90940e712bb811367936e8",
+  "source_commit": "local",
+  "environment_hash": "764747396ccef380adb643c5febece719ae43fda3c94eeef490b251429f629a7",
+  "checker_version": "0.1.0",
+  "command_argv": [
+    "lean",
+    "argumentos/evidence/lean_export.lean"
+  ],
+  "working_directory": "..",
+  "input_hashes": {
+    "lean_export.lean": "fbd7eaf9f1e80aa2ffa971505f6070a33a091bd267c57500ca8da5f36eeecd1a",
+    "ssch_bayes_racional.py": "af949182cb60e7cfc146980a08e7b97e6ebc11ac52afa6858de41c10dcc55cfb"
+  },
+  "started_at": "2026-11-07T20:52:55Z",
+  "finished_at": "2026-11-07T20:52:55Z",
+  "exit_status": 0,
+  "termination": "completed",
+  "stdout_sha256": "7bbd8ed15f949d9d1e1533d5d84981473aa9bd2d67dcc471aba7ce1e6d4c23d5",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "artifacts": [],
+  "execution_passed": true,
+  "scientific_criterion_met": true,
+  "observed_checks": [
+    {
+      "id": "target_encontrado:prop_ch8_VQ",
+      "status": "pass",
+      "detail": "3 axiomas, 29 dependencias"
+    }
+  ],
+  "trust_mode": "locally_reproduced"
+}

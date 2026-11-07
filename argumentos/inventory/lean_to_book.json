@@ -38,5 +38,6 @@
  "cap11-margen": "ch11_margen_elemental",
  "ex:ssch-cap09": "ssch_regla_ordinario",
  "ex:ssch-cap07": "ssch_minimax_riesgos",
- "ex:ssch-cap08": "ssch_mdp_bellman"
+ "ex:ssch-cap08": "ssch_mdp_bellman",
+ "prop:ch8-VQ": "prop_ch8_VQ"
 }

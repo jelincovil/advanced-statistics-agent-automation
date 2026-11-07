@@ -31,6 +31,8 @@ import Book.Cap07OPE
 #print axioms ch8_contraccion
 #print axioms ch8_punto_fijo_unico
 #print axioms ch8_parada
+#print axioms Qpi
+#print axioms prop_ch8_VQ
 #print axioms ch10_curse
 #print axioms ch10_curse_ejemplo
 #print axioms ssch_regla_ordinario
