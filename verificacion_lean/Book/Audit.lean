@@ -55,8 +55,10 @@ import Book.Cap07OPE
 #print axioms ch7_bayes
 #print axioms postMean
 #print axioms cor_ch7_bayes_cuadratica
+#print axioms cor_ch7_bayes_mediana
 #print axioms postMass
 #print axioms cor_ch7_bayes_moda
+#print axioms cor_ch7_bayes_especificas
 #print axioms ch7_minimax_bayes
 #print axioms ch7_minimax_bayes_constante
 #print axioms ch7_admisibilidad_bayes

@@ -16,14 +16,6 @@
   "proxima_accion": "Formalizar o mantener pendiente"
  },
  {
-  "claim_id": "C.cor:ch7-bayes-especificas",
-  "book_key": "cor:ch7-bayes-especificas",
-  "reason_code": "NO_FORMAL_PROOF",
-  "fuente": "capitulos/cap02_wald.typ (corollary: Acciones posteriores para pérdidas habituales)",
-  "impacto": "Sin respaldo formal",
-  "proxima_accion": "Formalizar o mantener pendiente"
- },
- {
   "claim_id": "C.ex:ch2-bernoulli-minimax",
   "book_key": "ex:ch2-bernoulli-minimax",
   "reason_code": "NO_FORMAL_PROOF",
@@ -1424,7 +1416,7 @@
   "proxima_accion": "Formalizar o mantener pendiente"
  },
  {
-  "claim_id": "C.unnamed.example.178",
+  "claim_id": "C.unnamed.example.177",
   "book_key": "",
   "reason_code": "SEMANTIC_MAPPING_UNRESOLVED",
   "fuente": "capitulos/cap04_herramientas.typ (sin key)",

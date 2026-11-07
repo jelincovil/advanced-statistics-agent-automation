@@ -8,7 +8,9 @@ Generado por `Progress/gen_dashboard.py` el 2026-11-07 desde `Book/*.lean` y `bu
 |---|---|---|---|---|
 | `ch7_bayes` (`Cap02Wald.lean`) | `thm:ch7-bayes` @ capitulos/cap02_wald.typ:83 | F2 2026-11-05 (nuevo) | `propext, Classical.choice, Quot.sound` | OK |
 | `cor_ch7_bayes_cuadratica` (`Cap02Wald.lean`) | `cor:ch7-bayes-especificas` @ capitulos/cap02_wald.typ:92 | F-correction 2026-11-07 (nuevo; formalización de pendiente) | `propext, Classical.choice, Quot.sound` | OK |
+| `cor_ch7_bayes_mediana` (`Cap02Wald.lean`) | `cor:ch7-bayes-especificas` @ capitulos/cap02_wald.typ:92 | F-correction 2026-11-07 (nuevo; formalización de pendiente) | `propext, Classical.choice, Quot.sound` | OK |
 | `cor_ch7_bayes_moda` (`Cap02Wald.lean`) | `cor:ch7-bayes-especificas` @ capitulos/cap02_wald.typ:92 | F-correction 2026-11-07 (nuevo; formalización de pendiente) | `propext, Classical.choice, Quot.sound` | OK |
+| `cor_ch7_bayes_especificas` (`Cap02Wald.lean`) | `cor:ch7-bayes-especificas` @ capitulos/cap02_wald.typ:92 | F-correction 2026-11-07 (nuevo; formalización de pendiente) | `propext, Classical.choice, Quot.sound` | OK |
 | `ch7_minimax_bayes` (`Cap02Wald.lean`) | `thm:ch7-minimax-bayes` @ capitulos/cap02_wald.typ:123 | F2 2026-11-05 (nuevo) | `propext, Classical.choice, Quot.sound` | OK |
 | `ch7_minimax_bayes_constante` (`Cap02Wald.lean`) | `thm:ch7-minimax-bayes` @ capitulos/cap02_wald.typ:123 | ? | `propext, Classical.choice, Quot.sound` | OK |
 | `ch7_admisibilidad_bayes` (`Cap02Wald.lean`) | `thm:ch7-admisibilidad-bayes` @ capitulos/cap02_wald.typ:101 | ? | `propext, Classical.choice, Quot.sound` | OK |

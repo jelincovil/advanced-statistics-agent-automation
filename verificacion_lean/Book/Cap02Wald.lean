@@ -306,6 +306,166 @@ theorem cor_ch7_bayes_cuadratica (w : Θ → ℝ) (t : Θ → ℝ)
   have h2 : (0:ℝ) ≤ (a - postMean w t) ^ 2 := sq_nonneg _
   linarith
 
+/-- Cota puntual (base no enunciada), flanco inferior: con `m ≤ a` y
+`x ≤ m`, la pérdida absoluta en `a` supera a la de `m` en al menos
+`a − m`. -/
+private theorem abs_sub_abs_le_of_le (x m a : ℝ) (hma : m ≤ a) (hxm : x ≤ m) :
+    |x - a| - |x - m| ≥ a - m := by
+  have h1 : |x - a| = a - x := by
+    rw [abs_of_nonpos (by linarith)]
+    ring
+  have h2 : |x - m| = m - x := by
+    rw [abs_of_nonpos (by linarith)]
+    ring
+  rw [h1, h2]
+  linarith
+
+/-- Cota puntual (base no enunciada), flanco superior: con `m ≤ a` y
+`m < x`, la pérdida absoluta en `a` no baja de la de `m` en más de
+`a − m`. -/
+private theorem abs_sub_abs_ge_of_gt (x m a : ℝ) (hma : m ≤ a) (hxm : m < x) :
+    |x - a| - |x - m| ≥ -(a - m) := by
+  have h2 : |x - m| = x - m := abs_of_nonneg (by linarith)
+  by_cases hxa : a ≤ x
+  · have h1 : |x - a| = x - a := abs_of_nonneg (by linarith)
+    rw [h1, h2]
+    linarith
+  · have h1 : |x - a| = a - x := by
+      rw [abs_of_nonpos (by linarith)]
+      ring
+    rw [h1, h2]
+    linarith
+
+/-- Caso `m ≤ a` de la optimalidad de la mediana (base no enunciada):
+la masa del flanco `t ≤ m` es al menos la del flanco `t > m` (mediana),
+y la cota puntual ponderada cierra la comparación de pérdidas. -/
+private theorem mediana_ge (w : Θ → ℝ) (t : Θ → ℝ) (m a : ℝ)
+    (hw0 : ∀ θ, 0 ≤ w θ) (hw1 : ∑ θ, w θ = 1) (hma : m ≤ a)
+    (hWm : 1 / 2 ≤ ∑ θ, w θ * (if t θ ≤ m then (1:ℝ) else 0)) :
+    ∑ θ, w θ * |t θ - m| ≤ ∑ θ, w θ * |t θ - a| := by
+  have hdich : (∑ θ, w θ * (if t θ ≤ m then (1:ℝ) else 0))
+      + (∑ θ, w θ * (if t θ ≤ m then (0:ℝ) else 1)) = 1 := by
+    have h1 : ∀ θ : Θ, w θ * (if t θ ≤ m then (1:ℝ) else 0)
+        + w θ * (if t θ ≤ m then (0:ℝ) else 1) = w θ := by
+      intro θ
+      by_cases hx : t θ ≤ m
+      · simp [hx]
+      · simp [hx]
+    calc (∑ θ, w θ * (if t θ ≤ m then (1:ℝ) else 0))
+        + (∑ θ, w θ * (if t θ ≤ m then (0:ℝ) else 1))
+        = ∑ θ, (w θ * (if t θ ≤ m then (1:ℝ) else 0)
+            + w θ * (if t θ ≤ m then (0:ℝ) else 1)) := by
+          rw [← Finset.sum_add_distrib]
+      _ = ∑ θ, w θ := Finset.sum_congr rfl fun θ _ => h1 θ
+      _ = 1 := hw1
+  have hpt : ∀ θ : Θ, w θ * |t θ - m| + (a - m) * (w θ
+      * (if t θ ≤ m then (1:ℝ) else 0)
+      - w θ * (if t θ ≤ m then (0:ℝ) else 1)) ≤ w θ * |t θ - a| := by
+    intro θ
+    by_cases hx : t θ ≤ m
+    · have hb := abs_sub_abs_le_of_le (t θ) m a hma hx
+      have hmul := mul_le_mul_of_nonneg_left hb (hw0 θ)
+      rw [mul_sub] at hmul
+      simp only [if_pos hx, mul_one, mul_zero, sub_zero]
+      have hcm : (a - m) * w θ = w θ * (a - m) := mul_comm _ _
+      rw [hcm]
+      linarith
+    · have hb := abs_sub_abs_ge_of_gt (t θ) m a hma (by linarith)
+      have hmul := mul_le_mul_of_nonneg_left hb (hw0 θ)
+      rw [mul_sub] at hmul
+      simp only [if_neg hx, mul_zero, mul_one, zero_sub]
+      have hcm : (a - m) * (-w θ) = -(w θ * (a - m)) := by ring
+      rw [hcm]
+      linarith
+  have hsplit : (a - m) * ((∑ θ, w θ * (if t θ ≤ m then (1:ℝ) else 0))
+      - (∑ θ, w θ * (if t θ ≤ m then (0:ℝ) else 1)))
+      = ∑ θ, (a - m) * (w θ * (if t θ ≤ m then (1:ℝ) else 0)
+        - w θ * (if t θ ≤ m then (0:ℝ) else 1)) := by
+    rw [← Finset.sum_sub_distrib, Finset.mul_sum]
+  have hsum : (∑ θ, w θ * |t θ - m|)
+      + ((a - m) * ((∑ θ, w θ * (if t θ ≤ m then (1:ℝ) else 0))
+        - (∑ θ, w θ * (if t θ ≤ m then (0:ℝ) else 1))))
+      ≤ ∑ θ, w θ * |t θ - a| := by
+    calc (∑ θ, w θ * |t θ - m|)
+        + ((a - m) * ((∑ θ, w θ * (if t θ ≤ m then (1:ℝ) else 0))
+          - (∑ θ, w θ * (if t θ ≤ m then (0:ℝ) else 1))))
+        = (∑ θ, w θ * |t θ - m|)
+          + ∑ θ, ((a - m) * (w θ * (if t θ ≤ m then (1:ℝ) else 0)
+            - w θ * (if t θ ≤ m then (0:ℝ) else 1))) := by rw [hsplit]
+      _ = ∑ θ, (w θ * |t θ - m|
+          + (a - m) * (w θ * (if t θ ≤ m then (1:ℝ) else 0)
+            - w θ * (if t θ ≤ m then (0:ℝ) else 1))) := by
+          rw [← Finset.sum_add_distrib]
+      _ ≤ ∑ θ, w θ * |t θ - a| := Finset.sum_le_sum fun θ _ => hpt θ
+  have hnn : (0:ℝ) ≤ (a - m) * ((∑ θ, w θ * (if t θ ≤ m then (1:ℝ) else 0))
+      - (∑ θ, w θ * (if t θ ≤ m then (0:ℝ) else 1))) := by
+    have h1 : (0:ℝ) ≤ a - m := by linarith
+    have h2 : (0:ℝ) ≤ (∑ θ, w θ * (if t θ ≤ m then (1:ℝ) else 0))
+        - (∑ θ, w θ * (if t θ ≤ m then (0:ℝ) else 1)) := by
+      linarith
+    exact mul_nonneg h1 h2
+  linarith
+
+/-- Caso `a ≤ m` de la optimalidad de la mediana (base no enunciada),
+derivado del caso `m ≤ a` volteando signos: `(t, m, a) ↦ (−t, −m, −a)`
+intercambia los flancos y las condiciones de mediana. -/
+private theorem mediana_le (w : Θ → ℝ) (t : Θ → ℝ) (m a : ℝ)
+    (hw0 : ∀ θ, 0 ≤ w θ) (hw1 : ∑ θ, w θ = 1) (ham : a ≤ m)
+    (hWm : 1 / 2 ≤ ∑ θ, w θ * (if m ≤ t θ then (1:ℝ) else 0)) :
+    ∑ θ, w θ * |t θ - m| ≤ ∑ θ, w θ * |t θ - a| := by
+  have hconv : ∀ θ : Θ, w θ * (if (-t θ) ≤ (-m) then (1:ℝ) else 0)
+      = w θ * (if m ≤ t θ then (1:ℝ) else 0) := by
+    intro θ
+    by_cases hx : m ≤ t θ
+    · have hn : (-t θ) ≤ (-m) := by linarith
+      rw [if_pos hn, if_pos hx]
+    · have hn : ¬((-t θ) ≤ (-m)) := by
+        intro hcontra
+        exact hx (by linarith)
+      rw [if_neg hn, if_neg hx]
+  have hflip : 1 / 2 ≤ ∑ θ, w θ * (if (-t θ) ≤ (-m) then (1:ℝ) else 0) := by
+    calc 1 / 2 ≤ ∑ θ, w θ * (if m ≤ t θ then (1:ℝ) else 0) := hWm
+      _ = ∑ θ, w θ * (if (-t θ) ≤ (-m) then (1:ℝ) else 0) :=
+          Finset.sum_congr rfl fun θ _ => (hconv θ).symm
+  have h := mediana_ge w (fun θ => -t θ) (-m) (-a) hw0 hw1 (by linarith) hflip
+  have h1 : ∀ θ : Θ, w θ * |(-t θ) - (-m)| = w θ * |t θ - m| := by
+    intro θ
+    have e : (-t θ) - (-m) = -(t θ - m) := by ring
+    rw [e, abs_neg]
+  have h2 : ∀ θ : Θ, w θ * |(-t θ) - (-a)| = w θ * |t θ - a| := by
+    intro θ
+    have e : (-t θ) - (-a) = -(t θ - a) := by ring
+    rw [e, abs_neg]
+  calc ∑ θ, w θ * |t θ - m|
+      = ∑ θ, w θ * |(-t θ) - (-m)| :=
+        Finset.sum_congr rfl fun θ _ => (h1 θ).symm
+    _ ≤ ∑ θ, w θ * |(-t θ) - (-a)| := h
+    _ = ∑ θ, w θ * |t θ - a| := Finset.sum_congr rfl fun θ _ => h2 θ
+
+/-- book: capitulos/cap02_wald.typ:92 (key: cor:ch7-bayes-especificas) —
+[parte 2 de 3: pérdida absoluta] bajo pérdida absoluta y primer momento
+posterior finito (automático por finitud), cualquier mediana posterior
+es óptima: si `m` satisface las dos condiciones de mediana ponderada
+(masa de `{t ≤ m}` ≥ 1/2 y masa de `{t ≥ m}` ≥ 1/2), entonces `m`
+minimiza `∑_θ w_θ |t_θ − a|`. Prueba (la del libro: «la condición de
+mediana caracteriza el mínimo de la pérdida absoluta»): cota puntual
+`|t−a| − |t−m| ≥ ±(a−m)` según el flanco de `t_θ` respecto de `m`,
+ponderada por pesos no negativos y sumada; la condición de mediana da
+al flanco cercano masa al menos la del lejano.
+Fidelidad declarada: `w` es la ley posterior (ídem parte 1); mediana
+ponderada en el sentido estándar (dos desigualdades de masa). Aquí sí se
+usa la no negatividad de `w` (para ponderar la cota puntual).
+Origen: F-correction 2026-11-07 (nuevo; formalización de pendiente). -/
+theorem cor_ch7_bayes_mediana (w : Θ → ℝ) (t : Θ → ℝ)
+    (hw0 : ∀ θ, 0 ≤ w θ) (hw1 : ∑ θ, w θ = 1) (m : ℝ)
+    (hmed : 1 / 2 ≤ ∑ θ, w θ * (if t θ ≤ m then (1:ℝ) else 0)
+      ∧ 1 / 2 ≤ ∑ θ, w θ * (if m ≤ t θ then (1:ℝ) else 0)) :
+    ∀ a : ℝ, ∑ θ, w θ * |t θ - m| ≤ ∑ θ, w θ * |t θ - a| := by
+  intro a
+  by_cases ham : a ≤ m
+  · exact mediana_le w t m a hw0 hw1 ham hmed.2
+  · exact mediana_ge w t m a hw0 hw1 (by linarith) hmed.1
+
 /-- Masa posterior de la categoría real `u` bajo los pesos `w`: suma de
 los pesos de los parámetros con `t θ = u` (pérdida 0–1). -/
 noncomputable def postMass (w : Θ → ℝ) (t : Θ → ℝ) (u : ℝ) : ℝ :=
@@ -350,6 +510,31 @@ theorem cor_ch7_bayes_moda (w : Θ → ℝ) (t : Θ → ℝ)
   intro a
   rw [hloss v, hloss a]
   linarith [hmoda a]
+
+/-- book: capitulos/cap02_wald.typ:92 (key: cor:ch7-bayes-especificas) —
+conjunción de las tres partes del corolario (ancla del kernel): bajo
+pérdida cuadrática la media posterior `postMean w t` minimiza; bajo
+pérdida absoluta cualquier mediana `m` (hmed) minimiza; bajo pérdida 0–1
+una categoría de máxima masa `v` (hmoda, cuando el máximo existe)
+minimiza. Es el teorema único que cubre la clave; las tres partes
+ (`cor_ch7_bayes_cuadratica`, `cor_ch7_bayes_mediana`,
+`cor_ch7_bayes_moda`) se enuncian por separado con la misma clave.
+Fidelidad declarada: la de las tres partes (ídem sus docstrings); `w` es
+la ley posterior en el problema finito.
+Origen: F-correction 2026-11-07 (nuevo; formalización de pendiente). -/
+theorem cor_ch7_bayes_especificas (w : Θ → ℝ) (t : Θ → ℝ)
+    (hw0 : ∀ θ, 0 ≤ w θ) (hw1 : ∑ θ, w θ = 1) (m v : ℝ)
+    (hmed : 1 / 2 ≤ ∑ θ, w θ * (if t θ ≤ m then (1:ℝ) else 0)
+      ∧ 1 / 2 ≤ ∑ θ, w θ * (if m ≤ t θ then (1:ℝ) else 0))
+    (hmoda : ∀ a : ℝ, postMass w t a ≤ postMass w t v) :
+    (∀ a : ℝ, ∑ θ, w θ * (t θ - postMean w t) ^ 2
+      ≤ ∑ θ, w θ * (t θ - a) ^ 2)
+    ∧ (∀ a : ℝ, ∑ θ, w θ * |t θ - m| ≤ ∑ θ, w θ * |t θ - a|)
+    ∧ (∀ a : ℝ, ∑ θ, w θ * (if t θ = v then (0:ℝ) else 1)
+      ≤ ∑ θ, w θ * (if t θ = a then (0:ℝ) else 1)) :=
+  ⟨cor_ch7_bayes_cuadratica w t hw0 hw1,
+    cor_ch7_bayes_mediana w t hw0 hw1 m hmed,
+    cor_ch7_bayes_moda w t hw0 hw1 v hmoda⟩
 
 
 /-! ## thm:ch7-minimax-bayes y thm:ch7-admisibilidad-bayes (parte de #16–#17) -/

@@ -1713,3 +1713,47 @@ ponderada m (masa de {t ≤ m} ≥ 1/2 y masa de {t ≥ m} ≥ 1/2) minimiza
 |t−a| − |t−m| ≥ (a−m)(1{t ≤ m} − 1{t > m}) y suma. Después: wrapper
 cor_ch7_bayes_especificas (conjunción de las tres partes) + wiring del
 kernel.
+
+## 2026-11-07 (t42) — cor:ch7-bayes-especificas COMPLETO: mediana + ancla del kernel
+
+### Entregable
+Cierre del corollary «Acciones posteriores para pérdidas habituales»
+(cap02:92), completando la parte 2 y anclando la clave completa:
+1. cor_ch7_bayes_mediana [parte 2]: bajo pérdida absoluta, cualquier
+   mediana ponderada m (masa de {t ≤ m} ≥ 1/2 y masa de {t ≥ m} ≥ 1/2)
+   minimiza ∑_θ w_θ |t_θ − a|. Prueba: cota puntual
+   |t−a| − |t−m| ≥ ±(a−m) según el flanco de t_θ respecto de m
+   (lemas privados abs_sub_abs_le_of_le / abs_sub_abs_ge_of_gt, vía
+   abs_of_nonpos + ring — abs_of_nonneg NO aplica con valor
+   negativo), ponderada por w ≥ 0 (aquí sí se usa la no negatividad) y
+   sumada; la condición de mediana da masa del flanco cercano ≥ la del
+   lejano (dicotomía puntual de las masas). Caso a ≤ m derivado del caso
+   m ≤ a volteando signos ((t,m,a) ↦ (−t,−m,−a)), que intercambia
+   flancos y condiciones de mediana (mediana_le).
+2. cor_ch7_bayes_especificas [ancla]: conjunción de las tres partes
+   (cuadrática → media, absoluta → mediana, 0–1 → moda) en un solo
+   enunciado. Es el target único del kernel: lean_anchor valida solo el
+   primer spec Lean de un argumento, así que la cobertura de la clave
+   exige un teorema que contenga las tres afirmaciones.
+
+### Wiring del kernel
+A.cor:ch7-bayes-especificas (LEAN_ANCHOR) + E.cor:ch7-bayes-especificas
+(target cor_ch7_bayes_especificas) insertados en posición de libro
+(después de thm:ch7-bayes, cap02:83 < cap02:92); pendiente retirado;
+sin-clave renumerado 178 → 177; exporter 46 targets; lean_to_book
+actualizado. Las tres partes quedan fuera del exporter (patrón
+ch8_pi_finita): el ancla es la conjunción.
+
+### Verificación
+verificar.sh: 9 módulos, **78 declaraciones auditadas** (76 +
+cor_ch7_bayes_mediana, cor_ch7_bayes_especificas), 0 sorry, axiomas
+[propext, Classical.choice, Quot.sound] ×78. Dashboard: 73 teoremas con
+book: (+2 filas). Kernel: **46 argumentos** (todos ACEPTADOS, exit 0),
+**178 pendientes** (−1; 95 formal + 82 empirical + 1 sin clave).
+Puertas: fmt, clippy −D warnings, 65 tests, evidence/check end-to-end.
+
+### Pendiente
+178 pendientes restantes. Del bloque cap02, los siguientes más
+accesibles por infraestructura existente: ex:ch7-james-stein (riesgo
+p−(p−2)²·E[1/‖X‖²] < p — requiere gaussiana p-dimensional, más pesado) y
+ex:ch7-perdidas (ejemplos de pérdidas).
