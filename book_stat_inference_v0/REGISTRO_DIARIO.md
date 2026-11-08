@@ -1785,3 +1785,33 @@ Quot.sound] ×79. Dashboard: 74 teoremas con book:. Kernel: **47
 argumentos** (todos ACEPTADOS, exit 0), **177 pendientes** (−1; 94
 formal + 82 empirical + 1 sin clave). Exporter 47 targets. Puertas:
 fmt, clippy −D warnings, 65 tests, evidence/check end-to-end.
+
+## 2026-11-07 (t44) — prop:ch8-perdida: proyección y norma pertinente (norma supremo)
+
+### Entregable
+Formalización de la parte en norma supremo de «Proyección y norma
+pertinente» (cap03:205) en Cap03MDP.lean: si una aproximación `proj`
+(operador arbitrario sobre funciones de valor) es Lipschitz con
+constante `L` en norma supremo, la composición `proj ∘ T*` tiene
+constante a lo sumo `L·γ` — por tanto `L·γ < 1` es condición suficiente
+de contracción para el operador proyectado. Prueba: composición directa
+de la cota Lipschitz de `proj` (aplicada a `T* V` y `T* W`) con la
+contracción de `T*` a nivel de norma (`ch8_contraccion` vía `snorm_le`).
+~25 líneas.
+
+Fidelidad declarada en docstring: solo la parte en norma supremo; el
+segundo párrafo del libro (norma L²(μ) con distribución estacionaria
+estrictamente positiva de P^π, Jensen y proyección ortogonal para T^π)
+requiere teoría de la medida y no se formaliza; «una proyección lineal
+arbitraria no garantiza esa desigualdad» es un contraejemplo y no se
+formaliza; «espacio completo que el operador preserve» es automático
+por finitud. Nota Lean: `Π` es un carácter reservado (tipo función
+dependiente) — el parámetro se llama `proj`.
+
+### Verificación
+verificar.sh: 9 módulos, **80 declaraciones auditadas** (79 +
+prop_ch8_perdida), 0 sorry, axiomas [propext, Classical.choice,
+Quot.sound] ×80. Dashboard: 75 teoremas con book:. Kernel: **48
+argumentos** (todos ACEPTADOS, exit 0), **176 pendientes** (−1; 93
+formal + 82 empirical + 1 sin clave). Exporter 48 targets. Puertas:
+fmt, clippy −D warnings, 65 tests, evidence/check end-to-end.

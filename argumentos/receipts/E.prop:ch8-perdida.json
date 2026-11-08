@@ -1,0 +1,35 @@
+{
+  "schema_version": "1.0",
+  "id": "R.E.prop:ch8-perdida",
+  "spec_id": "E.prop:ch8-perdida",
+  "spec_hash": "d57d9c6e934b5f3de559eaf3d99ef2806ebd941e47fd6dd9aba67b96b8b0567d",
+  "source_commit": "local",
+  "environment_hash": "fd67e636fa91f4e80bbec4e3860dba0f49bd3b3260e48c2a311e426b19b917ae",
+  "checker_version": "0.1.0",
+  "command_argv": [
+    "lean",
+    "argumentos/evidence/lean_export.lean"
+  ],
+  "working_directory": "..",
+  "input_hashes": {
+    "lean_export.lean": "1e5abc06785b769ff7d384934de73d9e0333e1111d917f2033ef5ddad0ab98f9",
+    "ssch_bayes_racional.py": "af949182cb60e7cfc146980a08e7b97e6ebc11ac52afa6858de41c10dcc55cfb"
+  },
+  "started_at": "2026-11-08T00:23:01Z",
+  "finished_at": "2026-11-08T00:23:01Z",
+  "exit_status": 0,
+  "termination": "completed",
+  "stdout_sha256": "e04980d4295a4371bfd1dbabbe3a4e458ee36a717c78db2af776079d1a886f79",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "artifacts": [],
+  "execution_passed": true,
+  "scientific_criterion_met": true,
+  "observed_checks": [
+    {
+      "id": "target_encontrado:prop_ch8_perdida",
+      "status": "pass",
+      "detail": "3 axiomas, 74 dependencias"
+    }
+  ],
+  "trust_mode": "locally_reproduced"
+}

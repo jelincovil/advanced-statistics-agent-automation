@@ -45,5 +45,6 @@
  "thm:ch8-vi-conv": "ch8_vi_conv",
  "cor:ch8-principio": "ch8_principio",
  "cor:ch7-bayes-especificas": "cor_ch7_bayes_especificas",
- "thm:ch8-bellman-opt": "ch8_bellman_opt"
+ "thm:ch8-bellman-opt": "ch8_bellman_opt",
+ "prop:ch8-perdida": "prop_ch8_perdida"
 }

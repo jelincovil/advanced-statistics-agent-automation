@@ -96,14 +96,6 @@
   "proxima_accion": "Formalizar o mantener pendiente"
  },
  {
-  "claim_id": "C.prop:ch8-perdida",
-  "book_key": "prop:ch8-perdida",
-  "reason_code": "NO_FORMAL_PROOF",
-  "fuente": "capitulos/cap03_mdp.typ (proposition: Proyección y norma pertinente)",
-  "impacto": "Sin respaldo formal",
-  "proxima_accion": "Formalizar o mantener pendiente"
- },
- {
   "claim_id": "C.ex:ch8-frozenlake",
   "book_key": "ex:ch8-frozenlake",
   "reason_code": "NO_FORMAL_PROOF",
@@ -1408,7 +1400,7 @@
   "proxima_accion": "Formalizar o mantener pendiente"
  },
  {
-  "claim_id": "C.unnamed.example.176",
+  "claim_id": "C.unnamed.example.175",
   "book_key": "",
   "reason_code": "SEMANTIC_MAPPING_UNRESOLVED",
   "fuente": "capitulos/cap04_herramientas.typ (sin key)",

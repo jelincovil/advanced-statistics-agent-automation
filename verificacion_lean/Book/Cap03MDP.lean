@@ -1144,4 +1144,39 @@ theorem ch8_bellman_opt (hP0 : ∀ s a s', 0 ≤ P s a s')
   exact ⟨⟨πgreedy, (ch8_principio r P γ πgreedy hP0 hP1 hγ0 hγ1 W hW hgreedy).1⟩,
     (ch8_principio r P γ πgreedy hP0 hP1 hγ0 hγ1 W hW hgreedy).2⟩
 
+/-! ### Formalización de pendientes del canon (prop:ch8-perdida) -/
+
+/-- book: capitulos/cap03_mdp.typ:205 (key: prop:ch8-perdida) —
+proyección y norma pertinente [parte 1: norma supremo]: si una
+aproximación `Π` es Lipschitz con constante `L` en norma supremo, la
+composición `Π T*` tiene constante a lo sumo `L·γ` (por tanto `L·γ < 1`
+es condición suficiente de contracción). Prueba: composición de la
+cota Lipschitz de `Π` (aplicada a `T* V` y `T* W`) con la contracción
+de `T*` (`ch8_contraccion` a nivel de norma, vía `snorm_le`).
+Fidelidad declarada: solo la parte en norma supremo; el segundo párrafo
+del libro (norma `L²(μ)` con distribución estacionaria estrictamente
+positiva de `P^π`, Jensen y proyección ortogonal para `T^π`) requiere
+teoría de la medida y no se formaliza; «una proyección lineal
+arbitraria no garantiza esa desigualdad» es un enunciado negativo
+(contraejemplo) y no se formaliza; «sobre un espacio completo que el
+operador preserve» es automático por finitud.
+Origen: F-correction 2026-11-07 (nuevo; formalización de pendiente). -/
+theorem prop_ch8_perdida (proj : (S → ℝ) → (S → ℝ)) (L : ℝ)
+    (hL : ∀ V W : S → ℝ,
+        snorm (fun s => proj V s - proj W s) ≤ L * snorm (fun s => V s - W s))
+    (hP0 : ∀ s a s', 0 ≤ P s a s') (hP1 : ∀ s a, ∑ s', P s a s' = 1)
+    (hγ0 : 0 ≤ γ) (hLnn : 0 ≤ L) :
+    ∀ V W : S → ℝ, snorm (fun s => proj (Topt r P γ V) s - proj (Topt r P γ W) s)
+      ≤ L * γ * snorm (fun s => V s - W s) := by
+  intro V W
+  have h1 := hL (Topt r P γ V) (Topt r P γ W)
+  have h2 : snorm (fun s => Topt r P γ V s - Topt r P γ W s)
+      ≤ γ * snorm (fun s => V s - W s) :=
+    snorm_le _ _ (fun s => ch8_contraccion r P γ hP0 hP1 hγ0 V W s)
+  calc snorm (fun s => proj (Topt r P γ V) s - proj (Topt r P γ W) s)
+      ≤ L * snorm (fun s => Topt r P γ V s - Topt r P γ W s) := h1
+    _ ≤ L * (γ * snorm (fun s => V s - W s)) :=
+        mul_le_mul_of_nonneg_left h2 hLnn
+    _ = L * γ * snorm (fun s => V s - W s) := by ring
+
 end MDP
