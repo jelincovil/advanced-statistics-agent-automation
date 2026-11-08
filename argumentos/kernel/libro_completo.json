@@ -3162,6 +3162,15 @@
    ]
   },
   {
+   "id": "A.thm:ch2-neyman-fisher",
+   "conclusion": "C.thm:ch2-neyman-fisher",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.thm:ch2-neyman-fisher"
+   ]
+  },
+  {
    "id": "A.cor:ch7-bayes-especificas",
    "conclusion": "C.cor:ch7-bayes-especificas",
    "premises": [],
@@ -3646,6 +3655,18 @@
    "claim_id": "C.thm:ch4-bonferroni",
    "runner_id": "lean-export",
    "target": "ch4_bonferroni",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.thm:ch2-neyman-fisher",
+   "kind": "lean",
+   "claim_id": "C.thm:ch2-neyman-fisher",
+   "runner_id": "lean-export",
+   "target": "ch2_neyman_fisher",
    "scope": {
     "domain": "finite",
     "lean_axioms": "propext,Classical.choice,Quot.sound"

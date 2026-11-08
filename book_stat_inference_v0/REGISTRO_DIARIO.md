@@ -1929,3 +1929,20 @@ hsubadd) + superuniformidad (hipótesis hE) + |I₀| ≤ m + aritmética.
 ### Verificación
 verificar.sh: 10 módulos, 85 declaraciones, 0 sorry. Dashboard: 80
 teoremas. Kernel: 53 argumentos ACEPTADOS, 171 pendientes.
+
+## 2026-11-07 (t50) — thm:ch2-neyman-fisher: factorización ⟹ suficiencia
+
+### Entregable
+Formalización de la dirección directa de «Factorización de
+Neyman-Fisher» (cap04:600) en Cap04Herramientas.lean: si las densidades
+factorizan como P_θ(x) = g_θ(T(x))·h(x), entonces la distribución
+condicional P_θ(x₀ | T(X) = T(x₀)) no depende de θ. Enunciado en
+forma de multiplicación cruzada: P_θ(x₀)·P_θ'(T=t) = P_θ'(x₀)·P_θ(T=t).
+Prueba: la marginal de T bajo la factorización es g_θ(t)·∑h (el g_θ(t)
+se factoriza como constante en la fibra); ambos lados de la
+multiplicación cruzada son g_θ(t)·g_θ'(t)·h(x₀)·∑h (por conmutatividad).
+Compiló a la primera.
+
+### Verificación
+verificar.sh: 10 módulos, 86 declaraciones, 0 sorry. Dashboard: 81
+teoremas. Kernel: 54 argumentos ACEPTADOS, 170 pendientes.

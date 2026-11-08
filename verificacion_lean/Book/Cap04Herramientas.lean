@@ -187,4 +187,44 @@ theorem ch4_bonferroni {ι : Type*} [Fintype ι]
           field_simp
         exact le_trans (le_of_eq h1) (le_trans h2 (le_of_eq h3))
 
+
+/-- book: capitulos/cap04_herramientas.typ:600 (key: thm:ch2-neyman-fisher) —
+factorización de Neyman-Fisher (caso discreto, dirección directa): si
+las densidades factorizan como `P_θ(x) = g_θ(T(x))·h(x)`, entonces la
+distribución condicional `P_θ(x₀ | T(X) = T(x₀))` no depende de `θ`.
+Enunciado en forma de multiplicación cruzada (evita división):
+`P_θ(x₀)·P_θ'(T = t) = P_θ'(x₀)·P_θ(T = t)` para todo par `θ, θ'`.
+Prueba: la marginal de `T` bajo la factorización es
+`∑_{T(x')=t} P_θ(x') = g_θ(t)·∑_{T(x')=t} h(x')` (el `g_θ(t)` se
+factoriza como constante en la fibra); al sustituir, ambos lados de
+la multiplicación cruzada son `g_θ(t)·g_θ'(t)·h(x₀)·∑h`.
+Fidelidad declarada: solo la dirección directa (factorización ⟹
+suficiencia); la conversa requiere distribución condicional regular;
+el caso continuo del libro (espacios de Borel, Radon–Nikodym) no se
+formaliza.
+Origen: F-correction 2026-11-07 (nuevo; formalización de pendiente). -/
+theorem ch2_neyman_fisher {Θ : Type*} [Fintype Θ]
+    (p : Θ → X → ℝ) (hbase : X → ℝ) (g : Θ → ℝ → ℝ)
+    (hfac : ∀ θ x, p θ x = g θ (T x) * hbase x)
+    (x₀ : X) :
+    ∀ θ θ' : Θ,
+      p θ x₀ * (∑ x', if T x' = T x₀ then p θ' x' else 0)
+      = p θ' x₀ * (∑ x', if T x' = T x₀ then p θ x' else 0) := by
+  -- Lema clave: la marginal de T bajo la factorización
+  have hsum : ∀ θ : Θ, (∑ x', if T x' = T x₀ then p θ x' else 0)
+      = g θ (T x₀) * (∑ x', if T x' = T x₀ then hbase x' else 0) := by
+    intro θ
+    have step1 : ∀ x' : X, (if T x' = T x₀ then p θ x' else 0)
+        = g θ (T x₀) * (if T x' = T x₀ then hbase x' else 0) := by
+      intro x'
+      by_cases hx : T x' = T x₀
+      · simp [hx, hfac θ x']
+      · simp [hx]
+    rw [Finset.sum_congr rfl fun x' _ => step1 x']
+    rw [← Finset.mul_sum]
+  -- Sustituir y cerrar por conmutatividad
+  intro θ θ'
+  rw [hfac θ x₀, hfac θ' x₀, hsum θ, hsum θ']
+  ring
+
 end ExpFam

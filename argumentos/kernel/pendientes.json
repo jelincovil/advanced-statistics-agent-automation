@@ -200,14 +200,6 @@
   "proxima_accion": "Formalizar o mantener pendiente"
  },
  {
-  "claim_id": "C.thm:ch2-neyman-fisher",
-  "book_key": "thm:ch2-neyman-fisher",
-  "reason_code": "NO_FORMAL_PROOF",
-  "fuente": "capitulos/cap04_herramientas.typ (theorem: Factorización de Neyman-Fisher)",
-  "impacto": "Sin respaldo formal",
-  "proxima_accion": "Formalizar o mantener pendiente"
- },
- {
   "claim_id": "C.ex:ch2-normal-suficiencia",
   "book_key": "ex:ch2-normal-suficiencia",
   "reason_code": "NO_FORMAL_PROOF",
@@ -1360,7 +1352,7 @@
   "proxima_accion": "Formalizar o mantener pendiente"
  },
  {
-  "claim_id": "C.unnamed.example.170",
+  "claim_id": "C.unnamed.example.169",
   "book_key": "",
   "reason_code": "SEMANTIC_MAPPING_UNRESOLVED",
   "fuente": "capitulos/cap04_herramientas.typ (sin key)",

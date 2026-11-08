@@ -1,0 +1,35 @@
+{
+  "schema_version": "1.0",
+  "id": "R.E.thm:ch2-neyman-fisher",
+  "spec_id": "E.thm:ch2-neyman-fisher",
+  "spec_hash": "159a12aadfc4627bd0a1734e98a8b825e3733d22c4fca120dfb1c0f89274d5d9",
+  "source_commit": "local",
+  "environment_hash": "4c2e2837a24534549f83b4fc36ed074fe4114ca8736e7477b4409bc3b44eaf13",
+  "checker_version": "0.1.0",
+  "command_argv": [
+    "lean",
+    "argumentos/evidence/lean_export.lean"
+  ],
+  "working_directory": "..",
+  "input_hashes": {
+    "lean_export.lean": "07c300acd52cb3f59f9aef8a1c36758259b53b9b75bb94aa06e658daaa1189f3",
+    "ssch_bayes_racional.py": "af949182cb60e7cfc146980a08e7b97e6ebc11ac52afa6858de41c10dcc55cfb"
+  },
+  "started_at": "2026-11-08T03:44:54Z",
+  "finished_at": "2026-11-08T03:44:54Z",
+  "exit_status": 0,
+  "termination": "completed",
+  "stdout_sha256": "1b51e6fa24d06b125a59671cabe2351629849c8c0a864648a8925fb9b90206b3",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "artifacts": [],
+  "execution_passed": true,
+  "scientific_criterion_met": true,
+  "observed_checks": [
+    {
+      "id": "target_encontrado:ch2_neyman_fisher",
+      "status": "pass",
+      "detail": "3 axiomas, 80 dependencias"
+    }
+  ],
+  "trust_mode": "locally_reproduced"
+}

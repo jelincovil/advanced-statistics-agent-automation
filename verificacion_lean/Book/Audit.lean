@@ -93,3 +93,4 @@ import Book.Cap07OPE
 #print axioms ch1_logparticion
 #print axioms cor_ch1_covarianza_hessiano
 #print axioms ch4_bonferroni
+#print axioms ch2_neyman_fisher
