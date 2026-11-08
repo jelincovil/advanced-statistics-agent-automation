@@ -690,7 +690,7 @@
   {
    "id": "C.ex:ch2-normal-suficiencia",
    "book_key": "ex:ch2-normal-suficiencia",
-   "kind": "empirical",
+   "kind": "formal",
    "statement": "Example: Suficiencia en la Distribución Normal (capitulos/cap04_herramientas.typ)",
    "expression": {
     "op": "atom",
@@ -704,7 +704,7 @@
   {
    "id": "C.ex:ch2-poisson-suficiencia",
    "book_key": "ex:ch2-poisson-suficiencia",
-   "kind": "empirical",
+   "kind": "formal",
    "statement": "Example: Suficiencia en la Distribución de Poisson (capitulos/cap04_herramientas.typ)",
    "expression": {
     "op": "atom",
@@ -1180,7 +1180,7 @@
   {
    "id": "C.ex:ch4-bonferroni-ssch",
    "book_key": "ex:ch4-bonferroni-ssch",
-   "kind": "empirical",
+   "kind": "formal",
    "statement": "Example: Pruebas Múltiples en SSCH con Corrección de Bonferroni (capitulos/cap04_herramientas.typ)",
    "expression": {
     "op": "atom",
@@ -3691,6 +3691,160 @@
    "evidence_specs": [
     "E.cor:appD-clt-mdp"
    ]
+  },
+  {
+   "id": "A.thm:ch2-lehmann-scheffe",
+   "conclusion": "C.thm:ch2-lehmann-scheffe",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.thm:ch2-lehmann-scheffe",
+    "E.thm:ch2-lehmann-scheffe-minimal"
+   ]
+  },
+  {
+   "id": "A.cor:ch2-smc",
+   "conclusion": "C.cor:ch2-smc",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.cor:ch2-smc"
+   ]
+  },
+  {
+   "id": "A.ex:ch2-normal-suficiencia",
+   "conclusion": "C.ex:ch2-normal-suficiencia",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.ex:ch2-normal-suficiencia"
+   ]
+  },
+  {
+   "id": "A.ex:ch2-poisson-suficiencia",
+   "conclusion": "C.ex:ch2-poisson-suficiencia",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.ex:ch2-poisson-suficiencia"
+   ]
+  },
+  {
+   "id": "A.thm:ch2-basu",
+   "conclusion": "C.thm:ch2-basu",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.thm:ch2-basu"
+   ]
+  },
+  {
+   "id": "A.thm:ch2-equivarianza",
+   "conclusion": "C.thm:ch2-equivarianza",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.thm:ch2-equivarianza"
+   ]
+  },
+  {
+   "id": "A.thm:ch3-rao-blackwell",
+   "conclusion": "C.thm:ch3-rao-blackwell",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.thm:ch3-rao-blackwell"
+   ]
+  },
+  {
+   "id": "A.cor:ch3-rb-insesgado",
+   "conclusion": "C.cor:ch3-rb-insesgado",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.cor:ch3-rb-insesgado"
+   ]
+  },
+  {
+   "id": "A.thm:ch3-lehmann-scheffe",
+   "conclusion": "C.thm:ch3-lehmann-scheffe",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.thm:ch3-lehmann-scheffe"
+   ]
+  },
+  {
+   "id": "A.cor:ch3-umvue-exponencial",
+   "conclusion": "C.cor:ch3-umvue-exponencial",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.cor:ch3-umvue-exponencial"
+   ]
+  },
+  {
+   "id": "A.thm:ch3-cramer-rao",
+   "conclusion": "C.thm:ch3-cramer-rao",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.thm:ch3-cramer-rao"
+   ]
+  },
+  {
+   "id": "A.cor:ch3-cr-iid",
+   "conclusion": "C.cor:ch3-cr-iid",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.cor:ch3-cr-iid"
+   ]
+  },
+  {
+   "id": "A.thm:ch4-neyman-pearson",
+   "conclusion": "C.thm:ch4-neyman-pearson",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.thm:ch4-neyman-pearson"
+   ]
+  },
+  {
+   "id": "A.prop:ch4-multiplicidad",
+   "conclusion": "C.prop:ch4-multiplicidad",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.prop:ch4-multiplicidad"
+   ]
+  },
+  {
+   "id": "A.thm:ch4-holm",
+   "conclusion": "C.thm:ch4-holm",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.thm:ch4-holm"
+   ]
+  },
+  {
+   "id": "A.thm:ch4-mlr",
+   "conclusion": "C.thm:ch4-mlr",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.thm:ch4-mlr"
+   ]
+  },
+  {
+   "id": "A.ex:ch4-bonferroni-ssch",
+   "conclusion": "C.ex:ch4-bonferroni-ssch",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.ex:ch4-bonferroni-ssch"
+   ]
   }
  ],
  "evidence_specs": [
@@ -4444,6 +4598,222 @@
    "claim_id": "C.cor:appD-clt-mdp",
    "runner_id": "lean-export",
    "target": "Book.ApendiceD.summable_rpow_of_geometric",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.thm:ch2-lehmann-scheffe",
+   "kind": "lean",
+   "claim_id": "C.thm:ch2-lehmann-scheffe",
+   "runner_id": "lean-export",
+   "target": "Book.Cap04Suficiencia.ch2_lehmann_scheffe_criterio",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.thm:ch2-lehmann-scheffe-minimal",
+   "kind": "lean",
+   "claim_id": "C.thm:ch2-lehmann-scheffe",
+   "runner_id": "lean-export",
+   "target": "Book.Cap04Suficiencia.ch2_lehmann_scheffe_minimal",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.cor:ch2-smc",
+   "kind": "lean",
+   "claim_id": "C.cor:ch2-smc",
+   "runner_id": "lean-export",
+   "target": "Book.Cap04Suficiencia.cor_ch2_smc",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.ex:ch2-normal-suficiencia",
+   "kind": "lean",
+   "claim_id": "C.ex:ch2-normal-suficiencia",
+   "runner_id": "lean-export",
+   "target": "Book.Cap04Suficiencia.ex_ch2_normal_suficiencia",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.ex:ch2-poisson-suficiencia",
+   "kind": "lean",
+   "claim_id": "C.ex:ch2-poisson-suficiencia",
+   "runner_id": "lean-export",
+   "target": "Book.Cap04Suficiencia.ex_ch2_poisson_suficiencia",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.thm:ch2-basu",
+   "kind": "lean",
+   "claim_id": "C.thm:ch2-basu",
+   "runner_id": "lean-export",
+   "target": "Book.Cap04Suficiencia.ch2_basu",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.thm:ch2-equivarianza",
+   "kind": "lean",
+   "claim_id": "C.thm:ch2-equivarianza",
+   "runner_id": "lean-export",
+   "target": "Book.Cap04Suficiencia.ch2_equivarianza",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.thm:ch3-rao-blackwell",
+   "kind": "lean",
+   "claim_id": "C.thm:ch3-rao-blackwell",
+   "runner_id": "lean-export",
+   "target": "Book.Cap04Suficiencia.ch3_rao_blackwell",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.cor:ch3-rb-insesgado",
+   "kind": "lean",
+   "claim_id": "C.cor:ch3-rb-insesgado",
+   "runner_id": "lean-export",
+   "target": "Book.Cap04Suficiencia.cor_ch3_rb_insesgado",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.thm:ch3-lehmann-scheffe",
+   "kind": "lean",
+   "claim_id": "C.thm:ch3-lehmann-scheffe",
+   "runner_id": "lean-export",
+   "target": "Book.Cap04Suficiencia.ch3_lehmann_scheffe",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.cor:ch3-umvue-exponencial",
+   "kind": "lean",
+   "claim_id": "C.cor:ch3-umvue-exponencial",
+   "runner_id": "lean-export",
+   "target": "Book.Cap04Suficiencia.cor_ch3_umvue_exponencial",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.thm:ch3-cramer-rao",
+   "kind": "lean",
+   "claim_id": "C.thm:ch3-cramer-rao",
+   "runner_id": "lean-export",
+   "target": "Book.Cap04Suficiencia.ch3_cramer_rao",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.cor:ch3-cr-iid",
+   "kind": "lean",
+   "claim_id": "C.cor:ch3-cr-iid",
+   "runner_id": "lean-export",
+   "target": "Book.Cap04Suficiencia.cor_ch3_cr_iid",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.thm:ch4-neyman-pearson",
+   "kind": "lean",
+   "claim_id": "C.thm:ch4-neyman-pearson",
+   "runner_id": "lean-export",
+   "target": "Cap04M16.ch4_neyman_pearson",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.prop:ch4-multiplicidad",
+   "kind": "lean",
+   "claim_id": "C.prop:ch4-multiplicidad",
+   "runner_id": "lean-export",
+   "target": "Cap04M16.ch4_multiplicidad",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.thm:ch4-holm",
+   "kind": "lean",
+   "claim_id": "C.thm:ch4-holm",
+   "runner_id": "lean-export",
+   "target": "Cap04M16.ch4_holm",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.thm:ch4-mlr",
+   "kind": "lean",
+   "claim_id": "C.thm:ch4-mlr",
+   "runner_id": "lean-export",
+   "target": "Cap04M16.ch4_mlr",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.ex:ch4-bonferroni-ssch",
+   "kind": "lean",
+   "claim_id": "C.ex:ch4-bonferroni-ssch",
+   "runner_id": "lean-export",
+   "target": "Cap04M16.ex_ch4_bonferroni_ssch",
    "scope": {
     "domain": "finite",
     "lean_axioms": "propext,Classical.choice,Quot.sound"

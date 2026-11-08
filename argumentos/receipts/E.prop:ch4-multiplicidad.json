@@ -1,0 +1,35 @@
+{
+  "schema_version": "1.0",
+  "id": "R.E.prop:ch4-multiplicidad",
+  "spec_id": "E.prop:ch4-multiplicidad",
+  "spec_hash": "bff1c81c384832ca26207975edd0500f6e6b212d618783299c92dfd3c9982a5b",
+  "source_commit": "local",
+  "environment_hash": "7c353a5f3349fd150eeb3fba09e36772d6c43fd85dc3493973568ce344a1bae7",
+  "checker_version": "0.1.0",
+  "command_argv": [
+    "lean",
+    "argumentos/evidence/lean_export.lean"
+  ],
+  "working_directory": "..",
+  "input_hashes": {
+    "lean_export.lean": "1cdf1d15e7a35381d617c649b98fb02914f5c1dbc87511b080ac264feac2f092",
+    "ssch_bayes_racional.py": "af949182cb60e7cfc146980a08e7b97e6ebc11ac52afa6858de41c10dcc55cfb"
+  },
+  "started_at": "2026-11-08T17:16:12Z",
+  "finished_at": "2026-11-08T17:16:12Z",
+  "exit_status": 0,
+  "termination": "completed",
+  "stdout_sha256": "cbfdb527b7db55766b8ba2623bf09e8b47e810ec4ecc8be118d5deb7f7c677a6",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "artifacts": [],
+  "execution_passed": true,
+  "scientific_criterion_met": true,
+  "observed_checks": [
+    {
+      "id": "target_encontrado:Cap04M16.ch4_multiplicidad",
+      "status": "pass",
+      "detail": "3 axiomas, 216 dependencias"
+    }
+  ],
+  "trust_mode": "locally_reproduced"
+}

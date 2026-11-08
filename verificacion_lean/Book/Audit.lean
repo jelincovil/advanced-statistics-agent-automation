@@ -1,6 +1,11 @@
 import Book.Cap02Wald
 import Book.Cap04Herramientas
+import Book.Cap04Suficiencia
+import Book.Cap04LoteM16
+import Book.Cap08M6
 import Book.Cap08Intervalos
+import Book.Cap08Estimadores
+import Book.Cap08Poder
 import Book.Cap11Despliegue
 import Book.SSCH
 import Book.Cap06Fronteras
@@ -120,3 +125,35 @@ import Book.ApendiceDRegularidad
 #print axioms cor_ch4_exp_mlr
 #print axioms thm_ch4_inversion_simple
 #print axioms cor_ch4_ic_z_simple
+#print axioms Cap08Estimadores.dPhi_sum_eq_zero
+#print axioms Cap08Estimadores.dS2_mul
+#print axioms Cap08Estimadores.abs_hac_le
+#print axioms Cap08Estimadores.save_separacion
+#print axioms Cap08Estimadores.save_separacion_no_nula
+#print axioms Cap08Estimadores.save_separacion_pos
+#print axioms Cap08Poder.planificacion_poder
+#print axioms Cap08Poder.planificacion_dos_grupos
+#print axioms Book.Cap04Suficiencia.ch2_equivarianza
+#print axioms Book.Cap04Suficiencia.ch2_lehmann_scheffe_criterio
+#print axioms Book.Cap04Suficiencia.ch2_lehmann_scheffe_minimal
+#print axioms Book.Cap04Suficiencia.cor_ch2_smc
+#print axioms Book.Cap04Suficiencia.ex_ch2_normal_suficiencia
+#print axioms Book.Cap04Suficiencia.ex_ch2_poisson_suficiencia
+#print axioms Book.Cap04Suficiencia.ch2_basu
+#print axioms Book.Cap04Suficiencia.ch3_rao_blackwell
+#print axioms Book.Cap04Suficiencia.cor_ch3_rb_insesgado
+#print axioms Book.Cap04Suficiencia.ch3_lehmann_scheffe
+#print axioms Book.Cap04Suficiencia.cor_ch3_umvue_exponencial
+#print axioms Book.Cap04Suficiencia.ch3_cramer_rao
+#print axioms Book.Cap04Suficiencia.cor_ch3_cr_iid
+#print axioms Cap04M16.ch4_neyman_pearson
+#print axioms Cap04M16.ch4_multiplicidad
+#print axioms Cap04M16.ch4_holm
+#print axioms Cap04M16.ch4_mlr
+#print axioms Cap04M16.ex_ch4_bonferroni_ssch
+#print axioms Cap08M6.P_eigen_w
+#print axioms Cap08M6.gap_abs
+#print axioms Cap08M6.P_pow_apply
+#print axioms Cap08M6.prop_ch11_impacto_factor
+#print axioms Cap08M6.prop_ch11_baseline_optima
+#print axioms ch2_completitud_exponencial_vandermonde

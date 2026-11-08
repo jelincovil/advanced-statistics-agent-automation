@@ -37,10 +37,28 @@ Generado por `Progress/gen_dashboard.py` el 2026-11-08 desde `Book/*.lean` y `bu
 | `ch2_neyman_fisher` (`Cap04Herramientas.lean`) | `thm:ch2-neyman-fisher` @ capitulos/cap04_herramientas.typ:600 | F-correction 2026-11-07 (nuevo; formalización de pendiente) | `propext, Classical.choice, Quot.sound` | OK |
 | `ch2_completitud_const` (`Cap04Herramientas.lean`) | `thm:ch2-completitud-exponencial` @ capitulos/cap04_herramientas.typ:680 | F-correction 2026-11-07 (nuevo; formalizacion de pendiente) | `propext, Classical.choice, Quot.sound` | OK |
 | `ch2_completitud_exponencial` (`Cap04Herramientas.lean`) | `thm:ch2-completitud-exponencial` @ capitulos/cap04_herramientas.typ:680 | ? | `propext, Classical.choice, Quot.sound` | OK |
-| `ch2_completitud_exponencial_vandermonde` (`Cap04Herramientas.lean`) | `thm:ch2-completitud-exponencial` @ capitulos/cap04_herramientas.typ:680 | F-correction 2026-11-08 (caso general; cierra la brecha de ch2_completitud_const) | `(no auditado)` | SIN AUDITAR |
+| `ch2_completitud_exponencial_vandermonde` (`Cap04Herramientas.lean`) | `thm:ch2-completitud-exponencial` @ capitulos/cap04_herramientas.typ:680 | F-correction 2026-11-08 (caso general; cierra la brecha de ch2_completitud_const) | `propext, Classical.choice, Quot.sound` | OK |
 | `prop_ch3_info_aditiva` (`Cap04Herramientas.lean`) | `prop:ch3-info-aditiva` @ capitulos/cap04_herramientas.typ:1027 | F-correction 2026-11-07 | `propext, Classical.choice, Quot.sound` | OK |
 | `cor_ch4_exp_mlr` (`Cap04Herramientas.lean`) | `cor:ch4-exp-mlr` @ capitulos/cap04_herramientas.typ:1311 | F-correction 2026-11-07 | `propext, Classical.choice, Quot.sound` | OK |
 | `cor_ch4_ic_z_simple` (`Cap04Herramientas.lean`) | `thm:ch4-inversion` @ capitulos/cap04_herramientas.typ:1349 | ? | `propext, Classical.choice, Quot.sound` | OK |
+| `ch4_neyman_pearson` (`Cap04LoteM16.lean`) | `thm:ch4-neyman-pearson` @ capitulos/cap04_herramientas.typ:1248 | enjambre smw82qi6q / m16 (nuevo; formalización de pendiente) | `propext, Classical.choice, Quot.sound` | OK |
+| `ch4_multiplicidad` (`Cap04LoteM16.lean`) | `prop:ch4-multiplicidad` @ capitulos/cap04_herramientas.typ:1385 | enjambre smw82qi6q / m16 (nuevo; formalización de pendiente) | `propext, Classical.choice, Quot.sound` | OK |
+| `ch4_holm` (`Cap04LoteM16.lean`) | `thm:ch4-holm` @ capitulos/cap04_herramientas.typ:1431 | enjambre smw82qi6q / m16 (nuevo; formalización de pendiente) | `propext, Classical.choice, Quot.sound` | OK |
+| `ch4_mlr` (`Cap04LoteM16.lean`) | `thm:ch4-mlr` @ capitulos/cap04_herramientas.typ:1292 | enjambre smw82qi6q / m16 (nuevo; formalización de pendiente) | `propext, Classical.choice, Quot.sound` | OK |
+| `ex_ch4_bonferroni_ssch` (`Cap04LoteM16.lean`) | `ex:ch4-bonferroni-ssch` @ capitulos/cap04_herramientas.typ:1398 | enjambre smw82qi6q / m16 (nuevo; formalización de pendiente) | `propext, Classical.choice, Quot.sound` | OK |
+| `ch2_equivarianza` (`Cap04Suficiencia.lean`) | `thm:ch2-equivarianza` @ capitulos/cap04_herramientas.typ:813 | enjambre smw82qi6q, dirección d4 (formalización de pendiente) | `propext, Classical.choice, Quot.sound` | OK |
+| `ch2_lehmann_scheffe_criterio` (`Cap04Suficiencia.lean`) | `thm:ch2-lehmann-scheffe` @ capitulos/cap04_herramientas.typ:657 | enjambre smw82qi6q, dirección d4 (formalización de pendiente) | `propext, Classical.choice, Quot.sound` | OK |
+| `ch2_lehmann_scheffe_minimal` (`Cap04Suficiencia.lean`) | `thm:ch2-lehmann-scheffe` @ capitulos/cap04_herramientas.typ:657 | enjambre smw82qi6q, dirección d4 (formalización de pendiente) | `propext, Classical.choice, Quot.sound` | OK |
+| `cor_ch2_smc` (`Cap04Suficiencia.lean`) | `cor:ch2-smc` @ capitulos/cap04_herramientas.typ:712 | enjambre smw82qi6q, dirección d4 (formalización de pendiente) | `propext, Classical.choice, Quot.sound` | OK |
+| `ch3_rao_blackwell` (`Cap04Suficiencia.lean`) | `thm:ch3-rao-blackwell` @ capitulos/cap04_herramientas.typ:877 | enjambre smw82qi6q, dirección d4 (formalización de pendiente) | `propext, Classical.choice, Quot.sound` | OK |
+| `cor_ch3_rb_insesgado` (`Cap04Suficiencia.lean`) | `cor:ch3-rb-insesgado` @ capitulos/cap04_herramientas.typ:904 | enjambre smw82qi6q, dirección d4 (formalización de pendiente) | `propext, Classical.choice, Quot.sound` | OK |
+| `ch3_lehmann_scheffe` (`Cap04Suficiencia.lean`) | `thm:ch3-lehmann-scheffe` @ capitulos/cap04_herramientas.typ:931 | enjambre smw82qi6q, dirección d4 (formalización de pendiente) | `propext, Classical.choice, Quot.sound` | OK |
+| `cor_ch3_umvue_exponencial` (`Cap04Suficiencia.lean`) | `cor:ch3-umvue-exponencial` @ capitulos/cap04_herramientas.typ:960 | enjambre smw82qi6q, dirección d4 (formalización de pendiente) | `propext, Classical.choice, Quot.sound` | OK |
+| `ch2_basu` (`Cap04Suficiencia.lean`) | `thm:ch2-basu` @ capitulos/cap04_herramientas.typ:749 | enjambre smw82qi6q, dirección d4 (formalización de pendiente) | `propext, Classical.choice, Quot.sound` | OK |
+| `ch3_cramer_rao` (`Cap04Suficiencia.lean`) | `thm:ch3-cramer-rao` @ capitulos/cap04_herramientas.typ:990 | enjambre smw82qi6q, dirección d4 (formalización de pendiente) | `propext, Classical.choice, Quot.sound` | OK |
+| `cor_ch3_cr_iid` (`Cap04Suficiencia.lean`) | `cor:ch3-cr-iid` @ capitulos/cap04_herramientas.typ:1040 | enjambre smw82qi6q, dirección d4 (formalización de pendiente) | `propext, Classical.choice, Quot.sound` | OK |
+| `ex_ch2_normal_suficiencia` (`Cap04Suficiencia.lean`) | `ex:ch2-normal-suficiencia` @ capitulos/cap04_herramientas.typ:610 | enjambre smw82qi6q, dirección d4 (formalización de pendiente) | `propext, Classical.choice, Quot.sound` | OK |
+| `ex_ch2_poisson_suficiencia` (`Cap04Suficiencia.lean`) | `ex:ch2-poisson-suficiencia` @ capitulos/cap04_herramientas.typ:629 | enjambre smw82qi6q, dirección d4 (formalización de pendiente) | `propext, Classical.choice, Quot.sound` | OK |
 | `ch9_isomorfismo` (`Cap05Representacion.lean`) | `thm:ch9-isomorfismo` @ capitulos/cap05_incrustacion.typ:41 | piloto 2026-11-03 (m_repr) | `propext, Classical.choice, Quot.sound` | OK |
 | `ch9_bayes` (`Cap05Representacion.lean`) | `cor:ch9-bayes` @ capitulos/cap05_incrustacion.typ:143 | piloto 2026-11-03 (m_bayes) | `propext, Classical.choice, Quot.sound` | OK |
 | `ch9_admisibilidad` (`Cap05Representacion.lean`) | `thm:ch9-admisibilidad` @ capitulos/cap05_incrustacion.typ:136 | piloto 2026-11-03 (m_admis) | `propext, Classical.choice, Quot.sound` | OK |
@@ -67,12 +85,19 @@ Generado por `Progress/gen_dashboard.py` el 2026-11-08 desde `Book/*.lean` y `bu
 | `ch10_curse` (`Cap07OPE.lean`) | `thm:ch10-curse` @ capitulos/cap07_ope.typ:252 | F1 2026-11-04 (nuevo) | `propext, Classical.choice, Quot.sound` | OK |
 | `ch10_curse_ejemplo` (`Cap07OPE.lean`) | `thm:ch10-curse` @ capitulos/cap07_ope.typ:266 | F1 2026-11-04 (nuevo) | `propext, Classical.choice, Quot.sound` | OK |
 | `ch10_var_dr` (`Cap07OPE.lean`) | `prop:ch10-var-dr` @ capitulos/cap07_ope.typ:494 | F3 2026-11-05 (nuevo) | `propext, Classical.choice, Quot.sound` | OK |
+| `dPhi_sum_eq_zero` (`Cap08Estimadores.lean`) | `def:ch11-var-if` @ capitulos/cap08_intervalos.typ:259 | enjambre smw82qi6q, m11 | `propext, Classical.choice, Quot.sound` | OK |
+| `abs_hac_le` (`Cap08Estimadores.lean`) | `def:ch11-hac` @ capitulos/cap08_intervalos.typ:270 | enjambre smw82qi6q, m11 | `propext, Classical.choice, Quot.sound` | OK |
+| `save_separacion` (`Cap08Estimadores.lean`) | `ex:ch11-ej5` @ capitulos/cap08_intervalos.typ:672 | enjambre smw82qi6q, m11 | `propext, Classical.choice, Quot.sound` | OK |
+| `save_separacion_no_nula` (`Cap08Estimadores.lean`) | `ex:ch11-ej5` @ capitulos/cap08_intervalos.typ:672 | enjambre smw82qi6q, m11 | `propext, Classical.choice, Quot.sound` | OK |
+| `save_separacion_pos` (`Cap08Estimadores.lean`) | `ex:ch11-ej5` @ capitulos/cap08_intervalos.typ:672 | enjambre smw82qi6q, m11 | `propext, Classical.choice, Quot.sound` | OK |
 | `ch11_baseline` (`Cap08Intervalos.lean`) | `prop:ch11-baseline` @ capitulos/cap08_intervalos.typ:467 | F3 2026-11-05 (nuevo) | `propext, Classical.choice, Quot.sound` | OK |
 | `ch11_baseline_ejemplo` (`Cap08Intervalos.lean`) | `ex:ssch-drl-cap11` @ capitulos/cap08_intervalos.typ:480 | F3 2026-11-05 (nuevo) | `propext, Classical.choice, Quot.sound` | OK |
 | `ex_ch5_cadena` (`Cap08Intervalos.lean`) | `ex:ch5-cadena` @ capitulos/cap06_fallos.typ:343 | F3 2026-11-05 (nuevo) | `propext, Classical.choice, Quot.sound` | OK |
 | `ex_ch5_cadena_varianza_finita` (`Cap08Intervalos.lean`) | `ex:ch5-cadena` @ capitulos/cap06_fallos.typ:343 | t28 2026-11-06 (nuevo; la referencia a este teorema quedaba | `propext, Classical.choice, Quot.sound` | OK |
 | `ex_ch11_pg_ssch` (`Cap08Intervalos.lean`) | `ex:ch11-pg-ssch` @ capitulos/cap08_intervalos.typ:529 | F3 2026-11-05 (nuevo) | `propext, Classical.choice, Quot.sound` | OK |
 | `ch11_tasa_tabular` (`Cap08Intervalos.lean`) | `thm:ch11-tasa-tabular` @ capitulos/cap08_intervalos.typ:110 | F3 2026-11-05 (nuevo) | `propext, Classical.choice, Quot.sound` | OK |
+| `planificacion_poder` (`Cap08Poder.lean`) | `ex:ch11-ej3` @ capitulos/cap08_intervalos.typ:377 | enjambre smw82qi6q, m11 | `propext, Classical.choice, Quot.sound` | OK |
+| `planificacion_dos_grupos` (`Cap08Poder.lean`) | `ex:ch11-ej3` @ capitulos/cap08_intervalos.typ:377 | enjambre smw82qi6q, m11 | `propext, Classical.choice, Quot.sound` | OK |
 | `ch11_cuantizacion_ejemplo` (`Cap11Despliegue.lean`) | `cap11-cuantizacion` @ capitulos/cap11_despliegue.typ:101 | F3 2026-11-05 (nuevo) | `propext, Classical.choice, Quot.sound` | OK |
 | `ch11_truncamiento` (`Cap11Despliegue.lean`) | `cap11-truncamiento` @ capitulos/cap11_despliegue.typ:165 | F3 2026-11-05 (nuevo) | `propext` | OK |
 | `ch11_monitoreo` (`Cap11Despliegue.lean`) | `cap11-monitoreo` @ capitulos/cap11_despliegue.typ:607 | F3 2026-11-05 (nuevo) | `propext, Classical.choice, Quot.sound` | OK |

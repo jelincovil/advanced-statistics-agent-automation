@@ -200,42 +200,10 @@
   "proxima_accion": "Formalizar o mantener pendiente"
  },
  {
-  "claim_id": "C.ex:ch2-normal-suficiencia",
-  "book_key": "ex:ch2-normal-suficiencia",
-  "reason_code": "NO_FORMAL_PROOF",
-  "fuente": "capitulos/cap04_herramientas.typ (example: Suficiencia en la Distribución Normal)",
-  "impacto": "Sin respaldo formal",
-  "proxima_accion": "Formalizar o mantener pendiente"
- },
- {
-  "claim_id": "C.ex:ch2-poisson-suficiencia",
-  "book_key": "ex:ch2-poisson-suficiencia",
-  "reason_code": "NO_FORMAL_PROOF",
-  "fuente": "capitulos/cap04_herramientas.typ (example: Suficiencia en la Distribución de Poisson)",
-  "impacto": "Sin respaldo formal",
-  "proxima_accion": "Formalizar o mantener pendiente"
- },
- {
-  "claim_id": "C.thm:ch2-lehmann-scheffe",
-  "book_key": "thm:ch2-lehmann-scheffe",
-  "reason_code": "NO_FORMAL_PROOF",
-  "fuente": "capitulos/cap04_herramientas.typ (theorem: Caracterización de Suficiencia Minimal (Lehmann-Scheffé))",
-  "impacto": "Sin respaldo formal",
-  "proxima_accion": "Formalizar o mantener pendiente"
- },
- {
   "claim_id": "C.ex:ch2-minimal-exponencial",
   "book_key": "ex:ch2-minimal-exponencial",
   "reason_code": "NO_FORMAL_PROOF",
   "fuente": "capitulos/cap04_herramientas.typ (example: Suficiencia Minimal en Familias Exponenciales)",
-  "impacto": "Sin respaldo formal",
-  "proxima_accion": "Formalizar o mantener pendiente"
- },
- {
-  "claim_id": "C.cor:ch2-smc",
-  "book_key": "cor:ch2-smc",
-  "reason_code": "NO_FORMAL_PROOF",
-  "fuente": "capitulos/cap04_herramientas.typ (corollary: )",
   "impacto": "Sin respaldo formal",
   "proxima_accion": "Formalizar o mantener pendiente"
  },
@@ -256,26 +224,10 @@
   "proxima_accion": "Formalizar o mantener pendiente"
  },
  {
-  "claim_id": "C.thm:ch2-basu",
-  "book_key": "thm:ch2-basu",
-  "reason_code": "NO_FORMAL_PROOF",
-  "fuente": "capitulos/cap04_herramientas.typ (theorem: Teorema de Basu)",
-  "impacto": "Sin respaldo formal",
-  "proxima_accion": "Formalizar o mantener pendiente"
- },
- {
   "claim_id": "C.ex:ch2-basu-aplicacion",
   "book_key": "ex:ch2-basu-aplicacion",
   "reason_code": "NO_FORMAL_PROOF",
   "fuente": "capitulos/cap04_herramientas.typ (example: Aplicación del Teorema de Basu)",
-  "impacto": "Sin respaldo formal",
-  "proxima_accion": "Formalizar o mantener pendiente"
- },
- {
-  "claim_id": "C.thm:ch2-equivarianza",
-  "book_key": "thm:ch2-equivarianza",
-  "reason_code": "NO_FORMAL_PROOF",
-  "fuente": "capitulos/cap04_herramientas.typ (theorem: Principio de Equivarianza)",
   "impacto": "Sin respaldo formal",
   "proxima_accion": "Formalizar o mantener pendiente"
  },
@@ -296,58 +248,10 @@
   "proxima_accion": "Formalizar o mantener pendiente"
  },
  {
-  "claim_id": "C.thm:ch3-rao-blackwell",
-  "book_key": "thm:ch3-rao-blackwell",
-  "reason_code": "NO_FORMAL_PROOF",
-  "fuente": "capitulos/cap04_herramientas.typ (theorem: Rao-Blackwell)",
-  "impacto": "Sin respaldo formal",
-  "proxima_accion": "Formalizar o mantener pendiente"
- },
- {
-  "claim_id": "C.cor:ch3-rb-insesgado",
-  "book_key": "cor:ch3-rb-insesgado",
-  "reason_code": "NO_FORMAL_PROOF",
-  "fuente": "capitulos/cap04_herramientas.typ (corollary: )",
-  "impacto": "Sin respaldo formal",
-  "proxima_accion": "Formalizar o mantener pendiente"
- },
- {
   "claim_id": "C.ex:ch3-rb-bernoulli",
   "book_key": "ex:ch3-rb-bernoulli",
   "reason_code": "NO_FORMAL_PROOF",
   "fuente": "capitulos/cap04_herramientas.typ (example: Rao-Blackwellización en Bernoulli)",
-  "impacto": "Sin respaldo formal",
-  "proxima_accion": "Formalizar o mantener pendiente"
- },
- {
-  "claim_id": "C.thm:ch3-lehmann-scheffe",
-  "book_key": "thm:ch3-lehmann-scheffe",
-  "reason_code": "NO_FORMAL_PROOF",
-  "fuente": "capitulos/cap04_herramientas.typ (theorem: Lehmann-Scheffé)",
-  "impacto": "Sin respaldo formal",
-  "proxima_accion": "Formalizar o mantener pendiente"
- },
- {
-  "claim_id": "C.cor:ch3-umvue-exponencial",
-  "book_key": "cor:ch3-umvue-exponencial",
-  "reason_code": "NO_FORMAL_PROOF",
-  "fuente": "capitulos/cap04_herramientas.typ (corollary: )",
-  "impacto": "Sin respaldo formal",
-  "proxima_accion": "Formalizar o mantener pendiente"
- },
- {
-  "claim_id": "C.thm:ch3-cramer-rao",
-  "book_key": "thm:ch3-cramer-rao",
-  "reason_code": "NO_FORMAL_PROOF",
-  "fuente": "capitulos/cap04_herramientas.typ (theorem: Cota Inferior de Cramér-Rao)",
-  "impacto": "Sin respaldo formal",
-  "proxima_accion": "Formalizar o mantener pendiente"
- },
- {
-  "claim_id": "C.cor:ch3-cr-iid",
-  "book_key": "cor:ch3-cr-iid",
-  "reason_code": "NO_FORMAL_PROOF",
-  "fuente": "capitulos/cap04_herramientas.typ (corollary: Cota de Cramér-Rao para Muestras iid)",
   "impacto": "Sin respaldo formal",
   "proxima_accion": "Formalizar o mantener pendiente"
  },
@@ -392,14 +296,6 @@
   "proxima_accion": "Formalizar o mantener pendiente"
  },
  {
-  "claim_id": "C.thm:ch4-neyman-pearson",
-  "book_key": "thm:ch4-neyman-pearson",
-  "reason_code": "NO_FORMAL_PROOF",
-  "fuente": "capitulos/cap04_herramientas.typ (theorem: Lema de Neyman-Pearson)",
-  "impacto": "Sin respaldo formal",
-  "proxima_accion": "Formalizar o mantener pendiente"
- },
- {
   "claim_id": "C.ex:ch4-mp-normal",
   "book_key": "ex:ch4-mp-normal",
   "reason_code": "NO_FORMAL_PROOF",
@@ -408,42 +304,10 @@
   "proxima_accion": "Formalizar o mantener pendiente"
  },
  {
-  "claim_id": "C.thm:ch4-mlr",
-  "book_key": "thm:ch4-mlr",
-  "reason_code": "NO_FORMAL_PROOF",
-  "fuente": "capitulos/cap04_herramientas.typ (theorem: Existencia de UMP en Familias MLR)",
-  "impacto": "Sin respaldo formal",
-  "proxima_accion": "Formalizar o mantener pendiente"
- },
- {
   "claim_id": "C.thm:ch4-umpu",
   "book_key": "thm:ch4-umpu",
   "reason_code": "NO_FORMAL_PROOF",
   "fuente": "capitulos/cap04_herramientas.typ (theorem: UMPU para Hipótesis Bilateral)",
-  "impacto": "Sin respaldo formal",
-  "proxima_accion": "Formalizar o mantener pendiente"
- },
- {
-  "claim_id": "C.prop:ch4-multiplicidad",
-  "book_key": "prop:ch4-multiplicidad",
-  "reason_code": "NO_FORMAL_PROOF",
-  "fuente": "capitulos/cap04_herramientas.typ (proposition: Problema de Multiplicidad)",
-  "impacto": "Sin respaldo formal",
-  "proxima_accion": "Formalizar o mantener pendiente"
- },
- {
-  "claim_id": "C.ex:ch4-bonferroni-ssch",
-  "book_key": "ex:ch4-bonferroni-ssch",
-  "reason_code": "NO_FORMAL_PROOF",
-  "fuente": "capitulos/cap04_herramientas.typ (example: Pruebas Múltiples en SSCH con Corrección de Bonferroni)",
-  "impacto": "Sin respaldo formal",
-  "proxima_accion": "Formalizar o mantener pendiente"
- },
- {
-  "claim_id": "C.thm:ch4-holm",
-  "book_key": "thm:ch4-holm",
-  "reason_code": "NO_FORMAL_PROOF",
-  "fuente": "capitulos/cap04_herramientas.typ (theorem: Procedimiento de Holm)",
   "impacto": "Sin respaldo formal",
   "proxima_accion": "Formalizar o mantener pendiente"
  },

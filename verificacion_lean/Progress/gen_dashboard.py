@@ -38,7 +38,7 @@ def main() -> int:
         print("FALLO: build/axioms.log no existe — corre ./verificar.sh primero.",
               file=sys.stderr)
         return 1
-    axioms = dict(re.findall(r"^'(\w+)' depends on axioms: \[(.*)\]$",
+    axioms = dict(re.findall(r"^'([^']+)' depends on axioms: \[(.*)\]$",
                              LOG.read_text(encoding="utf-8"), re.M))
     rows, claves = [], set()
     for src in sorted((ROOT / "Book").glob("*.lean")):
@@ -50,7 +50,7 @@ def main() -> int:
             origen = re.search(r"Origen: ([^\n]+)", body)
             rows.append((name, key, loc, src.name,
                          origen.group(1).rstrip(". ") if origen else "?",
-                         axioms.get(name, "(no auditado)")))
+                         next((v for k, v in axioms.items() if k == name or k.endswith("." + name)), "(no auditado)")))
             claves.add(key)
     # Integridad: toda fila declarada completada debe estar cubierta arriba.
     faltan = [c for cs in COMPLETADAS.values() for c in cs if c not in claves]
@@ -65,7 +65,8 @@ def main() -> int:
            "| Teorema | Clave del libro | Origen | Axiomas | Estado |",
            "|---|---|---|---|---|"]
     for name, key, loc, src, origen, ax in rows:
-        estado = "OK" if name in axioms else "SIN AUDITAR"
+        in_axioms = name in axioms or any(k.endswith("." + name) for k in axioms)
+        estado = "OK" if in_axioms else "SIN AUDITAR"
         out.append(f"| `{name}` (`{src}`) | `{key}` @ {loc} | {origen} | "
                    f"`{ax}` | {estado} |")
     out += ["", "## Cobertura del inventario (plan §2)", ""]

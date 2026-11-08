@@ -9,15 +9,20 @@
   consola ajenos.
 
   Los objetivos son TODOS los teoremas con book_key en verificacion_lean
-  59 teoremas en total.
+  81 teoremas en total.
 -/
 import Book.Cap02Wald
 import Book.Cap03MDP
 import Book.Cap04Herramientas
+import Book.Cap04Suficiencia
+import Book.Cap04LoteM16
 import Book.Cap05Representacion
 import Book.Cap06Fronteras
 import Book.Cap07OPE
 import Book.Cap08Intervalos
+import Book.Cap08Estimadores
+import Book.Cap08Poder
+import Book.Cap08M6
 import Book.Cap11Despliegue
 import Book.ApendiceDRegularidad
 import Book.SSCH
@@ -92,7 +97,33 @@ def objetivos : List Name := [
   `Book.ApendiceD.relaciones,
   `Book.ApendiceD.irreducible_iff_fuertementeConexo,
   `Book.ApendiceD.aperiodic_of_selfloop,
-  `Book.ApendiceD.summable_rpow_of_geometric
+  `Book.ApendiceD.summable_rpow_of_geometric,
+  `Cap08Estimadores.dPhi_sum_eq_zero,
+  `Cap08Estimadores.abs_hac_le,
+  `Cap08Estimadores.save_separacion,
+  `Cap08Poder.planificacion_poder,
+  `Book.Cap04Suficiencia.ch2_lehmann_scheffe_criterio,
+  `Book.Cap04Suficiencia.ch2_lehmann_scheffe_minimal,
+  `Book.Cap04Suficiencia.cor_ch2_smc,
+  `Book.Cap04Suficiencia.ex_ch2_normal_suficiencia,
+  `Book.Cap04Suficiencia.ex_ch2_poisson_suficiencia,
+  `Book.Cap04Suficiencia.ch2_basu,
+  `Book.Cap04Suficiencia.ch2_equivarianza,
+  `Book.Cap04Suficiencia.ch3_rao_blackwell,
+  `Book.Cap04Suficiencia.cor_ch3_rb_insesgado,
+  `Book.Cap04Suficiencia.ch3_lehmann_scheffe,
+  `Book.Cap04Suficiencia.cor_ch3_umvue_exponencial,
+  `Book.Cap04Suficiencia.ch3_cramer_rao,
+  `Book.Cap04Suficiencia.cor_ch3_cr_iid,
+  `Cap04M16.ch4_neyman_pearson,
+  `Cap04M16.ch4_multiplicidad,
+  `Cap04M16.ch4_holm,
+  `Cap04M16.ch4_mlr,
+  `Cap04M16.ex_ch4_bonferroni_ssch,
+  `Cap08M6.P_eigen_w,
+  `Cap08M6.gap_abs,
+  `Cap08M6.prop_ch11_impacto_factor,
+  `Cap08M6.prop_ch11_baseline_optima
 ]
 
 /-- Escapa una cadena para incluirla como literal JSON. -/
