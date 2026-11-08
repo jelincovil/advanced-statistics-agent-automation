@@ -227,4 +227,5 @@ theorem ch2_neyman_fisher {Θ : Type*} [Fintype Θ]
   rw [hfac θ x₀, hfac θ' x₀, hsum θ, hsum θ']
   ring
 
+
 end ExpFam
