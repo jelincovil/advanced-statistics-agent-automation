@@ -40,6 +40,7 @@ Generado por `Progress/gen_dashboard.py` el 2026-11-08 desde `Book/*.lean` y `bu
 | `ch2_completitud_exponencial_vandermonde` (`Cap04Herramientas.lean`) | `thm:ch2-completitud-exponencial` @ capitulos/cap04_herramientas.typ:680 | F-correction 2026-11-08 (caso general; cierra la brecha de ch2_completitud_const) | `(no auditado)` | SIN AUDITAR |
 | `prop_ch3_info_aditiva` (`Cap04Herramientas.lean`) | `prop:ch3-info-aditiva` @ capitulos/cap04_herramientas.typ:1027 | F-correction 2026-11-07 | `propext, Classical.choice, Quot.sound` | OK |
 | `cor_ch4_exp_mlr` (`Cap04Herramientas.lean`) | `cor:ch4-exp-mlr` @ capitulos/cap04_herramientas.typ:1311 | F-correction 2026-11-07 | `propext, Classical.choice, Quot.sound` | OK |
+| `cor_ch4_ic_z_simple` (`Cap04Herramientas.lean`) | `thm:ch4-inversion` @ capitulos/cap04_herramientas.typ:1349 | ? | `propext, Classical.choice, Quot.sound` | OK |
 | `ch9_isomorfismo` (`Cap05Representacion.lean`) | `thm:ch9-isomorfismo` @ capitulos/cap05_incrustacion.typ:41 | piloto 2026-11-03 (m_repr) | `propext, Classical.choice, Quot.sound` | OK |
 | `ch9_bayes` (`Cap05Representacion.lean`) | `cor:ch9-bayes` @ capitulos/cap05_incrustacion.typ:143 | piloto 2026-11-03 (m_bayes) | `propext, Classical.choice, Quot.sound` | OK |
 | `ch9_admisibilidad` (`Cap05Representacion.lean`) | `thm:ch9-admisibilidad` @ capitulos/cap05_incrustacion.typ:136 | piloto 2026-11-03 (m_admis) | `propext, Classical.choice, Quot.sound` | OK |

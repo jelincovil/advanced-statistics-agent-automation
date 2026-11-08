@@ -2018,3 +2018,18 @@ existente (sin cálculo):
 ### Verificación
 verificar.sh: 10→11 módulos, 89 declaraciones, 0 sorry; DASHBOARD 86;
 Kernel: 61 argumentos ACEPTADOS, 163 pendientes; exporter 57 targets.
+
+## 2026-11-07 (t54) — Batch cap04 3-6: suficiencia, inversión e IC-Z
+
+### Entregable
+Tres teoremas más de cap04 (continuación del batch rápido):
+
+- `thm_ch1_suficiencia_natural'` (cap04:402): `T` suficiente — corolario
+  directo de Neyman-Fisher ya probado.
+- `thm_ch4_inversion_simple` (cap04:1349): inversión tests→IC, cobertura
+  `≥1-α` por nivel.
+- `cor_ch4_ic_z_simple` (cap04:1362): IC Z, `|Xbar-μ₀|≤zσ/√n` por split_ifs.
+
+### Verificación
+verificar.sh: 11 módulos, 91 declaraciones, 0 sorry; DASHBOARD 87→89;
+Kernel: 63 argumentos, 161 pendientes; exporter 59 targets.

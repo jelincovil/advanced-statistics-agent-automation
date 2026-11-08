@@ -118,3 +118,5 @@ import Book.ApendiceDRegularidad
 #print axioms Book.ApendiceD.return_eventually_pos
 #print axioms prop_ch3_info_aditiva
 #print axioms cor_ch4_exp_mlr
+#print axioms thm_ch4_inversion_simple
+#print axioms cor_ch4_ic_z_simple

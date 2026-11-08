@@ -55,5 +55,7 @@
  "thm:ch2-neyman-fisher": "ch2_neyman_fisher",
  "thm:ch2-completitud-exponencial": "ch2_completitud_exponencial",
  "prop:ch3-info-aditiva": "prop_ch3_info_aditiva",
- "cor:ch4-exp-mlr": "cor_ch4_exp_mlr"
+ "cor:ch4-exp-mlr": "cor_ch4_exp_mlr",
+ "thm:ch4-inversion": "thm_ch4_inversion_simple",
+ "cor:ch4-ic-z": "cor_ch4_ic_z_simple"
 }

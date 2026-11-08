@@ -3621,6 +3621,24 @@
    ]
   },
   {
+   "id": "A.thm:ch4-inversion",
+   "conclusion": "C.thm:ch4-inversion",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.thm:ch4-inversion"
+   ]
+  },
+  {
+   "id": "A.cor:ch4-ic-z",
+   "conclusion": "C.cor:ch4-ic-z",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.cor:ch4-ic-z"
+   ]
+  },
+  {
    "id": "A.prop:appD-relaciones",
    "conclusion": "C.prop:appD-relaciones",
    "premises": [],
@@ -4330,6 +4348,30 @@
    "claim_id": "C.cap11-margen",
    "runner_id": "lean-export",
    "target": "ch11_margen_elemental",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.thm:ch4-inversion",
+   "kind": "lean",
+   "claim_id": "C.thm:ch4-inversion",
+   "runner_id": "lean-export",
+   "target": "thm_ch4_inversion_simple",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.cor:ch4-ic-z",
+   "kind": "lean",
+   "claim_id": "C.cor:ch4-ic-z",
+   "runner_id": "lean-export",
+   "target": "cor_ch4_ic_z_simple",
    "scope": {
     "domain": "finite",
     "lean_axioms": "propext,Classical.choice,Quot.sound"

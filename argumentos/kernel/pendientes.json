@@ -424,22 +424,6 @@
   "proxima_accion": "Formalizar o mantener pendiente"
  },
  {
-  "claim_id": "C.thm:ch4-inversion",
-  "book_key": "thm:ch4-inversion",
-  "reason_code": "NO_FORMAL_PROOF",
-  "fuente": "capitulos/cap04_herramientas.typ (theorem: Inversión de Tests)",
-  "impacto": "Sin respaldo formal",
-  "proxima_accion": "Formalizar o mantener pendiente"
- },
- {
-  "claim_id": "C.cor:ch4-ic-z",
-  "book_key": "cor:ch4-ic-z",
-  "reason_code": "NO_FORMAL_PROOF",
-  "fuente": "capitulos/cap04_herramientas.typ (corollary: IC a partir de Test Z)",
-  "impacto": "Sin respaldo formal",
-  "proxima_accion": "Formalizar o mantener pendiente"
- },
- {
   "claim_id": "C.prop:ch4-multiplicidad",
   "book_key": "prop:ch4-multiplicidad",
   "reason_code": "NO_FORMAL_PROOF",
@@ -1296,7 +1280,7 @@
   "proxima_accion": "Mantener pendiente con la razon declarada en .ultramath/smw7v6gyh/m2/work/DEUDA.md"
  },
  {
-  "claim_id": "C.unnamed.example.162",
+  "claim_id": "C.unnamed.example.160",
   "book_key": "",
   "reason_code": "SEMANTIC_MAPPING_UNRESOLVED",
   "fuente": "capitulos/cap04_herramientas.typ (sin key)",

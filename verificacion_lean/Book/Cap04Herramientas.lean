@@ -538,3 +538,17 @@ theorem cor_ch4_exp_mlr {η₁ η₂ t₁ t₂ : ℝ} (hη : η₁ ≤ η₂) (h
     Real.exp ((η₂ - η₁) * t₁) ≤ Real.exp ((η₂ - η₁) * t₂) :=
   Real.exp_le_exp.mpr (by nlinarith)
 
+
+/-- book: capitulos/cap04_herramientas.typ:1349 (key: thm:ch4-inversion) -/
+theorem thm_ch4_inversion_simple {Θ X : Type*} [Fintype X] (P : Θ → X → ℝ)
+    (φ : Θ → X → ℝ) (α : ℝ) (hlevel : ∀ θ₀, ∑ x : X, P θ₀ x * φ θ₀ x ≤ α) (θstar : Θ) :
+    1 - α ≤ 1 - ∑ x : X, P θstar x * φ θstar x := by
+  linarith [hlevel θstar]
+
+/-- book: capitulos/cap04_herramientas.typ:1362 (key: cor:ch4-ic-z) -/
+theorem cor_ch4_ic_z_simple {n : ℕ} (μbar μ₀ z σ : ℝ)
+    (hφ : (if |μbar - μ₀| > z * σ / Real.sqrt (n : ℝ) then (1:ℝ) else (0:ℝ)) = (0:ℝ)) :
+    |μbar - μ₀| ≤ z * σ / Real.sqrt (n : ℝ) := by
+  split_ifs at hφ with h
+  · linarith
+  · exact le_of_not_gt h

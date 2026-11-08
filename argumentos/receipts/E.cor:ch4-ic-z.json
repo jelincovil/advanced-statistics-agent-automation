@@ -1,0 +1,35 @@
+{
+  "schema_version": "1.0",
+  "id": "R.E.cor:ch4-ic-z",
+  "spec_id": "E.cor:ch4-ic-z",
+  "spec_hash": "77edac77cc102fea9227cfff5a76fdaa291279b0d316b27e23ad3e4d5bec34c1",
+  "source_commit": "local",
+  "environment_hash": "05a496ec859c143e07c5ce2d226c39a6714c5a644996266f7a23737e5b010d50",
+  "checker_version": "0.1.0",
+  "command_argv": [
+    "lean",
+    "argumentos/evidence/lean_export.lean"
+  ],
+  "working_directory": "..",
+  "input_hashes": {
+    "lean_export.lean": "4495ec2b742e727ffb438b1a0df97b762325000e56da8b5ff572ef1b07e15849",
+    "ssch_bayes_racional.py": "af949182cb60e7cfc146980a08e7b97e6ebc11ac52afa6858de41c10dcc55cfb"
+  },
+  "started_at": "2026-11-08T16:54:54Z",
+  "finished_at": "2026-11-08T16:54:54Z",
+  "exit_status": 0,
+  "termination": "completed",
+  "stdout_sha256": "62477de99dea1fae6bb9a1158187c01a350bc06b83b8b152537d746a1c98fdef",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "artifacts": [],
+  "execution_passed": true,
+  "scientific_criterion_met": true,
+  "observed_checks": [
+    {
+      "id": "target_encontrado:cor_ch4_ic_z_simple",
+      "status": "pass",
+      "detail": "3 axiomas, 112 dependencias"
+    }
+  ],
+  "trust_mode": "locally_reproduced"
+}
