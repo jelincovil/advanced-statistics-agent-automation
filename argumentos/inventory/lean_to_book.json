@@ -46,5 +46,6 @@
  "cor:ch8-principio": "ch8_principio",
  "cor:ch7-bayes-especificas": "cor_ch7_bayes_especificas",
  "thm:ch8-bellman-opt": "ch8_bellman_opt",
- "prop:ch8-perdida": "prop_ch8_perdida"
+ "prop:ch8-perdida": "prop_ch8_perdida",
+ "thm:ch8-condiciones-contraccion": "ch8_condiciones_contraccion"
 }

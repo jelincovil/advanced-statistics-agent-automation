@@ -38,6 +38,7 @@ import Book.Cap07OPE
 #print axioms ch8_principio
 #print axioms ch8_bellman_opt
 #print axioms prop_ch8_perdida
+#print axioms ch8_condiciones_contraccion
 #print axioms ch10_curse
 #print axioms ch10_curse_ejemplo
 #print axioms ssch_regla_ordinario

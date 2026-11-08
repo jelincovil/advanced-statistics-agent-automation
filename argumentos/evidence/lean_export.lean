@@ -9,7 +9,7 @@
   consola ajenos.
 
   Los objetivos son TODOS los teoremas con book_key en verificacion_lean
-  48 teoremas en total.
+  49 teoremas en total.
 -/
 import Book.Cap02Wald
 import Book.Cap03MDP
@@ -49,6 +49,7 @@ def objetivos : List Name := [
   `ch8_bellman_pi,
   `ch8_bellman_opt,
   `prop_ch8_perdida,
+  `ch8_condiciones_contraccion,
   `ch8_contraccion,
   `ch8_mejora,
   `ch8_parada,

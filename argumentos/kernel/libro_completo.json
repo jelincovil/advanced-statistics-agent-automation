@@ -3216,6 +3216,15 @@
    ]
   },
   {
+   "id": "A.thm:ch8-condiciones-contraccion",
+   "conclusion": "C.thm:ch8-condiciones-contraccion",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.thm:ch8-condiciones-contraccion"
+   ]
+  },
+  {
    "id": "A.prop:ch8-perdida",
    "conclusion": "C.prop:ch8-perdida",
    "premises": [],
@@ -3673,6 +3682,18 @@
    "claim_id": "C.thm:ch8-bellman-opt",
    "runner_id": "lean-export",
    "target": "ch8_bellman_opt",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.thm:ch8-condiciones-contraccion",
+   "kind": "lean",
+   "claim_id": "C.thm:ch8-condiciones-contraccion",
+   "runner_id": "lean-export",
+   "target": "ch8_condiciones_contraccion",
    "scope": {
     "domain": "finite",
     "lean_axioms": "propext,Classical.choice,Quot.sound"

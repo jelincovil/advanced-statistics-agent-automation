@@ -1815,3 +1815,36 @@ Quot.sound] ×80. Dashboard: 75 teoremas con book:. Kernel: **48
 argumentos** (todos ACEPTADOS, exit 0), **176 pendientes** (−1; 93
 formal + 82 empirical + 1 sin clave). Exporter 48 targets. Puertas:
 fmt, clippy −D warnings, 65 tests, evidence/check end-to-end.
+
+## 2026-11-07 (t45) — thm:ch8-condiciones-contraccion: condiciones suficientes
+
+### Entregable
+Formalización de «Condiciones suficientes» (cap03:202) en
+Cap03MDP.lean: un kernel estocástico (hP0, hP1), recompensas acotadas
+(hB) y γ ≥ 0 bastan para que (i) Bellman preserve la acotación con
+cota explícita |T* V(s)| ≤ B + γ·‖V‖_∞ y (ii) sea una contracción en
+norma supremo. La parte (i) es el contenido nuevo: acota la suma
+estocástica (Finset.abs_sum_le_sum_abs + le_snorm, el mismo patrón
+que mvec_abs_bound pero sobre el operador óptimo) y el máximo sobre
+acciones (sup'_le_iff / le_sup'). La parte (ii) es ch8_contraccion
+elevada a nivel de norma (snorm_le).
+
+Fidelidad declarada en docstring: γ < 1 no se impone — no es
+necesario para ninguna de las dos propiedades (la desigualdad de
+contracción vale para todo γ ≥ 0; γ < 1 se usa para la
+existencia/unicidad del punto fijo, cf. ch8_punto_fijo_unico); «no se
+presentan como una caracterización necesaria» es una advertencia del
+libro que no requiere formalización; el espacio de funciones
+acotadas es automático por finitud (la cota explícita es el contenido
+nuevo). Trampa Lean: γ·(−‖V‖) vs −γ·‖V‖ — misma cosa matemáticamente,
+distinta sintácticamente; se resuelve con nlinarith que multiplica
+hipótesis.
+
+### Verificación
+verificar.sh: 9 módulos, **81 declaraciones auditadas** (80 +
+ch8_condiciones_contraccion), 0 sorry, axiomas [propext,
+Classical.choice, Quot.sound] ×81. Dashboard: 76 teoremas con
+book:. Kernel: **49 argumentos** (todos ACEPTADOS, exit 0), **175
+pendientes** (−1; 92 formal + 82 empirical + 1 sin clave). Exporter
+49 targets. Puertas: fmt, clippy −D warnings, 65 tests,
+evidence/check end-to-end.

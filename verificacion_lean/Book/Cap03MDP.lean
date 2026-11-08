@@ -1179,4 +1179,72 @@ theorem prop_ch8_perdida (proj : (S → ℝ) → (S → ℝ)) (L : ℝ)
         mul_le_mul_of_nonneg_left h2 hLnn
     _ = L * γ * snorm (fun s => V s - W s) := by ring
 
+/-! ### Formalización de pendientes del canon (thm:ch8-condiciones-contraccion) -/
+
+/-- book: capitulos/cap03_mdp.typ:202 (key: thm:ch8-condiciones-contraccion) —
+condiciones suficientes: un kernel estocástico (`hP0`, `hP1`),
+recompensas acotadas (`hB`) y `γ ≥ 0` bastan para que (i) Bellman
+preserve la acotación con cota explícita `|T* V(s)| ≤ B + γ·‖V‖_∞` y
+(ii) sea una contracción en norma supremo. La parte (i) acota la suma
+estocástica (`Finset.abs_sum_le_sum_abs` + `le_snorm`) y el máximo
+sobre acciones (`sup'_le_iff` / `le_sup'`); la parte (ii) es
+`ch8_contraccion` elevada a nivel de norma.
+Fidelidad declarada: `γ < 1` no se impone — no es necesario para
+ninguna de las dos propiedades (la desigualdad de contracción vale para
+todo `γ ≥ 0`; `γ < 1` se usa para la existencia/unicidad del punto
+fijo, cf. `ch8_punto_fijo_unico`); «no se presentan como una
+caracterización necesaria» es una advertencia del libro que no requiere
+formalización; el espacio de funciones acotadas es automático por
+finitud (la cota explícita es el contenido nuevo).
+Origen: F-correction 2026-11-07 (nuevo; formalización de pendiente). -/
+theorem ch8_condiciones_contraccion (hP0 : ∀ s a s', 0 ≤ P s a s')
+    (hP1 : ∀ s a, ∑ s', P s a s' = 1)
+    (hγ0 : 0 ≤ γ) (B : ℝ) (hB : ∀ s a, |r s a| ≤ B) :
+    (∀ V : S → ℝ, ∀ s : S, |Topt r P γ V s| ≤ B + γ * snorm V)
+    ∧ (∀ V W : S → ℝ, snorm (fun s => Topt r P γ V s - Topt r P γ W s)
+        ≤ γ * snorm (fun s => V s - W s)) := by
+  refine ⟨?_, ?_⟩
+  · intro V s
+    have hsumbound : ∀ a : A, |∑ s', P s a s' * V s'| ≤ snorm V := by
+      intro a
+      have h1 : ∀ s' : S, |P s a s' * V s'| ≤ P s a s' * snorm V := by
+        intro s'
+        calc |P s a s' * V s'| = P s a s' * |V s'| := by
+              rw [abs_mul, abs_of_nonneg (hP0 s a s')]
+          _ ≤ P s a s' * snorm V :=
+              mul_le_mul_of_nonneg_left (le_snorm V s') (hP0 s a s')
+      calc |∑ s', P s a s' * V s'| ≤ ∑ s', |P s a s' * V s'| :=
+            Finset.abs_sum_le_sum_abs _ _
+        _ ≤ ∑ s', P s a s' * snorm V :=
+            Finset.sum_le_sum (fun s' _ => h1 s')
+        _ = snorm V := by rw [← Finset.sum_mul, hP1 s a, one_mul]
+    have hupper : Topt r P γ V s ≤ B + γ * snorm V := by
+      refine (Finset.sup'_le_iff Finset.univ_nonempty _).mpr ?_
+      intro a _
+      have h1 : r s a ≤ B := le_trans (le_abs_self _) (hB s a)
+      have h2 := hsumbound a
+      have h3 : γ * ∑ s', P s a s' * V s' ≤ γ * snorm V :=
+        mul_le_mul_of_nonneg_left (le_trans (le_abs_self _) h2) hγ0
+      linarith
+    have hlower : -(B + γ * snorm V) ≤ Topt r P γ V s := by
+      obtain ⟨a₀⟩ := ‹Nonempty A›
+      have h3 : r s a₀ + γ * ∑ s', P s a₀ s' * V s' ≤ Topt r P γ V s :=
+        Finset.le_sup' (f := fun a => r s a + γ * ∑ s', P s a s' * V s')
+          (Finset.mem_univ a₀)
+      have h4 : -B ≤ r s a₀ := by
+        have := hB s a₀
+        linarith [abs_le.mp this]
+      have h5 := hsumbound a₀
+      have h6 : -γ * snorm V ≤ γ * ∑ s', P s a₀ s' * V s' := by
+        have h6a : -snorm V ≤ ∑ s', P s a₀ s' * V s' := by
+          have h6b : -|∑ s', P s a₀ s' * V s'| ≤ ∑ s', P s a₀ s' * V s' :=
+            neg_abs_le _
+          have h6c : -snorm V ≤ -|∑ s', P s a₀ s' * V s'| := by linarith
+          exact le_trans h6c h6b
+        nlinarith [h6a, hγ0]
+      linarith
+    exact abs_le.mpr ⟨hlower, hupper⟩
+  · intro V W
+    exact snorm_le _ _ (fun s => ch8_contraccion r P γ hP0 hP1 hγ0 V W s)
+
 end MDP

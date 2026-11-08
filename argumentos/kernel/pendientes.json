@@ -88,14 +88,6 @@
   "proxima_accion": "Formalizar o mantener pendiente"
  },
  {
-  "claim_id": "C.thm:ch8-condiciones-contraccion",
-  "book_key": "thm:ch8-condiciones-contraccion",
-  "reason_code": "NO_FORMAL_PROOF",
-  "fuente": "capitulos/cap03_mdp.typ (proposition: Condiciones suficientes)",
-  "impacto": "Sin respaldo formal",
-  "proxima_accion": "Formalizar o mantener pendiente"
- },
- {
   "claim_id": "C.ex:ch8-frozenlake",
   "book_key": "ex:ch8-frozenlake",
   "reason_code": "NO_FORMAL_PROOF",
@@ -1400,7 +1392,7 @@
   "proxima_accion": "Formalizar o mantener pendiente"
  },
  {
-  "claim_id": "C.unnamed.example.175",
+  "claim_id": "C.unnamed.example.174",
   "book_key": "",
   "reason_code": "SEMANTIC_MAPPING_UNRESOLVED",
   "fuente": "capitulos/cap04_herramientas.typ (sin key)",

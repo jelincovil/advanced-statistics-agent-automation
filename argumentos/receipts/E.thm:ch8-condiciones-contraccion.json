@@ -1,0 +1,35 @@
+{
+  "schema_version": "1.0",
+  "id": "R.E.thm:ch8-condiciones-contraccion",
+  "spec_id": "E.thm:ch8-condiciones-contraccion",
+  "spec_hash": "a087ebdff3aca55666ee37347bb0f8b53e2b03afc0719543bf514440c51bb66b",
+  "source_commit": "local",
+  "environment_hash": "2d74d57bfcfef2242c04c57dbddf22df277422d21b0f95985e8a339dbd383768",
+  "checker_version": "0.1.0",
+  "command_argv": [
+    "lean",
+    "argumentos/evidence/lean_export.lean"
+  ],
+  "working_directory": "..",
+  "input_hashes": {
+    "lean_export.lean": "4274e0dee14ac1e5339af486371668a1f5143d153170df8e8ad66a8ec8fbfc92",
+    "ssch_bayes_racional.py": "af949182cb60e7cfc146980a08e7b97e6ebc11ac52afa6858de41c10dcc55cfb"
+  },
+  "started_at": "2026-11-08T00:35:34Z",
+  "finished_at": "2026-11-08T00:35:34Z",
+  "exit_status": 0,
+  "termination": "completed",
+  "stdout_sha256": "da06618ec54cb65dc0eb33098388e6df74e5fc7da8ba2204e5a6340ea29c66fa",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "artifacts": [],
+  "execution_passed": true,
+  "scientific_criterion_met": true,
+  "observed_checks": [
+    {
+      "id": "target_encontrado:ch8_condiciones_contraccion",
+      "status": "pass",
+      "detail": "3 axiomas, 208 dependencias"
+    }
+  ],
+  "trust_mode": "locally_reproduced"
+}
