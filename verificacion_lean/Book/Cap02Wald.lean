@@ -994,4 +994,52 @@ theorem ch7_complete_class_esencial (δ₀ : X → A → ℝ) (hr₀ : IsRnd δ�
     simpa [hv₀] using h
   exact ⟨ν, hν, hν1, δ', hr', hle, hbayes⟩
 
+/-! ### prop:ch4-test-decision — test como regla de decisión -/
+
+/-- book: capitulos/cap02_wald.typ:148 (key: prop:ch4-test-decision) —
+test como regla de decisión: para hipótesis que particionan `Θ` en `Θ₀`
+y `Θ₁`, con pérdida `w_I` por falso rechazo (Type I) y `w_II` por falso
+negativo (Type II), la pérdida posterior de la acción «rechazar» es
+`w_I·P(Θ₀|X)` y la de «no rechazar» es `w_II·P(Θ₁|X)`. La regla de
+Bayes compara estas dos cantidades (rechaza cuando
+`w_I·P(Θ₀|X) < w_II·P(Θ₁|X)`, por `thm:ch7-bayes`).
+Fidelidad declarada: solo las identidades de pérdida posterior; la
+comparación (regla de Bayes) sigue de `thm:ch7-bayes` y no se repite;
+el control frecuentista del nivel («elegir pérdidas y prior no
+garantiza automáticamente un nivel prefijado») es una advertencia del
+libro que no requiere formalización.
+Origen: F-correction 2026-11-07 (nuevo; formalización de pendiente). -/
+theorem prop_ch4_test_decision (ν : Θ → ℝ) (x : X)
+    (Θ₀ Θ₁ : Finset Θ) (hcover : Θ₀ ∪ Θ₁ = Finset.univ) (hdisj : Disjoint Θ₀ Θ₁)
+    (wI wII : ℝ) (a_rej a_norej : A)
+    (hL_rej_0 : ∀ θ ∈ Θ₀, L θ a_rej = wI) (hL_rej_1 : ∀ θ ∈ Θ₁, L θ a_rej = 0)
+    (hL_norej_0 : ∀ θ ∈ Θ₀, L θ a_norej = 0) (hL_norej_1 : ∀ θ ∈ Θ₁, L θ a_norej = wII) :
+    postLoss P L ν x a_rej = wI * ∑ θ ∈ Θ₀, bayesPost P ν x θ
+    ∧ postLoss P L ν x a_norej = wII * ∑ θ ∈ Θ₁, bayesPost P ν x θ := by
+  constructor
+  · show ∑ θ, bayesPost P ν x θ * L θ a_rej = wI * ∑ θ ∈ Θ₀, bayesPost P ν x θ
+    rw [← hcover, Finset.sum_union hdisj]
+    have h0 : ∑ θ ∈ Θ₀, bayesPost P ν x θ * L θ a_rej
+        = wI * ∑ θ ∈ Θ₀, bayesPost P ν x θ := by
+      have hrew : ∑ θ ∈ Θ₀, bayesPost P ν x θ * L θ a_rej
+          = ∑ θ ∈ Θ₀, bayesPost P ν x θ * wI := by
+        exact Finset.sum_congr rfl fun θ hθ => by rw [hL_rej_0 θ hθ]
+      rw [hrew, ← Finset.sum_mul, mul_comm]
+    have h1 : ∑ θ ∈ Θ₁, bayesPost P ν x θ * L θ a_rej = 0 := by
+      refine Finset.sum_eq_zero fun θ hθ => ?_
+      rw [hL_rej_1 θ hθ, mul_zero]
+    rw [h0, h1, add_zero]
+  · show ∑ θ, bayesPost P ν x θ * L θ a_norej = wII * ∑ θ ∈ Θ₁, bayesPost P ν x θ
+    rw [← hcover, Finset.sum_union hdisj]
+    have h0 : ∑ θ ∈ Θ₀, bayesPost P ν x θ * L θ a_norej = 0 := by
+      refine Finset.sum_eq_zero fun θ hθ => ?_
+      rw [hL_norej_0 θ hθ, mul_zero]
+    have h1 : ∑ θ ∈ Θ₁, bayesPost P ν x θ * L θ a_norej
+        = wII * ∑ θ ∈ Θ₁, bayesPost P ν x θ := by
+      have hrew : ∑ θ ∈ Θ₁, bayesPost P ν x θ * L θ a_norej
+          = ∑ θ ∈ Θ₁, bayesPost P ν x θ * wII := by
+        exact Finset.sum_congr rfl fun θ hθ => by rw [hL_norej_1 θ hθ]
+      rw [hrew, ← Finset.sum_mul, mul_comm]
+    rw [h0, h1, zero_add]
+
 end Wald

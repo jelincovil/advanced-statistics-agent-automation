@@ -67,6 +67,7 @@ import Book.Cap07OPE
 #print axioms ch7_admisibilidad_bayes
 #print axioms ch7_complete_class_bayes
 #print axioms ch7_complete_class_esencial
+#print axioms prop_ch4_test_decision
 #print axioms ex_ch9_observabilidad_parcial
 #print axioms ex_ch9_confounding
 #print axioms ex_ch9_fallo_mixing

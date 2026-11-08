@@ -1848,3 +1848,17 @@ book:. Kernel: **49 argumentos** (todos ACEPTADOS, exit 0), **175
 pendientes** (−1; 92 formal + 82 empirical + 1 sin clave). Exporter
 49 targets. Puertas: fmt, clippy −D warnings, 65 tests,
 evidence/check end-to-end.
+
+## 2026-11-07 (t46) — prop:ch4-test-decision: test como regla de decisión
+
+### Entregable
+Formalización de «Test como regla de decisión» (cap02:148) en
+Cap02Wald.lean: para hipótesis que particionan Θ en Θ₀ y Θ₁, con pérdida
+w_I por falso rechazo y w_II por falso negativo, la pérdida posterior
+de «rechazar» es w_I·P(Θ₀|X) y la de «no rechazar» es w_II·P(Θ₁|X).
+Prueba: descomposición de la suma posterior por la partición (Finset.sum_union
+con disjoint) + sustitución de la pérdida en cada flanco.
+
+### Verificación
+verificar.sh: 82 declaraciones, 0 sorry. Dashboard: 77 teoremas. Kernel:
+50 argumentos ACEPTADOS, 174 pendientes.

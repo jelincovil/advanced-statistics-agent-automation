@@ -15,6 +15,7 @@ Generado por `Progress/gen_dashboard.py` el 2026-11-08 desde `Book/*.lean` y `bu
 | `ch7_minimax_bayes_constante` (`Cap02Wald.lean`) | `thm:ch7-minimax-bayes` @ capitulos/cap02_wald.typ:123 | ? | `propext, Classical.choice, Quot.sound` | OK |
 | `ch7_admisibilidad_bayes` (`Cap02Wald.lean`) | `thm:ch7-admisibilidad-bayes` @ capitulos/cap02_wald.typ:101 | ? | `propext, Classical.choice, Quot.sound` | OK |
 | `ch7_complete_class_bayes` (`Cap02Wald.lean`) | `thm:ch7-complete-class` @ capitulos/cap02_wald.typ:108 | F2 2026-11-05 (nuevo) | `propext, Classical.choice, Quot.sound` | OK |
+| `prop_ch4_test_decision` (`Cap02Wald.lean`) | `prop:ch4-test-decision` @ capitulos/cap02_wald.typ:148 | F-correction 2026-11-07 (nuevo; formalización de pendiente) | `propext, Classical.choice, Quot.sound` | OK |
 | `ch8_mejora` (`Cap03MDP.lean`) | `thm:ch8-mejora` @ capitulos/cap03_mdp.typ:120 | F1 2026-11-04 (nuevo) | `propext, Classical.choice, Quot.sound` | OK |
 | `ch8_pi_finita_sin_repeticion` (`Cap03MDP.lean`) | `cor:ch8-pi-finita` @ capitulos/cap03_mdp.typ:128 | F1 2026-11-04 (nuevo) | `propext, Classical.choice, Quot.sound` | OK |
 | `ch8_pi_finita_conteo` (`Cap03MDP.lean`) | `cor:ch8-pi-finita` @ capitulos/cap03_mdp.typ:128 | F1 2026-11-04 (nuevo) | `propext, Classical.choice, Quot.sound` | OK |

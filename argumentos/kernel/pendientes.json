@@ -24,14 +24,6 @@
   "proxima_accion": "Formalizar o mantener pendiente"
  },
  {
-  "claim_id": "C.prop:ch4-test-decision",
-  "book_key": "prop:ch4-test-decision",
-  "reason_code": "NO_FORMAL_PROOF",
-  "fuente": "capitulos/cap02_wald.typ (proposition: Test como regla de decisión)",
-  "impacto": "Sin respaldo formal",
-  "proxima_accion": "Formalizar o mantener pendiente"
- },
- {
   "claim_id": "C.prop:ch8-mab-mdp",
   "book_key": "prop:ch8-mab-mdp",
   "reason_code": "NO_FORMAL_PROOF",
@@ -1392,7 +1384,7 @@
   "proxima_accion": "Formalizar o mantener pendiente"
  },
  {
-  "claim_id": "C.unnamed.example.174",
+  "claim_id": "C.unnamed.example.173",
   "book_key": "",
   "reason_code": "SEMANTIC_MAPPING_UNRESOLVED",
   "fuente": "capitulos/cap04_herramientas.typ (sin key)",

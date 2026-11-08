@@ -4,7 +4,7 @@
   "spec_id": "E.cor:ch8-pi-finita",
   "spec_hash": "fc4f1653814aa7dd8eb03b2a5af6d90ff7d179a7b2bcb42f7879fb454de7be2a",
   "source_commit": "local",
-  "environment_hash": "2d74d57bfcfef2242c04c57dbddf22df277422d21b0f95985e8a339dbd383768",
+  "environment_hash": "e3d19144aee9f4d5b55eac3e1ae3967ba8c4b52acc740207c0412bb8ebc235b3",
   "checker_version": "0.1.0",
   "command_argv": [
     "lean",
@@ -12,14 +12,14 @@
   ],
   "working_directory": "..",
   "input_hashes": {
-    "lean_export.lean": "4274e0dee14ac1e5339af486371668a1f5143d153170df8e8ad66a8ec8fbfc92",
+    "lean_export.lean": "232aa6ec6ca266f40bc61dc1237caa036f098e0c98c5e242515157a549351f54",
     "ssch_bayes_racional.py": "af949182cb60e7cfc146980a08e7b97e6ebc11ac52afa6858de41c10dcc55cfb"
   },
-  "started_at": "2026-11-08T00:35:34Z",
-  "finished_at": "2026-11-08T00:35:34Z",
+  "started_at": "2026-11-08T01:21:36Z",
+  "finished_at": "2026-11-08T01:21:36Z",
   "exit_status": 0,
   "termination": "completed",
-  "stdout_sha256": "da06618ec54cb65dc0eb33098388e6df74e5fc7da8ba2204e5a6340ea29c66fa",
+  "stdout_sha256": "7b9ef03db4311843eff7964e5049c0d944f8e4ad42926b46ac788da43abdd508",
   "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
   "artifacts": [],
   "execution_passed": true,

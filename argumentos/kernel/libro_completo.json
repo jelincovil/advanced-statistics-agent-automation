@@ -3144,6 +3144,15 @@
    ]
   },
   {
+   "id": "A.prop:ch4-test-decision",
+   "conclusion": "C.prop:ch4-test-decision",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.prop:ch4-test-decision"
+   ]
+  },
+  {
    "id": "A.thm:ch7-admisibilidad-bayes",
    "conclusion": "C.thm:ch7-admisibilidad-bayes",
    "premises": [],
@@ -3586,6 +3595,18 @@
    "claim_id": "C.cor:ch7-bayes-especificas",
    "runner_id": "lean-export",
    "target": "cor_ch7_bayes_especificas",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.prop:ch4-test-decision",
+   "kind": "lean",
+   "claim_id": "C.prop:ch4-test-decision",
+   "runner_id": "lean-export",
+   "target": "prop_ch4_test_decision",
    "scope": {
     "domain": "finite",
     "lean_axioms": "propext,Classical.choice,Quot.sound"

@@ -47,5 +47,6 @@
  "cor:ch7-bayes-especificas": "cor_ch7_bayes_especificas",
  "thm:ch8-bellman-opt": "ch8_bellman_opt",
  "prop:ch8-perdida": "prop_ch8_perdida",
- "thm:ch8-condiciones-contraccion": "ch8_condiciones_contraccion"
+ "thm:ch8-condiciones-contraccion": "ch8_condiciones_contraccion",
+ "prop:ch4-test-decision": "prop_ch4_test_decision"
 }
