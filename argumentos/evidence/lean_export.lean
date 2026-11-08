@@ -9,13 +9,16 @@
   consola ajenos.
 
   Los objetivos son TODOS los teoremas con book_key en verificacion_lean
-  81 teoremas en total.
+  111 teoremas en total.
 -/
 import Book.Cap02Wald
 import Book.Cap03MDP
 import Book.Cap04Herramientas
 import Book.Cap04Suficiencia
 import Book.Cap04LoteM16
+import Book.Cap04Ch6
+import Book.Cap05Asintotica
+import Book.Cap04Ejemplos
 import Book.Cap05Representacion
 import Book.Cap06Fronteras
 import Book.Cap07OPE
@@ -123,7 +126,37 @@ def objetivos : List Name := [
   `Cap08M6.P_eigen_w,
   `Cap08M6.gap_abs,
   `Cap08M6.prop_ch11_impacto_factor,
-  `Cap08M6.prop_ch11_baseline_optima
+  `Cap08M6.prop_ch11_baseline_optima,
+  `thm_ch6_dr,
+  `thm_ch6_cota,
+  `cor_ch6_varianza_minima,
+  `prop_ch6_descomposicion,
+  `thm_ch6_neyman,
+  `thm_ch6_kallus_residual,
+  `cor_ch6_dr_ope_modelos,
+  `thm_ch6_crossfit_suma,
+  `prop_ch6_ral,
+  `thm_ch6_rubin_dag,
+  `BookCap05.ch5_clt,
+  `BookCap05.prop_ch5_clt_retornos,
+  `BookCap05.ch4_clt_mixing_var,
+  `BookCap05.ch5_lindeberg_feller,
+  `BookCap05.ch5_delta,
+  `BookCap05.ch5_delta_multi,
+  `BookCap05.prop_ch5_delta_q,
+  `BookCap05.ch5_donsker,
+  `BookCap05.ch5_bootstrap_media,
+  `Book.Cap04Ejemplos.ch1_calculo_numerico_observado,
+  `Book.Cap04Ejemplos.ch1_normal_expansion,
+  `Book.Cap04Ejemplos.ch1_binomial_forma_exponencial,
+  `Book.Cap04Ejemplos.ch1_poisson_forma_exponencial,
+  `Book.Cap04Ejemplos.ch1_beta_binomial_actualizacion,
+  `Book.Cap04Ejemplos.ch1_gamma_poisson_actualizacion,
+  `Book.Cap04Ejemplos.ch1_estadisticos_media_constante,
+  `Book.Cap04Ejemplos.ch2_traslaciones_media,
+  `Book.Cap04Ejemplos.ch2_escala_media,
+  `Book.Cap04Ejemplos.ch4_mp_normal_forma_factorizada,
+  `Book.Cap04Ejemplos.ch5_cociente_delta
 ]
 
 /-- Escapa una cadena para incluirla como literal JSON. -/

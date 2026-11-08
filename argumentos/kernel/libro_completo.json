@@ -466,7 +466,7 @@
   {
    "id": "C.ex:ch1-estadisticos-fundamentales",
    "book_key": "ex:ch1-estadisticos-fundamentales",
-   "kind": "empirical",
+   "kind": "formal",
    "statement": "Example: Estadísticos Fundamentales (capitulos/cap04_herramientas.typ)",
    "expression": {
     "op": "atom",
@@ -480,7 +480,7 @@
   {
    "id": "C.ex:ch1-calculo-numerico",
    "book_key": "ex:ch1-calculo-numerico",
-   "kind": "empirical",
+   "kind": "formal",
    "statement": "Example: Cálculo Numérico de Sesgo, Varianza y ECM (capitulos/cap04_herramientas.typ)",
    "expression": {
     "op": "atom",
@@ -536,7 +536,7 @@
   {
    "id": "C.ex:ch1-normal",
    "book_key": "ex:ch1-normal",
-   "kind": "empirical",
+   "kind": "formal",
    "statement": "Example: Familia Normal con Varianza Conocida (capitulos/cap04_herramientas.typ)",
    "expression": {
     "op": "atom",
@@ -550,7 +550,7 @@
   {
    "id": "C.ex:ch1-binomial",
    "book_key": "ex:ch1-binomial",
-   "kind": "empirical",
+   "kind": "formal",
    "statement": "Example: Familia Bernoulli/Binomial (capitulos/cap04_herramientas.typ)",
    "expression": {
     "op": "atom",
@@ -564,7 +564,7 @@
   {
    "id": "C.ex:ch1-poisson",
    "book_key": "ex:ch1-poisson",
-   "kind": "empirical",
+   "kind": "formal",
    "statement": "Example: Familia Poisson (capitulos/cap04_herramientas.typ)",
    "expression": {
     "op": "atom",
@@ -592,7 +592,7 @@
   {
    "id": "C.ex:ch1-beta-binomial",
    "book_key": "ex:ch1-beta-binomial",
-   "kind": "empirical",
+   "kind": "formal",
    "statement": "Example: Beta-Binomial (capitulos/cap04_herramientas.typ)",
    "expression": {
     "op": "atom",
@@ -606,7 +606,7 @@
   {
    "id": "C.ex:ch1-gamma-poisson",
    "book_key": "ex:ch1-gamma-poisson",
-   "kind": "empirical",
+   "kind": "formal",
    "statement": "Example: Gamma-Poisson (capitulos/cap04_herramientas.typ)",
    "expression": {
     "op": "atom",
@@ -844,7 +844,7 @@
   {
    "id": "C.ex:ch2-traslaciones",
    "book_key": "ex:ch2-traslaciones",
-   "kind": "empirical",
+   "kind": "formal",
    "statement": "Example: Equivarianza bajo Traslaciones (capitulos/cap04_herramientas.typ)",
    "expression": {
     "op": "atom",
@@ -858,7 +858,7 @@
   {
    "id": "C.ex:ch2-escala",
    "book_key": "ex:ch2-escala",
-   "kind": "empirical",
+   "kind": "formal",
    "statement": "Example: Equivarianza bajo Escala (capitulos/cap04_herramientas.typ)",
    "expression": {
     "op": "atom",
@@ -1068,7 +1068,7 @@
   {
    "id": "C.ex:ch4-mp-normal",
    "book_key": "ex:ch4-mp-normal",
-   "kind": "empirical",
+   "kind": "formal",
    "statement": "Example: Test MP para Normal (capitulos/cap04_herramientas.typ)",
    "expression": {
     "op": "atom",
@@ -1306,7 +1306,7 @@
   {
    "id": "C.ex:ch5-cociente",
    "book_key": "ex:ch5-cociente",
-   "kind": "empirical",
+   "kind": "formal",
    "statement": "Example: Varianza Asintótica del Cociente (capitulos/cap04_herramientas.typ)",
    "expression": {
     "op": "atom",
@@ -3845,6 +3845,276 @@
    "evidence_specs": [
     "E.ex:ch4-bonferroni-ssch"
    ]
+  },
+  {
+   "id": "A.thm:ch6-dr",
+   "conclusion": "C.thm:ch6-dr",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.thm:ch6-dr"
+   ]
+  },
+  {
+   "id": "A.thm:ch6-cota",
+   "conclusion": "C.thm:ch6-cota",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.thm:ch6-cota"
+   ]
+  },
+  {
+   "id": "A.cor:ch6-varianza-minima",
+   "conclusion": "C.cor:ch6-varianza-minima",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.cor:ch6-varianza-minima"
+   ]
+  },
+  {
+   "id": "A.prop:ch6-descomposicion",
+   "conclusion": "C.prop:ch6-descomposicion",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.prop:ch6-descomposicion"
+   ]
+  },
+  {
+   "id": "A.thm:ch6-neyman",
+   "conclusion": "C.thm:ch6-neyman",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.thm:ch6-neyman"
+   ]
+  },
+  {
+   "id": "A.thm:ch6-kallus",
+   "conclusion": "C.thm:ch6-kallus",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.thm:ch6-kallus"
+   ]
+  },
+  {
+   "id": "A.cor:ch6-dr-ope",
+   "conclusion": "C.cor:ch6-dr-ope",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.cor:ch6-dr-ope"
+   ]
+  },
+  {
+   "id": "A.thm:ch6-crossfit",
+   "conclusion": "C.thm:ch6-crossfit",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.thm:ch6-crossfit"
+   ]
+  },
+  {
+   "id": "A.prop:ch6-ral",
+   "conclusion": "C.prop:ch6-ral",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.prop:ch6-ral"
+   ]
+  },
+  {
+   "id": "A.thm:ch6-rubin-dag",
+   "conclusion": "C.thm:ch6-rubin-dag",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.thm:ch6-rubin-dag"
+   ]
+  },
+  {
+   "id": "A.thm:ch5-clt",
+   "conclusion": "C.thm:ch5-clt",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.thm:ch5-clt"
+   ]
+  },
+  {
+   "id": "A.prop:ch5-clt-retornos",
+   "conclusion": "C.prop:ch5-clt-retornos",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.prop:ch5-clt-retornos"
+   ]
+  },
+  {
+   "id": "A.thm:ch4-clt-mixing",
+   "conclusion": "C.thm:ch4-clt-mixing",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.thm:ch4-clt-mixing"
+   ]
+  },
+  {
+   "id": "A.thm:ch5-lindeberg",
+   "conclusion": "C.thm:ch5-lindeberg",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.thm:ch5-lindeberg"
+   ]
+  },
+  {
+   "id": "A.thm:ch5-delta",
+   "conclusion": "C.thm:ch5-delta",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.thm:ch5-delta"
+   ]
+  },
+  {
+   "id": "A.thm:ch5-delta-multi",
+   "conclusion": "C.thm:ch5-delta-multi",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.thm:ch5-delta-multi"
+   ]
+  },
+  {
+   "id": "A.prop:ch5-delta-q",
+   "conclusion": "C.prop:ch5-delta-q",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.prop:ch5-delta-q"
+   ]
+  },
+  {
+   "id": "A.thm:ch5-donsker",
+   "conclusion": "C.thm:ch5-donsker",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.thm:ch5-donsker"
+   ]
+  },
+  {
+   "id": "A.thm:ch5-bootstrap-media",
+   "conclusion": "C.thm:ch5-bootstrap-media",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.thm:ch5-bootstrap-media"
+   ]
+  },
+  {
+   "id": "A.ex:ch1-calculo-numerico",
+   "conclusion": "C.ex:ch1-calculo-numerico",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.ex:ch1-calculo-numerico"
+   ]
+  },
+  {
+   "id": "A.ex:ch1-normal",
+   "conclusion": "C.ex:ch1-normal",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.ex:ch1-normal"
+   ]
+  },
+  {
+   "id": "A.ex:ch1-binomial",
+   "conclusion": "C.ex:ch1-binomial",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.ex:ch1-binomial"
+   ]
+  },
+  {
+   "id": "A.ex:ch1-poisson",
+   "conclusion": "C.ex:ch1-poisson",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.ex:ch1-poisson"
+   ]
+  },
+  {
+   "id": "A.ex:ch1-beta-binomial",
+   "conclusion": "C.ex:ch1-beta-binomial",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.ex:ch1-beta-binomial"
+   ]
+  },
+  {
+   "id": "A.ex:ch1-gamma-poisson",
+   "conclusion": "C.ex:ch1-gamma-poisson",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.ex:ch1-gamma-poisson"
+   ]
+  },
+  {
+   "id": "A.ex:ch1-estadisticos-fundamentales",
+   "conclusion": "C.ex:ch1-estadisticos-fundamentales",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.ex:ch1-estadisticos-fundamentales"
+   ]
+  },
+  {
+   "id": "A.ex:ch2-traslaciones",
+   "conclusion": "C.ex:ch2-traslaciones",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.ex:ch2-traslaciones"
+   ]
+  },
+  {
+   "id": "A.ex:ch2-escala",
+   "conclusion": "C.ex:ch2-escala",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.ex:ch2-escala"
+   ]
+  },
+  {
+   "id": "A.ex:ch4-mp-normal",
+   "conclusion": "C.ex:ch4-mp-normal",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.ex:ch4-mp-normal"
+   ]
+  },
+  {
+   "id": "A.ex:ch5-cociente",
+   "conclusion": "C.ex:ch5-cociente",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.ex:ch5-cociente"
+   ]
   }
  ],
  "evidence_specs": [
@@ -4814,6 +5084,366 @@
    "claim_id": "C.ex:ch4-bonferroni-ssch",
    "runner_id": "lean-export",
    "target": "Cap04M16.ex_ch4_bonferroni_ssch",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.thm:ch6-dr",
+   "kind": "lean",
+   "claim_id": "C.thm:ch6-dr",
+   "runner_id": "lean-export",
+   "target": "thm_ch6_dr",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.thm:ch6-cota",
+   "kind": "lean",
+   "claim_id": "C.thm:ch6-cota",
+   "runner_id": "lean-export",
+   "target": "thm_ch6_cota",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.cor:ch6-varianza-minima",
+   "kind": "lean",
+   "claim_id": "C.cor:ch6-varianza-minima",
+   "runner_id": "lean-export",
+   "target": "cor_ch6_varianza_minima",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.prop:ch6-descomposicion",
+   "kind": "lean",
+   "claim_id": "C.prop:ch6-descomposicion",
+   "runner_id": "lean-export",
+   "target": "prop_ch6_descomposicion",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.thm:ch6-neyman",
+   "kind": "lean",
+   "claim_id": "C.thm:ch6-neyman",
+   "runner_id": "lean-export",
+   "target": "thm_ch6_neyman",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.thm:ch6-kallus",
+   "kind": "lean",
+   "claim_id": "C.thm:ch6-kallus",
+   "runner_id": "lean-export",
+   "target": "thm_ch6_kallus_residual",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.cor:ch6-dr-ope",
+   "kind": "lean",
+   "claim_id": "C.cor:ch6-dr-ope",
+   "runner_id": "lean-export",
+   "target": "cor_ch6_dr_ope_modelos",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.thm:ch6-crossfit",
+   "kind": "lean",
+   "claim_id": "C.thm:ch6-crossfit",
+   "runner_id": "lean-export",
+   "target": "thm_ch6_crossfit_suma",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.prop:ch6-ral",
+   "kind": "lean",
+   "claim_id": "C.prop:ch6-ral",
+   "runner_id": "lean-export",
+   "target": "prop_ch6_ral",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.thm:ch6-rubin-dag",
+   "kind": "lean",
+   "claim_id": "C.thm:ch6-rubin-dag",
+   "runner_id": "lean-export",
+   "target": "thm_ch6_rubin_dag",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.thm:ch5-clt",
+   "kind": "lean",
+   "claim_id": "C.thm:ch5-clt",
+   "runner_id": "lean-export",
+   "target": "BookCap05.ch5_clt",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.prop:ch5-clt-retornos",
+   "kind": "lean",
+   "claim_id": "C.prop:ch5-clt-retornos",
+   "runner_id": "lean-export",
+   "target": "BookCap05.prop_ch5_clt_retornos",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.thm:ch4-clt-mixing",
+   "kind": "lean",
+   "claim_id": "C.thm:ch4-clt-mixing",
+   "runner_id": "lean-export",
+   "target": "BookCap05.ch4_clt_mixing_var",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.thm:ch5-lindeberg",
+   "kind": "lean",
+   "claim_id": "C.thm:ch5-lindeberg",
+   "runner_id": "lean-export",
+   "target": "BookCap05.ch5_lindeberg_feller",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.thm:ch5-delta",
+   "kind": "lean",
+   "claim_id": "C.thm:ch5-delta",
+   "runner_id": "lean-export",
+   "target": "BookCap05.ch5_delta",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.thm:ch5-delta-multi",
+   "kind": "lean",
+   "claim_id": "C.thm:ch5-delta-multi",
+   "runner_id": "lean-export",
+   "target": "BookCap05.ch5_delta_multi",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.prop:ch5-delta-q",
+   "kind": "lean",
+   "claim_id": "C.prop:ch5-delta-q",
+   "runner_id": "lean-export",
+   "target": "BookCap05.prop_ch5_delta_q",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.thm:ch5-donsker",
+   "kind": "lean",
+   "claim_id": "C.thm:ch5-donsker",
+   "runner_id": "lean-export",
+   "target": "BookCap05.ch5_donsker",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.thm:ch5-bootstrap-media",
+   "kind": "lean",
+   "claim_id": "C.thm:ch5-bootstrap-media",
+   "runner_id": "lean-export",
+   "target": "BookCap05.ch5_bootstrap_media",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.ex:ch1-calculo-numerico",
+   "kind": "lean",
+   "claim_id": "C.ex:ch1-calculo-numerico",
+   "runner_id": "lean-export",
+   "target": "Book.Cap04Ejemplos.ch1_calculo_numerico_observado",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.ex:ch1-normal",
+   "kind": "lean",
+   "claim_id": "C.ex:ch1-normal",
+   "runner_id": "lean-export",
+   "target": "Book.Cap04Ejemplos.ch1_normal_expansion",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.ex:ch1-binomial",
+   "kind": "lean",
+   "claim_id": "C.ex:ch1-binomial",
+   "runner_id": "lean-export",
+   "target": "Book.Cap04Ejemplos.ch1_binomial_forma_exponencial",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.ex:ch1-poisson",
+   "kind": "lean",
+   "claim_id": "C.ex:ch1-poisson",
+   "runner_id": "lean-export",
+   "target": "Book.Cap04Ejemplos.ch1_poisson_forma_exponencial",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.ex:ch1-beta-binomial",
+   "kind": "lean",
+   "claim_id": "C.ex:ch1-beta-binomial",
+   "runner_id": "lean-export",
+   "target": "Book.Cap04Ejemplos.ch1_beta_binomial_actualizacion",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.ex:ch1-gamma-poisson",
+   "kind": "lean",
+   "claim_id": "C.ex:ch1-gamma-poisson",
+   "runner_id": "lean-export",
+   "target": "Book.Cap04Ejemplos.ch1_gamma_poisson_actualizacion",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.ex:ch1-estadisticos-fundamentales",
+   "kind": "lean",
+   "claim_id": "C.ex:ch1-estadisticos-fundamentales",
+   "runner_id": "lean-export",
+   "target": "Book.Cap04Ejemplos.ch1_estadisticos_media_constante",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.ex:ch2-traslaciones",
+   "kind": "lean",
+   "claim_id": "C.ex:ch2-traslaciones",
+   "runner_id": "lean-export",
+   "target": "Book.Cap04Ejemplos.ch2_traslaciones_media",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.ex:ch2-escala",
+   "kind": "lean",
+   "claim_id": "C.ex:ch2-escala",
+   "runner_id": "lean-export",
+   "target": "Book.Cap04Ejemplos.ch2_escala_media",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.ex:ch4-mp-normal",
+   "kind": "lean",
+   "claim_id": "C.ex:ch4-mp-normal",
+   "runner_id": "lean-export",
+   "target": "Book.Cap04Ejemplos.ch4_mp_normal_forma_factorizada",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.ex:ch5-cociente",
+   "kind": "lean",
+   "claim_id": "C.ex:ch5-cociente",
+   "runner_id": "lean-export",
+   "target": "Book.Cap04Ejemplos.ch5_cociente_delta",
    "scope": {
     "domain": "finite",
     "lean_axioms": "propext,Classical.choice,Quot.sound"

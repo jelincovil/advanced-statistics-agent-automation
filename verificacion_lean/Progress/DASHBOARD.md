@@ -31,6 +31,52 @@ Generado por `Progress/gen_dashboard.py` el 2026-11-08 desde `Book/*.lean` y `bu
 | `ch8_bellman_opt` (`Cap03MDP.lean`) | `thm:ch8-bellman-opt` @ capitulos/cap03_mdp.typ:63 | F-correction 2026-11-07 (nuevo; formalización de pendiente) | `propext, Classical.choice, Quot.sound` | OK |
 | `prop_ch8_perdida` (`Cap03MDP.lean`) | `prop:ch8-perdida` @ capitulos/cap03_mdp.typ:205 | F-correction 2026-11-07 (nuevo; formalización de pendiente) | `propext, Classical.choice, Quot.sound` | OK |
 | `ch8_condiciones_contraccion` (`Cap03MDP.lean`) | `thm:ch8-condiciones-contraccion` @ capitulos/cap03_mdp.typ:202 | F-correction 2026-11-07 (nuevo; formalización de pendiente) | `propext, Classical.choice, Quot.sound` | OK |
+| `thm_ch6_dr` (`Cap04Ch6.lean`) | `thm:ch6-dr` @ capitulos/cap04_herramientas.typ:1955 | F-correction 2026-11-08 (nuevo; formalización de pendiente) | `propext, Classical.choice, Quot.sound` | OK |
+| `thm_ch6_dr_propension` (`Cap04Ch6.lean`) | `thm:ch6-dr` @ capitulos/cap04_herramientas.typ:1955 | ? | `(no auditado)` | SIN AUDITAR |
+| `thm_ch6_dr_modelos` (`Cap04Ch6.lean`) | `thm:ch6-dr` @ capitulos/cap04_herramientas.typ:1955 | ? | `(no auditado)` | SIN AUDITAR |
+| `thm_ch6_cota` (`Cap04Ch6.lean`) | `thm:ch6-cota` @ capitulos/cap04_herramientas.typ:1919 | ? | `propext, Classical.choice, Quot.sound` | OK |
+| `thm_ch6_cota_le` (`Cap04Ch6.lean`) | `thm:ch6-cota` @ capitulos/cap04_herramientas.typ:1919 | ? | `(no auditado)` | SIN AUDITAR |
+| `thm_ch6_cota_igualdad` (`Cap04Ch6.lean`) | `thm:ch6-cota` @ capitulos/cap04_herramientas.typ:1919 | ? | `(no auditado)` | SIN AUDITAR |
+| `thm_ch6_cota_expect` (`Cap04Ch6.lean`) | `thm:ch6-cota` @ capitulos/cap04_herramientas.typ:1919 | ? | `(no auditado)` | SIN AUDITAR |
+| `thm_ch6_cota_expect_le` (`Cap04Ch6.lean`) | `thm:ch6-cota` @ capitulos/cap04_herramientas.typ:1919 | ? | `(no auditado)` | SIN AUDITAR |
+| `cor_ch6_varianza_minima` (`Cap04Ch6.lean`) | `cor:ch6-varianza-minima` @ capitulos/cap04_herramientas.typ:1927 | ? | `propext, Classical.choice, Quot.sound` | OK |
+| `cor_ch6_varianza_minima_cota` (`Cap04Ch6.lean`) | `cor:ch6-varianza-minima` @ capitulos/cap04_herramientas.typ:1927 | ? | `(no auditado)` | SIN AUDITAR |
+| `prop_ch6_descomposicion` (`Cap04Ch6.lean`) | `prop:ch6-descomposicion` @ capitulos/cap04_herramientas.typ:1878 | ? | `propext, Classical.choice, Quot.sound` | OK |
+| `prop_ch6_descomposicion_isCompl` (`Cap04Ch6.lean`) | `prop:ch6-descomposicion` @ capitulos/cap04_herramientas.typ:1878 | ? | `(no auditado)` | SIN AUDITAR |
+| `thm_ch6_neyman` (`Cap04Ch6.lean`) | `thm:ch6-neyman` @ capitulos/cap04_herramientas.typ:1939 | ? | `propext, Classical.choice, Quot.sound` | OK |
+| `thm_ch6_neyman_cota` (`Cap04Ch6.lean`) | `thm:ch6-neyman` @ capitulos/cap04_herramientas.typ:1939 | ? | `(no auditado)` | SIN AUDITAR |
+| `thm_ch6_neyman_escala` (`Cap04Ch6.lean`) | `thm:ch6-neyman` @ capitulos/cap04_herramientas.typ:1939 | ? | `(no auditado)` | SIN AUDITAR |
+| `thm_ch6_kallus_residual` (`Cap04Ch6.lean`) | `thm:ch6-kallus` @ capitulos/cap04_herramientas.typ:1974 | ? | `propext, Classical.choice, Quot.sound` | OK |
+| `thm_ch6_kallus_pesos` (`Cap04Ch6.lean`) | `thm:ch6-kallus` @ capitulos/cap04_herramientas.typ:1974 | ? | `(no auditado)` | SIN AUDITAR |
+| `thm_ch6_kallus_inicial` (`Cap04Ch6.lean`) | `thm:ch6-kallus` @ capitulos/cap04_herramientas.typ:1974 | ? | `(no auditado)` | SIN AUDITAR |
+| `cor_ch6_dr_ope_modelos` (`Cap04Ch6.lean`) | `cor:ch6-dr-ope` @ capitulos/cap04_herramientas.typ:1982 | ? | `propext, Classical.choice, Quot.sound` | OK |
+| `cor_ch6_dr_ope_pesos` (`Cap04Ch6.lean`) | `cor:ch6-dr-ope` @ capitulos/cap04_herramientas.typ:1982 | ? | `(no auditado)` | SIN AUDITAR |
+| `thm_ch6_crossfit_suma` (`Cap04Ch6.lean`) | `thm:ch6-crossfit` @ capitulos/cap04_herramientas.typ:2028 | ? | `propext, Classical.choice, Quot.sound` | OK |
+| `thm_ch6_crossfit_media` (`Cap04Ch6.lean`) | `thm:ch6-crossfit` @ capitulos/cap04_herramientas.typ:2028 | ? | `(no auditado)` | SIN AUDITAR |
+| `prop_ch6_ral` (`Cap04Ch6.lean`) | `prop:ch6-ral` @ capitulos/cap04_herramientas.typ:1892 | ? | `propext, Classical.choice, Quot.sound` | OK |
+| `thm_ch6_rubin_dag` (`Cap04Ch6.lean`) | `thm:ch6-rubin-dag` @ capitulos/cap04_herramientas.typ:2055 | ? | `propext, Classical.choice, Quot.sound` | OK |
+| `ch1_calculo_numerico_observado` (`Cap04Ejemplos.lean`) | `ex:ch1-calculo-numerico` @ capitulos/cap04_herramientas.typ:263 | ? | `propext, Classical.choice, Quot.sound` | OK |
+| `ch1_calculo_numerico_riesgos_en_medio` (`Cap04Ejemplos.lean`) | `ex:ch1-calculo-numerico` @ capitulos/cap04_herramientas.typ:263 | ? | `(no auditado)` | SIN AUDITAR |
+| `ch1_calculo_numerico_frontera` (`Cap04Ejemplos.lean`) | `ex:ch1-calculo-numerico` @ capitulos/cap04_herramientas.typ:263 | ? | `(no auditado)` | SIN AUDITAR |
+| `ch5_cociente_delta` (`Cap04Ejemplos.lean`) | `ex:ch5-cociente` @ capitulos/cap04_herramientas.typ:1593 | ? | `propext, Classical.choice, Quot.sound` | OK |
+| `ch5_cociente_covarianza` (`Cap04Ejemplos.lean`) | `ex:ch5-cociente` @ capitulos/cap04_herramientas.typ:1593 | ? | `(no auditado)` | SIN AUDITAR |
+| `ch1_normal_expansion` (`Cap04Ejemplos.lean`) | `ex:ch1-normal` @ capitulos/cap04_herramientas.typ:352 | ? | `propext, Classical.choice, Quot.sound` | OK |
+| `ch1_normal_derivada_logparticion` (`Cap04Ejemplos.lean`) | `ex:ch1-normal` @ capitulos/cap04_herramientas.typ:352 | ? | `(no auditado)` | SIN AUDITAR |
+| `ch1_binomial_forma_exponencial` (`Cap04Ejemplos.lean`) | `ex:ch1-binomial` @ capitulos/cap04_herramientas.typ:370 | ? | `propext, Classical.choice, Quot.sound` | OK |
+| `ch1_binomial_derivada_logparticion` (`Cap04Ejemplos.lean`) | `ex:ch1-binomial` @ capitulos/cap04_herramientas.typ:370 | ? | `(no auditado)` | SIN AUDITAR |
+| `ch1_poisson_forma_exponencial` (`Cap04Ejemplos.lean`) | `ex:ch1-poisson` @ capitulos/cap04_herramientas.typ:384 | ? | `(no auditado)` | SIN AUDITAR |
+| `ch1_poisson_derivada_logparticion` (`Cap04Ejemplos.lean`) | `ex:ch1-poisson` @ capitulos/cap04_herramientas.typ:384 | ? | `(no auditado)` | SIN AUDITAR |
+| `ch1_estadisticos_media_constante` (`Cap04Ejemplos.lean`) | `ex:ch1-estadisticos-fundamentales` @ capitulos/cap04_herramientas.typ:210 | ? | `(no auditado)` | SIN AUDITAR |
+| `ch1_estadisticos_var_no_negativa` (`Cap04Ejemplos.lean`) | `ex:ch1-estadisticos-fundamentales` @ capitulos/cap04_herramientas.typ:210 | ? | `(no auditado)` | SIN AUDITAR |
+| `ch2_traslaciones_media` (`Cap04Ejemplos.lean`) | `ex:ch2-traslaciones` @ capitulos/cap04_herramientas.typ:823 | ? | `propext, Classical.choice, Quot.sound` | OK |
+| `ch2_traslaciones_varianza` (`Cap04Ejemplos.lean`) | `ex:ch2-traslaciones` @ capitulos/cap04_herramientas.typ:823 | ? | `(no auditado)` | SIN AUDITAR |
+| `ch2_escala_media` (`Cap04Ejemplos.lean`) | `ex:ch2-escala` @ capitulos/cap04_herramientas.typ:839 | ? | `(no auditado)` | SIN AUDITAR |
+| `ch2_escala_varianza` (`Cap04Ejemplos.lean`) | `ex:ch2-escala` @ capitulos/cap04_herramientas.typ:839 | ? | `(no auditado)` | SIN AUDITAR |
+| `ch2_escala_desviacion` (`Cap04Ejemplos.lean`) | `ex:ch2-escala` @ capitulos/cap04_herramientas.typ:839 | ? | `(no auditado)` | SIN AUDITAR |
+| `ch4_mp_normal_forma_factorizada` (`Cap04Ejemplos.lean`) | `ex:ch4-mp-normal` @ capitulos/cap04_herramientas.typ:1272 | ? | `(no auditado)` | SIN AUDITAR |
+| `ch4_mp_normal_umbral` (`Cap04Ejemplos.lean`) | `ex:ch4-mp-normal` @ capitulos/cap04_herramientas.typ:1272 | ? | `propext, Classical.choice, Quot.sound` | OK |
+| `ch1_beta_binomial_actualizacion` (`Cap04Ejemplos.lean`) | `ex:ch1-beta-binomial` @ capitulos/cap04_herramientas.typ:459 | ? | `(no auditado)` | SIN AUDITAR |
+| `ch1_gamma_poisson_actualizacion` (`Cap04Ejemplos.lean`) | `ex:ch1-gamma-poisson` @ capitulos/cap04_herramientas.typ:472 | ? | `(no auditado)` | SIN AUDITAR |
 | `ch1_logparticion` (`Cap04Herramientas.lean`) | `thm:ch1-logparticion` @ capitulos/cap04_herramientas.typ:314 | F-correction 2026-11-07 (nuevo; formalizacion de pendiente) | `propext, Classical.choice, Quot.sound` | OK |
 | `cor_ch1_covarianza_hessiano` (`Cap04Herramientas.lean`) | `cor:ch1-covarianza-hessiano` @ capitulos/cap04_herramientas.typ:322 | F-correction 2026-11-07 (nuevo; formalización de pendiente) | `propext, Classical.choice, Quot.sound` | OK |
 | `ch4_bonferroni` (`Cap04Herramientas.lean`) | `thm:ch4-bonferroni` @ capitulos/cap04_herramientas.typ:1393 | F-correction 2026-11-07 (nuevo; formalización de pendiente) | `propext, Classical.choice, Quot.sound` | OK |
@@ -59,6 +105,15 @@ Generado por `Progress/gen_dashboard.py` el 2026-11-08 desde `Book/*.lean` y `bu
 | `cor_ch3_cr_iid` (`Cap04Suficiencia.lean`) | `cor:ch3-cr-iid` @ capitulos/cap04_herramientas.typ:1040 | enjambre smw82qi6q, dirección d4 (formalización de pendiente) | `propext, Classical.choice, Quot.sound` | OK |
 | `ex_ch2_normal_suficiencia` (`Cap04Suficiencia.lean`) | `ex:ch2-normal-suficiencia` @ capitulos/cap04_herramientas.typ:610 | enjambre smw82qi6q, dirección d4 (formalización de pendiente) | `propext, Classical.choice, Quot.sound` | OK |
 | `ex_ch2_poisson_suficiencia` (`Cap04Suficiencia.lean`) | `ex:ch2-poisson-suficiencia` @ capitulos/cap04_herramientas.typ:629 | enjambre smw82qi6q, dirección d4 (formalización de pendiente) | `propext, Classical.choice, Quot.sound` | OK |
+| `ch5_clt` (`Cap05Asintotica.lean`) | `thm:ch5-clt` @ capitulos/cap04_herramientas.typ:1464 | ? | `propext, Classical.choice, Quot.sound` | OK |
+| `prop_ch5_clt_retornos` (`Cap05Asintotica.lean`) | `prop:ch5-clt-retornos` @ capitulos/cap04_herramientas.typ:1759 | ? | `(no auditado)` | SIN AUDITAR |
+| `ch4_clt_mixing_var` (`Cap05Asintotica.lean`) | `thm:ch4-clt-mixing` @ capitulos/cap04_herramientas.typ:1517 | ? | `propext, Classical.choice, Quot.sound` | OK |
+| `ch5_lindeberg_feller` (`Cap05Asintotica.lean`) | `thm:ch5-lindeberg` @ capitulos/cap04_herramientas.typ:1497 | ? | `(no auditado)` | SIN AUDITAR |
+| `ch5_delta` (`Cap05Asintotica.lean`) | `thm:ch5-delta` @ capitulos/cap04_herramientas.typ:1538 | ? | `propext, Classical.choice, Quot.sound` | OK |
+| `ch5_delta_multi` (`Cap05Asintotica.lean`) | `thm:ch5-delta-multi` @ capitulos/cap04_herramientas.typ:1570 | ? | `(no auditado)` | SIN AUDITAR |
+| `prop_ch5_delta_q` (`Cap05Asintotica.lean`) | `prop:ch5-delta-q` @ capitulos/cap04_herramientas.typ:1778 | ? | `propext, Classical.choice, Quot.sound` | OK |
+| `ch5_donsker` (`Cap05Asintotica.lean`) | `thm:ch5-donsker` @ capitulos/cap04_herramientas.typ:1658 | ? | `propext, Classical.choice, Quot.sound` | OK |
+| `ch5_bootstrap_media` (`Cap05Asintotica.lean`) | `thm:ch5-bootstrap-media` @ capitulos/cap04_herramientas.typ:1714 | ? | `(no auditado)` | SIN AUDITAR |
 | `ch9_isomorfismo` (`Cap05Representacion.lean`) | `thm:ch9-isomorfismo` @ capitulos/cap05_incrustacion.typ:41 | piloto 2026-11-03 (m_repr) | `propext, Classical.choice, Quot.sound` | OK |
 | `ch9_bayes` (`Cap05Representacion.lean`) | `cor:ch9-bayes` @ capitulos/cap05_incrustacion.typ:143 | piloto 2026-11-03 (m_bayes) | `propext, Classical.choice, Quot.sound` | OK |
 | `ch9_admisibilidad` (`Cap05Representacion.lean`) | `thm:ch9-admisibilidad` @ capitulos/cap05_incrustacion.typ:136 | piloto 2026-11-03 (m_admis) | `propext, Classical.choice, Quot.sound` | OK |

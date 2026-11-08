@@ -23,7 +23,7 @@ echo "== Book/Foundation.lean"
 lean --root=. -o "$BUILD/Book/Foundation.olean" Book/Foundation.lean
 
 # 2) Capítulos, en orden de dependencia
-for mod in Book/Cap08Estimadores.lean Book/Cap08Poder.lean Book/Cap04Herramientas.lean Book/Cap04Suficiencia.lean Book/Cap04LoteM16.lean Book/Cap08M6.lean Book/Cap05Representacion.lean Book/Cap07OPE.lean Book/Cap06Fronteras.lean Book/Cap03MDP.lean Book/SSCH.lean Book/Cap02Wald.lean Book/Cap08Intervalos.lean Book/Cap11Despliegue.lean Book/ApendiceDRegularidad.lean; do
+for mod in Book/Cap08Estimadores.lean Book/Cap08Poder.lean Book/Cap04Herramientas.lean Book/Cap04Suficiencia.lean Book/Cap04LoteM16.lean Book/Cap08M6.lean Book/Cap04Ch6.lean Book/Cap05Asintotica.lean Book/Cap04Ejemplos.lean Book/Cap05Representacion.lean Book/Cap07OPE.lean Book/Cap06Fronteras.lean Book/Cap03MDP.lean Book/SSCH.lean Book/Cap02Wald.lean Book/Cap08Intervalos.lean Book/Cap11Despliegue.lean Book/ApendiceDRegularidad.lean; do
   echo "== $mod"
   lean --root=. -o "$BUILD/${mod%.lean}.olean" "$mod"
 done

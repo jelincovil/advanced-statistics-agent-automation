@@ -3,6 +3,9 @@ import Book.Cap04Herramientas
 import Book.Cap04Suficiencia
 import Book.Cap04LoteM16
 import Book.Cap08M6
+import Book.Cap04Ch6
+import Book.Cap05Asintotica
+import Book.Cap04Ejemplos
 import Book.Cap08Intervalos
 import Book.Cap08Estimadores
 import Book.Cap08Poder
@@ -157,3 +160,24 @@ import Book.ApendiceDRegularidad
 #print axioms Cap08M6.prop_ch11_impacto_factor
 #print axioms Cap08M6.prop_ch11_baseline_optima
 #print axioms ch2_completitud_exponencial_vandermonde
+#print axioms thm_ch6_dr
+#print axioms thm_ch6_cota
+#print axioms cor_ch6_varianza_minima
+#print axioms prop_ch6_descomposicion
+#print axioms thm_ch6_neyman
+#print axioms thm_ch6_kallus_residual
+#print axioms cor_ch6_dr_ope_modelos
+#print axioms thm_ch6_crossfit_suma
+#print axioms prop_ch6_ral
+#print axioms thm_ch6_rubin_dag
+#print axioms BookCap05.ch5_clt
+#print axioms BookCap05.ch4_clt_mixing_var
+#print axioms BookCap05.ch5_delta
+#print axioms BookCap05.ch5_donsker
+#print axioms BookCap05.prop_ch5_delta_q
+#print axioms Book.Cap04Ejemplos.ch1_calculo_numerico_observado
+#print axioms Book.Cap04Ejemplos.ch1_normal_expansion
+#print axioms Book.Cap04Ejemplos.ch1_binomial_forma_exponencial
+#print axioms Book.Cap04Ejemplos.ch2_traslaciones_media
+#print axioms Book.Cap04Ejemplos.ch4_mp_normal_umbral
+#print axioms Book.Cap04Ejemplos.ch5_cociente_delta
