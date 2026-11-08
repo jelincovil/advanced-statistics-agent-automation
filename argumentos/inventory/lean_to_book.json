@@ -49,5 +49,6 @@
  "prop:ch8-perdida": "prop_ch8_perdida",
  "thm:ch8-condiciones-contraccion": "ch8_condiciones_contraccion",
  "prop:ch4-test-decision": "prop_ch4_test_decision",
- "thm:ch1-logparticion": "ch1_logparticion"
+ "thm:ch1-logparticion": "ch1_logparticion",
+ "cor:ch1-covarianza-hessiano": "cor_ch1_covarianza_hessiano"
 }

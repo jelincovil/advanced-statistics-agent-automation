@@ -120,14 +120,6 @@
   "proxima_accion": "Formalizar o mantener pendiente"
  },
  {
-  "claim_id": "C.cor:ch1-covarianza-hessiano",
-  "book_key": "cor:ch1-covarianza-hessiano",
-  "reason_code": "NO_FORMAL_PROOF",
-  "fuente": "capitulos/cap04_herramientas.typ (corollary: )",
-  "impacto": "Sin respaldo formal",
-  "proxima_accion": "Formalizar o mantener pendiente"
- },
- {
   "claim_id": "C.ex:ch1-normal",
   "book_key": "ex:ch1-normal",
   "reason_code": "NO_FORMAL_PROOF",
@@ -1376,7 +1368,7 @@
   "proxima_accion": "Formalizar o mantener pendiente"
  },
  {
-  "claim_id": "C.unnamed.example.172",
+  "claim_id": "C.unnamed.example.171",
   "book_key": "",
   "reason_code": "SEMANTIC_MAPPING_UNRESOLVED",
   "fuente": "capitulos/cap04_herramientas.typ (sin key)",

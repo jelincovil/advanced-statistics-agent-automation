@@ -1897,3 +1897,19 @@ antes de aplicar HasDerivAt.sum.
 verificar.sh: **10 módulos, 83 declaraciones auditadas**, 0 sorry.
 Dashboard: 78 teoremas. Kernel: **51 argumentos ACEPTADOS**, **173
 pendientes**.
+
+## 2026-11-07 (t48) — cor:ch1-covarianza-hessiano: segunda derivada = varianza
+
+### Entregable
+Formalización de «Covarianza = Hessiano de A» (cap04:322) en
+Cap04Herramientas.lean: la segunda derivada de la log-partición es la
+varianza del estadístico natural. Enunciado como HasDerivAt de la
+función media expMean con valor E[T²]−E[T]² (equivalente a expVar por
+la descomposición estándar de la varianza, declarada en docstring).
+Prueba: regla del cociente HasDerivAt.div para N/Z (N'=∑T²·h·exp,
+Z'=N), seguida de un lema general de denominador común
+((a·c−b²)/c² = a/c − (b/c)², por field_simp).
+
+### Verificación
+verificar.sh: 10 módulos, 84 declaraciones, 0 sorry. Dashboard: 79
+teoremas. Kernel: 52 argumentos ACEPTADOS, 172 pendientes.

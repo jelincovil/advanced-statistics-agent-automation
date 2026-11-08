@@ -3135,6 +3135,15 @@
    ]
   },
   {
+   "id": "A.cor:ch1-covarianza-hessiano",
+   "conclusion": "C.cor:ch1-covarianza-hessiano",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.cor:ch1-covarianza-hessiano"
+   ]
+  },
+  {
    "id": "A.thm:ch7-bayes",
    "conclusion": "C.thm:ch7-bayes",
    "premises": [],
@@ -3592,6 +3601,18 @@
    "claim_id": "C.thm:ch1-logparticion",
    "runner_id": "lean-export",
    "target": "ch1_logparticion",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.cor:ch1-covarianza-hessiano",
+   "kind": "lean",
+   "claim_id": "C.cor:ch1-covarianza-hessiano",
+   "runner_id": "lean-export",
+   "target": "cor_ch1_covarianza_hessiano",
    "scope": {
     "domain": "finite",
     "lean_axioms": "propext,Classical.choice,Quot.sound"

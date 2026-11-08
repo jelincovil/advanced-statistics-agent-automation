@@ -32,7 +32,7 @@ noncomputable def expMean (η : ℝ) : ℝ :=
 
 /-- Varianza del estadistico `T` bajo la familia exponencial. -/
 noncomputable def expVar (η : ℝ) : ℝ :=
-  ∑ x, (T x - expMean h T η) ^ 2 * (h x * Real.exp (η * T x)) / partFun h T η
+  ∑ x, (T x - expMean h T η) ^ 2 * (h x * Real.exp (η * T x) / partFun h T η)
 
 /-- Positividad de la funcion de particion (pesos positivos). -/
 theorem partFun_pos (hpos : ∀ x, 0 < h x) (η : ℝ) : 0 < partFun h T η := by
@@ -81,5 +81,74 @@ theorem ch1_logparticion (hpos : ∀ x, 0 < h x) (η : ℝ) :
     exact Finset.sum_congr rfl fun x _ => by ring
   rw [heq] at hlog
   exact hlog
+
+/-- Numerador de la media: `N(ξ) = ∑_x T(x)·h(x)·exp(ξ·T(x))` (base no enunciada). -/
+noncomputable def expNum (ξ : ℝ) : ℝ := ∑ x, T x * (h x * Real.exp (ξ * T x))
+
+/-- Derivada del numerador: `N'(η) = ∑_x T(x)²·h(x)·exp(η·T(x))` (con un T extra). -/
+theorem hasDerivAt_expNum (η : ℝ) :
+    HasDerivAt (expNum h T) (∑ x, T x * (h x * (Real.exp (η * T x) * T x))) η := by
+  have h1 : ∀ x : X, HasDerivAt (fun y => T x * (h x * Real.exp (y * T x)))
+      (T x * (h x * (Real.exp (η * T x) * T x))) η := by
+    intro x
+    have hmul : HasDerivAt (fun y => y * T x) (T x) η := by
+      simpa using (hasDerivAt_id η).mul_const (T x)
+    exact (hmul.exp.const_mul (h x)).const_mul (T x)
+  have hfun : expNum h T = (∑ x : X, fun y => T x * (h x * Real.exp (y * T x))) := by
+    funext y
+    simp [expNum, Finset.sum_apply]
+  rw [hfun]
+  exact HasDerivAt.sum fun x _ => h1 x
+
+/-- book: capitulos/cap04_herramientas.typ:322 (key: cor:ch1-covarianza-hessiano) —
+la segunda derivada de la log-partición es la varianza del estadístico
+natural: `A''(η) = Var_η[T(X)] = E[T²] − E[T]²`. La prueba es la regla
+del cociente para `N/Z` (con `N' = ∑T²·h·exp`, `Z' = N`), seguida de
+la descomposición en denominador común:
+`(N'·Z − N²)/Z² = N'/Z − (N/Z)² = E[T²] − E[T]²`.
+Fidelidad declarada: versión finita con estadístico y parámetro
+escalares; «la matriz de covarianzas es semidefinida positiva» sigue
+de `A'' ≥ 0` (que es `Var ≥ 0`); «en familias minimales es definida
+positiva» no se enuncia; la forma `∑(T−E)²·p` de la varianza es
+equivalente (descomposición estándar) y se declara en el docstring.
+Origen: F-correction 2026-11-07 (nuevo; formalización de pendiente). -/
+theorem cor_ch1_covarianza_hessiano (hpos : ∀ x, 0 < h x) (η : ℝ) :
+    HasDerivAt (fun ξ => expMean h T ξ)
+      ((∑ x, T x * T x * (h x * Real.exp (η * T x))) / partFun h T η
+       - (expNum h T η / partFun h T η)^2) η := by
+  -- Setup
+  have hZpos : (0:ℝ) < partFun h T η := partFun_pos h T hpos η
+  have hZne : partFun h T η ≠ 0 := ne_of_gt hZpos
+  -- (i) N' = ∑T²·h·exp (reordenando factores)
+  have hN' : (∑ x, T x * (h x * (Real.exp (η * T x) * T x)))
+      = (∑ x, T x * T x * (h x * Real.exp (η * T x))) := by
+    exact Finset.sum_congr rfl fun x _ => by ring
+  -- (ii) Z' = N (reordenando factores)
+  have hZ' : (∑ x, h x * (Real.exp (η * T x) * T x)) = expNum h T η := by
+    unfold expNum
+    exact Finset.sum_congr rfl fun x _ => by ring
+  -- (iii) Regla del cociente
+  have hN := hasDerivAt_expNum h T η
+  have hD := hasDerivAt_partFun h T η
+  have hdiv := HasDerivAt.div hN hD hZne
+  -- (iv) Reescribir expMean como N/Z
+  have hEq : (fun ξ => expMean h T ξ) = (fun ξ => expNum h T ξ / partFun h T ξ) := by
+    funext ξ
+    unfold expMean expNum
+    rw [Finset.sum_div]
+  rw [hN', hZ'] at hdiv
+  -- hdiv : HasDerivAt (N/Z) ((∑T²·h·exp * Z - N²)/Z²) η
+  -- (v) Denominador común: (A·Z - N²)/Z² = A/Z - (N/Z)²
+  have h1 : ∀ a b c : ℝ, c ≠ 0 → (a * c - b * b) / c ^ 2 = a / c - (b / c) ^ 2 := by
+    intro a b c hc
+    field_simp
+  have hval : ((∑ x, T x * T x * (h x * Real.exp (η * T x))) * partFun h T η
+      - expNum h T η * expNum h T η) / partFun h T η ^ 2
+      = (∑ x, T x * T x * (h x * Real.exp (η * T x))) / partFun h T η
+        - (expNum h T η / partFun h T η)^2 :=
+    h1 _ _ _ hZne
+  rw [hval] at hdiv
+  rw [hEq]
+  exact hdiv
 
 end ExpFam

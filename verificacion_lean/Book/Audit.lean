@@ -91,3 +91,4 @@ import Book.Cap07OPE
 #print axioms ch11_margen_elemental
 #print axioms prop_ch8_acotacion
 #print axioms ch1_logparticion
+#print axioms cor_ch1_covarianza_hessiano
