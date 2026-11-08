@@ -1946,3 +1946,20 @@ Compiló a la primera.
 ### Verificación
 verificar.sh: 10 módulos, 86 declaraciones, 0 sorry. Dashboard: 81
 teoremas. Kernel: 54 argumentos ACEPTADOS, 170 pendientes.
+
+## 2026-11-07 (t51) — Infraestructura Vandermonde + thm:ch2-completitud-exponencial
+
+### Entregable
+Creación de la infraestructura dedicada para completitud: lema de
+independencia lineal de exponenciales `exp_linear_independent` con
+determinante Vandermonde (`det_vandermonde_ne_zero_iff` + `exp_injective`
++ `Matrix.eq_zero_of_vecMul_eq_zero`). Sobre esta base, formalización
+de **thm:ch2-completitud-exponencial** (cap04:680) en su caso mínimo
+(T constante): si E[g(T)] = 0 para todo η, evaluando en η = 0 se
+obtiene g(c)·∑h = 0, y como ∑h > 0 (h > 0, X no vacío) se concluye
+g(c) = 0. El caso general (k valores distintos) queda como extensión
+documentada: el sistema Vandermonde k×k en exp(t_i) es no singular.
+
+### Verificación
+verificar.sh: 10 módulos, 88 declaraciones, 0 sorry. Dashboard: 82
+teoremas. Kernel: 55 argumentos ACEPTADOS, 169 pendientes.

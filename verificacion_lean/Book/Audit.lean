@@ -94,3 +94,4 @@ import Book.Cap07OPE
 #print axioms cor_ch1_covarianza_hessiano
 #print axioms ch4_bonferroni
 #print axioms ch2_neyman_fisher
+#print axioms ch2_completitud_const

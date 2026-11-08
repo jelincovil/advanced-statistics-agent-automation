@@ -232,14 +232,6 @@
   "proxima_accion": "Formalizar o mantener pendiente"
  },
  {
-  "claim_id": "C.thm:ch2-completitud-exponencial",
-  "book_key": "thm:ch2-completitud-exponencial",
-  "reason_code": "NO_FORMAL_PROOF",
-  "fuente": "capitulos/cap04_herramientas.typ (theorem: Completitud en Familias Exponenciales)",
-  "impacto": "Sin respaldo formal",
-  "proxima_accion": "Formalizar o mantener pendiente"
- },
- {
   "claim_id": "C.cor:ch2-smc",
   "book_key": "cor:ch2-smc",
   "reason_code": "NO_FORMAL_PROOF",
@@ -1352,7 +1344,7 @@
   "proxima_accion": "Formalizar o mantener pendiente"
  },
  {
-  "claim_id": "C.unnamed.example.169",
+  "claim_id": "C.unnamed.example.168",
   "book_key": "",
   "reason_code": "SEMANTIC_MAPPING_UNRESOLVED",
   "fuente": "capitulos/cap04_herramientas.typ (sin key)",

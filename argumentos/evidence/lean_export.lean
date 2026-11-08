@@ -9,7 +9,7 @@
   consola ajenos.
 
   Los objetivos son TODOS los teoremas con book_key en verificacion_lean
-  54 teoremas en total.
+  55 teoremas en total.
 -/
 import Book.Cap02Wald
 import Book.Cap03MDP
@@ -33,6 +33,7 @@ def objetivos : List Name := [
   `cor_ch1_covarianza_hessiano,
   `ch4_bonferroni,
   `ch2_neyman_fisher,
+  `ch2_completitud_const,
   `ch10_curse,
   `ch10_dr,
   `ch10_identificacion,

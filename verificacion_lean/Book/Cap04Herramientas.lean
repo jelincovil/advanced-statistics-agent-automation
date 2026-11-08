@@ -228,4 +228,25 @@ theorem ch2_neyman_fisher {Θ : Type*} [Fintype Θ]
   ring
 
 
+
+/-- book: capitulos/cap04_herramientas.typ:680 (key: thm:ch2-completitud-exponencial) --
+completitud en familias exponenciales (caso minimo, T constante): si el
+estadistico natural es constante (un solo valor c) y E[g(T)] = 0 para
+todo eta, entonces g(c) = 0. El caso general usa Vandermonde kxk
+(exp inyectiva, det no nulo para valores distintos).
+Fidelidad: caso minimo (constante) -- el general usa Vandermonde kxk
+y queda como extension documentada.
+Origen: F-correction 2026-11-07 (nuevo; formalizacion de pendiente). -/
+theorem ch2_completitud_const (hpos : ∀ x, 0 < h x) (c : ℝ) (hT : ∀ x : X, T x = c)
+    (g : ℝ → ℝ) (hvan : ∀ η : ℝ, ∑ x : X, g (T x) * h x * Real.exp (η * T x) = 0) :
+    g c = 0 := by
+  have h0 := hvan 0
+  simp only [zero_mul, Real.exp_zero, mul_one] at h0
+  have h1 : ∑ x : X, g (T x) * h x = g c * ∑ x : X, h x := by
+    rw [Finset.sum_congr rfl fun x _ => by rw [hT x]]
+    rw [← Finset.mul_sum]
+  rw [h1] at h0
+  have hsum_pos : 0 < ∑ x : X, h x := Finset.sum_pos (fun x _ => hpos x) Finset.univ_nonempty
+  exact (mul_eq_zero.mp h0).resolve_right (ne_of_gt hsum_pos)
+
 end ExpFam

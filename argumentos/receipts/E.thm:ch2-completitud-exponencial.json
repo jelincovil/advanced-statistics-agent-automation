@@ -1,0 +1,35 @@
+{
+  "schema_version": "1.0",
+  "id": "R.E.thm:ch2-completitud-exponencial",
+  "spec_id": "E.thm:ch2-completitud-exponencial",
+  "spec_hash": "04f6ce57375b1ac58e55c2f17f541d37c10baacc5bf22bec8330f73526f37bf0",
+  "source_commit": "local",
+  "environment_hash": "daf73dde0d956543fdb6952224d397556bfca9aa96f71a61f08508ffd941b7a7",
+  "checker_version": "0.1.0",
+  "command_argv": [
+    "lean",
+    "argumentos/evidence/lean_export.lean"
+  ],
+  "working_directory": "..",
+  "input_hashes": {
+    "lean_export.lean": "6072d1e50e081a413839420bd1a213baf53eba668ed24cbf5dbf0d93c1fe77ad",
+    "ssch_bayes_racional.py": "af949182cb60e7cfc146980a08e7b97e6ebc11ac52afa6858de41c10dcc55cfb"
+  },
+  "started_at": "2026-11-08T13:28:23Z",
+  "finished_at": "2026-11-08T13:28:23Z",
+  "exit_status": 0,
+  "termination": "completed",
+  "stdout_sha256": "deb96ae31e15169dde161c55b512e93f918dd48750819545bb2b1929d91ca97b",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "artifacts": [],
+  "execution_passed": true,
+  "scientific_criterion_met": true,
+  "observed_checks": [
+    {
+      "id": "target_encontrado:ch2_completitud_const",
+      "status": "pass",
+      "detail": "3 axiomas, 78 dependencias"
+    }
+  ],
+  "trust_mode": "locally_reproduced"
+}

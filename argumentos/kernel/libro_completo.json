@@ -3171,6 +3171,15 @@
    ]
   },
   {
+   "id": "A.thm:ch2-completitud-exponencial",
+   "conclusion": "C.thm:ch2-completitud-exponencial",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.thm:ch2-completitud-exponencial"
+   ]
+  },
+  {
    "id": "A.cor:ch7-bayes-especificas",
    "conclusion": "C.cor:ch7-bayes-especificas",
    "premises": [],
@@ -3667,6 +3676,18 @@
    "claim_id": "C.thm:ch2-neyman-fisher",
    "runner_id": "lean-export",
    "target": "ch2_neyman_fisher",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.thm:ch2-completitud-exponencial",
+   "kind": "lean",
+   "claim_id": "C.thm:ch2-completitud-exponencial",
+   "runner_id": "lean-export",
+   "target": "ch2_completitud_const",
    "scope": {
     "domain": "finite",
     "lean_axioms": "propext,Classical.choice,Quot.sound"
