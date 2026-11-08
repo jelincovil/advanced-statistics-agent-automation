@@ -1862,3 +1862,38 @@ con disjoint) + sustitución de la pérdida en cada flanco.
 ### Verificación
 verificar.sh: 82 declaraciones, 0 sorry. Dashboard: 77 teoremas. Kernel:
 50 argumentos ACEPTADOS, 174 pendientes.
+
+## 2026-11-07 (t47) — Módulo nuevo Cap04Herramientas.lean + thm:ch1-logparticion
+
+### Entregable
+Creación del módulo Book/Cap04Herramientas.lean (familias exponenciales
+en espacio muestral finito) y formalización del primer teorema
+desbloqueado:
+
+**Defs**: partFun (Z(η) = ∑ h·exp(η·T)), logPart (A = log Z), expMean
+(E_η[T]), expVar (Var_η[T]). Todas noncomputable (Real.exp/log).
+
+**thm:ch1-logparticion** (cap04:314): A'(η) = E_η[T(X)] — la primera
+derivada de la log-partición es la esperanza del estadístico natural.
+Prueba: regla de la cadena para log∘Z (HasDerivAt.log) con Z' de
+hasDerivAt_partFun (suma finita de derivadas de exponenciales vía
+HasDerivAt.sum, con reescritura previa funext+Finset.sum_apply para
+alinear la forma suma-de-funciones con la forma función-que-devuelve-
+suma), seguida de la reorganización Z'/Z = E_η[T] (Finset.sum_div).
+
+**Trampa Lean resuelta**: HasDerivAt.sum produce la forma ∑f_i (suma
+de funciones) mientras partFun es λy.∑ (función que devuelve suma) —
+proposicionalmente iguales pero NO definicionalmente. Solución: probar
+la igualdad por funext+Finset.sum_apply y reescribir el goal con rw
+antes de aplicar HasDerivAt.sum.
+
+### Infraestructura
+- verificar.sh: nuevo módulo en el loop de compilación
+- Audit.lean: import + #print axioms
+- lean_export.lean: import + target
+- Dashboard: +1 fila (78 teoremas con book:)
+
+### Verificación
+verificar.sh: **10 módulos, 83 declaraciones auditadas**, 0 sorry.
+Dashboard: 78 teoremas. Kernel: **51 argumentos ACEPTADOS**, **173
+pendientes**.

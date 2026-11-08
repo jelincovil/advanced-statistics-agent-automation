@@ -48,5 +48,6 @@
  "thm:ch8-bellman-opt": "ch8_bellman_opt",
  "prop:ch8-perdida": "prop_ch8_perdida",
  "thm:ch8-condiciones-contraccion": "ch8_condiciones_contraccion",
- "prop:ch4-test-decision": "prop_ch4_test_decision"
+ "prop:ch4-test-decision": "prop_ch4_test_decision",
+ "thm:ch1-logparticion": "ch1_logparticion"
 }

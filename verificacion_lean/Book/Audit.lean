@@ -1,4 +1,5 @@
 import Book.Cap02Wald
+import Book.Cap04Herramientas
 import Book.Cap08Intervalos
 import Book.Cap11Despliegue
 import Book.SSCH
@@ -89,3 +90,4 @@ import Book.Cap07OPE
 #print axioms ch11_mdp_validacion
 #print axioms ch11_margen_elemental
 #print axioms prop_ch8_acotacion
+#print axioms ch1_logparticion

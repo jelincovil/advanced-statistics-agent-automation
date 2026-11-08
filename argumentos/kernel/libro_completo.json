@@ -3126,6 +3126,15 @@
  ],
  "arguments": [
   {
+   "id": "A.thm:ch1-logparticion",
+   "conclusion": "C.thm:ch1-logparticion",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.thm:ch1-logparticion"
+   ]
+  },
+  {
    "id": "A.thm:ch7-bayes",
    "conclusion": "C.thm:ch7-bayes",
    "premises": [],
@@ -3577,6 +3586,18 @@
   }
  ],
  "evidence_specs": [
+  {
+   "id": "E.thm:ch1-logparticion",
+   "kind": "lean",
+   "claim_id": "C.thm:ch1-logparticion",
+   "runner_id": "lean-export",
+   "target": "ch1_logparticion",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
   {
    "id": "E.thm:ch7-bayes",
    "kind": "lean",

@@ -1,0 +1,35 @@
+{
+  "schema_version": "1.0",
+  "id": "R.E.thm:ch1-logparticion",
+  "spec_id": "E.thm:ch1-logparticion",
+  "spec_hash": "46a81c4e959e5dca143e6656b9e4ab19a23b245a3387dac8dea30fa3ea03af28",
+  "source_commit": "local",
+  "environment_hash": "4ba706a3554df52daf7627aed18583183684ba113c75e65740768d3cfddfd889",
+  "checker_version": "0.1.0",
+  "command_argv": [
+    "lean",
+    "argumentos/evidence/lean_export.lean"
+  ],
+  "working_directory": "..",
+  "input_hashes": {
+    "lean_export.lean": "cac68f2379a9e3efd9a39053f0b6ce173bb531c0841f137ee0a080d99143fb76",
+    "ssch_bayes_racional.py": "af949182cb60e7cfc146980a08e7b97e6ebc11ac52afa6858de41c10dcc55cfb"
+  },
+  "started_at": "2026-11-08T01:49:17Z",
+  "finished_at": "2026-11-08T01:49:17Z",
+  "exit_status": 0,
+  "termination": "completed",
+  "stdout_sha256": "6271e59749f2ebb3028c30676a23ca641ebd825d58b7d0adb33a11c1b372348e",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "artifacts": [],
+  "execution_passed": true,
+  "scientific_criterion_met": true,
+  "observed_checks": [
+    {
+      "id": "target_encontrado:ch1_logparticion",
+      "status": "pass",
+      "detail": "3 axiomas, 143 dependencias"
+    }
+  ],
+  "trust_mode": "locally_reproduced"
+}

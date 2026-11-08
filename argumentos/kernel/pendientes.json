@@ -120,14 +120,6 @@
   "proxima_accion": "Formalizar o mantener pendiente"
  },
  {
-  "claim_id": "C.thm:ch1-logparticion",
-  "book_key": "thm:ch1-logparticion",
-  "reason_code": "NO_FORMAL_PROOF",
-  "fuente": "capitulos/cap04_herramientas.typ (theorem: Propiedades de la Función Log-Partición)",
-  "impacto": "Sin respaldo formal",
-  "proxima_accion": "Formalizar o mantener pendiente"
- },
- {
   "claim_id": "C.cor:ch1-covarianza-hessiano",
   "book_key": "cor:ch1-covarianza-hessiano",
   "reason_code": "NO_FORMAL_PROOF",
@@ -1384,7 +1376,7 @@
   "proxima_accion": "Formalizar o mantener pendiente"
  },
  {
-  "claim_id": "C.unnamed.example.173",
+  "claim_id": "C.unnamed.example.172",
   "book_key": "",
   "reason_code": "SEMANTIC_MAPPING_UNRESOLVED",
   "fuente": "capitulos/cap04_herramientas.typ (sin key)",
