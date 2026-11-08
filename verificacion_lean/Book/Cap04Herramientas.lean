@@ -400,4 +400,122 @@ theorem ch2_completitud_const_of_general (hpos : ∀ x, 0 < h x) (c : ℝ)
 
 
 
+/-! ### Independencia lineal de exponenciales (Vandermonde k×k) -/
+
+/-- Independencia lineal de exponenciales reales en un parámetro real
+(infraestructura para `thm:ch2-completitud-exponencial`). Si los puntos
+`t i` son distintos y `∑_i c_i·exp(η·t_i) = 0` para todo `η : ℝ`,
+entonces todos los `c_i` son cero. Prueba: evaluando en `η = 0,1,…,k-1`
+queda el sistema de Vandermonde `∑_i c_i·(exp(t_i))^j = 0`, cuya matriz
+tiene determinante no nulo porque `exp` es inyectiva. -/
+theorem exp_linear_independent {k : ℕ} (t : Fin k → ℝ) (ht : Function.Injective t)
+    (c : Fin k → ℝ) (hc : ∀ η : ℝ, ∑ i, c i * Real.exp (η * t i) = 0) : ∀ i, c i = 0 := by
+  have hx_inj : Function.Injective (fun i : Fin k => Real.exp (t i)) :=
+    fun i j hij => ht (Real.exp_injective hij)
+  have hpow : ∀ j : Fin k, ∑ i : Fin k, c i * Real.exp (t i) ^ (j : ℕ) = 0 := by
+    intro j
+    simpa [Real.exp_nat_mul] using hc (j : ℝ)
+  have hzero : c = 0 := Matrix.eq_zero_of_forall_pow_sum_mul_pow_eq_zero hx_inj hpow
+  intro i
+  simpa using congrFun hzero i
+
+/-- Independencia lineal de exponenciales para un tipo índice finito
+arbitrario: se enumera con `Fintype.equivFin` y se aplica
+`exp_linear_independent`. -/
+theorem exp_linear_independent_fintype {ι : Type*} [Fintype ι] (t : ι → ℝ)
+    (ht : Function.Injective t) (c : ι → ℝ)
+    (hc : ∀ η : ℝ, ∑ i, c i * Real.exp (η * t i) = 0) : ∀ i, c i = 0 := by
+  classical
+  set e := Fintype.equivFin ι with he
+  have ht' : Function.Injective (fun i : Fin (Fintype.card ι) => t (e.symm i)) :=
+    fun i j hij => e.symm.injective (ht hij)
+  have hc' : ∀ η : ℝ,
+      ∑ i : Fin (Fintype.card ι), c (e.symm i) * Real.exp (η * t (e.symm i)) = 0 := by
+    intro η
+    exact (Equiv.sum_comp e.symm (fun i : ι => c i * Real.exp (η * t i))).trans (hc η)
+  have hzero := exp_linear_independent (fun i : Fin (Fintype.card ι) => t (e.symm i)) ht'
+    (fun i => c (e.symm i)) hc'
+  intro i
+  simpa using hzero (e i)
+
+/-- book: capitulos/cap04_herramientas.typ:680 (key: thm:ch2-completitud-exponencial) —
+completitud de una familia exponencial finita sobre el estadístico `T`
+(caso GENERAL, no necesariamente inyectivo), **segunda prueba independiente**
+(ruta Vandermonde; la ruta de dominancia/límite queda en
+`ch2_completitud_exponencial`): si los pesos son positivos
+(`0 < h x` para todo `x`) y `E_η[g(T)] = ∑_x g(T x)·h(x)·exp(η·T x) = 0`
+para todo `η : ℝ`, entonces `g` se anula en todo valor alcanzado por `T`,
+i.e. `g t = 0` para todo `t ∈ (univ : Finset X).image T`.
+
+Prueba: (1) se agrupa la suma por fibras de `T`
+(`Finset.sum_fiberwise_of_maps_to`), de modo que cada término es
+`(g t · w t)·exp(η·t)` con `w t = ∑_{x : T x = t} h x > 0`;
+(2) se enumera la imagen `s = univ.image T` por `↥s ≃ Fin s.card` y se
+aplica la independencia lineal de exponenciales
+(`exp_linear_independent_fintype`, vía Vandermonde), que da
+`g t · w t = 0` para todo `t ∈ s`;
+(3) como `w t > 0` en la imagen (suma de pesos positivos sobre una fibra
+no vacía), se concluye `g t = 0`.
+
+Fidelidad declarada: versión finita con estadístico escalar
+`T : X → ℝ` y parámetro escalar `η : ℝ`; los pesos `h` son positivos
+pero no se exige normalización (`∑ h = 1` no interviene). El caso
+`T` constante ya estaba cubierto por `ch2_completitud_const`, que queda
+como caso particular. Extiende la formalización de pendiente
+(F-correction 2026-11-07).
+Origen: F-correction 2026-11-08 (caso general; cierra la brecha de ch2_completitud_const). -/
+theorem ch2_completitud_exponencial_vandermonde (hpos : ∀ x, 0 < h x) (g : ℝ → ℝ)
+    (hvan : ∀ η : ℝ, ∑ x : X, g (T x) * h x * Real.exp (η * T x) = 0) :
+    ∀ t ∈ (Finset.univ : Finset X).image T, g t = 0 := by
+  classical
+  set s : Finset ℝ := (Finset.univ : Finset X).image T with hs
+  set w : ℝ → ℝ :=
+    fun t => ∑ x ∈ (Finset.univ : Finset X).filter (fun x => T x = t), h x with hw
+  -- (1) agrupación por fibras de T
+  have hgrp : ∀ η : ℝ, ∑ t ∈ s, (g t * w t) * Real.exp (η * t) = 0 := by
+    intro η
+    have hmap : ∀ x ∈ (Finset.univ : Finset X), T x ∈ s :=
+      fun x _ => Finset.mem_image_of_mem T (Finset.mem_univ x)
+    have hfiber : ∑ t ∈ s,
+          ∑ x ∈ (Finset.univ : Finset X).filter (fun x => T x = t),
+            g (T x) * h x * Real.exp (η * T x)
+        = ∑ x : X, g (T x) * h x * Real.exp (η * T x) :=
+      Finset.sum_fiberwise_of_maps_to hmap
+        (fun x : X => g (T x) * h x * Real.exp (η * T x))
+    have hstep : ∑ t ∈ s, (g t * w t) * Real.exp (η * t)
+        = ∑ t ∈ s,
+          ∑ x ∈ (Finset.univ : Finset X).filter (fun x => T x = t),
+            g (T x) * h x * Real.exp (η * T x) := by
+      refine Finset.sum_congr rfl ?_
+      intro t _
+      rw [hw]
+      have hterms : ∀ x ∈ (Finset.univ : Finset X).filter (fun x => T x = t),
+          g (T x) * h x * Real.exp (η * T x) = (g t * Real.exp (η * t)) * h x := by
+        intro x hx
+        rw [Finset.mem_filter] at hx
+        rw [hx.2]
+        ring
+      rw [Finset.sum_congr rfl hterms, ← Finset.mul_sum]
+      ring
+    rw [hstep, hfiber, hvan η]
+  -- (2) independencia lineal de exponenciales sobre la imagen de T
+  have hprod : ∀ t : ↥s, g (t : ℝ) * w (t : ℝ) = 0 := by
+    intro t
+    refine exp_linear_independent_fintype (fun t : ↥s => (t : ℝ)) Subtype.val_injective
+      (fun t : ↥s => g (t : ℝ) * w (t : ℝ)) ?_ t
+    intro η
+    exact (Finset.sum_coe_sort s (fun t : ℝ => (g t * w t) * Real.exp (η * t))).trans (hgrp η)
+  -- (3) el peso de una fibra no vacía es positivo
+  have hwpos : ∀ t, t ∈ s → 0 < w t := by
+    intro t ht
+    rw [Finset.mem_image] at ht
+    obtain ⟨x₀, _, hx₀⟩ := ht
+    rw [hw]
+    exact Finset.sum_pos (fun x _ => hpos x)
+      ⟨x₀, Finset.mem_filter.mpr ⟨Finset.mem_univ x₀, hx₀⟩⟩
+  intro t ht
+  rcases mul_eq_zero.mp (hprod ⟨t, ht⟩) with h | h
+  · exact h
+  · exact absurd h (ne_of_gt (hwpos t ht))
+
 end ExpFam
