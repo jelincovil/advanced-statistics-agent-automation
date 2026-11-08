@@ -151,4 +151,40 @@ theorem cor_ch1_covarianza_hessiano (hpos : ∀ x, 0 < h x) (η : ℝ) :
   rw [hEq]
   exact hdiv
 
+
+/-- book: capitulos/cap04_herramientas.typ:1393 (key: thm:ch4-bonferroni) —
+corrección de Bonferroni: para p-valores válidos (superuniformes bajo
+sus nulas) y una familia fijada de `m` tests, para controlar
+`FWER ≤ α`, rechazar `H_{0,i}` solo si `p_i ≤ α/m`. La prueba es la
+desigualdad de Boole (cota de unión, aquí como hipótesis `hsubadd`):
+`P(∪_{i∈I₀} E_i) ≤ ∑ P(E_i) ≤ |I₀|·α/m ≤ α`.
+Fidelidad declarada: la subaditividad de la probabilidad (Boole) se
+toma como hipótesis — en un espacio de probabilidad estándar sigue de
+la teoría de la medida; la superuniformidad `P(p_i ≤ t) ≤ t` también
+se toma como hipótesis (es la definición de p-valores válidos);
+`I₀` es el conjunto de hipótesis nulas verdaderas con `|I₀| ≤ m`.
+Origen: F-correction 2026-11-07 (nuevo; formalización de pendiente). -/
+theorem ch4_bonferroni {ι : Type*} [Fintype ι]
+    {m : ℕ} (hm : 0 < m) (α : ℝ) (hα : 0 ≤ α)
+    (I₀ : Finset ι) (hcard : I₀.card ≤ m)
+    {Ω : Type*} (P : Set Ω → ℝ) (E : ι → Set Ω)
+    (hsubadd : ∀ (F : Finset ι) (G : ι → Set Ω),
+        P (⋃ i ∈ F, G i) ≤ ∑ i ∈ F, P (G i))
+    (hE : ∀ i ∈ I₀, P (E i) ≤ α / m) :
+    P (⋃ i ∈ I₀, E i) ≤ α := by
+  have hmR : (0:ℝ) < m := by exact_mod_cast hm
+  have hcardR : (I₀.card : ℝ) ≤ m := by exact_mod_cast hcard
+  have hαm : (0:ℝ) ≤ α / m := div_nonneg hα (le_of_lt hmR)
+  calc P (⋃ i ∈ I₀, E i) ≤ ∑ i ∈ I₀, P (E i) := hsubadd I₀ E
+    _ ≤ ∑ i ∈ I₀, α / m := Finset.sum_le_sum fun i hi => hE i hi
+    _ ≤ α := by
+        have h1 : ∑ i ∈ I₀, α / m = (I₀.card : ℝ) * (α / m) := by
+          rw [Finset.sum_const]
+          simp
+        have h2 : (I₀.card : ℝ) * (α / m) ≤ (m : ℝ) * (α / m) :=
+          mul_le_mul_of_nonneg_right hcardR hαm
+        have h3 : (m : ℝ) * (α / m) = α := by
+          field_simp
+        exact le_trans (le_of_eq h1) (le_trans h2 (le_of_eq h3))
+
 end ExpFam

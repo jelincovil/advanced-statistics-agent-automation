@@ -480,14 +480,6 @@
   "proxima_accion": "Formalizar o mantener pendiente"
  },
  {
-  "claim_id": "C.thm:ch4-bonferroni",
-  "book_key": "thm:ch4-bonferroni",
-  "reason_code": "NO_FORMAL_PROOF",
-  "fuente": "capitulos/cap04_herramientas.typ (theorem: Corrección de Bonferroni)",
-  "impacto": "Sin respaldo formal",
-  "proxima_accion": "Formalizar o mantener pendiente"
- },
- {
   "claim_id": "C.ex:ch4-bonferroni-ssch",
   "book_key": "ex:ch4-bonferroni-ssch",
   "reason_code": "NO_FORMAL_PROOF",
@@ -1368,7 +1360,7 @@
   "proxima_accion": "Formalizar o mantener pendiente"
  },
  {
-  "claim_id": "C.unnamed.example.171",
+  "claim_id": "C.unnamed.example.170",
   "book_key": "",
   "reason_code": "SEMANTIC_MAPPING_UNRESOLVED",
   "fuente": "capitulos/cap04_herramientas.typ (sin key)",

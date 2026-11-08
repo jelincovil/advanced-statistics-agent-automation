@@ -50,5 +50,6 @@
  "thm:ch8-condiciones-contraccion": "ch8_condiciones_contraccion",
  "prop:ch4-test-decision": "prop_ch4_test_decision",
  "thm:ch1-logparticion": "ch1_logparticion",
- "cor:ch1-covarianza-hessiano": "cor_ch1_covarianza_hessiano"
+ "cor:ch1-covarianza-hessiano": "cor_ch1_covarianza_hessiano",
+ "thm:ch4-bonferroni": "ch4_bonferroni"
 }

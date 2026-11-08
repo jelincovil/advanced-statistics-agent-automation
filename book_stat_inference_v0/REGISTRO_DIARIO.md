@@ -1913,3 +1913,19 @@ Z'=N), seguida de un lema general de denominador común
 ### Verificación
 verificar.sh: 10 módulos, 84 declaraciones, 0 sorry. Dashboard: 79
 teoremas. Kernel: 52 argumentos ACEPTADOS, 172 pendientes.
+
+## 2026-11-07 (t49) — thm:ch4-bonferroni + cor:ch1-covarianza-hessiano en un commit
+
+### Entregable
+1. cor:ch1-covarianza-hessiano (cap04:322): segunda derivada de la
+log-partición = E[T²]−E[T]² (equivalente a Var por descomposición
+estándar). Prueba: regla del cociente N/Z + lema general de
+denominador común ((a·c−b²)/c² = a/c−(b/c)², field_simp).
+2. thm:ch4-bonferroni (cap04:1393): corrección de Bonferroni —
+para p-valores válidos y m tests, rechazar solo si p_i ≤ α/m controla
+FWER ≤ α. Prueba: desigualdad de Boole (subaditividad como hipótesis
+hsubadd) + superuniformidad (hipótesis hE) + |I₀| ≤ m + aritmética.
+
+### Verificación
+verificar.sh: 10 módulos, 85 declaraciones, 0 sorry. Dashboard: 80
+teoremas. Kernel: 53 argumentos ACEPTADOS, 171 pendientes.

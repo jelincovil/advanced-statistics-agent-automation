@@ -33,6 +33,7 @@ Generado por `Progress/gen_dashboard.py` el 2026-11-08 desde `Book/*.lean` y `bu
 | `ch8_condiciones_contraccion` (`Cap03MDP.lean`) | `thm:ch8-condiciones-contraccion` @ capitulos/cap03_mdp.typ:202 | F-correction 2026-11-07 (nuevo; formalización de pendiente) | `propext, Classical.choice, Quot.sound` | OK |
 | `ch1_logparticion` (`Cap04Herramientas.lean`) | `thm:ch1-logparticion` @ capitulos/cap04_herramientas.typ:314 | F-correction 2026-11-07 (nuevo; formalizacion de pendiente) | `propext, Classical.choice, Quot.sound` | OK |
 | `cor_ch1_covarianza_hessiano` (`Cap04Herramientas.lean`) | `cor:ch1-covarianza-hessiano` @ capitulos/cap04_herramientas.typ:322 | F-correction 2026-11-07 (nuevo; formalización de pendiente) | `propext, Classical.choice, Quot.sound` | OK |
+| `ch4_bonferroni` (`Cap04Herramientas.lean`) | `thm:ch4-bonferroni` @ capitulos/cap04_herramientas.typ:1393 | F-correction 2026-11-07 (nuevo; formalización de pendiente) | `propext, Classical.choice, Quot.sound` | OK |
 | `ch9_isomorfismo` (`Cap05Representacion.lean`) | `thm:ch9-isomorfismo` @ capitulos/cap05_incrustacion.typ:41 | piloto 2026-11-03 (m_repr) | `propext, Classical.choice, Quot.sound` | OK |
 | `ch9_bayes` (`Cap05Representacion.lean`) | `cor:ch9-bayes` @ capitulos/cap05_incrustacion.typ:143 | piloto 2026-11-03 (m_bayes) | `propext, Classical.choice, Quot.sound` | OK |
 | `ch9_admisibilidad` (`Cap05Representacion.lean`) | `thm:ch9-admisibilidad` @ capitulos/cap05_incrustacion.typ:136 | piloto 2026-11-03 (m_admis) | `propext, Classical.choice, Quot.sound` | OK |
