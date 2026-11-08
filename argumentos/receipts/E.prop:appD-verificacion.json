@@ -1,0 +1,35 @@
+{
+  "schema_version": "1.0",
+  "id": "R.E.prop:appD-verificacion",
+  "spec_id": "E.prop:appD-verificacion",
+  "spec_hash": "878ea98c3afecd2dc13b9958651c3caee30e1552e984036f6ce65a3b00d68bde",
+  "source_commit": "local",
+  "environment_hash": "46f99e0ef8a76bf559b6841ab12e77ae011797097f8fb28ccb1292fa5edcfaa1",
+  "checker_version": "0.1.0",
+  "command_argv": [
+    "lean",
+    "argumentos/evidence/lean_export.lean"
+  ],
+  "working_directory": "..",
+  "input_hashes": {
+    "lean_export.lean": "f1a21fb49f32b4a4af1f9ff0bbebc21f486672b186fe69e201893da56aa6bdb5",
+    "ssch_bayes_racional.py": "af949182cb60e7cfc146980a08e7b97e6ebc11ac52afa6858de41c10dcc55cfb"
+  },
+  "started_at": "2026-11-08T13:46:05Z",
+  "finished_at": "2026-11-08T13:46:05Z",
+  "exit_status": 0,
+  "termination": "completed",
+  "stdout_sha256": "1db7b6a2925b75dd32d37c85449ec2773e3493cd2e87b0fd00d0178c63d35f66",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "artifacts": [],
+  "execution_passed": true,
+  "scientific_criterion_met": true,
+  "observed_checks": [
+    {
+      "id": "target_encontrado:Book.ApendiceD.irreducible_iff_fuertementeConexo",
+      "status": "pass",
+      "detail": "3 axiomas, 22 dependencias"
+    }
+  ],
+  "trust_mode": "locally_reproduced"
+}

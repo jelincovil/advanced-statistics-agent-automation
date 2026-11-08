@@ -1963,3 +1963,43 @@ documentada: el sistema Vandermonde k×k en exp(t_i) es no singular.
 ### Verificación
 verificar.sh: 10 módulos, 88 declaraciones, 0 sorry. Dashboard: 82
 teoremas. Kernel: 55 argumentos ACEPTADOS, 169 pendientes.
+
+## 2026-11-07 (t52) — Enjambre smw7vd793: thm:ch2-completitud-exponencial caso GENERAL + apéndice regularidad
+
+### Entregable
+**Enjambre de 8 agentes** (deepseek-v4.1-flash, max reasoning, 60 min) sobre
+`thm:ch2-completitud-exponencial` (cap04:680): 4 soluciones aceptadas con
+axiomas limpios (propext, Classical.choice, Quot.sound):
+
+- **m8/d2 (aceptada, integrada)**: argumento de dominancia/límite
+  η→atTop sin Vandermonde ni sum_fiberwise. Soporte B={x:g(Tx)≠0},
+  m=max T(B), identidad desplazada exp(η(Tx−m)), límite término a término
+  (tendsto_exp_mul_neg + tendsto_finsetSum) → g m·w(m)=0 con w(m)>0.
+
+- **m1/d6**: independencia de caracteres de Dedekind
+  (linearIndependent_monoidHom comp expChar).
+
+- **m2/d3**: inducción algebraica con desplazamiento η→η+1 (exp t−exp a).
+
+- **m7/d4**: anulador de Lagrange + momentos por derivación.
+
+**Integración en Cap04Herramientas.lean**: parche de m8 aplicado (open Filter,
+tendsto_exp_mul_neg, ch2_completitud_exponencial, fiber_weight_pos,
+ch2_completitud_exponencial_pointwise, ch2_completitud_const_of_general).
+`ch2_completitud_const` (caso T constante) queda como consecuencia.
+
+**Apéndice regularidad (smw7v6gyh en paralelo, 9 claims, 27 min)**: el
+enjambre paralelo avanza 4 claims del apéndice; el kernel de este repo
+refleja su progreso parcial (4 formalizaciones → 59 argumentos).
+
+### Verificación
+`lean Book/Cap04Herramientas.lean` exit 0, sin sorry; `lean Book/Audit.lean`
+→ build/axioms.log con ch2_completitud_exponencial limpio; dashboard
+regenerado (83 teoremas); `cargo evidence --repo ..` → 59 recibos;
+`cargo check` → 59 ACEPTADOS, exit 0; fmt/clippy verdes.
+
+### Pendiente
+Infraestructura Vandermonde k×k queda documentada como alternativa;
+los 5 formalismos restantes del apéndice (ergodico, ibragimov, gordin,
+hac-consistencia, mdp-finito) requieren medida estacionaria / mixing
+y quedan como deuda explícita en el tablero del enjambre paralelo.

@@ -19,6 +19,7 @@ import Book.Cap06Fronteras
 import Book.Cap07OPE
 import Book.Cap08Intervalos
 import Book.Cap11Despliegue
+import Book.ApendiceDRegularidad
 import Book.SSCH
 import Lean.Util.CollectAxioms
 import Lean.Util.FoldConsts
@@ -33,7 +34,7 @@ def objetivos : List Name := [
   `cor_ch1_covarianza_hessiano,
   `ch4_bonferroni,
   `ch2_neyman_fisher,
-  `ch2_completitud_const,
+  `ch2_completitud_exponencial,
   `ch10_curse,
   `ch10_dr,
   `ch10_identificacion,
@@ -83,7 +84,11 @@ def objetivos : List Name := [
   `prop_ch8_acotacion,
   `ssch_mdp_bellman,
   `ssch_minimax_riesgos,
-  `ssch_regla_ordinario
+  `ssch_regla_ordinario,
+  `Book.ApendiceD.relaciones,
+  `Book.ApendiceD.irreducible_iff_fuertementeConexo,
+  `Book.ApendiceD.aperiodic_of_selfloop,
+  `Book.ApendiceD.summable_rpow_of_geometric
 ]
 
 /-- Escapa una cadena para incluirla como literal JSON. -/

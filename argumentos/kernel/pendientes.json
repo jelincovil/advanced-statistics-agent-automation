@@ -1272,76 +1272,44 @@
   "proxima_accion": "Formalizar o mantener pendiente"
  },
  {
-  "claim_id": "C.prop:appD-relaciones",
-  "book_key": "prop:appD-relaciones",
-  "reason_code": "NO_FORMAL_PROOF",
-  "fuente": "apendices/apendice_regularidad.typ (proposition: Relaciones entre Coeficientes)",
-  "impacto": "Sin respaldo formal",
-  "proxima_accion": "Formalizar o mantener pendiente"
- },
- {
   "claim_id": "C.thm:appD-ergodico",
   "book_key": "thm:appD-ergodico",
   "reason_code": "NO_FORMAL_PROOF",
   "fuente": "apendices/apendice_regularidad.typ (theorem: Ergodicidad Geométrica de Cadenas de Markov)",
-  "impacto": "Sin respaldo formal",
-  "proxima_accion": "Formalizar o mantener pendiente"
+  "impacto": "Deuda explicita: Requiere existencia de medida estacionaria y convergencia en TV para cadenas finitas (Doeblin/acoplamiento); no formalizado en este parche",
+  "proxima_accion": "Mantener pendiente con la razon declarada en .ultramath/smw7v6gyh/m2/work/DEUDA.md"
  },
  {
   "claim_id": "C.cor:appD-mdp-finito",
   "book_key": "cor:appD-mdp-finito",
   "reason_code": "NO_FORMAL_PROOF",
   "fuente": "apendices/apendice_regularidad.typ (corollary: MDPs con Estados Finitos)",
-  "impacto": "Sin respaldo formal",
-  "proxima_accion": "Formalizar o mantener pendiente"
- },
- {
-  "claim_id": "C.prop:appD-verificacion",
-  "book_key": "prop:appD-verificacion",
-  "reason_code": "NO_FORMAL_PROOF",
-  "fuente": "apendices/apendice_regularidad.typ (proposition: Verificación de Irreducibilidad)",
-  "impacto": "Sin respaldo formal",
-  "proxima_accion": "Formalizar o mantener pendiente"
- },
- {
-  "claim_id": "C.prop:appD-aperiodicidad",
-  "book_key": "prop:appD-aperiodicidad",
-  "reason_code": "NO_FORMAL_PROOF",
-  "fuente": "apendices/apendice_regularidad.typ (proposition: Verificación de Aperiodicidad)",
-  "impacto": "Sin respaldo formal",
-  "proxima_accion": "Formalizar o mantener pendiente"
+  "impacto": "Deuda explicita: Depende de thm:appD-ergodico (ergodicidad geometrica) mas mixing del proceso conjunto (S_t,A_t,R_t); no formalizado",
+  "proxima_accion": "Mantener pendiente con la razon declarada en .ultramath/smw7v6gyh/m2/work/DEUDA.md"
  },
  {
   "claim_id": "C.thm:appD-ibragimov",
   "book_key": "thm:appD-ibragimov",
   "reason_code": "NO_FORMAL_PROOF",
   "fuente": "apendices/apendice_regularidad.typ (theorem: CLT de Ibragimov para Procesos $alpha$-Mixing)",
-  "impacto": "Sin respaldo formal",
-  "proxima_accion": "Formalizar o mantener pendiente"
- },
- {
-  "claim_id": "C.cor:appD-clt-mdp",
-  "book_key": "cor:appD-clt-mdp",
-  "reason_code": "NO_FORMAL_PROOF",
-  "fuente": "apendices/apendice_regularidad.typ (corollary: Condición Suficiente para MDPs)",
-  "impacto": "Sin respaldo formal",
-  "proxima_accion": "Formalizar o mantener pendiente"
+  "impacto": "Deuda explicita: CLT bajo alpha-mixing (Ibragimov 1962): requiere teoria ergodica y estimaciones de momentos sobre sumas parciales; no en Mathlib",
+  "proxima_accion": "Mantener pendiente con la razon declarada en .ultramath/smw7v6gyh/m2/work/DEUDA.md"
  },
  {
   "claim_id": "C.thm:appD-gordin",
   "book_key": "thm:appD-gordin",
   "reason_code": "NO_FORMAL_PROOF",
   "fuente": "apendices/apendice_regularidad.typ (theorem: CLT funcional para una cadena finita)",
-  "impacto": "Sin respaldo formal",
-  "proxima_accion": "Formalizar o mantener pendiente"
+  "impacto": "Deuda explicita: CLT funcional via ecuacion de Poisson y aproximacion de martingalas en D[0,1] (topologia de Skorokhod); no en Mathlib",
+  "proxima_accion": "Mantener pendiente con la razon declarada en .ultramath/smw7v6gyh/m2/work/DEUDA.md"
  },
  {
   "claim_id": "C.thm:appD-hac-consistencia",
   "book_key": "thm:appD-hac-consistencia",
   "reason_code": "NO_FORMAL_PROOF",
   "fuente": "apendices/apendice_regularidad.typ (theorem: Consistencia del Estimador HAC)",
-  "impacto": "Sin respaldo formal",
-  "proxima_accion": "Formalizar o mantener pendiente"
+  "impacto": "Deuda explicita: Consistencia del estimador HAC de Newey-West: requiere argumento epsilon de colas y condicion agregada de covarianzas; pendiente",
+  "proxima_accion": "Mantener pendiente con la razon declarada en .ultramath/smw7v6gyh/m2/work/DEUDA.md"
  },
  {
   "claim_id": "C.unnamed.example.168",

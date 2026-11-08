@@ -5,6 +5,7 @@ import Book.Cap11Despliegue
 import Book.SSCH
 import Book.Cap06Fronteras
 import Book.Cap07OPE
+import Book.ApendiceDRegularidad
 
 /-! # Book.Audit — auditoría de axiomas del proyecto (plan §6) -/
 
@@ -95,3 +96,23 @@ import Book.Cap07OPE
 #print axioms ch4_bonferroni
 #print axioms ch2_neyman_fisher
 #print axioms ch2_completitud_const
+#print axioms tendsto_exp_mul_neg
+#print axioms ch2_completitud_exponencial
+#print axioms fiber_weight_pos
+#print axioms ch2_completitud_exponencial_pointwise
+
+/-! ## Apéndice D — condiciones de regularidad y mixing -/
+
+#print axioms Book.ApendiceD.relaciones
+#print axioms Book.ApendiceD.two_mul_alpha_le_beta
+#print axioms Book.ApendiceD.beta_le_phi
+#print axioms Book.ApendiceD.beta_libro_atomo
+#print axioms Book.ApendiceD.two_mul_alphaFam_le_betaFam
+#print axioms Book.ApendiceD.betaFam_le_phiFam
+#print axioms Book.ApendiceD.tendsto_alpha_of_tendsto_phi
+#print axioms Book.ApendiceD.summable_rpow_of_geometric
+#print axioms Book.ApendiceD.tsum_rpow_geometric
+#print axioms Book.ApendiceD.irreducible_iff_fuertementeConexo
+#print axioms Book.ApendiceD.mdp_irreducible_iff
+#print axioms Book.ApendiceD.aperiodic_of_selfloop
+#print axioms Book.ApendiceD.return_eventually_pos

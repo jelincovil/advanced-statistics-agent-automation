@@ -3619,6 +3619,42 @@
    "evidence_specs": [
     "E.cap11-margen"
    ]
+  },
+  {
+   "id": "A.prop:appD-relaciones",
+   "conclusion": "C.prop:appD-relaciones",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.prop:appD-relaciones"
+   ]
+  },
+  {
+   "id": "A.prop:appD-verificacion",
+   "conclusion": "C.prop:appD-verificacion",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.prop:appD-verificacion"
+   ]
+  },
+  {
+   "id": "A.prop:appD-aperiodicidad",
+   "conclusion": "C.prop:appD-aperiodicidad",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.prop:appD-aperiodicidad"
+   ]
+  },
+  {
+   "id": "A.cor:appD-clt-mdp",
+   "conclusion": "C.cor:appD-clt-mdp",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.cor:appD-clt-mdp"
+   ]
   }
  ],
  "evidence_specs": [
@@ -3687,7 +3723,7 @@
    "kind": "lean",
    "claim_id": "C.thm:ch2-completitud-exponencial",
    "runner_id": "lean-export",
-   "target": "ch2_completitud_const",
+   "target": "ch2_completitud_exponencial",
    "scope": {
     "domain": "finite",
     "lean_axioms": "propext,Classical.choice,Quot.sound"
@@ -4276,6 +4312,54 @@
    "claim_id": "C.cap11-margen",
    "runner_id": "lean-export",
    "target": "ch11_margen_elemental",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.prop:appD-relaciones",
+   "kind": "lean",
+   "claim_id": "C.prop:appD-relaciones",
+   "runner_id": "lean-export",
+   "target": "Book.ApendiceD.relaciones",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.prop:appD-verificacion",
+   "kind": "lean",
+   "claim_id": "C.prop:appD-verificacion",
+   "runner_id": "lean-export",
+   "target": "Book.ApendiceD.irreducible_iff_fuertementeConexo",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.prop:appD-aperiodicidad",
+   "kind": "lean",
+   "claim_id": "C.prop:appD-aperiodicidad",
+   "runner_id": "lean-export",
+   "target": "Book.ApendiceD.aperiodic_of_selfloop",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.cor:appD-clt-mdp",
+   "kind": "lean",
+   "claim_id": "C.cor:appD-clt-mdp",
+   "runner_id": "lean-export",
+   "target": "Book.ApendiceD.summable_rpow_of_geometric",
    "scope": {
     "domain": "finite",
     "lean_axioms": "propext,Classical.choice,Quot.sound"

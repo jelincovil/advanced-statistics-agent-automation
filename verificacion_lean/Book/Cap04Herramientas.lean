@@ -249,4 +249,155 @@ theorem ch2_completitud_const (hpos : ∀ x, 0 < h x) (c : ℝ) (hT : ∀ x : X,
   have hsum_pos : 0 < ∑ x : X, h x := Finset.sum_pos (fun x _ => hpos x) Finset.univ_nonempty
   exact (mul_eq_zero.mp h0).resolve_right (ne_of_gt hsum_pos)
 
+open Filter
+
+/-- Para `a < 0` se tiene `exp (η * a) → 0` cuando `η → +∞`. -/
+theorem tendsto_exp_mul_neg {a : ℝ} (ha : a < 0) :
+    Tendsto (fun η : ℝ => Real.exp (η * a)) atTop (nhds 0) := by
+  have hb : 0 < -a := by linarith
+  have h1 : Tendsto (fun η : ℝ => η * (-a)) atTop atTop :=
+    Tendsto.atTop_mul_const hb tendsto_id
+  have h2 : Tendsto (fun η : ℝ => Real.exp (η * (-a))) atTop atTop :=
+    Real.tendsto_exp_atTop.comp h1
+  have h3 : Tendsto (fun η : ℝ => (Real.exp (η * (-a)))⁻¹) atTop (nhds 0) :=
+    tendsto_inv_atTop_zero.comp h2
+  simpa [mul_neg, Real.exp_neg] using h3
+
+section ExpFam
+
+variable {X : Type u} [Fintype X] [Nonempty X] (h : X → ℝ) (T : X → ℝ)
+
+/-- book: capitulos/cap04_herramientas.typ:680 (key: thm:ch2-completitud-exponencial) —
+completitud en familias exponenciales (caso general): si `h > 0` y la
+identidad `∑_x g(T x)·h x·exp(η·T x) = 0` vale para todo `η : ℝ`,
+entonces `g` se anula sobre todo valor de `T`.
+
+Prueba (argumento de dominancia, sin Vandermonde): supongamos que algún
+valor del soporte `B = {x : g(T x) ≠ 0}` sobrevive. Sea `m` el máximo de
+`T` sobre `B`; el término `x` con `T x = m` domina. Como la identidad vale
+para todo `η`, también vale la versión desplazada
+`∑_x g(T x)·h x·exp(η·(T x − m)) = 0`. Al hacer `η → +∞` cada `x` con
+`T x < m` tiende a `0`, y los de la fibra `T x = m` son constantes; el
+límite es `g m · ∑_{x ∈ B, T x = m} h x = 0`. El segundo factor es
+estrictamente positivo (suma no vacía de `h > 0`), luego `g m = 0`,
+contradiciendo `m ∈ T '' B`. -/
+theorem ch2_completitud_exponencial (hpos : ∀ x, 0 < h x) (g : ℝ → ℝ)
+    (hvan : ∀ η : ℝ, ∑ x : X, g (T x) * h x * Real.exp (η * T x) = 0) :
+    ∀ t ∈ (Finset.univ : Finset X).image T, g t = 0 := by
+  classical
+  intro t₀ ht₀
+  by_contra hg₀
+  -- un `x₀` con `T x₀ = t₀`
+  obtain ⟨x₀, -, hx₀⟩ := Finset.mem_image.mp ht₀
+  -- soporte de `x ↦ g (T x)`
+  set B : Finset X := Finset.univ.filter (fun x => g (T x) ≠ 0) with hB
+  have hBne : B.Nonempty := ⟨x₀, by simp [hB, hx₀, hg₀]⟩
+  -- el máximo valor de `T` sobre el soporte
+  set m : ℝ := (B.image T).max' (hBne.image T) with hm
+  have hmem : m ∈ B.image T := Finset.max'_mem _ _
+  obtain ⟨xb, hxbB, hxbm⟩ := Finset.mem_image.mp hmem
+  -- `g m ≠ 0`
+  have hgm : g m ≠ 0 := by
+    have h1 : g (T xb) ≠ 0 := by simpa [hB] using hxbB
+    rwa [hxbm] at h1
+  -- identidad desplazada por `m`
+  have hshift : ∀ η : ℝ,
+      ∑ x : X, (g (T x) * h x) * Real.exp (η * (T x - m)) = 0 := by
+    intro η
+    calc ∑ x : X, (g (T x) * h x) * Real.exp (η * (T x - m))
+        = ∑ x : X, (g (T x) * h x) * Real.exp (η * T x) / Real.exp (η * m) := by
+          refine Finset.sum_congr rfl (fun x _ => ?_)
+          rw [mul_sub, Real.exp_sub]
+          ring
+      _ = (∑ x : X, (g (T x) * h x) * Real.exp (η * T x)) / Real.exp (η * m) := by
+          rw [Finset.sum_div]
+      _ = 0 := by rw [hvan η]; simp
+  -- la misma identidad restringida al soporte
+  have hzero : ∀ η : ℝ,
+      ∑ x ∈ B, (g (T x) * h x) * Real.exp (η * (T x - m)) = 0 := by
+    intro η
+    rw [Finset.sum_subset (Finset.subset_univ B) ?_]
+    · simpa using hshift η
+    · intro x _ hx
+      have h1 : g (T x) = 0 := by
+        by_contra hc
+        exact hx (by simp [hB, hc])
+      simp [h1]
+  -- límite término a término
+  have hterm : ∀ x ∈ B, Tendsto
+      (fun η : ℝ => (g (T x) * h x) * Real.exp (η * (T x - m))) atTop
+      (nhds (if T x = m then g (T x) * h x else 0)) := by
+    intro x hx
+    by_cases hxm : T x = m
+    · have hconst : (fun η : ℝ => (g (T x) * h x) * Real.exp (η * (T x - m)))
+          = fun _ => g (T x) * h x := by
+        funext η
+        rw [hxm, sub_self, mul_zero, Real.exp_zero, mul_one]
+      rw [hconst, if_pos hxm]
+      exact tendsto_const_nhds
+    · have hlt : T x - m < 0 := by
+        have hle : T x ≤ m :=
+          Finset.le_max' _ _ (Finset.mem_image_of_mem T hx)
+        have hlt : T x < m := lt_of_le_of_ne hle hxm
+        linarith
+      have h0 := tendsto_exp_mul_neg hlt
+      have h1 := h0.const_mul (g (T x) * h x)
+      rw [mul_zero] at h1
+      simpa [hxm] using h1
+  have hlim := tendsto_finsetSum B hterm
+  -- el valor del límite es `g m` por la masa de la fibra
+  have hval : (∑ x ∈ B, (if T x = m then g (T x) * h x else 0))
+      = g m * ∑ x ∈ B.filter (fun x => T x = m), h x := by
+    rw [← Finset.sum_filter, Finset.mul_sum]
+    refine Finset.sum_congr rfl (fun x hx => ?_)
+    have hx' : T x = m := (Finset.mem_filter.mp hx).2
+    rw [hx']
+  have hzeroT : Tendsto
+      (fun η : ℝ => ∑ x ∈ B, (g (T x) * h x) * Real.exp (η * (T x - m))) atTop (nhds 0) := by
+    have hfun : (fun η : ℝ => ∑ x ∈ B, (g (T x) * h x) * Real.exp (η * (T x - m)))
+        = fun _ => 0 := by
+      funext η
+      exact hzero η
+    rw [hfun]
+    exact tendsto_const_nhds
+  rw [hval] at hlim
+  have huniq : (0 : ℝ) = g m * ∑ x ∈ B.filter (fun x => T x = m), h x :=
+    tendsto_nhds_unique hzeroT hlim
+  -- la masa de la fibra es estrictamente positiva
+  have hwpos : 0 < ∑ x ∈ B.filter (fun x => T x = m), h x := by
+    exact Finset.sum_pos' (fun x _ => le_of_lt (hpos x))
+      ⟨xb, Finset.mem_filter.mpr ⟨hxbB, hxbm⟩, hpos xb⟩
+  have hgm0 : g m = 0 :=
+    (mul_eq_zero.mp huniq.symm).resolve_right (ne_of_gt hwpos)
+  exact hgm hgm0
+
+/-- La masa de una fibra no vacía de `T` es estrictamente positiva: la
+suma de `h > 0` sobre `{x : T x = m}` es `> 0` si `m` es un valor de `T`. -/
+theorem fiber_weight_pos (hpos : ∀ x, 0 < h x) {m : ℝ}
+    (hm : m ∈ (Finset.univ : Finset X).image T) :
+    0 < ∑ x ∈ (Finset.univ : Finset X).filter (fun x => T x = m), h x := by
+  classical
+  obtain ⟨x₀, -, hx₀⟩ := Finset.mem_image.mp hm
+  exact Finset.sum_pos' (fun x _ => le_of_lt (hpos x))
+    ⟨x₀, Finset.mem_filter.mpr ⟨Finset.mem_univ _, hx₀⟩, hpos x₀⟩
+
+/-- Forma punto a punto de la completitud: `g (T x) = 0` para todo `x`. -/
+theorem ch2_completitud_exponencial_pointwise (hpos : ∀ x, 0 < h x) (g : ℝ → ℝ)
+    (hvan : ∀ η : ℝ, ∑ x : X, g (T x) * h x * Real.exp (η * T x) = 0) :
+    ∀ x : X, g (T x) = 0 :=
+  fun x => ch2_completitud_exponencial h T hpos g hvan (T x)
+    (Finset.mem_image_of_mem T (Finset.mem_univ x))
+
+/-- El caso general recupera el caso mínimo `ch2_completitud_const`
+(estadístico constante): comprobación de que el enunciado general es la
+generalización correcta. -/
+theorem ch2_completitud_const_of_general (hpos : ∀ x, 0 < h x) (c : ℝ)
+    (hT : ∀ x : X, T x = c) (g : ℝ → ℝ)
+    (hvan : ∀ η : ℝ, ∑ x : X, g (T x) * h x * Real.exp (η * T x) = 0) :
+    g c = 0 :=
+  ch2_completitud_exponencial h T hpos g hvan c
+    (Finset.mem_image.mpr ⟨Classical.arbitrary X, Finset.mem_univ _, hT _⟩)
+
+
+
 end ExpFam
