@@ -36,6 +36,7 @@ import Book.Cap07OPE
 #print axioms ch8_bellman_pi
 #print axioms ch8_vi_conv
 #print axioms ch8_principio
+#print axioms ch8_bellman_opt
 #print axioms ch10_curse
 #print axioms ch10_curse_ejemplo
 #print axioms ssch_regla_ordinario

@@ -3207,6 +3207,15 @@
    ]
   },
   {
+   "id": "A.thm:ch8-bellman-opt",
+   "conclusion": "C.thm:ch8-bellman-opt",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.thm:ch8-bellman-opt"
+   ]
+  },
+  {
    "id": "A.thm:ch8-contraccion",
    "conclusion": "C.thm:ch8-contraccion",
    "premises": [],
@@ -3643,6 +3652,18 @@
    "claim_id": "C.thm:ch8-bellman-pi",
    "runner_id": "lean-export",
    "target": "ch8_bellman_pi",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.thm:ch8-bellman-opt",
+   "kind": "lean",
+   "claim_id": "C.thm:ch8-bellman-opt",
+   "runner_id": "lean-export",
+   "target": "ch8_bellman_opt",
    "scope": {
     "domain": "finite",
     "lean_axioms": "propext,Classical.choice,Quot.sound"

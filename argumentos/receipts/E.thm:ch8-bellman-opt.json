@@ -1,0 +1,35 @@
+{
+  "schema_version": "1.0",
+  "id": "R.E.thm:ch8-bellman-opt",
+  "spec_id": "E.thm:ch8-bellman-opt",
+  "spec_hash": "dcd7b7aa6c806edbf7cc080cdcd1a917911612e0a19a3ca2a8e37b74fbd22f66",
+  "source_commit": "local",
+  "environment_hash": "69fe25bd87d7978106ed802965347752cf2026936cb62db94450749de1cf885f",
+  "checker_version": "0.1.0",
+  "command_argv": [
+    "lean",
+    "argumentos/evidence/lean_export.lean"
+  ],
+  "working_directory": "..",
+  "input_hashes": {
+    "lean_export.lean": "dc7bae339336137220f2d817993b8f2c7a0da2c33f69500ee4f11a53acaa763c",
+    "ssch_bayes_racional.py": "af949182cb60e7cfc146980a08e7b97e6ebc11ac52afa6858de41c10dcc55cfb"
+  },
+  "started_at": "2026-11-08T00:13:41Z",
+  "finished_at": "2026-11-08T00:13:41Z",
+  "exit_status": 0,
+  "termination": "completed",
+  "stdout_sha256": "8db49b71f255341526d876c9fecf0c76962d256153ad50533c87cdb60ba9d7e1",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "artifacts": [],
+  "execution_passed": true,
+  "scientific_criterion_met": true,
+  "observed_checks": [
+    {
+      "id": "target_encontrado:ch8_bellman_opt",
+      "status": "pass",
+      "detail": "3 axiomas, 151 dependencias"
+    }
+  ],
+  "trust_mode": "locally_reproduced"
+}

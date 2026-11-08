@@ -1757,3 +1757,31 @@ Puertas: fmt, clippy −D warnings, 65 tests, evidence/check end-to-end.
 accesibles por infraestructura existente: ex:ch7-james-stein (riesgo
 p−(p−2)²·E[1/‖X‖²] < p — requiere gaussiana p-dimensional, más pesado) y
 ex:ch7-perdidas (ejemplos de pérdidas).
+
+## 2026-11-07 (t43) — thm:ch8-bellman-opt: Bellman de optimalidad
+
+### Entregable
+Formalización del teorema «Bellman de optimalidad» (cap03:63) en
+Cap03MDP.lean, como corolario directo de `cor:ch8-principio` (t40):
+en el MDP finito descontado, existe una política estacionaria
+determinista óptima (alcanza el valor óptimo V*, caracterizado como
+punto fijo de T* mediante la hipótesis hW) y V* domina a toda política
+determinista estacionaria. La prueba construye una política greedy
+(maximizador de la expresión de Bellman en cada estado, vía
+Finset.exists_min_image sobre la negación — existe por finitud y no
+vacuidad de A) y aplica ch8_principio con esa política.
+
+Fidelidad declarada en docstring: V* entra como hipótesis de punto
+fijo de T*; la ecuación V*(s) = max_a [...] es exactamente hW
+(definición de Topt); la identidad Q* es la definición de Qpi
+evaluada en hW y no se enuncia por separado; la unicidad ya está en
+ch8_punto_fijo_unico; «varias políticas óptimas si hay empates» es
+automático.
+
+### Verificación
+verificar.sh: 9 módulos, **79 declaraciones auditadas** (78 +
+ch8_bellman_opt), 0 sorry, axiomas [propext, Classical.choice,
+Quot.sound] ×79. Dashboard: 74 teoremas con book:. Kernel: **47
+argumentos** (todos ACEPTADOS, exit 0), **177 pendientes** (−1; 94
+formal + 82 empirical + 1 sin clave). Exporter 47 targets. Puertas:
+fmt, clippy −D warnings, 65 tests, evidence/check end-to-end.

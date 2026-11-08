@@ -1103,4 +1103,45 @@ theorem ch8_principio (π : S → A)
   have hpos := hu s
   linarith
 
+/-! ### Formalización de pendientes del canon (thm:ch8-bellman-opt) -/
+
+/-- book: capitulos/cap03_mdp.typ:63 (key: thm:ch8-bellman-opt) —
+Bellman de optimalidad: en el MDP finito descontado, existe una política
+estacionaria determinista óptima (alcanza el valor óptimo `V*`,
+caracterizado como punto fijo de `T*` mediante la hipótesis `hW`) y
+`V*` domina a toda política determinista estacionaria. La prueba
+construye una política greedy (maximizador de la expresión de Bellman
+en cada estado; existe por finitud y no vacuidad de `A`, aquí vía
+`Finset.exists_min_image` sobre la negación) y aplica
+`cor:ch8-principio`.
+Fidelidad declarada: `V*` entra como hipótesis de punto fijo de `T*`
+(la forma del capítulo); «existe una política óptima» se enuncia sobre
+la clase de políticas deterministas estacionarias, no sobre políticas
+con historia; la ecuación `V*(s) = max_a [...]` es exactamente `hW`
+(definición de `Topt` como `sup'`); la identidad adicional del libro
+para `Q*` es la definición de `Qpi` evaluada en `hW` y no se enuncia
+por separado; la unicidad de `V*` ya está en `ch8_punto_fijo_unico`;
+«las políticas óptimas pueden ser varias si hay empates» es automático
+(cualquier greedy sirve).
+Origen: F-correction 2026-11-07 (nuevo; formalización de pendiente). -/
+theorem ch8_bellman_opt (hP0 : ∀ s a s', 0 ≤ P s a s')
+    (hP1 : ∀ s a, ∑ s', P s a s' = 1)
+    (hγ0 : 0 ≤ γ) (hγ1 : γ < 1) (W : S → ℝ)
+    (hW : ∀ s, Topt r P γ W s = W s) :
+    (∃ π : S → A, ∀ s, Vpi r P γ π s = W s)
+    ∧ (∀ π' : S → A, ∀ s, Vpi r P γ π' s ≤ W s) := by
+  have hex : ∀ s : S, ∃ a₀ : A, ∀ a : A,
+      r s a₀ + γ * ∑ s', P s a₀ s' * W s'
+        ≥ r s a + γ * ∑ s', P s a s' * W s' := by
+    intro s
+    obtain ⟨a₀, -, ha₀⟩ := Finset.exists_min_image (univ : Finset A)
+      (fun a => -(r s a + γ * ∑ s', P s a s' * W s'))
+      Finset.univ_nonempty
+    refine ⟨a₀, fun a => ?_⟩
+    have h := ha₀ a (Finset.mem_univ a)
+    linarith
+  choose πgreedy hgreedy using hex
+  exact ⟨⟨πgreedy, (ch8_principio r P γ πgreedy hP0 hP1 hγ0 hγ1 W hW hgreedy).1⟩,
+    (ch8_principio r P γ πgreedy hP0 hP1 hγ0 hγ1 W hW hgreedy).2⟩
+
 end MDP

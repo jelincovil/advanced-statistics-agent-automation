@@ -4,7 +4,7 @@
   "spec_id": "E.thm:ch11-tasa-tabular",
   "spec_hash": "13b7b0368ce2066f798a1e646a5300863d73cdf3c9251bc3569a07ee283bd667",
   "source_commit": "local",
-  "environment_hash": "e7095382e42ca1523478e6dce240700070fe011b92a64b7c5dd3884b44026196",
+  "environment_hash": "69fe25bd87d7978106ed802965347752cf2026936cb62db94450749de1cf885f",
   "checker_version": "0.1.0",
   "command_argv": [
     "lean",
@@ -12,14 +12,14 @@
   ],
   "working_directory": "..",
   "input_hashes": {
-    "lean_export.lean": "fbd3e1f110184b67c615711adbfeca0602255b1c6bbf682bee4759325059408e",
+    "lean_export.lean": "dc7bae339336137220f2d817993b8f2c7a0da2c33f69500ee4f11a53acaa763c",
     "ssch_bayes_racional.py": "af949182cb60e7cfc146980a08e7b97e6ebc11ac52afa6858de41c10dcc55cfb"
   },
-  "started_at": "2026-11-07T22:13:50Z",
-  "finished_at": "2026-11-07T22:13:50Z",
+  "started_at": "2026-11-08T00:13:41Z",
+  "finished_at": "2026-11-08T00:13:41Z",
   "exit_status": 0,
   "termination": "completed",
-  "stdout_sha256": "2500f5692599951a5faf546a94a3481206ff526df0009e8c2990e64c9aa37f84",
+  "stdout_sha256": "8db49b71f255341526d876c9fecf0c76962d256153ad50533c87cdb60ba9d7e1",
   "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
   "artifacts": [],
   "execution_passed": true,
