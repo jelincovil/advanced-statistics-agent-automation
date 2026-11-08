@@ -3648,6 +3648,24 @@
    ]
   },
   {
+   "id": "A.prop:ch3-info-aditiva",
+   "conclusion": "C.prop:ch3-info-aditiva",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.prop:ch3-info-aditiva"
+   ]
+  },
+  {
+   "id": "A.cor:ch4-exp-mlr",
+   "conclusion": "C.cor:ch4-exp-mlr",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.cor:ch4-exp-mlr"
+   ]
+  },
+  {
    "id": "A.cor:appD-clt-mdp",
    "conclusion": "C.cor:appD-clt-mdp",
    "premises": [],
@@ -4348,6 +4366,30 @@
    "claim_id": "C.prop:appD-aperiodicidad",
    "runner_id": "lean-export",
    "target": "Book.ApendiceD.aperiodic_of_selfloop",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.prop:ch3-info-aditiva",
+   "kind": "lean",
+   "claim_id": "C.prop:ch3-info-aditiva",
+   "runner_id": "lean-export",
+   "target": "prop_ch3_info_aditiva",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.cor:ch4-exp-mlr",
+   "kind": "lean",
+   "claim_id": "C.cor:ch4-exp-mlr",
+   "runner_id": "lean-export",
+   "target": "cor_ch4_exp_mlr",
    "scope": {
     "domain": "finite",
     "lean_axioms": "propext,Classical.choice,Quot.sound"

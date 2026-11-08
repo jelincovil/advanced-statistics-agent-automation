@@ -1,0 +1,35 @@
+{
+  "schema_version": "1.0",
+  "id": "R.E.prop:ch3-info-aditiva",
+  "spec_id": "E.prop:ch3-info-aditiva",
+  "spec_hash": "68e0bd3206d0d5a22693e6ecfbf66ce2b43a7912995a307b7e8c5c77b1653930",
+  "source_commit": "local",
+  "environment_hash": "2f7eb0c5afc6f958c36e935ee7ff68c28320ce2b09c0047e7e206c85c7009078",
+  "checker_version": "0.1.0",
+  "command_argv": [
+    "lean",
+    "argumentos/evidence/lean_export.lean"
+  ],
+  "working_directory": "..",
+  "input_hashes": {
+    "lean_export.lean": "ddb62c4e8285691c097d7fc5929008518772ccc4157b75ec42eebd660eece03a",
+    "ssch_bayes_racional.py": "af949182cb60e7cfc146980a08e7b97e6ebc11ac52afa6858de41c10dcc55cfb"
+  },
+  "started_at": "2026-11-08T16:49:21Z",
+  "finished_at": "2026-11-08T16:49:21Z",
+  "exit_status": 0,
+  "termination": "completed",
+  "stdout_sha256": "45150f477494f348f657ca203615d6cf766942f160de246a285546aaffc3e639",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "artifacts": [],
+  "execution_passed": true,
+  "scientific_criterion_met": true,
+  "observed_checks": [
+    {
+      "id": "target_encontrado:prop_ch3_info_aditiva",
+      "status": "pass",
+      "detail": "3 axiomas, 32 dependencias"
+    }
+  ],
+  "trust_mode": "locally_reproduced"
+}

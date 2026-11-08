@@ -2003,3 +2003,18 @@ Infraestructura Vandermonde k×k queda documentada como alternativa;
 los 5 formalismos restantes del apéndice (ergodico, ibragimov, gordin,
 hac-consistencia, mdp-finito) requieren medida estacionaria / mixing
 y quedan como deuda explícita en el tablero del enjambre paralelo.
+
+## 2026-11-07 (t53) — Batch rápido cap04 1-2: prop:ch3-info-aditiva + cor:ch4-exp-mlr
+
+### Entregable
+Dos proposiciones de cap04 (15-25 líneas cada una) usando la infra
+existente (sin cálculo):
+
+- `prop_ch3_info_aditiva` (cap04:1027): $I_n=n·I_1$ por Finset.sum_const.
+- `cor_ch4_exp_mlr` (cap04:1311): MLR en familias canónicas: si
+  $η₂≥η₁$ y $t₁≤t₂$ entonces $e^{(η₂-η₁)t₁}≤e^{(η₂-η₁)t₂}$ por
+  monotonía de exp.
+
+### Verificación
+verificar.sh: 10→11 módulos, 89 declaraciones, 0 sorry; DASHBOARD 86;
+Kernel: 61 argumentos ACEPTADOS, 163 pendientes; exporter 57 targets.

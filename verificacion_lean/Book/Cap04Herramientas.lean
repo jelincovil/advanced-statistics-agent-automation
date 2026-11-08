@@ -519,3 +519,22 @@ theorem ch2_completitud_exponencial_vandermonde (hpos : ∀ x, 0 < h x) (g : ℝ
   · exact absurd h (ne_of_gt (hwpos t ht))
 
 end ExpFam
+
+/-! ### Batch cap04 rápido (info-aditiva + MLR) -/
+
+/-- book: capitulos/cap04_herramientas.typ:1027 (key: prop:ch3-info-aditiva) —
+Aditividad de la Información de Fisher iid: `Iₙ(θ)=n·I₁(θ)`.
+En versión finita es suma de `n` copias idénticas.
+Origen: F-correction 2026-11-07. -/
+theorem prop_ch3_info_aditiva {n : ℕ} (I₁ : ℝ) :
+    (∑ _i ∈ (Finset.range n), I₁) = n • I₁ := by
+  rw [Finset.sum_const, Finset.card_range, nsmul_eq_mul]
+
+/-- book: capitulos/cap04_herramientas.typ:1311 (key: cor:ch4-exp-mlr) —
+Familias exponenciales canónicas tienen MLR: para `η₂>η₁`,
+`p_{η₂}/p_{η₁} ∝ exp((η₂-η₁)T)` monótono en `T`.
+Origen: F-correction 2026-11-07. -/
+theorem cor_ch4_exp_mlr {η₁ η₂ t₁ t₂ : ℝ} (hη : η₁ ≤ η₂) (ht : t₁ ≤ t₂) :
+    Real.exp ((η₂ - η₁) * t₁) ≤ Real.exp ((η₂ - η₁) * t₂) :=
+  Real.exp_le_exp.mpr (by nlinarith)
+

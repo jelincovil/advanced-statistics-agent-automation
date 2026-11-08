@@ -116,3 +116,5 @@ import Book.ApendiceDRegularidad
 #print axioms Book.ApendiceD.mdp_irreducible_iff
 #print axioms Book.ApendiceD.aperiodic_of_selfloop
 #print axioms Book.ApendiceD.return_eventually_pos
+#print axioms prop_ch3_info_aditiva
+#print axioms cor_ch4_exp_mlr

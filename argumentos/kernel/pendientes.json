@@ -344,14 +344,6 @@
   "proxima_accion": "Formalizar o mantener pendiente"
  },
  {
-  "claim_id": "C.prop:ch3-info-aditiva",
-  "book_key": "prop:ch3-info-aditiva",
-  "reason_code": "NO_FORMAL_PROOF",
-  "fuente": "capitulos/cap04_herramientas.typ (proposition: Aditividad de la Información)",
-  "impacto": "Sin respaldo formal",
-  "proxima_accion": "Formalizar o mantener pendiente"
- },
- {
   "claim_id": "C.cor:ch3-cr-iid",
   "book_key": "cor:ch3-cr-iid",
   "reason_code": "NO_FORMAL_PROOF",
@@ -420,14 +412,6 @@
   "book_key": "thm:ch4-mlr",
   "reason_code": "NO_FORMAL_PROOF",
   "fuente": "capitulos/cap04_herramientas.typ (theorem: Existencia de UMP en Familias MLR)",
-  "impacto": "Sin respaldo formal",
-  "proxima_accion": "Formalizar o mantener pendiente"
- },
- {
-  "claim_id": "C.cor:ch4-exp-mlr",
-  "book_key": "cor:ch4-exp-mlr",
-  "reason_code": "NO_FORMAL_PROOF",
-  "fuente": "capitulos/cap04_herramientas.typ (corollary: )",
   "impacto": "Sin respaldo formal",
   "proxima_accion": "Formalizar o mantener pendiente"
  },
@@ -1312,7 +1296,7 @@
   "proxima_accion": "Mantener pendiente con la razon declarada en .ultramath/smw7v6gyh/m2/work/DEUDA.md"
  },
  {
-  "claim_id": "C.unnamed.example.168",
+  "claim_id": "C.unnamed.example.162",
   "book_key": "",
   "reason_code": "SEMANTIC_MAPPING_UNRESOLVED",
   "fuente": "capitulos/cap04_herramientas.typ (sin key)",
