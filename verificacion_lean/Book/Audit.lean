@@ -50,6 +50,16 @@ import Book.Cap08Ch11M10
 import Book.Cap02M11
 import Book.BarridoM16
 import Book.Cap12Problemas
+import Book.ApendiceEHilbert
+import Book.Cap04Ch6Motivacion
+import Book.GordinCoreM8
+import Book.Cap03LaiRobbinsM7
+import Book.AppDHacM9
+import Book.Cap04MedibleIntuicionM10
+import Book.AppERNM3
+import Book.ApendiceEMedidoDctM5
+import Book.ApendiceDIbragimov
+
 
 /-! # Book.Audit — auditoría de axiomas del proyecto (plan §6) -/
 
@@ -217,3 +227,17 @@ import Book.Cap12Problemas
 #print axioms Book.Cap04Ejemplos.ch2_traslaciones_media
 #print axioms Book.Cap04Ejemplos.ch4_mp_normal_umbral
 #print axioms Book.Cap04Ejemplos.ch5_cociente_delta
+#print axioms ApendiceEHilbert.appE_proyeccion
+#print axioms ApendiceEHilbert.appE_l2
+#print axioms ApendiceEHilbert.appE_gaussiano
+#print axioms Ch6Motivacion.identificacion
+#print axioms Ch6Motivacion.doble_robustez_propension
+#print axioms Book.ApendiceDIbragimov.thm_appD_ibragimov
+#print axioms ApendiceDGordinM8.Chain.poisson_solution
+#print axioms ApendiceDGordinM8.Chain.gordin_decomposition
+#print axioms Cap03M7.lai_robbins
+#print axioms AppDHacM9.thm_appD_hac_consistencia
+#print axioms Book.Cap04MedibleIntuicionM10.medible_continua_reales
+
+#print axioms Book.AppERNM3.appE_rn_existe_unico
+#print axioms Book.ApendiceEMedidoDctM5.appE_convergencia_dominada

@@ -9,7 +9,7 @@
   consola ajenos.
 
   Los objetivos son TODOS los teoremas con book_key en verificacion_lean
-  274 teoremas en total.
+  285 teoremas en total.
 -/
 import Book.Cap02Wald
 import Book.Cap03MDP
@@ -65,6 +65,15 @@ import Book.Cap02M11
 import Book.BarridoM16
 import Book.Cap12Problemas
 import Book.SSCH
+import Book.Cap03LaiRobbinsM7
+import Book.AppDHacM9
+import Book.Cap04MedibleIntuicionM10
+import Book.AppERNM3
+import Book.ApendiceEMedidoDctM5
+import Book.ApendiceDIbragimov
+import Book.GordinCoreM8
+import Book.Cap04Ch6Motivacion
+import Book.ApendiceEHilbert
 import Lean.Util.CollectAxioms
 import Lean.Util.FoldConsts
 
@@ -365,7 +374,29 @@ def objetivos : List Name := [
   `Book.ApendiceE.appE_estadistico_comp,
   `Book.ApendiceE.appE_markov_nucleo_medible,
   `Book.ApendiceE.appE_seleccion_max_medible,
-  `Book.ApendiceE.appE_dominacion_densidad
+  `Book.ApendiceE.appE_dominacion_densidad ,
+  `ApendiceEHilbert.appE_proyeccion ,
+  `ApendiceEHilbert.appE_l2 ,
+  `ApendiceEHilbert.appE_gaussiano ,
+  `Ch6Motivacion.identificacion ,
+  `Ch6Motivacion.doble_robustez_propension ,
+  `Ch6Motivacion.doble_robustez_medias ,
+  `Ch6Motivacion.ipw_true ,
+  `Book.ApendiceDIbragimov.thm_appD_ibragimov ,
+  `ApendiceDGordinM8.Chain.poisson_solution ,
+  `ApendiceDGordinM8.Chain.gordin_decomposition ,
+  `ApendiceDGordinM8.Chain.tendsto_boundary_div_sqrt ,
+  `ApendiceDGordinM8.Chain.martIncrement_cond_mean ,
+  `ApendiceDGordinM8.Chain.bracket_decomposition ,
+  `ApendiceDGordinM8.Chain.harmonic_eq_zero ,
+  `ApendiceDGordinM8.Chain.boundary_abs_le ,
+  `Cap03M7.lai_robbins ,
+  `AppDHacM9.thm_appD_hac_consistencia ,
+  `Book.Cap04MedibleIntuicionM10.medible_continua_reales ,
+  `Book.Cap04MedibleIntuicionM10.ley_apply ,
+  `Book.Cap04MedibleIntuicionM10.esperanza_finita_iff_integrable ,
+  `Book.AppERNM3.appE_rn_existe_unico ,
+  `Book.ApendiceEMedidoDctM5.appE_convergencia_dominada
 ]
 
 /-- Escapa una cadena para incluirla como literal JSON. -/

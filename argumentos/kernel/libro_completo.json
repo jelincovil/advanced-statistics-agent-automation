@@ -452,7 +452,7 @@
   {
    "id": "C.ex:ch6-motivacion",
    "book_key": "ex:ch6-motivacion",
-   "kind": "empirical",
+   "kind": "formal",
    "statement": "Example: Motivación: estimar una decisión con modelos auxiliares (capitulos/cap04_herramientas.typ)",
    "expression": {
     "op": "atom",
@@ -2846,7 +2846,7 @@
   {
    "id": "C.ex:appE-gaussiano",
    "book_key": "ex:appE-gaussiano",
-   "kind": "empirical",
+   "kind": "formal",
    "statement": "Example: Modelo Gaussiano (apendices/apendice_medido.typ)",
    "expression": {
     "op": "atom",
@@ -2902,7 +2902,7 @@
   {
    "id": "C.ex:appE-l2",
    "book_key": "ex:appE-l2",
-   "kind": "empirical",
+   "kind": "formal",
    "statement": "Example: Espacio $L^2(P)$ (apendices/apendice_medido.typ)",
    "expression": {
     "op": "atom",
@@ -3276,6 +3276,107 @@
     "domain": "measure"
    },
    "assumptions": []
+  },
+  {
+   "id": "C.der:gordin-poisson",
+   "book_key": "der:gordin-poisson",
+   "kind": "formal",
+   "statement": "Derivado E.der:gordin-poisson",
+   "expression": {
+    "op": "atom",
+    "id": "der:gordin-poisson"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.der:gordin-decomposition",
+   "book_key": "der:gordin-decomposition",
+   "kind": "formal",
+   "statement": "Derivado E.der:gordin-decomposition",
+   "expression": {
+    "op": "atom",
+    "id": "der:gordin-decomposition"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.der:gordin-boundary",
+   "book_key": "der:gordin-boundary",
+   "kind": "formal",
+   "statement": "Derivado E.der:gordin-boundary",
+   "expression": {
+    "op": "atom",
+    "id": "der:gordin-boundary"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.der:gordin-martingale-increment",
+   "book_key": "der:gordin-martingale-increment",
+   "kind": "formal",
+   "statement": "Derivado E.der:gordin-martingale-increment",
+   "expression": {
+    "op": "atom",
+    "id": "der:gordin-martingale-increment"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.der:gordin-bracket",
+   "book_key": "der:gordin-bracket",
+   "kind": "formal",
+   "statement": "Derivado E.der:gordin-bracket",
+   "expression": {
+    "op": "atom",
+    "id": "der:gordin-bracket"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.der:gordin-max-principle",
+   "book_key": "der:gordin-max-principle",
+   "kind": "formal",
+   "statement": "Derivado E.der:gordin-max-principle",
+   "expression": {
+    "op": "atom",
+    "id": "der:gordin-max-principle"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.ex:ch1-medible-intuicion",
+   "book_key": "ex:ch1-medible-intuicion",
+   "kind": "formal",
+   "statement": "Example: Intuicion — continuidad, distribucion y esperanza finita (capitulos/cap04_herramientas.typ:184). Con SampleSpace = R^n y la sigma-algebra de Borel, toda funcion continua es medible; la definicion formal de medibilidad permite definir la distribucion del estadistico como la ley imagen mu.map T (que es de probabilidad si lo es mu y cuya masa es (mu.map T)(B) = mu(T^-1 B)); y para una esperanza finita se necesita ademas integrabilidad (Integrable T mu <-> int^- ofReal ||T|| < inf; sin ella el momento absoluto de la ley es top; con ella la integral se transporta a la ley; acotacion ||T|| <= C sobre una medida finita => integrable, y sobre una probabilidad ||int T dmu|| <= C).",
+   "expression": {
+    "op": "atom",
+    "id": "ex:ch1-medible-intuicion"
+   },
+   "scope": {
+    "domain": "measure"
+   },
+   "assumptions": [
+    "A.medible-borel",
+    "A.probabilidad-datos"
+   ]
   }
  ],
  "arguments": [
@@ -5093,6 +5194,89 @@
    "rule": "LEAN_ANCHOR",
    "evidence_specs": [
     "E.ex:ch3-mcmc-ssch"
+   ]
+  },
+  {
+   "id": "A.thm:appE-proyeccion",
+   "conclusion": "C.thm:appE-proyeccion",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.thm:appE-proyeccion"
+   ]
+  },
+  {
+   "id": "A.ex:appE-l2",
+   "conclusion": "C.ex:appE-l2",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.ex:appE-l2"
+   ]
+  },
+  {
+   "id": "A.ex:appE-gaussiano",
+   "conclusion": "C.ex:appE-gaussiano",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.ex:appE-gaussiano"
+   ]
+  },
+  {
+   "id": "A.ex:ch6-motivacion",
+   "conclusion": "C.ex:ch6-motivacion",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.ex:ch6-motivacion.identificacion",
+    "E.ex:ch6-motivacion.ipw",
+    "E.ex:ch6-motivacion.doble-robustez"
+   ]
+  },
+  {
+   "id": "A.thm:appD-ibragimov",
+   "conclusion": "C.thm:appD-ibragimov",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.thm:appD-ibragimov"
+   ]
+  },
+  {
+   "id": "A.thm:ch8-lai-robbins",
+   "conclusion": "C.thm:ch8-lai-robbins",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.thm:ch8-lai-robbins"
+   ]
+  },
+  {
+   "id": "A.thm:appD-hac-consistencia",
+   "conclusion": "C.thm:appD-hac-consistencia",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.thm:appD-hac-consistencia"
+   ]
+  },
+  {
+   "id": "A.thm:appE-radon-nikodym",
+   "conclusion": "C.thm:appE-radon-nikodym",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.thm:appE-radon-nikodym"
+   ]
+  },
+  {
+   "id": "A.thm:appE-convergencia-dominada",
+   "conclusion": "C.thm:appE-convergencia-dominada",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.thm:appE-convergencia-dominada"
    ]
   }
  ],
@@ -8318,6 +8502,246 @@
    "scope": {
     "domain": "finite",
     "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.thm:appE-proyeccion",
+   "kind": "lean",
+   "claim_id": "C.thm:appE-proyeccion",
+   "runner_id": "lean-export",
+   "target": "ApendiceEHilbert.appE_proyeccion",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.ex:appE-l2",
+   "kind": "lean",
+   "claim_id": "C.ex:appE-l2",
+   "runner_id": "lean-export",
+   "target": "ApendiceEHilbert.appE_l2",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.ex:appE-gaussiano",
+   "kind": "lean",
+   "claim_id": "C.ex:appE-gaussiano",
+   "runner_id": "lean-export",
+   "target": "ApendiceEHilbert.appE_gaussiano",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.ex:ch6-motivacion.identificacion",
+   "kind": "lean",
+   "claim_id": "C.ex:ch6-motivacion",
+   "runner_id": "lean-export",
+   "target": "Ch6Motivacion.identificacion",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.ex:ch6-motivacion.ipw",
+   "kind": "lean",
+   "claim_id": "C.ex:ch6-motivacion",
+   "runner_id": "lean-export",
+   "target": "Ch6Motivacion.ipw_true",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.ex:ch6-motivacion.doble-robustez",
+   "kind": "lean",
+   "claim_id": "C.ex:ch6-motivacion",
+   "runner_id": "lean-export",
+   "target": "Ch6Motivacion.doble_robustez_propension",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.thm:appD-ibragimov",
+   "kind": "lean",
+   "claim_id": "C.thm:appD-ibragimov",
+   "runner_id": "lean-export",
+   "target": "Book.ApendiceDIbragimov.thm_appD_ibragimov",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.der:gordin-poisson",
+   "kind": "lean",
+   "claim_id": "C.der:gordin-poisson",
+   "runner_id": "lean-export",
+   "target": "ApendiceDGordinM8.Chain.poisson_solution",
+   "scope": {
+    "domain": "probabilistic",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.der:gordin-decomposition",
+   "kind": "lean",
+   "claim_id": "C.der:gordin-decomposition",
+   "runner_id": "lean-export",
+   "target": "ApendiceDGordinM8.Chain.gordin_decomposition",
+   "scope": {
+    "domain": "probabilistic",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.der:gordin-boundary",
+   "kind": "lean",
+   "claim_id": "C.der:gordin-boundary",
+   "runner_id": "lean-export",
+   "target": "ApendiceDGordinM8.Chain.tendsto_boundary_div_sqrt",
+   "scope": {
+    "domain": "probabilistic",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.der:gordin-martingale-increment",
+   "kind": "lean",
+   "claim_id": "C.der:gordin-martingale-increment",
+   "runner_id": "lean-export",
+   "target": "ApendiceDGordinM8.Chain.martIncrement_cond_mean",
+   "scope": {
+    "domain": "probabilistic",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.der:gordin-bracket",
+   "kind": "lean",
+   "claim_id": "C.der:gordin-bracket",
+   "runner_id": "lean-export",
+   "target": "ApendiceDGordinM8.Chain.bracket_decomposition",
+   "scope": {
+    "domain": "probabilistic",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.der:gordin-max-principle",
+   "kind": "lean",
+   "claim_id": "C.der:gordin-max-principle",
+   "runner_id": "lean-export",
+   "target": "ApendiceDGordinM8.Chain.harmonic_eq_zero",
+   "scope": {
+    "domain": "probabilistic",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.thm:ch8-lai-robbins",
+   "kind": "lean",
+   "claim_id": "C.thm:ch8-lai-robbins",
+   "runner_id": "lean-export",
+   "target": "Cap03M7.lai_robbins",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.thm:appD-hac-consistencia",
+   "kind": "lean",
+   "claim_id": "C.thm:appD-hac-consistencia",
+   "runner_id": "lean-export",
+   "target": "AppDHacM9.thm_appD_hac_consistencia",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.ex:ch1-medible-intuicion.continuidad",
+   "kind": "lean",
+   "claim_id": "C.ex:ch1-medible-intuicion",
+   "runner_id": "lean-export",
+   "target": "Book.Cap04MedibleIntuicionM10.medible_continua_reales",
+   "scope": {
+    "domain": "measure",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.ex:ch1-medible-intuicion.ley",
+   "kind": "lean",
+   "claim_id": "C.ex:ch1-medible-intuicion",
+   "runner_id": "lean-export",
+   "target": "Book.Cap04MedibleIntuicionM10.ley_apply",
+   "scope": {
+    "domain": "measure",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.ex:ch1-medible-intuicion.esperanza",
+   "kind": "lean",
+   "claim_id": "C.ex:ch1-medible-intuicion",
+   "runner_id": "lean-export",
+   "target": "Book.Cap04MedibleIntuicionM10.esperanza_finita_iff_integrable",
+   "scope": {
+    "domain": "measure",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.thm:appE-radon-nikodym",
+   "kind": "lean",
+   "claim_id": "C.thm:appE-radon-nikodym",
+   "runner_id": "lean-export",
+   "target": "Book.AppERNM3.appE_rn_existe_unico",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.thm:appE-convergencia-dominada",
+   "kind": "lean",
+   "claim_id": "C.thm:appE-convergencia-dominada",
+   "runner_id": "lean-export",
+   "target": "Book.ApendiceEMedidoDctM5.appE_convergencia_dominada",
+   "scope": {
+    "lean_axioms": "propext,Classical.choice,Quot.sound",
+    "ambito": "medida_general"
    },
    "availability": "candidate"
   }

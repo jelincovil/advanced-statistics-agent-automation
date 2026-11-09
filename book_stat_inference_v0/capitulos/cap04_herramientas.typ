@@ -181,7 +181,7 @@ datos.
   "razonable" $B subset.eq cal(T)$, el conjunto ${x in SampleSpace : T(x) in B}$
   es un evento sobre el cual podemos calcular probabilidades.
 
-  #thm-env("example", name: [Intuición])[
+  #thm-env("example", name: [Intuición], key: "ex:ch1-medible-intuicion")[
     Si $SampleSpace = RR^n$ con la $sigma$-álgebra de Borel, entonces toda
     función continua es medible. En la práctica del curso, asumiremos que
     todos los estadísticos de interés son medibles; la definición formal

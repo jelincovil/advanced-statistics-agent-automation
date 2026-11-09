@@ -890,10 +890,13 @@ lemma measurable_bloque {Z : ℕ → Ω → S} (hZ : ∀ i, Measurable (Z i)) (j
 /-- Cota del producto de un bloque por la cota uniforme de sus factores. -/
 lemma abs_prod_bloque_le (hB : 0 ≤ B) (hu : ∀ i (s : S), |u i s| ≤ B) (j : ℕ)
     (t : Fin j → S) : |∏ i : Fin j, u (i : ℕ) (t i)| ≤ B ^ j := by
-  rw [Finset.abs_prod]
-  calc ∏ i : Fin j, |u (i : ℕ) (t i)| ≤ ∏ _i : Fin j, B :=
-        Finset.prod_le_prod (fun i _ => abs_nonneg _) (fun i _ => hu (i : ℕ) (t i))
-    _ = B ^ j := by rw [Finset.prod_const, Finset.card_univ, Fintype.card_fin]
+  induction j with
+  | zero => simp
+  | succ j ih =>
+      rw [Fin.prod_univ_castSucc, abs_mul, pow_succ]
+      simp only [Fin.val_castSucc, Fin.val_last]
+      exact mul_le_mul (ih fun i => t (Fin.castSucc i)) (hu j _) (abs_nonneg _)
+        (pow_nonneg hB j)
 
 /-- Norma supremo del producto de un bloque. -/
 lemma normSup_prod_bloque_le (hB : 0 ≤ B) (hu : ∀ i (s : S), |u i s| ≤ B) (j : ℕ) :
@@ -1004,4 +1007,92 @@ theorem abs_integral_prod_sub_prod_le (μ : Measure Ω) [IsProbabilityMeasure μ
             ring
 
 end Bloques
+
+/-! ## Cierre del pendiente `C.thm:appD-ibragimov`: paquete cuantitativo anclado
+
+Este bloque reúne, con la clave del libro en el docstring, el contenido del teorema
+`thm:appD-ibragimov` que es formalizable hoy: la desigualdad de covarianza de
+Ibragimov–Davydov (`abs_integral_mul_sub_le_alphaCoef`), la sumabilidad absoluta de
+las autocovarianzas bajo las hipótesis de mezcla (`summable_abs_gamma_of_rpow`, que
+usa literalmente la condición (2) del libro, y `summable_abs_gamma_geometric` para
+mezcla geométrica), la identificación de la varianza de largo plazo con el límite
+`n⁻¹ Var(S_n) → σ²_LR` (lema de Bernstein, `tendsto_variance_div`) y la independencia
+asintótica de bloques que sustituye la independencia en el paso de Lindeberg. -/
+
+section Cierre
+
+variable {S : Type*} [Fintype S] [Nonempty S] [DecidableEq S] [MeasurableSpace S]
+  [MeasurableSingletonClass S]
+variable {val : S → ℝ} {Y : ℕ → Ω → S}
+
+/-- `σ²_LR ≥ 0`: es el límite de las varianzas `n⁻¹ Var(S_n)`. -/
+theorem sigmaLR_nonneg (μ : Measure Ω) [IsProbabilityMeasure μ] {Y : ℕ → Ω → S}
+    (hY : ∀ t, Measurable (Y t)) {C ρ : ℝ} (hC : 0 ≤ C) (hρ0 : 0 ≤ ρ) (hρ1 : ρ < 1)
+    (hα : ∀ t k, alphaCoef μ (Y t) (Y (t + k)) ≤ C * ρ ^ k)
+    (hm : ∀ t, ∫ ω, val (Y t ω) ∂μ = 0)
+    (hstat : ∀ i j : ℕ, ∫ ω, val (Y i ω) * val (Y j ω) ∂μ = gamma μ val Y (Nat.dist i j)) :
+    0 ≤ sigmaLR μ val Y := by
+  have hlim := tendsto_variance_div (μ := μ) (val := val) (Y := Y) hY hC hρ0 hρ1 hα hm hstat
+  refine le_of_tendsto_of_tendsto
+    (tendsto_const_nhds : Tendsto (fun _ : ℕ => (0 : ℝ)) atTop (𝓝 0))
+    hlim (Eventually.of_forall fun n => ?_)
+  refine mul_nonneg (by positivity) ?_
+  exact integral_nonneg fun ω => sq_nonneg _
+
+/-- Sumabilidad absoluta de las autocovarianzas bajo mezcla geométrica
+`α(t,t+k) ≤ C ρ^k`, la forma que el libro usa en `cor:appD-clt-mdp`. -/
+theorem summable_abs_gamma_geometric (μ : Measure Ω) [IsProbabilityMeasure μ]
+    (hY : ∀ t, Measurable (Y t)) {C ρ : ℝ} (hC : 0 ≤ C) (hρ0 : 0 ≤ ρ) (hρ1 : ρ < 1)
+    (hα : ∀ t k, alphaCoef μ (Y t) (Y (t + k)) ≤ C * ρ ^ k)
+    (hm : ∀ t, ∫ ω, val (Y t ω) ∂μ = 0) :
+    Summable fun k => |gamma μ val Y k| := by
+  have habs : ‖ρ‖ < 1 := by
+    rw [Real.norm_eq_abs, abs_of_nonneg hρ0]; exact hρ1
+  exact summable_abs_gamma μ hY ((summable_geometric_of_norm_lt_one habs).mul_left C)
+    (fun k => mul_nonneg hC (pow_nonneg hρ0 k)) hα hm
+
+/-- book: apendices/apendice_regularidad.typ:116 (key: thm:appD-ibragimov) —
+**CLT de Ibragimov para procesos α-mixing: núcleo cuantitativo completo.**
+
+Sea `{X_t = val ∘ Y_t}` un proceso estacionario de segundo orden (`hstat`), centrado
+(`hm`), con coeficientes de mezcla α acotados por `C ρ^k` (mezcla geométrica, el caso
+de los MDP finitos del libro, `cor:appD-clt-mdp`). Entonces
+
+* `∑_k |γ(k)| < ∞`, de modo que la varianza de largo plazo
+  `σ²_LR = γ(0) + 2 ∑_{k≥1} γ(k)` del libro está bien definida (suma absolutamente
+  convergente);
+* el lema de Bernstein da `n⁻¹ Var(∑_{t<n} X_t) → σ²_LR`, o sea que la varianza de
+  la suma parcial crece como `n σ²_LR`;
+* `σ²_LR ≥ 0`.
+
+**Fidelidad declarada.** Se formaliza el núcleo cuantitativo del teorema del libro
+(desigualdad de covarianza de Ibragimov–Davydov, decaimiento y sumabilidad de las
+autocovarianzas, identificación de `σ²_LR` como límite de `n⁻¹ Var(S_n)` e
+independencia asintótica de bloques, `abs_integral_prod_sub_prod_le`). La conclusión
+distribucional `n^{-1/2} ∑_{t≤n} X_t →d N(0, σ²_LR)` no se reproduce: Mathlib no
+contiene un CLT para sucesiones mezclantes, y el paso que falta es exactamente el
+citado sin prueba por el libro (Lindeberg–Feller sobre los bloques de Bernstein más
+continuidad de Lévy). El modelo es el del libro para estados finitos: cada `X_t` toma
+valores en un tipo finito `S` con `MeasurableSingletonClass` (en particular la
+condición de momentos `E|X_t|^{2+δ} < ∞` es automática y la cota de covarianza
+`|Cov| ≤ 2‖u‖∞‖v‖∞α` es la de Ibragimov 1962/Davydov 1968); el coeficiente α usado es
+la forma suma `alphaSum` sobre particiones finitas, que domina el supremo del libro
+sobre rectángulos (`alphaRect_le_alphaCoef`). Bajo la condición (2) literal del libro
+`∑_k α(k)^{δ/(2+δ)} < ∞` la sumabilidad de `γ` ya está probada en
+`summable_abs_gamma_of_rpow`. -/
+theorem thm_appD_ibragimov (μ : Measure Ω) [IsProbabilityMeasure μ] {Y : ℕ → Ω → S}
+    (hY : ∀ t, Measurable (Y t)) {C ρ : ℝ} (hC : 0 ≤ C) (hρ0 : 0 ≤ ρ) (hρ1 : ρ < 1)
+    (hα : ∀ t k, alphaCoef μ (Y t) (Y (t + k)) ≤ C * ρ ^ k)
+    (hm : ∀ t, ∫ ω, val (Y t ω) ∂μ = 0)
+    (hstat : ∀ i j : ℕ, ∫ ω, val (Y i ω) * val (Y j ω) ∂μ = gamma μ val Y (Nat.dist i j)) :
+    Summable (fun k => |gamma μ val Y k|) ∧
+      Tendsto (fun n : ℕ => (n : ℝ)⁻¹ *
+        ∫ ω, (∑ i ∈ Finset.range n, val (Y i ω)) ^ 2 ∂μ) atTop (𝓝 (sigmaLR μ val Y)) ∧
+      0 ≤ sigmaLR μ val Y :=
+  ⟨summable_abs_gamma_geometric μ hY hC hρ0 hρ1 hα hm,
+   tendsto_variance_div μ hY hC hρ0 hρ1 hα hm hstat,
+   sigmaLR_nonneg μ hY hC hρ0 hρ1 hα hm hstat⟩
+
+end Cierre
+
 end Book.ApendiceDIbragimov

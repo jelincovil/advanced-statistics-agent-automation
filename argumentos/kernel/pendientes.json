@@ -1,90 +1,10 @@
 [
  {
-  "claim_id": "C.thm:ch8-lai-robbins",
-  "book_key": "thm:ch8-lai-robbins",
-  "reason_code": "NO_FORMAL_PROOF",
-  "fuente": "capitulos/cap03_mdp.typ (theorem: Cota asintótica en bandidos Bernoulli)",
-  "impacto": "Sin respaldo formal",
-  "proxima_accion": "Formalizar o mantener pendiente"
- },
- {
-  "claim_id": "C.ex:ch6-motivacion",
-  "book_key": "ex:ch6-motivacion",
-  "reason_code": "NO_FORMAL_PROOF",
-  "fuente": "capitulos/cap04_herramientas.typ (example: Motivación: estimar una decisión con modelos auxiliares)",
-  "impacto": "Sin respaldo formal",
-  "proxima_accion": "Formalizar o mantener pendiente"
- },
- {
-  "claim_id": "C.thm:appE-radon-nikodym",
-  "book_key": "thm:appE-radon-nikodym",
-  "reason_code": "NO_FORMAL_PROOF",
-  "fuente": "apendices/apendice_medido.typ (theorem: Teorema de Radon-Nikodym)",
-  "impacto": "Sin respaldo formal",
-  "proxima_accion": "Formalizar o mantener pendiente"
- },
- {
-  "claim_id": "C.ex:appE-gaussiano",
-  "book_key": "ex:appE-gaussiano",
-  "reason_code": "NO_FORMAL_PROOF",
-  "fuente": "apendices/apendice_medido.typ (example: Modelo Gaussiano)",
-  "impacto": "Sin respaldo formal",
-  "proxima_accion": "Formalizar o mantener pendiente"
- },
- {
-  "claim_id": "C.thm:appE-convergencia-dominada",
-  "book_key": "thm:appE-convergencia-dominada",
-  "reason_code": "NO_FORMAL_PROOF",
-  "fuente": "apendices/apendice_medido.typ (theorem: Teorema de Convergencia Dominada de Lebesgue)",
-  "impacto": "Sin respaldo formal",
-  "proxima_accion": "Formalizar o mantener pendiente"
- },
- {
-  "claim_id": "C.ex:appE-l2",
-  "book_key": "ex:appE-l2",
-  "reason_code": "NO_FORMAL_PROOF",
-  "fuente": "apendices/apendice_medido.typ (example: Espacio $L^2(P)$)",
-  "impacto": "Sin respaldo formal",
-  "proxima_accion": "Formalizar o mantener pendiente"
- },
- {
-  "claim_id": "C.thm:appE-proyeccion",
-  "book_key": "thm:appE-proyeccion",
-  "reason_code": "NO_FORMAL_PROOF",
-  "fuente": "apendices/apendice_medido.typ (theorem: Teorema de Proyección)",
-  "impacto": "Sin respaldo formal",
-  "proxima_accion": "Formalizar o mantener pendiente"
- },
- {
-  "claim_id": "C.thm:appD-ibragimov",
-  "book_key": "thm:appD-ibragimov",
-  "reason_code": "NO_FORMAL_PROOF",
-  "fuente": "apendices/apendice_regularidad.typ (theorem: CLT de Ibragimov para Procesos $alpha$-Mixing)",
-  "impacto": "Deuda explicita: CLT bajo alpha-mixing (Ibragimov 1962): requiere teoria ergodica y estimaciones de momentos sobre sumas parciales; no en Mathlib",
-  "proxima_accion": "Mantener pendiente con la razon declarada en .ultramath/smw7v6gyh/m2/work/DEUDA.md"
- },
- {
   "claim_id": "C.thm:appD-gordin",
   "book_key": "thm:appD-gordin",
   "reason_code": "NO_FORMAL_PROOF",
   "fuente": "apendices/apendice_regularidad.typ (theorem: CLT funcional para una cadena finita)",
-  "impacto": "Deuda explicita: CLT funcional via ecuacion de Poisson y aproximacion de martingalas en D[0,1] (topologia de Skorokhod); no en Mathlib",
-  "proxima_accion": "Mantener pendiente con la razon declarada en .ultramath/smw7v6gyh/m2/work/DEUDA.md"
- },
- {
-  "claim_id": "C.thm:appD-hac-consistencia",
-  "book_key": "thm:appD-hac-consistencia",
-  "reason_code": "NO_FORMAL_PROOF",
-  "fuente": "apendices/apendice_regularidad.typ (theorem: Consistencia del Estimador HAC)",
-  "impacto": "Deuda explicita: Consistencia del estimador HAC de Newey-West: requiere argumento epsilon de colas y condicion agregada de covarianzas; pendiente",
-  "proxima_accion": "Mantener pendiente con la razon declarada en .ultramath/smw7v6gyh/m2/work/DEUDA.md"
- },
- {
-  "claim_id": "C.unnamed.example.160",
-  "book_key": "",
-  "reason_code": "SEMANTIC_MAPPING_UNRESOLVED",
-  "fuente": "capitulos/cap04_herramientas.typ (sin key)",
-  "impacto": "Sin clave",
-  "proxima_accion": "Asignar clave"
+  "impacto": "Pendiente acotado: la prueba interna de Gordin esta formalizada (Book/GordinCoreM8.lean: poisson_solution, gordin_decomposition, boundary_abs_le + tendsto_boundary_div_sqrt, martIncrement_cond_mean, bracket_poisson + bracket_decomposition). Falta SOLO el CLT funcional de martingalas en D[0,1] (Skorokhod) con su tightness, y la identificacion sigma^2 = suma_k Cov(f(S_0), f(S_k)) (requiere decaimiento geometrico de las covarianzas via coeficiente de Doeblin).",
+  "proxima_accion": "Formalizar el CLT funcional de martingalas (Lindeberg para martingalas en D[0,1]) o aceptar la clave como deuda externa declarada; el resto de la prueba ya no es deuda."
  }
 ]

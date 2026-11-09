@@ -1,0 +1,35 @@
+{
+  "schema_version": "1.0",
+  "id": "R.E.der:gordin-max-principle",
+  "spec_id": "E.der:gordin-max-principle",
+  "spec_hash": "9ec9e50686999bd38b5ed3bac3c106cbb52cfeeff24e2d9d1b931b20ad9c1c80",
+  "source_commit": "local",
+  "environment_hash": "54b67b2aa52f5601903f6dd7d04475761d4b6889de7bad0bdf1302432a9f5959",
+  "checker_version": "0.1.0",
+  "command_argv": [
+    "lean",
+    "argumentos/evidence/lean_export.lean"
+  ],
+  "working_directory": ".",
+  "input_hashes": {
+    "lean_export.lean": "cdb0747d63410fd4d7ed8aa4d264a2286184d7cab3d2bbe436edaa6ebd25d519",
+    "ssch_bayes_racional.py": "af949182cb60e7cfc146980a08e7b97e6ebc11ac52afa6858de41c10dcc55cfb"
+  },
+  "started_at": "2026-11-09T18:54:25Z",
+  "finished_at": "2026-11-09T18:54:25Z",
+  "exit_status": 0,
+  "termination": "completed",
+  "stdout_sha256": "47d1293a3d3a73ae16cdcac6a79f6abd50a826b97e244ba2daa734597733cd13",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "artifacts": [],
+  "execution_passed": true,
+  "scientific_criterion_met": true,
+  "observed_checks": [
+    {
+      "id": "target_encontrado:ApendiceDGordinM8.Chain.harmonic_eq_zero",
+      "status": "pass",
+      "detail": "3 axiomas, 76 dependencias"
+    }
+  ],
+  "trust_mode": "locally_reproduced"
+}
