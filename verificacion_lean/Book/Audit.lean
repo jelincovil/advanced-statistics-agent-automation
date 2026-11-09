@@ -14,6 +14,21 @@ import Book.SSCH
 import Book.Cap06Fronteras
 import Book.Cap07OPE
 import Book.ApendiceDRegularidad
+import Book.Cap04Ch4M6
+import Book.Cap08FrozenLake
+import Book.ApendiceDErgodicidad
+import Book.ApendiceDViolaciones
+import Book.Ch2Pendientes
+import Book.Ch1Ch2Pendientes
+import Book.Cap08BanditsM7
+import Book.Ch5CltAgentesM5
+import Book.Ch5GcM5
+import Book.Ch5EjemplosM5
+import Book.Cap10OPE
+import Book.Cap08Ch11M10
+import Book.Cap02M11
+import Book.BarridoM16
+import Book.Cap12Problemas
 
 /-! # Book.Audit — auditoría de axiomas del proyecto (plan §6) -/
 

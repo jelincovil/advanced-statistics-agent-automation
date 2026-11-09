@@ -9,7 +9,7 @@
   consola ajenos.
 
   Los objetivos son TODOS los teoremas con book_key en verificacion_lean
-  111 teoremas en total.
+  212 teoremas en total.
 -/
 import Book.Cap02Wald
 import Book.Cap03MDP
@@ -28,6 +28,21 @@ import Book.Cap08Poder
 import Book.Cap08M6
 import Book.Cap11Despliegue
 import Book.ApendiceDRegularidad
+import Book.Cap04Ch4M6
+import Book.Cap08FrozenLake
+import Book.ApendiceDErgodicidad
+import Book.ApendiceDViolaciones
+import Book.Ch2Pendientes
+import Book.Ch1Ch2Pendientes
+import Book.Cap08BanditsM7
+import Book.Ch5CltAgentesM5
+import Book.Ch5GcM5
+import Book.Ch5EjemplosM5
+import Book.Cap10OPE
+import Book.Cap08Ch11M10
+import Book.Cap02M11
+import Book.BarridoM16
+import Book.Cap12Problemas
 import Book.SSCH
 import Lean.Util.CollectAxioms
 import Lean.Util.FoldConsts
@@ -38,6 +53,67 @@ namespace Argumentos.Exportador
 
 /-- Objetivos del piloto (cuatro claves, cinco teoremas). -/
 def objetivos : List Name := [
+  `ch12_pomdp_identification,
+  `ch12_logprobs,
+  `ch12_sesgo_disc_descontado_valor,
+  `Book.BarridoM16.suf_suficiencia_politicas,
+  `Book.BarridoM16.rb_q,
+  `Book.BarridoM16.cr_cota,
+  `Book.BarridoM16.ar1_tau2,
+  `Book.BarridoM16.no_param_kernel_h06,
+  `Book.BarridoM16.if_cuantil_varianza,
+  `Book.BarridoM16.bootstrap_prob_igual,
+  `Cap02M11.ex_ch7_perdidas,
+  `Cap02M11.james_stein_riesgo,
+  `Ch11M10.ch11_impacto_sigma2,
+  `Ch11M10.ch11_ic_studentizacion,
+  `Ch11M10.ch11_n_condicion,
+  `Ch11M10.ch11_reinforce_if,
+  `Ch11M10.ch11_ssch_objetivo,
+  `Ch11M10.ch11_ergodico_mixing,
+  `Ch11M10.ch11_pg_identidad,
+  `Ch11M10.ch11_clt_mixing_var,
+  `Book.Cap10OPE.prop_ch10_dm,
+  `Book.Cap10OPE.cor_ch10_curse,
+  `Book.Cap10OPE.prop_ch10_is_shift,
+  `Book.Cap10OPE.prop_ch10_dro_garantia,
+  `Book.Cap10OPE.thm_ch10_truncamiento,
+  `Book.Cap10OPE.thm_ch10_dr_eficiencia,
+  `Book.Cap10OPE.ex_ssch_dist_shift_cap10,
+  `Book.Cap10OPE.ex_ch10_shift_ssch,
+  `Book.Cap10OPE.ex_ch10_pipeline,
+  `Book.Cap10OPE.ex_ssch_cap10,
+  `BookCh5M5.qdelta_sigma2,
+  `BookCh5M5.icPercT_mem_iff,
+  `BookCh5M5.banda_iff_ksStat,
+  `BookCh5GcM5.gc_engine,
+  `BookCh5CltAgentesM5.lr_cadena2_libro,
+  `Cap08Bandits.discValue_le,
+  `Cap08Bandits.ucb_comparacion_indices,
+  `Cap08Bandits.thompson_prob_seleccion,
+  `Cap08Bandits.ultima_ronda,
+  `Cap08Bandits.ssch_bandits_cap08,
+  `Cap08Bandits.bandit_ssch_numeros,
+  `Book.Cap04Ch1Ch2.perdidas_comunes_no_negativas,
+  `Book.Cap04Ch1Ch2.suficiente_estadistico_natural,
+  `Book.Cap04Ch1Ch2.normalGamma_formulas,
+  `Book.Cap04Ch1Ch2.tBase_pos,
+  `Book.Cap04Ch1Ch2.mezcla_normal_densidad,
+  `Book.Cap04Ch1Ch2.gumbel_max_estable,
+  `Book.Cap04Ch2.bernoulli_riesgo_constante,
+  `Book.Cap04Ch2.exponencial_minimal,
+  `Book.Cap04Ch2.multinomial_factorizacion,
+  `Book.Cap04Ch2.media_traslacion,
+  `Book.Cap04Ch2.normal_factorizacion,
+  `Book.Cap04Ch2.suficiencia_politicas,
+  `Book.ApendiceDM3.irreducible_dos_clases_absorbentes,
+  `Book.ApendiceDM3.aperiodico_oscilante,
+  `Book.ApendiceDM3.summable_potencia_alpha,
+  `Book.ApendiceDM3.ergodico_geometrico,
+  `Book.ApendiceDM3.mdp_finito_mixing,
+  `Book.Ch8Bandits.ex_ch8_frozenlake,
+  `Cap04M6.gauss_loglik_max,
+
   `ch1_logparticion,
   `cor_ch1_covarianza_hessiano,
   `ch4_bonferroni,
@@ -157,6 +233,57 @@ def objetivos : List Name := [
   `Book.Cap04Ejemplos.ch2_escala_media,
   `Book.Cap04Ejemplos.ch4_mp_normal_forma_factorizada,
   `Book.Cap04Ejemplos.ch5_cociente_delta
+,
+  `Book.Cap04Ch1Ch2.gumbel_suficiencia_escala,
+  `Book.Cap04Ch1Ch2.mezcla_normal_varianza_total,
+  `Book.Cap04Ch1Ch2.normalGamma_beta_no_decrece,
+  `Book.Cap04Ch1Ch2.normalGamma_invariante,
+  `Book.Cap04Ch1Ch2.normalGamma_precision_crece,
+  `Book.Cap04Ch1Ch2.normalGamma_varianza_pos,
+  `Book.Cap04Ch1Ch2.perdidas_comunes_cero_uno_complemento,
+  `Book.Cap04Ch1Ch2.perdidas_comunes_ecm_descomposicion,
+  `Book.Cap04Ch1Ch2.tBase_cola_inferior,
+  `Book.Cap04Ch1Ch2.tBase_cola_superior,
+  `Book.Cap04Ch1Ch2.tBase_even,
+  `Book.Cap04Ch1Ch2.tLocEscala_escala,
+  `Book.Cap04Ch1Ch2.tLocEscala_traslacion,
+  `Book.Cap04Ch2.bernoulli_contraccion_mejora_peor_caso,
+  `Book.Cap04Ch2.bernoulli_identidad_riesgo_max,
+  `Book.Cap04Ch2.bernoulli_regla_bayes_valores,
+  `Book.Cap04Ch2.bernoulli_riesgo_identidad,
+  `Book.Cap04Ch2.bernoulli_sesgo,
+  `Book.Cap04Ch2.bernoulli_varianza,
+  `Book.Cap04Ch2.exponencial_cociente,
+  `Book.Cap04Ch2.multinomial_gibbs,
+  `Book.Cap04Ch2.multinomial_mle_instancia,
+  `Book.Cap04Ch2.multinomial_normalizacion,
+  `Book.Cap04Ch2.multinomial_referencia,
+  `Book.Cap04Ch2.normal_suma_cuadrados,
+  `Book.Cap04Ch2.normal_varianza_invariante,
+  `Book.Cap04Ch2.normal_varianza_media,
+  `Book.Cap04Ch2.residuos_formula,
+  `Book.Cap04Ch2.residuos_suma_cero,
+  `Book.Cap04Ch2.residuos_traslacion,
+  `Book.Cap04Ch2.riesgoB_eq,
+  `Cap04M6.gauss_loglik_max,
+  `Book.Cap10OPE.dr_residual_orthogonal,
+  `Book.Cap10OPE.prop_ch10_dm_bias,
+  `Book.Cap10OPE.shift_var_ratio_chi2,
+  `Book.Cap10OPE.thm_ch10_truncamiento_var,
+  `Cap02M11.ex_ch7_perdidas_clasificacion,
+  `Cap02M11.ex_ch7_perdidas_cuadratica,
+  `Cap02M11.ex_ch7_perdidas_ponderada,
+  `Cap02M11.ex_ch7_perdidas_ponderada_medida,
+  `Cap02M11.james_stein_mejora,
+  `Cap02M11.james_stein_valor_nulo,
+  `Ch11M10.ch11_clt_mixing_var,
+  `Ch11M10.ch11_ergodico_mixing,
+  `Ch11M10.ch11_ic_studentizacion,
+  `Ch11M10.ch11_impacto_sigma2,
+  `Ch11M10.ch11_n_condicion,
+  `Ch11M10.ch11_pg_identidad,
+  `Ch11M10.ch11_reinforce_if,
+  `Ch11M10.ch11_ssch_objetivo
 ]
 
 /-- Escapa una cadena para incluirla como literal JSON. -/

@@ -1,0 +1,35 @@
+{
+  "schema_version": "1.0",
+  "id": "R.E.ex:ch1-mezcla-normal.mezcla_normal_varianza_total",
+  "spec_id": "E.ex:ch1-mezcla-normal.mezcla_normal_varianza_total",
+  "spec_hash": "ac40d90b9034050950e6a70a623a9a9076acc433cdaadab42865e3c2ca388c72",
+  "source_commit": "local",
+  "environment_hash": "69cd84d62bb0973dde21556e3636df812b079383daa4ee4bfebbeffe1ecdc071",
+  "checker_version": "0.1.0",
+  "command_argv": [
+    "lean",
+    "argumentos/evidence/lean_export.lean"
+  ],
+  "working_directory": ".",
+  "input_hashes": {
+    "lean_export.lean": "545db997a2f23f67fa5c18278b0aa1d911ce2096161f998b2ee8c32867a82233",
+    "ssch_bayes_racional.py": "af949182cb60e7cfc146980a08e7b97e6ebc11ac52afa6858de41c10dcc55cfb"
+  },
+  "started_at": "2026-11-09T02:21:50Z",
+  "finished_at": "2026-11-09T02:21:50Z",
+  "exit_status": 0,
+  "termination": "completed",
+  "stdout_sha256": "c379bb8257c1a6983dd405aad3f948a41446b7562a91e95a4aea82ec25f73045",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "artifacts": [],
+  "execution_passed": true,
+  "scientific_criterion_met": true,
+  "observed_checks": [
+    {
+      "id": "target_encontrado:Book.Cap04Ch1Ch2.mezcla_normal_varianza_total",
+      "status": "pass",
+      "detail": "3 axiomas, 112 dependencias"
+    }
+  ],
+  "trust_mode": "locally_reproduced"
+}

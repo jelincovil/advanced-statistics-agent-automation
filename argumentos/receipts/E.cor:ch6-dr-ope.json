@@ -4,22 +4,22 @@
   "spec_id": "E.cor:ch6-dr-ope",
   "spec_hash": "b07b861e1f4fda21e1f58fa1e9c36c661d233cbc945862049dfbe9e5db734b90",
   "source_commit": "local",
-  "environment_hash": "d625ea255e799ee438182774e6d493d4d29252069f49021ff368ce11ace1f57b",
+  "environment_hash": "69cd84d62bb0973dde21556e3636df812b079383daa4ee4bfebbeffe1ecdc071",
   "checker_version": "0.1.0",
   "command_argv": [
     "lean",
     "argumentos/evidence/lean_export.lean"
   ],
-  "working_directory": "..",
+  "working_directory": ".",
   "input_hashes": {
-    "lean_export.lean": "7a2cba3dd42817ab3247d334ef91241dab9a5bb58efdac3cf1536cc3db1997d8",
+    "lean_export.lean": "545db997a2f23f67fa5c18278b0aa1d911ce2096161f998b2ee8c32867a82233",
     "ssch_bayes_racional.py": "af949182cb60e7cfc146980a08e7b97e6ebc11ac52afa6858de41c10dcc55cfb"
   },
-  "started_at": "2026-11-08T20:09:52Z",
-  "finished_at": "2026-11-08T20:09:52Z",
+  "started_at": "2026-11-09T02:21:50Z",
+  "finished_at": "2026-11-09T02:21:50Z",
   "exit_status": 0,
   "termination": "completed",
-  "stdout_sha256": "2f13878b6475988432a53b05ad5711a0c1099811b666d877aa868aa245d0aa07",
+  "stdout_sha256": "c379bb8257c1a6983dd405aad3f948a41446b7562a91e95a4aea82ec25f73045",
   "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
   "artifacts": [],
   "execution_passed": true,
