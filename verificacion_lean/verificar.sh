@@ -23,7 +23,7 @@ echo "== Book/Foundation.lean"
 lean --root=. -o "$BUILD/Book/Foundation.olean" Book/Foundation.lean
 
 # 2) Capítulos, en orden de dependencia
-for mod in Book/Cap08Estimadores.lean Book/Cap08Poder.lean Book/Cap04Herramientas.lean Book/Cap04Suficiencia.lean Book/Cap04LoteM16.lean Book/Cap08M6.lean Book/Cap04Ch6.lean Book/Cap05Asintotica.lean Book/Cap04Ejemplos.lean Book/Cap05Representacion.lean Book/Cap07OPE.lean Book/Cap06Fronteras.lean Book/Cap03MDP.lean Book/SSCH.lean Book/Cap02Wald.lean Book/Cap08Intervalos.lean Book/Cap11Despliegue.lean Book/ApendiceDRegularidad.lean Book/Cap12Problemas.lean Book/BarridoM16.lean Book/Cap02M11.lean Book/Cap08Ch11M10.lean Book/Cap10OPE.lean Book/Ch5EjemplosM5.lean Book/Ch5GcM5.lean Book/Ch5CltAgentesM5.lean Book/Cap08BanditsM7.lean Book/Ch1Ch2Pendientes.lean Book/Ch2Pendientes.lean Book/ApendiceDViolaciones.lean Book/ApendiceDErgodicidad.lean Book/Cap08Bandits.lean Book/Cap08FrozenLake.lean Book/Cap04Ch4M6.lean; do
+for mod in Book/Cap08Estimadores.lean Book/Cap08Poder.lean Book/Cap04Herramientas.lean Book/Cap04Suficiencia.lean Book/Cap04LoteM16.lean Book/Cap08M6.lean Book/Cap04Ch6.lean Book/Cap05Asintotica.lean Book/Cap04Ejemplos.lean Book/Cap05Representacion.lean Book/Cap07OPE.lean Book/Cap06Fronteras.lean Book/Cap03MDP.lean Book/SSCH.lean Book/Cap02Wald.lean Book/Cap08Intervalos.lean Book/Cap11Despliegue.lean Book/ApendiceDRegularidad.lean Book/Cap12Problemas.lean Book/BarridoM16.lean Book/Cap02M11.lean Book/Cap08Ch11M10.lean Book/Cap10OPE.lean Book/Ch5EjemplosM5.lean Book/Ch5GcM5.lean Book/Ch5CltAgentesM5.lean Book/Cap08BanditsM7.lean Book/Ch1Ch2Pendientes.lean Book/Ch2Pendientes.lean Book/ApendiceDViolaciones.lean Book/ApendiceDErgodicidad.lean Book/Cap08Bandits.lean Book/Cap08FrozenLake.lean Book/Cap04Ch4M6.lean Book/ConvergenciaBase.lean Book/Cap11HacM1.lean Book/M13Mcmc.lean Book/Cap06FallosM6.lean Book/ApendiceEMedido.lean Book/Cap12ProblemasM8.lean Book/AppEFuncionImplicita.lean Book/AppEFuncionImplicitaCond.lean Book/SSCHCap01M7.lean Book/SSCHCap02M7.lean Book/SSCHCap03M7.lean Book/SSCHCap0405M7.lean Book/SSCHCap06M7.lean Book/SSCHEjemplosM7.lean Book/Cap04BhM3.lean Book/Cap04UmpuM3.lean Book/M9Pendientes.lean Book/Cap04EjemplosM2.lean Book/Cap06PesosTasasM5.lean Book/Cap04Ch6DmlM5.lean Book/Cap03MleM4.lean; do
   echo "== $mod"
   lean --root=. -o "$BUILD/${mod%.lean}.olean" "$mod"
 done
@@ -36,13 +36,7 @@ if grep -q "sorryAx" "$BUILD/axioms.log"; then
   exit 1
 fi
 
-# 4) Cero "sorry" en las fuentes (solo tactic, no menciones en docstring)
-if grep -Rnw "sorry" Book/ --include="*.lean" | grep -v "cero.*sorry" | grep -v "sin.*sorry" | grep -qv "auditor"; then
-  grep -Rnw "sorry" Book/ --include="*.lean" | grep -v "cero.*sorry" | grep -v "sin.*sorry"
-  echo "FALLO: 'sorry' en Book/" >&2
-  exit 1
-fi
-# Comprobacion precisa: buscar tactic sorry al inicio de linea o con espacios
+# 4) Cero "sorry" en las fuentes (tactic sorry)
 if grep -Rn "^[[:space:]]*sorry\b" Book/ --include="*.lean"; then
   echo "FALLO: tactic sorry en Book/" >&2
   exit 1

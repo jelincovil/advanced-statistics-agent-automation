@@ -900,7 +900,7 @@
   {
    "id": "C.ex:ch3-rb-bernoulli",
    "book_key": "ex:ch3-rb-bernoulli",
-   "kind": "empirical",
+   "kind": "formal",
    "statement": "Example: Rao-Blackwellización en Bernoulli (capitulos/cap04_herramientas.typ)",
    "expression": {
     "op": "atom",
@@ -998,7 +998,7 @@
   {
    "id": "C.ex:ch3-mle-normal",
    "book_key": "ex:ch3-mle-normal",
-   "kind": "empirical",
+   "kind": "formal",
    "statement": "Example: MLE para la Normal (capitulos/cap04_herramientas.typ)",
    "expression": {
     "op": "atom",
@@ -1026,7 +1026,7 @@
   {
    "id": "C.ex:ssch-mcmc-vi-cap03",
    "book_key": "ex:ssch-mcmc-vi-cap03",
-   "kind": "empirical",
+   "kind": "formal",
    "statement": "Example: SSCH --- Estimación Bayesiana de Probabilidades de Transición (capitulos/cap04_herramientas.typ)",
    "expression": {
     "op": "atom",
@@ -1040,7 +1040,7 @@
   {
    "id": "C.ex:ch3-mcmc-ssch",
    "book_key": "ex:ch3-mcmc-ssch",
-   "kind": "empirical",
+   "kind": "formal",
    "statement": "Example: MCMC para el SSCH con Prior No Conjugado (capitulos/cap04_herramientas.typ)",
    "expression": {
     "op": "atom",
@@ -1460,7 +1460,7 @@
   {
    "id": "C.ex:ch6-parcialmente-lineal",
    "book_key": "ex:ch6-parcialmente-lineal",
-   "kind": "empirical",
+   "kind": "formal",
    "statement": "Example: Regresión parcialmente lineal (capitulos/cap04_herramientas.typ)",
    "expression": {
     "op": "atom",
@@ -1474,7 +1474,7 @@
   {
    "id": "C.ex:ch6-cox",
    "book_key": "ex:ch6-cox",
-   "kind": "empirical",
+   "kind": "formal",
    "statement": "Example: Modelo de Cox (capitulos/cap04_herramientas.typ)",
    "expression": {
     "op": "atom",
@@ -1488,7 +1488,7 @@
   {
    "id": "C.ex:ch6-aipw-intro",
    "book_key": "ex:ch6-aipw-intro",
-   "kind": "empirical",
+   "kind": "formal",
    "statement": "Example: ATE como funcional de la ley observada (capitulos/cap04_herramientas.typ)",
    "expression": {
     "op": "atom",
@@ -1502,7 +1502,7 @@
   {
    "id": "C.ex:ch6-ope",
    "book_key": "ex:ch6-ope",
-   "kind": "empirical",
+   "kind": "formal",
    "statement": "Example: Objetivo de OPE (capitulos/cap04_herramientas.typ)",
    "expression": {
     "op": "atom",
@@ -1516,7 +1516,7 @@
   {
    "id": "C.ex:ch6-scores-canonicos",
    "book_key": "ex:ch6-scores-canonicos",
-   "kind": "empirical",
+   "kind": "formal",
    "statement": "Example: Scores de perturbaciones concretas (capitulos/cap04_herramientas.typ)",
    "expression": {
     "op": "atom",
@@ -1656,7 +1656,7 @@
   {
    "id": "C.ex:ch6-dr-ssch",
    "book_key": "ex:ch6-dr-ssch",
-   "kind": "empirical",
+   "kind": "formal",
    "statement": "Example: OPE de una decisión: cálculo completo (capitulos/cap04_herramientas.typ)",
    "expression": {
     "op": "atom",
@@ -1712,7 +1712,7 @@
   {
    "id": "C.ex:ssch-causal-cap06",
    "book_key": "ex:ssch-causal-cap06",
-   "kind": "empirical",
+   "kind": "formal",
    "statement": "Example: SSCH: confusión y estandarización (capitulos/cap04_herramientas.typ)",
    "expression": {
     "op": "atom",
@@ -1796,7 +1796,7 @@
   {
    "id": "C.ex:ch9-state",
    "book_key": "ex:ch9-state",
-   "kind": "empirical",
+   "kind": "formal",
    "statement": "Example: Memoria suficiente para observaciones normales (capitulos/cap05_incrustacion.typ)",
    "expression": {
     "op": "atom",
@@ -1838,7 +1838,7 @@
   {
    "id": "C.ex:ch9-estados-infinitos",
    "book_key": "ex:ch9-estados-infinitos",
-   "kind": "empirical",
+   "kind": "formal",
    "statement": "Example: Espacio de Estados Infinito (capitulos/cap06_fallos.typ)",
    "expression": {
     "op": "atom",
@@ -1866,7 +1866,7 @@
   {
    "id": "C.ex:ch9-horizonte-infinito",
    "book_key": "ex:ch9-horizonte-infinito",
-   "kind": "empirical",
+   "kind": "formal",
    "statement": "Example: Horizonte Infinito sin Ergodicidad (capitulos/cap06_fallos.typ)",
    "expression": {
     "op": "atom",
@@ -1908,7 +1908,7 @@
   {
    "id": "C.thm:ch9-eficiencia",
    "book_key": "thm:ch9-eficiencia",
-   "kind": "empirical",
+   "kind": "formal",
    "statement": "Example: Eficiencia no equivale a normalidad de cualquier funcional (capitulos/cap06_fallos.typ)",
    "expression": {
     "op": "atom",
@@ -1950,7 +1950,7 @@
   {
    "id": "C.ex:ch9-fallo-noest",
    "book_key": "ex:ch9-fallo-noest",
-   "kind": "empirical",
+   "kind": "formal",
    "statement": "Example: Fallo por No-Estacionariedad (capitulos/cap06_fallos.typ)",
    "expression": {
     "op": "atom",
@@ -2006,7 +2006,7 @@
   {
    "id": "C.ex:ch6-horizonte-pesos",
    "book_key": "ex:ch6-horizonte-pesos",
-   "kind": "empirical",
+   "kind": "formal",
    "statement": "Example: Costo de un horizonte largo (capitulos/cap06_fallos.typ)",
    "expression": {
     "op": "atom",
@@ -2020,7 +2020,7 @@
   {
    "id": "C.ex:ch6-tasas",
    "book_key": "ex:ch6-tasas",
-   "kind": "empirical",
+   "kind": "formal",
    "statement": "Example: Tasas compatibles e incompatibles (capitulos/cap06_fallos.typ)",
    "expression": {
     "op": "atom",
@@ -2524,7 +2524,7 @@
   {
    "id": "C.ex:ssch-trazability",
    "book_key": "ex:ssch-trazability",
-   "kind": "empirical",
+   "kind": "formal",
    "statement": "Example: Trazabilidad en SSCH (capitulos/cap09_verificacion.typ)",
    "expression": {
     "op": "atom",
@@ -2538,7 +2538,7 @@
   {
    "id": "C.ex:ssch-cap01",
    "book_key": "ex:ssch-cap01",
-   "kind": "empirical",
+   "kind": "formal",
    "statement": "Example: SSCH — El MDP Clínico como Modelo Paramétrico (capitulos/cap10_casos.typ)",
    "expression": {
     "op": "atom",
@@ -2552,7 +2552,7 @@
   {
    "id": "C.ex:ssch-cap02",
    "book_key": "ex:ssch-cap02",
-   "kind": "empirical",
+   "kind": "formal",
    "statement": "Example: SSCH — Estadístico Suficiente para las Transiciones (capitulos/cap10_casos.typ)",
    "expression": {
     "op": "atom",
@@ -2566,7 +2566,7 @@
   {
    "id": "C.ex:ssch-cap03-b",
    "book_key": "ex:ssch-cap03-b",
-   "kind": "empirical",
+   "kind": "formal",
    "statement": "Example: SSCH — Estimación de las Probabilidades de Transición (capitulos/cap10_casos.typ)",
    "expression": {
     "op": "atom",
@@ -2580,7 +2580,7 @@
   {
    "id": "C.ex:ssch-cap04-b",
    "book_key": "ex:ssch-cap04-b",
-   "kind": "empirical",
+   "kind": "formal",
    "statement": "Example: SSCH: comparación de dos políticas del simulador (capitulos/cap10_casos.typ)",
    "expression": {
     "op": "atom",
@@ -2594,7 +2594,7 @@
   {
    "id": "C.ex:ssch-cap05-b",
    "book_key": "ex:ssch-cap05-b",
-   "kind": "empirical",
+   "kind": "formal",
    "statement": "Example: SSCH — Distribución Asintótica de $hat(V)^pi$ (capitulos/cap10_casos.typ)",
    "expression": {
     "op": "atom",
@@ -2608,7 +2608,7 @@
   {
    "id": "C.ex:ssch-cap06",
    "book_key": "ex:ssch-cap06",
-   "kind": "empirical",
+   "kind": "formal",
    "statement": "Example: SSCH — OPE Semiparamétrica con Datos Observacionales (capitulos/cap10_casos.typ)",
    "expression": {
     "op": "atom",
@@ -2622,7 +2622,7 @@
   {
    "id": "C.ex:ssch-confound",
    "book_key": "ex:ssch-confound",
-   "kind": "empirical",
+   "kind": "formal",
    "statement": "Example: SSCH con Confounding (capitulos/cap12_problemas.typ)",
    "expression": {
     "op": "atom",
@@ -2650,7 +2650,7 @@
   {
    "id": "C.ex:ssch-pomdp",
    "book_key": "ex:ssch-pomdp",
-   "kind": "empirical",
+   "kind": "formal",
    "statement": "Example: SSCH como POMDP (capitulos/cap12_problemas.typ)",
    "expression": {
     "op": "atom",
@@ -2692,7 +2692,7 @@
   {
    "id": "C.ex:ssch-reliable",
    "book_key": "ex:ssch-reliable",
-   "kind": "empirical",
+   "kind": "formal",
    "statement": "Example: Agente SSCH Confiable (capitulos/cap12_problemas.typ)",
    "expression": {
     "op": "atom",
@@ -2706,7 +2706,7 @@
   {
    "id": "C.ex:ssch-integration",
    "book_key": "ex:ssch-integration",
-   "kind": "empirical",
+   "kind": "formal",
    "statement": "Example: Integración en SSCH (capitulos/cap12_problemas.typ)",
    "expression": {
     "op": "atom",
@@ -2720,7 +2720,7 @@
   {
    "id": "C.ex:ssch-limitations",
    "book_key": "ex:ssch-limitations",
-   "kind": "empirical",
+   "kind": "formal",
    "statement": "Example: Limitaciones en SSCH (capitulos/cap12_problemas.typ)",
    "expression": {
     "op": "atom",
@@ -2734,7 +2734,7 @@
   {
    "id": "C.ex:ssch-cap12",
    "book_key": "ex:ssch-cap12",
-   "kind": "empirical",
+   "kind": "formal",
    "statement": "Example: SSCH: preguntas que acompañan una decisión (capitulos/cap12_problemas.typ)",
    "expression": {
     "op": "atom",
@@ -2748,7 +2748,7 @@
   {
    "id": "C.ex:appE-borel",
    "book_key": "ex:appE-borel",
-   "kind": "empirical",
+   "kind": "formal",
    "statement": "Example: σ-Álgebra de Borel (apendices/apendice_medido.typ)",
    "expression": {
     "op": "atom",
@@ -2776,7 +2776,7 @@
   {
    "id": "C.ex:appE-estadisticos",
    "book_key": "ex:appE-estadisticos",
-   "kind": "empirical",
+   "kind": "formal",
    "statement": "Example: Medibilidad de Estadísticos (apendices/apendice_medido.typ)",
    "expression": {
     "op": "atom",
@@ -3120,6 +3120,160 @@
    },
    "scope": {
     "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.der:convprob-const",
+   "book_key": "der:convprob-const",
+   "kind": "formal",
+   "statement": "Una sucesion constante converge en probabilidad a su valor (capitulos/cap04_herramientas.typ:1718)",
+   "expression": {
+    "op": "atom",
+    "id": "der:convprob-const"
+   },
+   "scope": {
+    "domain": "measure"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.der:convprob-add",
+   "book_key": "der:convprob-add",
+   "kind": "formal",
+   "statement": "La suma de dos sucesiones convergentes en probabilidad converge a la suma de los limites (capitulos/cap04_herramientas.typ:1079)",
+   "expression": {
+    "op": "atom",
+    "id": "der:convprob-add"
+   },
+   "scope": {
+    "domain": "measure"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.der:convprob-neg",
+   "book_key": "der:convprob-neg",
+   "kind": "formal",
+   "statement": "El opuesto de una sucesion convergente en probabilidad converge al opuesto",
+   "expression": {
+    "op": "atom",
+    "id": "der:convprob-neg"
+   },
+   "scope": {
+    "domain": "measure"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.der:convprob-sub",
+   "book_key": "der:convprob-sub",
+   "kind": "formal",
+   "statement": "La diferencia converge a la diferencia de los limites",
+   "expression": {
+    "op": "atom",
+    "id": "der:convprob-sub"
+   },
+   "scope": {
+    "domain": "measure"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.der:convprob-const-mul",
+   "book_key": "der:convprob-const-mul",
+   "kind": "formal",
+   "statement": "El producto por una constante preserva la convergencia en probabilidad (capitulos/cap04_herramientas.typ:1551)",
+   "expression": {
+    "op": "atom",
+    "id": "der:convprob-const-mul"
+   },
+   "scope": {
+    "domain": "measure"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.der:convprob-mul-zero",
+   "book_key": "der:convprob-mul-zero",
+   "kind": "formal",
+   "statement": "El producto de dos sucesiones que tienden en probabilidad a 0 tiende a 0",
+   "expression": {
+    "op": "atom",
+    "id": "der:convprob-mul-zero"
+   },
+   "scope": {
+    "domain": "measure"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.der:convprob-mul",
+   "book_key": "der:convprob-mul",
+   "kind": "formal",
+   "statement": "Slutsky multiplicativo: X_n ->^P a y Y_n ->^P b implican X_n Y_n ->^P a b (capitulos/cap04_herramientas.typ:1079)",
+   "expression": {
+    "op": "atom",
+    "id": "der:convprob-mul"
+   },
+   "scope": {
+    "domain": "measure"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.der:convprob-continuous",
+   "book_key": "der:convprob-continuous",
+   "kind": "formal",
+   "statement": "Mapeo continuo: X_n ->^P a y phi continua en a implican phi(X_n) ->^P phi(a) (capitulos/cap04_herramientas.typ:1667)",
+   "expression": {
+    "op": "atom",
+    "id": "der:convprob-continuous"
+   },
+   "scope": {
+    "domain": "measure"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.der:convprob-plug-in",
+   "book_key": "der:convprob-plug-in",
+   "kind": "formal",
+   "statement": "Consistencia plug-in: un funcional continuo de un estimador consistente es consistente (capitulos/cap10_casos.typ:110)",
+   "expression": {
+    "op": "atom",
+    "id": "der:convprob-plug-in"
+   },
+   "scope": {
+    "domain": "measure"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.der:convprob-abs-le",
+   "book_key": "der:convprob-abs-le",
+   "kind": "formal",
+   "statement": "Si |f_n| <= g_n con g_n -> 0 determinista, entonces f_n ->^P 0",
+   "expression": {
+    "op": "atom",
+    "id": "der:convprob-abs-le"
+   },
+   "scope": {
+    "domain": "measure"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.der:convprob-chebyshev",
+   "book_key": "der:convprob-chebyshev",
+   "kind": "formal",
+   "statement": "Consistencia por Chebyshev: E[X_n] -> theta y Var(X_n) -> 0 implican X_n ->^P theta (apendices/apendice_demostraciones.typ:547)",
+   "expression": {
+    "op": "atom",
+    "id": "der:convprob-chebyshev"
+   },
+   "scope": {
+    "domain": "measure"
    },
    "assumptions": []
   }
@@ -4438,6 +4592,507 @@
    "rule": "LEAN_ANCHOR",
    "evidence_specs": [
     "E.ex:ch8-frozenlake"
+   ]
+  },
+  {
+   "id": "A.thm:ch11-var-consistente",
+   "conclusion": "C.thm:ch11-var-consistente",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.thm:ch11-var-consistente"
+   ]
+  },
+  {
+   "id": "A.ex:ch6-dr-ssch",
+   "conclusion": "C.ex:ch6-dr-ssch",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.ex:ch6-dr-ssch"
+   ]
+  },
+  {
+   "id": "A.ex:ch6-scores-canonicos",
+   "conclusion": "C.ex:ch6-scores-canonicos",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.ex:ch6-scores-canonicos"
+   ]
+  },
+  {
+   "id": "A.ex:ch6-aipw-intro",
+   "conclusion": "C.ex:ch6-aipw-intro",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.ex:ch6-aipw-intro"
+   ]
+  },
+  {
+   "id": "A.ex:ch6-parcialmente-lineal",
+   "conclusion": "C.ex:ch6-parcialmente-lineal",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.ex:ch6-parcialmente-lineal"
+   ]
+  },
+  {
+   "id": "A.ex:ssch-cap03-b",
+   "conclusion": "C.ex:ssch-cap03-b",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.ex:ssch-cap03-b"
+   ]
+  },
+  {
+   "id": "A.thm:ch4-bh",
+   "conclusion": "C.thm:ch4-bh",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.thm:ch4-bh"
+   ]
+  },
+  {
+   "id": "A.thm:ch4-umpu",
+   "conclusion": "C.thm:ch4-umpu",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.thm:ch4-umpu"
+   ]
+  },
+  {
+   "id": "A.thm:ch3-mle-propiedades",
+   "conclusion": "C.thm:ch3-mle-propiedades",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.thm:ch3-mle-propiedades"
+   ]
+  },
+  {
+   "id": "A.ex:ch3-mle-normal",
+   "conclusion": "C.ex:ch3-mle-normal",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.ex:ch3-mle-normal"
+   ]
+  },
+  {
+   "id": "A.ex:ch3-rb-bernoulli",
+   "conclusion": "C.ex:ch3-rb-bernoulli",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.ex:ch3-rb-bernoulli"
+   ]
+  },
+  {
+   "id": "A.ex:ch6-horizonte-pesos",
+   "conclusion": "C.ex:ch6-horizonte-pesos",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.ex:ch6-horizonte-pesos"
+   ]
+  },
+  {
+   "id": "A.ex:ch6-tasas",
+   "conclusion": "C.ex:ch6-tasas",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.ex:ch6-tasas"
+   ]
+  },
+  {
+   "id": "A.thm:ch6-dml",
+   "conclusion": "C.thm:ch6-dml",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.thm:ch6-dml"
+   ]
+  },
+  {
+   "id": "A.ex:ch9-state",
+   "conclusion": "C.ex:ch9-state",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.ex:ch9-state"
+   ]
+  },
+  {
+   "id": "A.ex:ch9-estados-infinitos",
+   "conclusion": "C.ex:ch9-estados-infinitos",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.ex:ch9-estados-infinitos"
+   ]
+  },
+  {
+   "id": "A.ex:ch9-horizonte-infinito",
+   "conclusion": "C.ex:ch9-horizonte-infinito",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.ex:ch9-horizonte-infinito"
+   ]
+  },
+  {
+   "id": "A.thm:ch9-eficiencia",
+   "conclusion": "C.thm:ch9-eficiencia",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.thm:ch9-eficiencia"
+   ]
+  },
+  {
+   "id": "A.ex:ch9-fallo-noest",
+   "conclusion": "C.ex:ch9-fallo-noest",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.ex:ch9-fallo-noest"
+   ]
+  },
+  {
+   "id": "A.ex:ssch-cap01",
+   "conclusion": "C.ex:ssch-cap01",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.ex:ssch-cap01"
+   ]
+  },
+  {
+   "id": "A.ex:ssch-cap02",
+   "conclusion": "C.ex:ssch-cap02",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.ex:ssch-cap02"
+   ]
+  },
+  {
+   "id": "A.ex:ssch-cap04-b",
+   "conclusion": "C.ex:ssch-cap04-b",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.ex:ssch-cap04-b"
+   ]
+  },
+  {
+   "id": "A.ex:ssch-cap05-b",
+   "conclusion": "C.ex:ssch-cap05-b",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.ex:ssch-cap05-b"
+   ]
+  },
+  {
+   "id": "A.ex:ssch-cap06",
+   "conclusion": "C.ex:ssch-cap06",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.ex:ssch-cap06"
+   ]
+  },
+  {
+   "id": "A.ex:ssch-trazability",
+   "conclusion": "C.ex:ssch-trazability",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.ex:ssch-trazability"
+   ]
+  },
+  {
+   "id": "A.ex:ssch-confound",
+   "conclusion": "C.ex:ssch-confound",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.ex:ssch-confound"
+   ]
+  },
+  {
+   "id": "A.ex:ssch-pomdp",
+   "conclusion": "C.ex:ssch-pomdp",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.ex:ssch-pomdp"
+   ]
+  },
+  {
+   "id": "A.ex:ssch-reliable",
+   "conclusion": "C.ex:ssch-reliable",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.ex:ssch-reliable"
+   ]
+  },
+  {
+   "id": "A.ex:ssch-integration",
+   "conclusion": "C.ex:ssch-integration",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.ex:ssch-integration"
+   ]
+  },
+  {
+   "id": "A.ex:ssch-limitations",
+   "conclusion": "C.ex:ssch-limitations",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.ex:ssch-limitations"
+   ]
+  },
+  {
+   "id": "A.ex:ssch-cap12",
+   "conclusion": "C.ex:ssch-cap12",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.ex:ssch-cap12"
+   ]
+  },
+  {
+   "id": "A.ex:ssch-causal-cap06",
+   "conclusion": "C.ex:ssch-causal-cap06",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.ex:ssch-causal-cap06"
+   ]
+  },
+  {
+   "id": "A.ex:ch6-cox",
+   "conclusion": "C.ex:ch6-cox",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.ex:ch6-cox"
+   ]
+  },
+  {
+   "id": "A.ex:ch6-ope",
+   "conclusion": "C.ex:ch6-ope",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.ex:ch6-ope"
+   ]
+  },
+  {
+   "id": "A.thm:appE-funcion-implicita",
+   "conclusion": "C.thm:appE-funcion-implicita",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.thm:appE-funcion-implicita"
+   ]
+  },
+  {
+   "id": "A.prop:appE-condiciones-funcion-implicita",
+   "conclusion": "C.prop:appE-condiciones-funcion-implicita",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.prop:appE-condiciones-funcion-implicita"
+   ]
+  },
+  {
+   "id": "A.der:convprob-const",
+   "conclusion": "C.der:convprob-const",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.der:convprob-const"
+   ]
+  },
+  {
+   "id": "A.der:convprob-add",
+   "conclusion": "C.der:convprob-add",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.der:convprob-add"
+   ]
+  },
+  {
+   "id": "A.der:convprob-neg",
+   "conclusion": "C.der:convprob-neg",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.der:convprob-neg"
+   ]
+  },
+  {
+   "id": "A.der:convprob-sub",
+   "conclusion": "C.der:convprob-sub",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.der:convprob-sub"
+   ]
+  },
+  {
+   "id": "A.der:convprob-const-mul",
+   "conclusion": "C.der:convprob-const-mul",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.der:convprob-const-mul"
+   ]
+  },
+  {
+   "id": "A.der:convprob-mul-zero",
+   "conclusion": "C.der:convprob-mul-zero",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.der:convprob-mul-zero"
+   ]
+  },
+  {
+   "id": "A.der:convprob-mul",
+   "conclusion": "C.der:convprob-mul",
+   "premises": [
+    "C.der:convprob-mul-zero",
+    "C.der:convprob-const-mul",
+    "C.der:convprob-sub"
+   ],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.der:convprob-mul"
+   ]
+  },
+  {
+   "id": "A.der:convprob-continuous",
+   "conclusion": "C.der:convprob-continuous",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.der:convprob-continuous"
+   ]
+  },
+  {
+   "id": "A.der:convprob-plug-in",
+   "conclusion": "C.der:convprob-plug-in",
+   "premises": [
+    "C.der:convprob-continuous"
+   ],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.der:convprob-plug-in"
+   ]
+  },
+  {
+   "id": "A.der:convprob-abs-le",
+   "conclusion": "C.der:convprob-abs-le",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.der:convprob-abs-le"
+   ]
+  },
+  {
+   "id": "A.der:convprob-chebyshev",
+   "conclusion": "C.der:convprob-chebyshev",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.der:convprob-chebyshev"
+   ]
+  },
+  {
+   "id": "A.ex:appE-borel",
+   "conclusion": "C.ex:appE-borel",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.ex:appE-borel"
+   ]
+  },
+  {
+   "id": "A.prop:appE-composicion",
+   "conclusion": "C.prop:appE-composicion",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.prop:appE-composicion"
+   ]
+  },
+  {
+   "id": "A.ex:appE-estadisticos",
+   "conclusion": "C.ex:appE-estadisticos",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.ex:appE-estadisticos"
+   ]
+  },
+  {
+   "id": "A.prop:appE-markov-filtracion",
+   "conclusion": "C.prop:appE-markov-filtracion",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.prop:appE-markov-filtracion"
+   ]
+  },
+  {
+   "id": "A.prop:appE-estimadores-medibles",
+   "conclusion": "C.prop:appE-estimadores-medibles",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.prop:appE-estimadores-medibles"
+   ]
+  },
+  {
+   "id": "A.prop:appE-dominacion-continuo",
+   "conclusion": "C.prop:appE-dominacion-continuo",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.prop:appE-dominacion-continuo"
+   ]
+  },
+  {
+   "id": "A.ex:ssch-mcmc-vi-cap03",
+   "conclusion": "C.ex:ssch-mcmc-vi-cap03",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.ex:ssch-mcmc-vi-cap03"
+   ]
+  },
+  {
+   "id": "A.ex:ch3-mcmc-ssch",
+   "conclusion": "C.ex:ch3-mcmc-ssch",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.ex:ch3-mcmc-ssch"
    ]
   }
  ],
@@ -6980,6 +7635,686 @@
    "claim_id": "C.ex:ch8-frozenlake",
    "runner_id": "lean-export",
    "target": "Book.Ch8Bandits.ex_ch8_frozenlake",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.thm:ch11-var-consistente",
+   "kind": "lean",
+   "claim_id": "C.thm:ch11-var-consistente",
+   "runner_id": "lean-export",
+   "target": "Cap11M1.thm_ch11_var_consistente",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.ex:ch6-dr-ssch",
+   "kind": "lean",
+   "claim_id": "C.ex:ch6-dr-ssch",
+   "runner_id": "lean-export",
+   "target": "Book.Cap04EjemplosM2.dr_ssch_estimador",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound",
+    "lean_module": "Book.Cap04EjemplosM2",
+    "lean_source": "capitulos/cap04_herramientas.typ:1991",
+    "support": "Book.Cap04EjemplosM2.dr_ssch_pesos,Book.Cap04EjemplosM2.dr_ssch_valor_objetivo,Book.Cap04EjemplosM2.dr_ssch_pseudoresultados,Book.Cap04EjemplosM2.dr_ssch_estimador,Book.Cap04EjemplosM2.dr_ssch_directo_ips,Book.Cap04EjemplosM2.dr_ssch_tres_estimadores_distintos,Book.Cap04EjemplosM2.dr_ssch_descomposicion,Book.Cap04EjemplosM2.aumentado_descomposicion",
+    "commit": "smw9820kx/m2"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.ex:ch6-scores-canonicos",
+   "kind": "lean",
+   "claim_id": "C.ex:ch6-scores-canonicos",
+   "runner_id": "lean-export",
+   "target": "Book.Cap04EjemplosM2.score_bernoulli",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound",
+    "lean_module": "Book.Cap04EjemplosM2",
+    "lean_source": "capitulos/cap04_herramientas.typ:1862",
+    "support": "Book.Cap04EjemplosM2.hasDerivAt_log_affine,Book.Cap04EjemplosM2.hasDerivAt_log_affine_sub,Book.Cap04EjemplosM2.lognormal_expansion,Book.Cap04EjemplosM2.score_normal,Book.Cap04EjemplosM2.score_normal_valor,Book.Cap04EjemplosM2.score_bernoulli,Book.Cap04EjemplosM2.score_bernoulli_media_cero,Book.Cap04EjemplosM2.score_conteo",
+    "commit": "smw9820kx/m2"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.ex:ch6-aipw-intro",
+   "kind": "lean",
+   "claim_id": "C.ex:ch6-aipw-intro",
+   "runner_id": "lean-export",
+   "target": "Book.Cap04EjemplosM2.aipw_identificacion",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound",
+    "lean_module": "Book.Cap04EjemplosM2",
+    "lean_source": "capitulos/cap04_herramientas.typ:1843",
+    "support": "Book.Cap04EjemplosM2.aipw_identificacion",
+    "commit": "smw9820kx/m2"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.ex:ch6-parcialmente-lineal",
+   "kind": "lean",
+   "claim_id": "C.ex:ch6-parcialmente-lineal",
+   "runner_id": "lean-export",
+   "target": "Book.Cap04EjemplosM2.parcialmente_lineal_beta",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound",
+    "lean_module": "Book.Cap04EjemplosM2",
+    "lean_source": "capitulos/cap04_herramientas.typ:1833",
+    "support": "Book.Cap04EjemplosM2.parcialmente_lineal_residual,Book.Cap04EjemplosM2.parcialmente_lineal_beta",
+    "commit": "smw9820kx/m2"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.ex:ssch-cap03-b",
+   "kind": "lean",
+   "claim_id": "C.ex:ssch-cap03-b",
+   "runner_id": "lean-export",
+   "target": "Book.Cap04EjemplosM2.cap03b_valor_ecuacion",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound",
+    "lean_module": "Book.Cap04EjemplosM2",
+    "lean_source": "capitulos/cap10_casos.typ:98",
+    "support": "Book.Cap04EjemplosM2.cap03b_frecuencias_suman_uno,Book.Cap04EjemplosM2.cap03b_frecuencia_insesgada,Book.Cap04EjemplosM2.cap03b_valor_ecuacion",
+    "commit": "smw9820kx/m2"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.thm:ch4-bh",
+   "kind": "lean",
+   "claim_id": "C.thm:ch4-bh",
+   "runner_id": "lean-export",
+   "target": "Cap04M3BH.bh_fdr_le",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.thm:ch4-umpu",
+   "kind": "lean",
+   "claim_id": "C.thm:ch4-umpu",
+   "runner_id": "lean-export",
+   "target": "Cap04M3U.umpu_three_point",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.thm:ch3-mle-propiedades",
+   "kind": "lean",
+   "claim_id": "C.thm:ch3-mle-propiedades",
+   "runner_id": "lean-export",
+   "target": "Ch3MleM4.mle_score_expansion",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.ex:ch3-mle-normal",
+   "kind": "lean",
+   "claim_id": "C.ex:ch3-mle-normal",
+   "runner_id": "lean-export",
+   "target": "Ch3MleM4.mle_normal_mean",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.ex:ch3-rb-bernoulli",
+   "kind": "lean",
+   "claim_id": "C.ex:ch3-rb-bernoulli",
+   "runner_id": "lean-export",
+   "target": "Ch3MleM4.bern_var_Tdiv",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.ex:ch6-horizonte-pesos",
+   "kind": "lean",
+   "claim_id": "C.ex:ch6-horizonte-pesos",
+   "runner_id": "lean-export",
+   "target": "Cap06M5.ch6_horizonte_pesos_varianza",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.ex:ch6-tasas",
+   "kind": "lean",
+   "claim_id": "C.ex:ch6-tasas",
+   "runner_id": "lean-export",
+   "target": "Cap06M5.ch6_tasas_compatibles",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.thm:ch6-dml",
+   "kind": "lean",
+   "claim_id": "C.thm:ch6-dml",
+   "runner_id": "lean-export",
+   "target": "Cap04Ch6M5.ch6_dml_clt",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.ex:ch9-state",
+   "kind": "lean",
+   "claim_id": "C.ex:ch9-state",
+   "runner_id": "lean-export",
+   "target": "Cap06M6.ch9_state",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.ex:ch9-estados-infinitos",
+   "kind": "lean",
+   "claim_id": "C.ex:ch9-estados-infinitos",
+   "runner_id": "lean-export",
+   "target": "Cap06M6.ch9_estados_infinitos",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.ex:ch9-horizonte-infinito",
+   "kind": "lean",
+   "claim_id": "C.ex:ch9-horizonte-infinito",
+   "runner_id": "lean-export",
+   "target": "Cap06M6.ch9_horizonte_infinito",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.thm:ch9-eficiencia",
+   "kind": "lean",
+   "claim_id": "C.thm:ch9-eficiencia",
+   "runner_id": "lean-export",
+   "target": "Cap06M6.ch9_eficiencia",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.ex:ch9-fallo-noest",
+   "kind": "lean",
+   "claim_id": "C.ex:ch9-fallo-noest",
+   "runner_id": "lean-export",
+   "target": "Cap06M6.ch9_fallo_noest",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.ex:ssch-cap01",
+   "kind": "lean",
+   "claim_id": "C.ex:ssch-cap01",
+   "runner_id": "lean-export",
+   "target": "SSCHCap01M7.smoothRow_sum",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.ex:ssch-cap02",
+   "kind": "lean",
+   "claim_id": "C.ex:ssch-cap02",
+   "runner_id": "lean-export",
+   "target": "SSCHCap02M7.lik_eq_prod_cnt",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.ex:ssch-cap04-b",
+   "kind": "lean",
+   "claim_id": "C.ex:ssch-cap04-b",
+   "runner_id": "lean-export",
+   "target": "SSCHCap04M7.regla_decision",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.ex:ssch-cap05-b",
+   "kind": "lean",
+   "claim_id": "C.ex:ssch-cap05-b",
+   "runner_id": "lean-export",
+   "target": "SSCHCap05M7.resolvent_formula",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.ex:ssch-cap06",
+   "kind": "lean",
+   "claim_id": "C.ex:ssch-cap06",
+   "runner_id": "lean-export",
+   "target": "SSCHCap06M7.dr_centering",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.ex:ssch-trazability",
+   "kind": "lean",
+   "claim_id": "C.ex:ssch-trazability",
+   "runner_id": "lean-export",
+   "target": "SSCHEjemplosM7.umbral_del_dictamen",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.ex:ssch-confound",
+   "kind": "lean",
+   "claim_id": "C.ex:ssch-confound",
+   "runner_id": "lean-export",
+   "target": "Book.Cap12ProblemasM8.confound_no_identificable",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.ex:ssch-pomdp",
+   "kind": "lean",
+   "claim_id": "C.ex:ssch-pomdp",
+   "runner_id": "lean-export",
+   "target": "Book.Cap12ProblemasM8.pomdp_perdida_estricta",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.ex:ssch-reliable",
+   "kind": "lean",
+   "claim_id": "C.ex:ssch-reliable",
+   "runner_id": "lean-export",
+   "target": "Book.Cap12ProblemasM8.aipw_double_robust",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.ex:ssch-integration",
+   "kind": "lean",
+   "claim_id": "C.ex:ssch-integration",
+   "runner_id": "lean-export",
+   "target": "Book.Cap12ProblemasM8.selected_sound",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.ex:ssch-limitations",
+   "kind": "lean",
+   "claim_id": "C.ex:ssch-limitations",
+   "runner_id": "lean-export",
+   "target": "Book.Cap12ProblemasM8.discounted_tail_bound",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.ex:ssch-cap12",
+   "kind": "lean",
+   "claim_id": "C.ex:ssch-cap12",
+   "runner_id": "lean-export",
+   "target": "Book.Cap12ProblemasM8.ic_no_cubre_otro_procedimiento",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.ex:ssch-causal-cap06",
+   "kind": "lean",
+   "claim_id": "C.ex:ssch-causal-cap06",
+   "runner_id": "lean-export",
+   "target": "M9.cap06_psi",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.ex:ch6-cox",
+   "kind": "lean",
+   "claim_id": "C.ex:ch6-cox",
+   "runner_id": "lean-export",
+   "target": "M9.cox_prob_independiente_del_basal",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.ex:ch6-ope",
+   "kind": "lean",
+   "claim_id": "C.ex:ch6-ope",
+   "runner_id": "lean-export",
+   "target": "M9.ope_determinado_por_tablas",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.thm:appE-funcion-implicita",
+   "kind": "lean",
+   "claim_id": "C.thm:appE-funcion-implicita",
+   "runner_id": "lean-export",
+   "target": "AppEImplicita.appE_funcion_implicita",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.prop:appE-condiciones-funcion-implicita",
+   "kind": "lean",
+   "claim_id": "C.prop:appE-condiciones-funcion-implicita",
+   "runner_id": "lean-export",
+   "target": "AppECond.bernFisher_eq",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.der:convprob-const",
+   "kind": "lean",
+   "claim_id": "C.der:convprob-const",
+   "runner_id": "lean-export",
+   "target": "MeasureTheory.TendstoInMeasure.const",
+   "scope": {
+    "domain": "measure",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.der:convprob-add",
+   "kind": "lean",
+   "claim_id": "C.der:convprob-add",
+   "runner_id": "lean-export",
+   "target": "MeasureTheory.TendstoInMeasure.add",
+   "scope": {
+    "domain": "measure",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.der:convprob-neg",
+   "kind": "lean",
+   "claim_id": "C.der:convprob-neg",
+   "runner_id": "lean-export",
+   "target": "MeasureTheory.TendstoInMeasure.neg",
+   "scope": {
+    "domain": "measure",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.der:convprob-sub",
+   "kind": "lean",
+   "claim_id": "C.der:convprob-sub",
+   "runner_id": "lean-export",
+   "target": "MeasureTheory.TendstoInMeasure.sub",
+   "scope": {
+    "domain": "measure",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.der:convprob-const-mul",
+   "kind": "lean",
+   "claim_id": "C.der:convprob-const-mul",
+   "runner_id": "lean-export",
+   "target": "MeasureTheory.TendstoInMeasure.const_mul",
+   "scope": {
+    "domain": "measure",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.der:convprob-mul-zero",
+   "kind": "lean",
+   "claim_id": "C.der:convprob-mul-zero",
+   "runner_id": "lean-export",
+   "target": "MeasureTheory.TendstoInMeasure.mul_zero",
+   "scope": {
+    "domain": "measure",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.der:convprob-mul",
+   "kind": "lean",
+   "claim_id": "C.der:convprob-mul",
+   "runner_id": "lean-export",
+   "target": "MeasureTheory.TendstoInMeasure.mul_const",
+   "scope": {
+    "domain": "measure",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.der:convprob-continuous",
+   "kind": "lean",
+   "claim_id": "C.der:convprob-continuous",
+   "runner_id": "lean-export",
+   "target": "MeasureTheory.TendstoInMeasure.comp_continuous",
+   "scope": {
+    "domain": "measure",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.der:convprob-plug-in",
+   "kind": "lean",
+   "claim_id": "C.der:convprob-plug-in",
+   "runner_id": "lean-export",
+   "target": "MeasureTheory.TendstoInMeasure.consistencia_plug_in",
+   "scope": {
+    "domain": "measure",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.der:convprob-abs-le",
+   "kind": "lean",
+   "claim_id": "C.der:convprob-abs-le",
+   "runner_id": "lean-export",
+   "target": "MeasureTheory.TendstoInMeasure.of_abs_le",
+   "scope": {
+    "domain": "measure",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.der:convprob-chebyshev",
+   "kind": "lean",
+   "claim_id": "C.der:convprob-chebyshev",
+   "runner_id": "lean-export",
+   "target": "MeasureTheory.TendstoInMeasure.consistencia_chebyshev",
+   "scope": {
+    "domain": "measure",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.ex:appE-borel",
+   "kind": "lean",
+   "claim_id": "C.ex:appE-borel",
+   "runner_id": "lean-export",
+   "target": "Book.ApendiceE.appE_borel_generado_por_intervalos",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.prop:appE-composicion",
+   "kind": "lean",
+   "claim_id": "C.prop:appE-composicion",
+   "runner_id": "lean-export",
+   "target": "Book.ApendiceE.appE_composicion",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.ex:appE-estadisticos",
+   "kind": "lean",
+   "claim_id": "C.ex:appE-estadisticos",
+   "runner_id": "lean-export",
+   "target": "Book.ApendiceE.appE_estadistico_comp",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.prop:appE-markov-filtracion",
+   "kind": "lean",
+   "claim_id": "C.prop:appE-markov-filtracion",
+   "runner_id": "lean-export",
+   "target": "Book.ApendiceE.appE_markov_nucleo_medible",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.prop:appE-estimadores-medibles",
+   "kind": "lean",
+   "claim_id": "C.prop:appE-estimadores-medibles",
+   "runner_id": "lean-export",
+   "target": "Book.ApendiceE.appE_seleccion_max_medible",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.prop:appE-dominacion-continuo",
+   "kind": "lean",
+   "claim_id": "C.prop:appE-dominacion-continuo",
+   "runner_id": "lean-export",
+   "target": "Book.ApendiceE.appE_dominacion_densidad",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.ex:ssch-mcmc-vi-cap03",
+   "kind": "lean",
+   "claim_id": "C.ex:ssch-mcmc-vi-cap03",
+   "runner_id": "lean-export",
+   "target": "Book.M13.posterior_parametros",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.ex:ch3-mcmc-ssch",
+   "kind": "lean",
+   "claim_id": "C.ex:ch3-mcmc-ssch",
+   "runner_id": "lean-export",
+   "target": "Book.M13.logitSSCH_pos",
    "scope": {
     "domain": "finite",
     "lean_axioms": "propext,Classical.choice,Quot.sound"

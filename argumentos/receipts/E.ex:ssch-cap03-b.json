@@ -1,0 +1,35 @@
+{
+  "schema_version": "1.0",
+  "id": "R.E.ex:ssch-cap03-b",
+  "spec_id": "E.ex:ssch-cap03-b",
+  "spec_hash": "cc598970844dd054bc0d598421cf7e8c2e01de9f73582044af34b306540bd3ad",
+  "source_commit": "local",
+  "environment_hash": "9fdbe45f17df1ba4ff8499c8f7127091283aad5a5c039df03fcd88f7b4b94215",
+  "checker_version": "0.1.0",
+  "command_argv": [
+    "lean",
+    "argumentos/evidence/lean_export.lean"
+  ],
+  "working_directory": ".",
+  "input_hashes": {
+    "lean_export.lean": "3138135436ab988ee92b4f45afcf9689bc4167666391f9c3ae0903ec08e02748",
+    "ssch_bayes_racional.py": "af949182cb60e7cfc146980a08e7b97e6ebc11ac52afa6858de41c10dcc55cfb"
+  },
+  "started_at": "2026-11-09T18:07:47Z",
+  "finished_at": "2026-11-09T18:07:47Z",
+  "exit_status": 0,
+  "termination": "completed",
+  "stdout_sha256": "2a27706e0ca08eb51368ec4c33670ee5e4ef64bc54312ce37e274e3ae0e1c2cb",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "artifacts": [],
+  "execution_passed": true,
+  "scientific_criterion_met": true,
+  "observed_checks": [
+    {
+      "id": "target_encontrado:Book.Cap04EjemplosM2.cap03b_valor_ecuacion",
+      "status": "pass",
+      "detail": "3 axiomas, 66 dependencias"
+    }
+  ],
+  "trust_mode": "locally_reproduced"
+}

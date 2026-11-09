@@ -9,7 +9,7 @@
   consola ajenos.
 
   Los objetivos son TODOS los teoremas con book_key en verificacion_lean
-  212 teoremas en total.
+  274 teoremas en total.
 -/
 import Book.Cap02Wald
 import Book.Cap03MDP
@@ -28,6 +28,27 @@ import Book.Cap08Poder
 import Book.Cap08M6
 import Book.Cap11Despliegue
 import Book.ApendiceDRegularidad
+import Book.Cap03MleM4
+import Book.Cap04Ch6DmlM5
+import Book.Cap06PesosTasasM5
+import Book.Cap04EjemplosM2
+import Book.M9Pendientes
+import Book.Cap04UmpuM3
+import Book.Cap04BhM3
+import Book.SSCHEjemplosM7
+import Book.SSCHCap06M7
+import Book.SSCHCap0405M7
+import Book.SSCHCap03M7
+import Book.SSCHCap02M7
+import Book.SSCHCap01M7
+import Book.AppEFuncionImplicitaCond
+import Book.AppEFuncionImplicita
+import Book.Cap12ProblemasM8
+import Book.ApendiceEMedido
+import Book.Cap06FallosM6
+import Book.M13Mcmc
+import Book.ConvergenciaBase
+import Book.Cap11HacM1
 import Book.Cap04Ch4M6
 import Book.Cap08FrozenLake
 import Book.ApendiceDErgodicidad
@@ -284,6 +305,67 @@ def objetivos : List Name := [
   `Ch11M10.ch11_pg_identidad,
   `Ch11M10.ch11_reinforce_if,
   `Ch11M10.ch11_ssch_objetivo
+,
+  `Cap11M1.thm_ch11_var_consistente,
+  `Book.Cap04EjemplosM2.dr_ssch_estimador,
+  `Book.Cap04EjemplosM2.score_bernoulli,
+  `Book.Cap04EjemplosM2.aipw_identificacion,
+  `Book.Cap04EjemplosM2.parcialmente_lineal_beta,
+  `Book.Cap04EjemplosM2.cap03b_valor_ecuacion,
+  `Cap04M3BH.bh_fdr_le,
+  `Cap04M3U.umpu_three_point,
+  `Ch3MleM4.mle_score_expansion,
+  `Ch3MleM4.mle_normal_mean,
+  `Ch3MleM4.bern_var_Tdiv,
+  `Cap06M5.ch6_horizonte_pesos_varianza,
+  `Cap06M5.ch6_tasas_compatibles,
+  `Cap04Ch6M5.ch6_dml_clt,
+  `Cap06M6.ch9_state,
+  `Cap06M6.ch9_estados_infinitos,
+  `Cap06M6.ch9_horizonte_infinito,
+  `Cap06M6.ch9_eficiencia,
+  `Cap06M6.ch9_fallo_noest,
+  `SSCHCap01M7.smoothRow_sum,
+  `SSCHCap02M7.lik_eq_prod_cnt,
+  `SSCHCap03M7.freq_sum,
+  `SSCHCap04M7.regla_decision,
+  `SSCHCap05M7.resolvent_formula,
+  `SSCHCap06M7.dr_centering,
+  `SSCHCap06M7.dr_unbiased,
+  `SSCHEjemplosM7.media_eq,
+  `SSCHEjemplosM7.umbral_del_dictamen,
+  `Book.Cap12ProblemasM8.confound_no_identificable,
+  `Book.Cap12ProblemasM8.pomdp_perdida_estricta,
+  `Book.Cap12ProblemasM8.aipw_double_robust,
+  `Book.Cap12ProblemasM8.selected_sound,
+  `Book.Cap12ProblemasM8.discounted_tail_bound,
+  `Book.Cap12ProblemasM8.ic_no_cubre_otro_procedimiento,
+  `M9.cap06_psi,
+  `M9.cox_prob_independiente_del_basal,
+  `M9.ope_determinado_por_tablas,
+  `AppEImplicita.appE_funcion_implicita,
+  `AppECond.bernFisher_eq,
+  `Book.M13.kl_minimo_global_cero,
+  `Book.M13.posterior_parametros,
+  `Book.M13.logitSSCH_pos,
+  `Book.M13.mh_paso_ssch_acepta_uno,
+  `MeasureTheory.TendstoInMeasure.add,
+  `MeasureTheory.TendstoInMeasure.consistencia_chebyshev,
+  `MeasureTheory.TendstoInMeasure.of_abs_le,
+  `MeasureTheory.TendstoInMeasure.consistencia_plug_in,
+  `MeasureTheory.TendstoInMeasure.comp_continuous,
+  `MeasureTheory.TendstoInMeasure.mul_const,
+  `MeasureTheory.TendstoInMeasure.mul_zero,
+  `MeasureTheory.TendstoInMeasure.const_mul,
+  `MeasureTheory.TendstoInMeasure.sub,
+  `MeasureTheory.TendstoInMeasure.neg,
+  `MeasureTheory.TendstoInMeasure.const,
+  `Book.ApendiceE.appE_borel_generado_por_intervalos,
+  `Book.ApendiceE.appE_composicion,
+  `Book.ApendiceE.appE_estadistico_comp,
+  `Book.ApendiceE.appE_markov_nucleo_medible,
+  `Book.ApendiceE.appE_seleccion_max_medible,
+  `Book.ApendiceE.appE_dominacion_densidad
 ]
 
 /-- Escapa una cadena para incluirla como literal JSON. -/
