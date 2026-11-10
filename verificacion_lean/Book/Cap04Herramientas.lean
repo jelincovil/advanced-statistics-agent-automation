@@ -100,7 +100,7 @@ theorem hasDerivAt_expNum (η : ℝ) :
   rw [hfun]
   exact HasDerivAt.sum fun x _ => h1 x
 
-/-- book: capitulos/cap04_herramientas.typ:322 (key: cor:ch1-covarianza-hessiano) —
+/-- book: capitulos/cap04_herramientas.typ:343 (key: cor:ch1-covarianza-hessiano) —
 la segunda derivada de la log-partición es la varianza del estadístico
 natural: `A''(η) = Var_η[T(X)] = E[T²] − E[T]²`. La prueba es la regla
 del cociente para `N/Z` (con `N' = ∑T²·h·exp`, `Z' = N`), seguida de
@@ -229,7 +229,7 @@ theorem ch2_neyman_fisher {Θ : Type*} [Fintype Θ]
 
 
 
-/-- book: capitulos/cap04_herramientas.typ:680 (key: thm:ch2-completitud-exponencial) --
+/-- book: capitulos/cap04_herramientas.typ:702 (key: thm:ch2-completitud-exponencial) --
 completitud en familias exponenciales (caso minimo, T constante): si el
 estadistico natural es constante (un solo valor c) y E[g(T)] = 0 para
 todo eta, entonces g(c) = 0. El caso general usa Vandermonde kxk
@@ -267,7 +267,7 @@ section ExpFam
 
 variable {X : Type u} [Fintype X] [Nonempty X] (h : X → ℝ) (T : X → ℝ)
 
-/-- book: capitulos/cap04_herramientas.typ:680 (key: thm:ch2-completitud-exponencial) —
+/-- book: capitulos/cap04_herramientas.typ:702 (key: thm:ch2-completitud-exponencial) —
 completitud en familias exponenciales (caso general): si `h > 0` y la
 identidad `∑_x g(T x)·h x·exp(η·T x) = 0` vale para todo `η : ℝ`,
 entonces `g` se anula sobre todo valor de `T`.
@@ -438,7 +438,7 @@ theorem exp_linear_independent_fintype {ι : Type*} [Fintype ι] (t : ι → ℝ
   intro i
   simpa using hzero (e i)
 
-/-- book: capitulos/cap04_herramientas.typ:680 (key: thm:ch2-completitud-exponencial) —
+/-- book: capitulos/cap04_herramientas.typ:702 (key: thm:ch2-completitud-exponencial) —
 completitud de una familia exponencial finita sobre el estadístico `T`
 (caso GENERAL, no necesariamente inyectivo), **segunda prueba independiente**
 (ruta Vandermonde; la ruta de dominancia/límite queda en

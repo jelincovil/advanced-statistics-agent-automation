@@ -547,7 +547,7 @@ end UCB
 
 section Ejemplos
 
-/-- book: capitulos/cap03_mdp.typ:173 (key: ex:ssch-bandits-cap08) —
+/-- book: capitulos/cap03_mdp.typ:166 (key: ex:ssch-bandits-cap08) —
 cuatro opciones con probabilidades de éxito `(0.3, 0.5, 0.6, 0.8)`: la suma de
 las brechas contra la mejor (`0.5+0.3+0.2+0`) vale `1`, la media de una
 selección uniforme es `0.55` y su pseudorregret esperado en 20 rondas es
@@ -559,7 +559,7 @@ theorem ssch_bandits_cap08 :
       (11/20 : ℝ) = 0.55 ∧ (4/5 : ℝ) = 0.8 := by
   refine ⟨?_, ?_, ?_, ?_, ?_⟩ <;> norm_num
 
-/-- book: capitulos/cap03_mdp.typ:173 (key: ex:ssch-bandits-cap08) — probar una
+/-- book: capitulos/cap03_mdp.typ:166 (key: ex:ssch-bandits-cap08) — probar una
 vez cada opción cuesta en expectativa `0.5+0.3+0.2+0 = 1` de pseudorregret: el
 coste de la exploración inicial es exactamente la suma de las brechas. -/
 theorem ssch_bandits_cap08_exploracion :

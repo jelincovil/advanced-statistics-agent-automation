@@ -415,7 +415,7 @@ end MLR
 
 /-! ## ex:ch4-bonferroni-ssch — cálculo concreto de multiplicidad -/
 
-/-- book: capitulos/cap04_herramientas.typ:1398 (key: ex:ch4-bonferroni-ssch) —
+/-- book: capitulos/cap04_herramientas.typ:1404 (key: ex:ch4-bonferroni-ssch) —
 **Pruebas múltiples en SSCH con corrección de Bonferroni** (cálculo
 concreto del libro): con `m = 4` tratamientos y p-valores observados
 `0.03, 0.01, 0.08, 0.04`, al nivel `α = 0.05`, sin corrección se

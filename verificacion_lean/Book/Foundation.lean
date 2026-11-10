@@ -34,13 +34,13 @@ def mdpReturn {Θ X A : Type*} [Fintype X]
     (P : Θ → X → ℝ) (L : Θ → A → ℝ) (θ : Θ) (π : X → A) : ℝ :=
   ∑ x, P θ x * (-L θ (π x))
 
-/-- book: capitulos/cap02_wald.typ (key: def:ch7-dominancia) — dominancia
+/-- book: capitulos/cap02_wald.typ:54 (key: def:ch7-dominancia) — dominancia
 de reglas dentro de una clase: riesgo menor en todo θ, estricto en alguno. -/
 def dominates {Θ X A : Type*} [Fintype Θ] [Fintype X]
     (P : Θ → X → ℝ) (L : Θ → A → ℝ) (δ₁ δ₂ : X → A) : Prop :=
   (∀ θ, risk P L θ δ₁ ≤ risk P L θ δ₂) ∧ (∃ θ, risk P L θ δ₁ < risk P L θ δ₂)
 
-/-- book: capitulos/cap05_incrustacion.typ (key: thm:ch9-admisibilidad) —
+/-- book: capitulos/cap05_incrustacion.typ:136 (key: thm:ch9-admisibilidad) —
 retorno-dominancia: retorno mayor o igual en todo θ, estricto en alguno. -/
 def returnDominates {Θ X A : Type*} [Fintype Θ] [Fintype X]
     (P : Θ → X → ℝ) (L : Θ → A → ℝ) (π₁ π₂ : X → A) : Prop :=

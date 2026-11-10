@@ -51,7 +51,7 @@ theorem ch11_baseline (π : Bool → Bool → ℝ) (z : Bool → Bool → ℝ)
     rw [Finset.sum_congr rfl (fun a _ => hring a), ← Finset.sum_mul, hscore s', zero_mul,
       Finset.sum_eq_zero (fun a _ => mul_zero _)]
 
-/-- book: capitulos/cap08_intervalos.typ:480 (key: ex:ssch-drl-cap11) —
+/-- book: capitulos/cap08_intervalos.typ:483 (key: ex:ssch-drl-cap11) —
 SSCH: baseline con cálculo exacto: `A` Bernoulli con `p = 3/4`, `R = A`,
 score `A − p`, gradiente verdadero `p(1−p) = 3/16`. Sin baseline la
 contribución `A(A−p)` tiene varianza `3/256 = 0.01171875`; la baseline

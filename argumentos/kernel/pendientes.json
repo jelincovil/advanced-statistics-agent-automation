@@ -1,10 +1,10 @@
 [
- {
-  "claim_id": "C.thm:appD-gordin",
-  "book_key": "thm:appD-gordin",
-  "reason_code": "NO_FORMAL_PROOF",
-  "fuente": "apendices/apendice_regularidad.typ (theorem: CLT funcional para una cadena finita)",
-  "impacto": "Pendiente acotado: la prueba interna de Gordin esta formalizada (Book/GordinCoreM8.lean: poisson_solution, gordin_decomposition, boundary_abs_le + tendsto_boundary_div_sqrt, martIncrement_cond_mean, bracket_poisson + bracket_decomposition). Falta SOLO el CLT funcional de martingalas en D[0,1] (Skorokhod) con su tightness, y la identificacion sigma^2 = suma_k Cov(f(S_0), f(S_k)) (requiere decaimiento geometrico de las covarianzas via coeficiente de Doeblin).",
-  "proxima_accion": "Formalizar el CLT funcional de martingalas (Lindeberg para martingalas en D[0,1]) o aceptar la clave como deuda externa declarada; el resto de la prueba ya no es deuda."
- }
+  {
+    "claim_id": "C.thm:appD-gordin",
+    "book_key": "thm:appD-gordin",
+    "reason_code": "NO_FORMAL_PROOF",
+    "fuente": "apendices/apendice_regularidad.typ (theorem: CLT funcional para una cadena finita)",
+    "impacto": "Pendiente acotado con dos piezas independientes. (1) Interna: Book/GordinCoreM8.lean formaliza y audita poisson_solution, gordin_decomposition, boundary_abs_le/tendsto_boundary_div_sqrt, martIncrement_cond_mean, condVar/sigmaSq y bracket_poisson/bracket_decomposition (10 declaraciones, axiomas dentro de {propext, Classical.choice, Quot.sound}, 0 sorryAx, compilado con Lean 4.35.0). Falta la condicion de bracket, (1/n) sum_t v(S_t) -> sigma^2 c.s.: el docstring del modulo la anunciaba como Chain.cesaro_condVar, declaracion que no existe (#check falla; unica aparicion, el docstring). (2) Externa, ausente en la Mathlib instalada 4.35.0: espacio D[0,1] con topologia de Skorokhod, criterio de tightness en D, CLT de martingalas, bracket/variacion cuadratica y Donsker. Ya existen y se reutilizan: IsCadlag (predicado de regularidad), Prokhorov, Levy-Prokhorov, TendstoInDistribution e IsBrownianReal. Ademas la identificacion sigma^2 = gamma(0) + 2 sum_{k>=1} gamma(k) NO se sigue de la estructura Chain, que no pide aperiodicidad: contraejemplo formalizado (cadena de 2 estados periodica: sigma^2 = 0 y gamma(k) = (-1)^k no sumable).",
+    "proxima_accion": "Dos pasos separados. (a) Anadir aperiodicidad (o decaimiento geometrico explicito de |P^k f|) a Chain y formalizar h = sum_k P^k f con sigma^2 = gamma(0) + 2 sum_{k>=1} gamma(k): ~100-150 lineas, no depende de (b). La parte algebraica ya esta formalizada y auditada (sigmaSq_eq: sigma^2 = <h,h> - <Ph,Ph>; sigmaSq_eq_two_avg: sigma^2 = 2<f,h> - <f,f>, en .ultramath/smwa5izeq/m1/GordinSigmaAlgebra.lean); falta la representacion en serie y la telescopia. Mientras no se anada la hipotesis, no enunciar la identificacion (es falsa sin ella: contraejemplo GordinPeriodico.lean). (b) Construir D[0,1] con topologia J1 (~1200-2000 lineas), criterio de tightness (~300-500), CLT de martingalas (~500-900) e identificacion del limite (~200-400), reutilizando Prokhorov, Levy-Prokhorov, TendstoInDistribution e IsBrownianReal. Mientras (b) no exista, mantener la clave como deuda externa declarada: ver DEUDA.md seccion 2 y .ultramath/smwa5izeq/m1/."
+  }
 ]

@@ -29,8 +29,15 @@ for mod in Book/Cap08Estimadores.lean Book/Cap08Poder.lean Book/Cap04Herramienta
 done
 
 # 3) Auditoría de axiomas
+# 3a) lista manual histórica (174 teoremas)
 echo "== Book/Audit.lean"
 lean --root=. Book/Audit.lean | tee "$BUILD/axioms.log"
+# 3b) auditoría exhaustiva: todos los teoremas de Book/*, generada desde el
+#     propio entorno (no envejece cuando se añaden módulos). Falla si algún
+#     teorema depende de un axioma fuera de {propext, Classical.choice,
+#     Quot.sound}, sorryAx incluido.
+echo "== Book/AuditAll.lean (auditoría exhaustiva)"
+lean --root=. Book/AuditAll.lean | tee -a "$BUILD/axioms.log"
 if grep -q "sorryAx" "$BUILD/axioms.log"; then
   echo "FALLO: sorryAx en la auditoría" >&2
   exit 1
@@ -42,4 +49,10 @@ if grep -Rn "^[[:space:]]*sorry\b" Book/ --include="*.lean"; then
   exit 1
 fi
 
-echo "OK: verificar.sh en verde (módulos compilados, axiomas auditados, sin sorry)."
+# 5) Dashboard generado y puerta de cobertura: ninguna fila del libro sin
+#    auditar y ningún axioma fuera del conjunto permitido.
+echo "== Progress/gen_dashboard.py --check"
+python3 Progress/gen_dashboard.py --check
+
+echo "OK: verificar.sh en verde (módulos compilados, axiomas auditados, sin sorry,"
+echo "    DASHBOARD regenerado con SIN AUDITAR = 0)."

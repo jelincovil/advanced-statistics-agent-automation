@@ -32,6 +32,11 @@ numéricas obsoletas de la Introducción, el Prefacio, el cap. 2 y el cap. 11.
 - Pendiente autor: prosa §1–§3 + walkthrough SSCH; label canónico del ejemplo; Estado ↔/↝; filas FALTA; retiro `#pendiente` solo con cierre real; preguntas del insumo ejemplo SSCH.
 - Sync Typst.app: **pendiente** (ver `SYNC_PENDIENTE.md` 2026-10-04).
 - Compile local: FAIL preexistente `intro.typ:89` (no tocar a ciegas).
+  **CERRADO 2026-11-10:** era fallo de typst 0.13.1 sobre `$Value(policy; dot)$`
+  (ver `REGISTRO_DIARIO.md`, entrada 2026-11-02). Con typst 0.15.1,
+  `typst compile --root . main.typ` da **exit 0, 0 avisos, 275 pp**, y ese
+  constructo ya no existe en ninguna fuente del libro. `intro.typ` no se toca:
+  la línea 89 actual es prosa («se utilizarán al estudiar datos y estimadores.»).
 
 
 ## 1. Los 16 marcadores `PENDIENTE` del PDF
@@ -46,6 +51,17 @@ numéricas obsoletas de la Introducción, el Prefacio, el cap. 2 y el cap. 11.
 > (transcritos y verificados contra el artículo y el commit `7533c28` del
 > repo SAVE). Sigue vivo: el de resultados del Apéndice G, ahora puramente
 > *ejecución* de Fase 4 (diseño fijado).
+
+> **Actualización 2026-11-10 (HEAD `473a208`).** Barrido de fuentes y del PDF
+> compilado: queda **1** marcador vivo, `apendices/apendice_reproduccion.typ:121`
+> (tabla de resultados del Apéndice G: solo falta la *ejecución* de Fase 4; el
+> diseño y la versión están fijados en §Escenarios, §Métricas y §Requisitos de
+> reproducibilidad). Las celdas ya rellenas de la Tabla G.1 coinciden una a una
+> con `agente-stats/examples/SAVE_results_AB.json` (ECP 0.96 / 0.966 / 0.94,
+> AL 0.481 / 0.339 / 0.244, log(MSE) -4.45 / -5.22 / -5.38) y el resto son «--».
+> `#pendiente` es un `block` sin numeración: retirarlo no renumera ninguna caja,
+> teorema ni tabla (verificado: 275→274 pp, las 747 etiquetas numeradas salen
+> idénticas). Los ítems 13, 14 y 16 están cerrados materialmente.
 
 
 
