@@ -25,7 +25,7 @@
     "id": "ex:ch7-james-stein"
    },
    "scope": {
-    "domain": "finite"
+    "domain": "probabilistic"
    },
    "assumptions": []
   },
@@ -2895,7 +2895,7 @@
     "id": "thm:appE-convergencia-dominada"
    },
    "scope": {
-    "domain": "finite"
+    "domain": "measure"
    },
    "assumptions": []
   },
@@ -3377,6 +3377,62 @@
     "A.medible-borel",
     "A.probabilidad-datos"
    ]
+  },
+  {
+   "id": "C.der:appD-ibragimov-cuantitativo",
+   "book_key": "der:appD-ibragimov-cuantitativo",
+   "kind": "formal",
+   "statement": "Derivación cuantitativa parcial de Ibragimov: covarianza acotada, sumabilidad de autocovarianzas y n^-1 Var(S_n) -> sigma_LR^2 en estado finito; no incluye convergencia en distribución a una normal.",
+   "expression": {
+    "op": "atom",
+    "id": "der:appD-ibragimov-cuantitativo"
+   },
+   "scope": {
+    "domain": "finite"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "C.der:ch7-perdidas-medida",
+   "book_key": "der:ch7-perdidas-medida",
+   "kind": "formal",
+   "statement": "Forma general de pérdida medida: formulación en espacios de medida usada para las identidades de pérdidas; auxiliar distinto del caso finito de ex:ch7-perdidas.",
+   "expression": {
+    "op": "atom",
+    "id": "der:ch7-perdidas-medida"
+   },
+   "scope": {
+    "domain": "measure"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "A.medible-borel",
+   "book_key": "der:medible-borel-hipotesis",
+   "kind": "factual",
+   "statement": "Hipótesis: SampleSpace = Fin n -> ℝ con su sigma-álgebra de Borel y T : Ω -> ℝ medible, independiente del parámetro.",
+   "expression": {
+    "op": "atom",
+    "id": "hipotesis:medible-borel"
+   },
+   "scope": {
+    "domain": "measure"
+   },
+   "assumptions": []
+  },
+  {
+   "id": "A.probabilidad-datos",
+   "book_key": "der:probabilidad-datos-hipotesis",
+   "kind": "factual",
+   "statement": "Hipótesis: μ es una medida de probabilidad de los datos.",
+   "expression": {
+    "op": "atom",
+    "id": "hipotesis:probabilidad-datos"
+   },
+   "scope": {
+    "domain": "measure"
+   },
+   "assumptions": []
   }
  ],
  "arguments": [
@@ -5236,7 +5292,7 @@
   },
   {
    "id": "A.thm:appD-ibragimov",
-   "conclusion": "C.thm:appD-ibragimov",
+   "conclusion": "C.der:appD-ibragimov-cuantitativo",
    "premises": [],
    "rule": "LEAN_ANCHOR",
    "evidence_specs": [
@@ -5277,6 +5333,663 @@
    "rule": "LEAN_ANCHOR",
    "evidence_specs": [
     "E.thm:appE-convergencia-dominada"
+   ]
+  },
+  {
+   "id": "A.corpus.autolink.0000",
+   "conclusion": "C.ex:ch7-perdidas",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.ex:ch7-perdidas"
+   ]
+  },
+  {
+   "id": "A.corpus.autolink.0001",
+   "conclusion": "C.ex:ch7-perdidas",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.ex:ch7-perdidas-cuadratica"
+   ]
+  },
+  {
+   "id": "A.corpus.autolink.0002",
+   "conclusion": "C.ex:ch7-perdidas",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.ex:ch7-perdidas-clasificacion"
+   ]
+  },
+  {
+   "id": "A.corpus.autolink.0003",
+   "conclusion": "C.ex:ch7-perdidas",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.ex:ch7-perdidas-ponderada"
+   ]
+  },
+  {
+   "id": "A.corpus.autolink.0004",
+   "conclusion": "C.der:ch7-perdidas-medida",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.ex:ch7-perdidas-medida"
+   ]
+  },
+  {
+   "id": "A.corpus.autolink.0005",
+   "conclusion": "C.ex:ch7-james-stein",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.ex:ch7-james-stein"
+   ]
+  },
+  {
+   "id": "A.corpus.autolink.0006",
+   "conclusion": "C.ex:ch7-james-stein",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.ex:ch7-james-stein-mejora"
+   ]
+  },
+  {
+   "id": "A.corpus.autolink.0007",
+   "conclusion": "C.ex:ch7-james-stein",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.ex:ch7-james-stein-nulo"
+   ]
+  },
+  {
+   "id": "A.corpus.autolink.0008",
+   "conclusion": "C.ex:ch2-bernoulli-minimax",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.ex:ch2-bernoulli-minimax.riesgoB_eq"
+   ]
+  },
+  {
+   "id": "A.corpus.autolink.0009",
+   "conclusion": "C.ex:ch2-bernoulli-minimax",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.ex:ch2-bernoulli-minimax.bernoulli_regla_bayes_valores"
+   ]
+  },
+  {
+   "id": "A.corpus.autolink.0010",
+   "conclusion": "C.ex:ch2-bernoulli-minimax",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.ex:ch2-bernoulli-minimax.bernoulli_sesgo"
+   ]
+  },
+  {
+   "id": "A.corpus.autolink.0011",
+   "conclusion": "C.ex:ch2-bernoulli-minimax",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.ex:ch2-bernoulli-minimax.bernoulli_varianza"
+   ]
+  },
+  {
+   "id": "A.corpus.autolink.0012",
+   "conclusion": "C.ex:ch2-bernoulli-minimax",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.ex:ch2-bernoulli-minimax.bernoulli_riesgo_constante"
+   ]
+  },
+  {
+   "id": "A.corpus.autolink.0013",
+   "conclusion": "C.ex:ch2-bernoulli-minimax",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.ex:ch2-bernoulli-minimax.bernoulli_riesgo_identidad"
+   ]
+  },
+  {
+   "id": "A.corpus.autolink.0014",
+   "conclusion": "C.ex:ch2-bernoulli-minimax",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.ex:ch2-bernoulli-minimax.bernoulli_identidad_riesgo_max"
+   ]
+  },
+  {
+   "id": "A.corpus.autolink.0015",
+   "conclusion": "C.ex:ch2-bernoulli-minimax",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.ex:ch2-bernoulli-minimax.bernoulli_contraccion_mejora_peor_caso"
+   ]
+  },
+  {
+   "id": "A.corpus.autolink.0016",
+   "conclusion": "C.ex:ch1-perdidas-comunes",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.ex:ch1-perdidas-comunes.perdidas_comunes_no_negativas"
+   ]
+  },
+  {
+   "id": "A.corpus.autolink.0017",
+   "conclusion": "C.ex:ch1-perdidas-comunes",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.ex:ch1-perdidas-comunes.perdidas_comunes_ecm_descomposicion"
+   ]
+  },
+  {
+   "id": "A.corpus.autolink.0018",
+   "conclusion": "C.ex:ch1-perdidas-comunes",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.ex:ch1-perdidas-comunes.perdidas_comunes_cero_uno_complemento"
+   ]
+  },
+  {
+   "id": "A.corpus.autolink.0019",
+   "conclusion": "C.thm:ch1-suficiencia-natural",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.thm:ch1-suficiencia-natural.suficiente_estadistico_natural"
+   ]
+  },
+  {
+   "id": "A.corpus.autolink.0020",
+   "conclusion": "C.ex:ch1-normal-gamma",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.ex:ch1-normal-gamma.normalGamma_formulas"
+   ]
+  },
+  {
+   "id": "A.corpus.autolink.0021",
+   "conclusion": "C.ex:ch1-normal-gamma",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.ex:ch1-normal-gamma.normalGamma_precision_crece"
+   ]
+  },
+  {
+   "id": "A.corpus.autolink.0022",
+   "conclusion": "C.ex:ch1-normal-gamma",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.ex:ch1-normal-gamma.normalGamma_beta_no_decrece"
+   ]
+  },
+  {
+   "id": "A.corpus.autolink.0023",
+   "conclusion": "C.ex:ch1-normal-gamma",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.ex:ch1-normal-gamma.normalGamma_invariante"
+   ]
+  },
+  {
+   "id": "A.corpus.autolink.0024",
+   "conclusion": "C.ex:ch1-normal-gamma",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.ex:ch1-normal-gamma.normalGamma_varianza_pos"
+   ]
+  },
+  {
+   "id": "A.corpus.autolink.0025",
+   "conclusion": "C.ex:ch1-t-student",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.ex:ch1-t-student.tBase_pos"
+   ]
+  },
+  {
+   "id": "A.corpus.autolink.0026",
+   "conclusion": "C.ex:ch1-t-student",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.ex:ch1-t-student.tBase_even"
+   ]
+  },
+  {
+   "id": "A.corpus.autolink.0027",
+   "conclusion": "C.ex:ch1-t-student",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.ex:ch1-t-student.tLocEscala_traslacion"
+   ]
+  },
+  {
+   "id": "A.corpus.autolink.0028",
+   "conclusion": "C.ex:ch1-t-student",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.ex:ch1-t-student.tLocEscala_escala"
+   ]
+  },
+  {
+   "id": "A.corpus.autolink.0029",
+   "conclusion": "C.ex:ch1-t-student",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.ex:ch1-t-student.tBase_cola_superior"
+   ]
+  },
+  {
+   "id": "A.corpus.autolink.0030",
+   "conclusion": "C.ex:ch1-t-student",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.ex:ch1-t-student.tBase_cola_inferior"
+   ]
+  },
+  {
+   "id": "A.corpus.autolink.0031",
+   "conclusion": "C.ex:ch1-mezcla-normal",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.ex:ch1-mezcla-normal.mezcla_normal_densidad"
+   ]
+  },
+  {
+   "id": "A.corpus.autolink.0032",
+   "conclusion": "C.ex:ch1-mezcla-normal",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.ex:ch1-mezcla-normal.mezcla_normal_varianza_total"
+   ]
+  },
+  {
+   "id": "A.corpus.autolink.0033",
+   "conclusion": "C.ex:ch1-gumbel",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.ex:ch1-gumbel.gumbel_max_estable"
+   ]
+  },
+  {
+   "id": "A.corpus.autolink.0034",
+   "conclusion": "C.ex:ch1-gumbel",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.ex:ch1-gumbel.gumbel_suficiencia_escala"
+   ]
+  },
+  {
+   "id": "A.corpus.autolink.0035",
+   "conclusion": "C.ex:ch2-minimal-exponencial",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.ex:ch2-minimal-exponencial.exponencial_cociente"
+   ]
+  },
+  {
+   "id": "A.corpus.autolink.0036",
+   "conclusion": "C.ex:ch2-minimal-exponencial",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.ex:ch2-minimal-exponencial.exponencial_minimal"
+   ]
+  },
+  {
+   "id": "A.corpus.autolink.0037",
+   "conclusion": "C.ex:ch2-multinomial-ssch",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.ex:ch2-multinomial-ssch.multinomial_normalizacion"
+   ]
+  },
+  {
+   "id": "A.corpus.autolink.0038",
+   "conclusion": "C.ex:ch2-multinomial-ssch",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.ex:ch2-multinomial-ssch.multinomial_referencia"
+   ]
+  },
+  {
+   "id": "A.corpus.autolink.0039",
+   "conclusion": "C.ex:ch2-multinomial-ssch",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.ex:ch2-multinomial-ssch.multinomial_factorizacion"
+   ]
+  },
+  {
+   "id": "A.corpus.autolink.0040",
+   "conclusion": "C.ex:ch2-multinomial-ssch",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.ex:ch2-multinomial-ssch.multinomial_gibbs"
+   ]
+  },
+  {
+   "id": "A.corpus.autolink.0041",
+   "conclusion": "C.ex:ch2-multinomial-ssch",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.ex:ch2-multinomial-ssch.multinomial_mle_instancia"
+   ]
+  },
+  {
+   "id": "A.corpus.autolink.0042",
+   "conclusion": "C.ex:ch2-ancilar-localizacion",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.ex:ch2-ancilar-localizacion.media_traslacion"
+   ]
+  },
+  {
+   "id": "A.corpus.autolink.0043",
+   "conclusion": "C.ex:ch2-ancilar-localizacion",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.ex:ch2-ancilar-localizacion.residuos_traslacion"
+   ]
+  },
+  {
+   "id": "A.corpus.autolink.0044",
+   "conclusion": "C.ex:ch2-ancilar-localizacion",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.ex:ch2-ancilar-localizacion.residuos_formula"
+   ]
+  },
+  {
+   "id": "A.corpus.autolink.0045",
+   "conclusion": "C.ex:ch2-ancilar-localizacion",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.ex:ch2-ancilar-localizacion.residuos_suma_cero"
+   ]
+  },
+  {
+   "id": "A.corpus.autolink.0046",
+   "conclusion": "C.ex:ch2-basu-aplicacion",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.ex:ch2-basu-aplicacion.normal_suma_cuadrados"
+   ]
+  },
+  {
+   "id": "A.corpus.autolink.0047",
+   "conclusion": "C.ex:ch2-basu-aplicacion",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.ex:ch2-basu-aplicacion.normal_factorizacion"
+   ]
+  },
+  {
+   "id": "A.corpus.autolink.0048",
+   "conclusion": "C.ex:ch2-basu-aplicacion",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.ex:ch2-basu-aplicacion.normal_varianza_media"
+   ]
+  },
+  {
+   "id": "A.corpus.autolink.0049",
+   "conclusion": "C.ex:ch2-basu-aplicacion",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.ex:ch2-basu-aplicacion.normal_varianza_invariante"
+   ]
+  },
+  {
+   "id": "A.corpus.autolink.0050",
+   "conclusion": "C.prop:ch10-dm",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.prop:ch10-dm"
+   ]
+  },
+  {
+   "id": "A.corpus.autolink.0051",
+   "conclusion": "C.prop:ch10-dm",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.prop:ch10-dm-1"
+   ]
+  },
+  {
+   "id": "A.corpus.autolink.0052",
+   "conclusion": "C.cor:ch10-curse",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.cor:ch10-curse"
+   ]
+  },
+  {
+   "id": "A.corpus.autolink.0053",
+   "conclusion": "C.prop:ch10-is-shift",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.prop:ch10-is-shift"
+   ]
+  },
+  {
+   "id": "A.corpus.autolink.0054",
+   "conclusion": "C.prop:ch10-is-shift",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.prop:ch10-is-shift-1"
+   ]
+  },
+  {
+   "id": "A.corpus.autolink.0055",
+   "conclusion": "C.prop:ch10-dro-garantia",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.prop:ch10-dro-garantia"
+   ]
+  },
+  {
+   "id": "A.corpus.autolink.0056",
+   "conclusion": "C.ex:ssch-dist-shift-cap10",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.ex:ssch-dist-shift-cap10"
+   ]
+  },
+  {
+   "id": "A.corpus.autolink.0057",
+   "conclusion": "C.ex:ch10-shift-ssch",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.ex:ch10-shift-ssch"
+   ]
+  },
+  {
+   "id": "A.corpus.autolink.0058",
+   "conclusion": "C.thm:ch10-dr-eficiencia",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.thm:ch10-dr-eficiencia"
+   ]
+  },
+  {
+   "id": "A.corpus.autolink.0059",
+   "conclusion": "C.thm:ch10-dr-eficiencia",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.thm:ch10-dr-eficiencia-1"
+   ]
+  },
+  {
+   "id": "A.corpus.autolink.0060",
+   "conclusion": "C.thm:ch10-truncamiento",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.thm:ch10-truncamiento"
+   ]
+  },
+  {
+   "id": "A.corpus.autolink.0061",
+   "conclusion": "C.thm:ch10-truncamiento",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.thm:ch10-truncamiento-1"
+   ]
+  },
+  {
+   "id": "A.corpus.autolink.0062",
+   "conclusion": "C.ex:ch10-pipeline",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.ex:ch10-pipeline"
+   ]
+  },
+  {
+   "id": "A.corpus.autolink.0063",
+   "conclusion": "C.ex:ssch-cap10",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.ex:ssch-cap10"
+   ]
+  },
+  {
+   "id": "A.corpus.autolink.0064",
+   "conclusion": "C.der:gordin-poisson",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.der:gordin-poisson"
+   ]
+  },
+  {
+   "id": "A.corpus.autolink.0065",
+   "conclusion": "C.der:gordin-decomposition",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.der:gordin-decomposition"
+   ]
+  },
+  {
+   "id": "A.corpus.autolink.0066",
+   "conclusion": "C.der:gordin-boundary",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.der:gordin-boundary"
+   ]
+  },
+  {
+   "id": "A.corpus.autolink.0067",
+   "conclusion": "C.der:gordin-martingale-increment",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.der:gordin-martingale-increment"
+   ]
+  },
+  {
+   "id": "A.corpus.autolink.0068",
+   "conclusion": "C.der:gordin-bracket",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.der:gordin-bracket"
+   ]
+  },
+  {
+   "id": "A.corpus.autolink.0069",
+   "conclusion": "C.der:gordin-max-principle",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.der:gordin-max-principle"
+   ]
+  },
+  {
+   "id": "A.corpus.autolink.0070",
+   "conclusion": "C.ex:ch1-medible-intuicion",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.ex:ch1-medible-intuicion.continuidad"
+   ]
+  },
+  {
+   "id": "A.corpus.autolink.0071",
+   "conclusion": "C.ex:ch1-medible-intuicion",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.ex:ch1-medible-intuicion.ley"
+   ]
+  },
+  {
+   "id": "A.corpus.autolink.0072",
+   "conclusion": "C.ex:ch1-medible-intuicion",
+   "premises": [],
+   "rule": "LEAN_ANCHOR",
+   "evidence_specs": [
+    "E.ex:ch1-medible-intuicion.esperanza"
    ]
   }
  ],
@@ -6784,7 +7497,7 @@
   {
    "id": "E.ex:ch7-perdidas-medida",
    "kind": "lean",
-   "claim_id": "C.ex:ch7-perdidas",
+   "claim_id": "C.der:ch7-perdidas-medida",
    "runner_id": "lean-export",
    "target": "Cap02M11.ex_ch7_perdidas_ponderada_medida",
    "scope": {
@@ -7591,18 +8304,6 @@
    "claim_id": "C.ex:ch2-basu-aplicacion",
    "runner_id": "lean-export",
    "target": "Book.Cap04Ch2.normal_varianza_invariante",
-   "scope": {
-    "domain": "finite",
-    "lean_axioms": "propext,Classical.choice,Quot.sound"
-   },
-   "availability": "candidate"
-  },
-  {
-   "id": "E.prop:ch2-suficiencia-politicas.suficiencia_politicas",
-   "kind": "lean",
-   "claim_id": "C.prop:ch2-suficiencia-politicas",
-   "runner_id": "lean-export",
-   "target": "Book.Cap04Ch2.suficiencia_politicas",
    "scope": {
     "domain": "finite",
     "lean_axioms": "propext,Classical.choice,Quot.sound"
@@ -8580,7 +9281,7 @@
   {
    "id": "E.thm:appD-ibragimov",
    "kind": "lean",
-   "claim_id": "C.thm:appD-ibragimov",
+   "claim_id": "C.der:appD-ibragimov-cuantitativo",
    "runner_id": "lean-export",
    "target": "Book.ApendiceDIbragimov.thm_appD_ibragimov",
    "scope": {
@@ -8596,7 +9297,7 @@
    "runner_id": "lean-export",
    "target": "ApendiceDGordinM8.Chain.poisson_solution",
    "scope": {
-    "domain": "probabilistic",
+    "domain": "finite",
     "lean_axioms": "propext,Classical.choice,Quot.sound"
    },
    "availability": "candidate"
@@ -8608,7 +9309,7 @@
    "runner_id": "lean-export",
    "target": "ApendiceDGordinM8.Chain.gordin_decomposition",
    "scope": {
-    "domain": "probabilistic",
+    "domain": "finite",
     "lean_axioms": "propext,Classical.choice,Quot.sound"
    },
    "availability": "candidate"
@@ -8620,7 +9321,7 @@
    "runner_id": "lean-export",
    "target": "ApendiceDGordinM8.Chain.tendsto_boundary_div_sqrt",
    "scope": {
-    "domain": "probabilistic",
+    "domain": "finite",
     "lean_axioms": "propext,Classical.choice,Quot.sound"
    },
    "availability": "candidate"
@@ -8632,7 +9333,7 @@
    "runner_id": "lean-export",
    "target": "ApendiceDGordinM8.Chain.martIncrement_cond_mean",
    "scope": {
-    "domain": "probabilistic",
+    "domain": "finite",
     "lean_axioms": "propext,Classical.choice,Quot.sound"
    },
    "availability": "candidate"
@@ -8644,7 +9345,7 @@
    "runner_id": "lean-export",
    "target": "ApendiceDGordinM8.Chain.bracket_decomposition",
    "scope": {
-    "domain": "probabilistic",
+    "domain": "finite",
     "lean_axioms": "propext,Classical.choice,Quot.sound"
    },
    "availability": "candidate"
@@ -8656,7 +9357,7 @@
    "runner_id": "lean-export",
    "target": "ApendiceDGordinM8.Chain.harmonic_eq_zero",
    "scope": {
-    "domain": "probabilistic",
+    "domain": "finite",
     "lean_axioms": "propext,Classical.choice,Quot.sound"
    },
    "availability": "candidate"
@@ -8741,7 +9442,7 @@
    "target": "Book.ApendiceEMedidoDctM5.appE_convergencia_dominada",
    "scope": {
     "lean_axioms": "propext,Classical.choice,Quot.sound",
-    "ambito": "medida_general"
+    "domain": "measure"
    },
    "availability": "candidate"
   }

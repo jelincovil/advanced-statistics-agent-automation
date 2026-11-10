@@ -110,12 +110,12 @@ fn recibo(spec: &EvidenceSpec) -> Receipt {
         id: format!("R.{}", spec.id),
         spec_id: spec.id.clone(),
         spec_hash: spec_hash(spec),
-        source_commit: "fixture".into(),
+        source_commit: "a".repeat(40),
         environment_hash: "e".repeat(64),
         checker_version: "0.1.0".into(),
         command_argv: vec!["runner".into()],
         working_directory: ".".into(),
-        input_hashes: BTreeMap::new(),
+        input_hashes: BTreeMap::from([("fixture".into(), "f".repeat(64))]),
         started_at: "t0".into(),
         finished_at: "t1".into(),
         exit_status: Some(0),
@@ -125,7 +125,14 @@ fn recibo(spec: &EvidenceSpec) -> Receipt {
         artifacts: vec![],
         execution_passed: true,
         scientific_criterion_met: Some(true),
-        observed_checks: vec![],
+        observed_checks: vec![argumentos::receipt::ObservedCheck {
+            id: match spec.kind {
+                EvidenceKind::Lean => "lean_provenance".into(),
+                EvidenceKind::Python => "criterion".into(),
+            },
+            status: argumentos::receipt::CheckStatus::Pass,
+            detail: "fixture aceptable".into(),
+        }],
         trust_mode: TrustMode::LocallyReproduced,
     }
 }
@@ -327,7 +334,14 @@ fn p04_traduccion_hipotesis_registradas() {
     );
     for id in ["A.trad.val", "A.trad.opt"] {
         let res = &r.results[id];
-        assert_eq!(res.decision, Decision::Accepted, "{}", id);
+        assert!(
+            matches!(
+                res.decision,
+                Decision::Accepted | Decision::AcceptedConditional { .. }
+            ),
+            "{}",
+            id
+        );
         // Las hipótesis se conservan como obligaciones, no desaparecen.
         assert!(
             res.obligations.contains(&"H.Nonempty".to_string()),

@@ -12,7 +12,7 @@ open Finset BigOperators
 
 /-! ## #28: cuantización -/
 
-/-- book: capitulos/cap11_despliegue.typ:101 (key: cap11-cuantizacion) —
+/-- book: capitulos/cap11_despliegue.typ:97 (key: cap11-cuantizacion) —
 ejemplo verificable de cuantización. Origen: F3 2026-11-05 (nuevo). -/
 theorem ch11_cuantizacion_ejemplo :
     ((1:ℝ)/4) * (1/5) + ((3:ℝ)/4) * (4/5) + ((3:ℝ)/4) / (1/2) * (1 - 4/5) = 19 / 20
@@ -25,7 +25,7 @@ theorem ch11_cuantizacion_ejemplo :
 
 /-! ## #29: truncamiento de horizonte -/
 
-/-- book: capitulos/cap11_despliegue.typ:165 (key: cap11-truncamiento) —
+/-- book: capitulos/cap11_despliegue.typ:167 (key: cap11-truncamiento) —
 truncamiento de horizonte: `B_H = R_max·γ^H/(1−γ)`; con `R_max = 6/5`,
 `γ = 9/10` y tolerancia `1/10`, el menor `H` es `46`: con `45` todavía
 falla (`B_45 > 1/10`), con `46` ya sirve (`B_46 ≤ 1/10`). Verificación
@@ -41,7 +41,7 @@ theorem ch11_truncamiento :
 
 /-! ## #30: monitoreo con multiplicidad temporal -/
 
-/-- book: capitulos/cap11_despliegue.typ:607 (key: cap11-monitoreo) —
+/-- book: capitulos/cap11_despliegue.typ:611 (key: cap11-monitoreo) —
 monitoreo: el telescopio suma `α` en total (cada término es
 `α/(m(m+1))`, y `Σ_{m=1}^{M} 1/(m(m+1)) = 1 − 1/(M+1) ≤ 1`). Aquí se
 verifica el caso `M = 3` como igualdad exacta y la cota `≤ α` en general.
@@ -56,7 +56,7 @@ theorem ch11_monitoreo (α : ℝ) (hα : 0 ≤ α) :
 
 /-! ## #33: MDP de validación (apéndice E) -/
 
-/-- book: capitulos/cap11_despliegue.typ:269 (key: def:appE-mdp-test) —
+/-- book: capitulos/cap11_despliegue.typ:273 (key: def:appE-mdp-test) —
 MDP de validación del apéndice E: tres estados, dos acciones,
 descuento `γ = 9/10`, política objetivo `π(a₁|s) = 3/5`. El punto fijo
 `V_∞` resuelve `(I − γP^π)V = r^π` (verificado por sustitución racional

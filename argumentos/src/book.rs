@@ -447,7 +447,12 @@ pub fn audit_structural(kernel: &crate::model::Kernel, inventory: &BookInventory
     let keys: BTreeSet<&str> = inventory.blocks.iter().map(|b| b.key.as_str()).collect();
     for claim in &kernel.claims {
         if let Some(bk) = &claim.book_key {
-            if !keys.contains(bk.as_str()) {
+            if bk.starts_with("der:") {
+                hallazgos.push(format!(
+                    "AUXILIAR: {} es derivación interna declarada y no exige caja propia ({})",
+                    bk, claim.id
+                ));
+            } else if !keys.contains(bk.as_str()) {
                 hallazgos.push(format!(
                     "claim {} referencia book_key '{}' no encontrado en el libro",
                     claim.id, bk
@@ -455,7 +460,9 @@ pub fn audit_structural(kernel: &crate::model::Kernel, inventory: &BookInventory
             }
         }
     }
-    // Claves del libro sin claim en el kernel (informativo, no error).
+    // F07: también la dirección libro → kernel. Son entradas de cobertura,
+    // no errores de referencia; aparecen para que cada bloque deba quedar
+    // revisado o excluido justificadamente, nunca olvidado por el contador.
     let claim_keys: BTreeSet<&str> = kernel
         .claims
         .iter()
@@ -463,7 +470,10 @@ pub fn audit_structural(kernel: &crate::model::Kernel, inventory: &BookInventory
         .collect();
     for block in &inventory.blocks {
         if !claim_keys.contains(block.key.as_str()) {
-            // Solo reportar las del piloto.
+            hallazgos.push(format!(
+                "COBERTURA: bloque '{}' ({}/{}) sin claim; pendiente de revisión o exclusión justificada",
+                block.key, block.file, block.kind
+            ));
         }
     }
     hallazgos

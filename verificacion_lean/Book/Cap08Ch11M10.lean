@@ -233,7 +233,7 @@ theorem ch11_ic_escala_episodios (σhat z : ℝ) (n T : ℕ) (hn : 0 < n) (hT : 
 
 /-! ### 3. `thm:ch11-n` — planificación normal aproximada -/
 
-/-- book: capitulos/cap08_intervalos.typ:377 (key: thm:ch11-n) —
+/-- book: capitulos/cap08_intervalos.typ:379 (key: thm:ch11-n) —
 **Planificación normal aproximada.** Para un contraste bilateral de nivel `α`
 con diferencia relevante `δ > 0`, poder aproximado `1−β` y desviación `σ_D` de
 la contribución, la condición de poder `√n·δ ≥ (z_{1−α/2}+z_{1−β})·σ_D` es
@@ -250,7 +250,7 @@ theorem ch11_n_condicion (z1 z2 σD δ : ℝ) (hσ : 0 < σD) (hδ : 0 < δ)
   have hc : 0 ≤ (z1 + z2) * σD / δ := le_of_lt (div_pos (mul_pos hz hσ) hδ)
   exact (div_le_iff₀ hδ).symm.trans (Real.le_sqrt hc hn0)
 
-/-- book: capitulos/cap08_intervalos.typ:377 (key: thm:ch11-n) —
+/-- book: capitulos/cap08_intervalos.typ:379 (key: thm:ch11-n) —
 **El tamaño `n` es el entero mínimo que supera la cantidad planificada:** si
 `m < c ≤ m+1`, ningún `n ≤ m` cumple `c ≤ n`. -/
 theorem ch11_n_minimo (c : ℝ) (m n : ℕ) (h1 : (m : ℝ) < c) (hn : c ≤ (n : ℝ)) :
@@ -260,7 +260,7 @@ theorem ch11_n_minimo (c : ℝ) (m n : ℕ) (h1 : (m : ℝ) < c) (hn : c ≤ (n 
   have hcast : (n : ℝ) ≤ (m : ℝ) := by exact_mod_cast hle
   linarith
 
-/-- book: capitulos/cap08_intervalos.typ:377 (key: thm:ch11-n) —
+/-- book: capitulos/cap08_intervalos.typ:379 (key: thm:ch11-n) —
 **Números del libro.** (i) Con efecto estandarizado `δ/σ_D = 0.2`, cuantiles
 precisos (`z_{0.975} = 1.959964`, `z_{0.80} = 0.841621`) dan
 `n = ⌈196.22⌉ = 197`; redondeando primero a `1.96` y `0.84` se obtiene
@@ -286,7 +286,7 @@ theorem ch11_n_ejemplos :
 
 /-! ### 4. `prop:ch11-reinforce-if` — momentos del gradiente y función de influencia -/
 
-/-- book: capitulos/cap08_intervalos.typ:517 (key: prop:ch11-reinforce-if) —
+/-- book: capitulos/cap08_intervalos.typ:519 (key: prop:ch11-reinforce-if) —
 **Momentos del gradiente y función de influencia.** Para una política fija y
 episodios iid con `Z(O) = ∑_t γ^t z_t G_t` de segundo momento finito, el
 promedio `ĝ` de `n` episodios cumple `E[ĝ] = E[Z]`, `Var(ĝ) = Var(Z)/n`, y
@@ -360,7 +360,7 @@ noncomputable def seObj : ℝ := Real.sqrt ((100/99 : ℝ) * (2461/40000) / 100)
 /-- Error estándar exacto de la diferencia pareada: `s_Δ² = (100/99)·0.010125`. -/
 noncomputable def seDelta : ℝ := Real.sqrt ((100/99 : ℝ) * (81/8000) / 100)
 
-/-- book: capitulos/cap08_intervalos.typ:602 (key: ex:ssch-cap11) —
+/-- book: capitulos/cap08_intervalos.typ:604 (key: ex:ssch-cap11) —
 **SSCH: intervalo para la política objetivo.** Las cuatro contribuciones DR son
 `1.190, 1.370, 1.300, 1.840`; con `n = 100` episodios iid, 25 por trayectoria,
 `Ĵ = 1.425`, la varianza poblacional es `0.061525`, `s_D² = (100/99)·0.061525`,
@@ -392,7 +392,7 @@ theorem ch11_ssch_objetivo :
   · linarith
   · linarith
 
-/-- book: capitulos/cap08_intervalos.typ:602 (key: ex:ssch-cap11) —
+/-- book: capitulos/cap08_intervalos.typ:604 (key: ex:ssch-cap11) —
 **SSCH: comparación pareada.** Los valores verdaderos son `1.425` (objetivo) y
 `0.950` (referencia). Las diferencias por episodio son
 `0.520, 0.340, 0.430, 0.610`: `Δ̂ = 0.475`, `Var(Δ) = 0.010125`,
@@ -513,7 +513,7 @@ theorem ch11_ergodico_geometrico {S : Type*} [Fintype S]
 
 /-! ### 7. `thm:ch11-pg-theorem` — identidad del gradiente de política -/
 
-/-- book: capitulos/cap08_intervalos.typ:440 (key: thm:ch11-pg-theorem) —
+/-- book: capitulos/cap08_intervalos.typ:442 (key: thm:ch11-pg-theorem) —
 **Identidad del gradiente de política (nivel trayectoria).** Con horizonte
 `H`, probabilidades de trayectoria `p_θ(τ)` derivables en `θ₀`, retorno
 descontado `G(τ)` y score por tiempo `z_t(τ)`, si la derivada de la
@@ -547,7 +547,7 @@ theorem ch11_pg_identidad {H : ℕ} {T : Type*} [Fintype T]
   rw [hz τ, Finset.mul_sum, Finset.mul_sum, Finset.sum_mul]
   exact Finset.sum_congr rfl fun t _ => by ring
 
-/-- book: capitulos/cap08_intervalos.typ:440 (key: thm:ch11-pg-theorem) —
+/-- book: capitulos/cap08_intervalos.typ:442 (key: thm:ch11-pg-theorem) —
 **Segunda igualdad: causalidad.** Si el término de causalidad
 `E[∑_t γ^t z_t (G_t − q_t(S_t,A_t))]` se anula (porque el score de la acción
 `t` tiene media condicional cero dada la historia previa), entonces puede

@@ -350,15 +350,17 @@ exacta de SAVE.
 ]
 #env-alias("thm:ch8-szls-tasas", kind: "note")
 
-*Ejemplo elemental de una decisión.* Con dos acciones, sea
-$Delta(s)=abs(q(s,1)-q(s,0))$ y suponga
-$Prob(0<Delta(S)<=u)<=C u^kappa$. Si
-$norm(hat(q)-q)_infinity<=epsilon.alt$, una acción greedy incorrecta
-solo puede tener gap positivo menor o igual a $2epsilon.alt$. Por tanto,
-$ EE(q(S,a^*(S))-q(S,hat(a)(S)))<=C(2epsilon.alt)^(1+kappa). $
-Los empates tienen pérdida cero. Este cálculo es autocontenido para una
-decisión; no certifica que una red neuronal alcance el error supuesto,
-ni sustituye las condiciones longitudinales del artículo.
+#thm-env("example", key: "cap11-margen")[
+  *Ejemplo elemental de una decisión.* Con dos acciones, sea
+  $Delta(s)=abs(q(s,1)-q(s,0))$ y suponga
+  $Prob(0<Delta(S)<=u)<=C u^kappa$. Si
+  $norm(hat(q)-q)_infinity<=epsilon.alt$, una acción greedy incorrecta
+  solo puede tener gap positivo menor o igual a $2epsilon.alt$. Por tanto,
+  $ EE(q(S,a^*(S))-q(S,hat(a)(S)))<=C(2epsilon.alt)^(1+kappa). $
+  Los empates tienen pérdida cero. Este cálculo es autocontenido para una
+  decisión; no certifica que una red neuronal alcance el error supuesto,
+  ni sustituye las condiciones longitudinales del artículo.
+]
 
 #thm-env("note", name: [Qué se puede atribuir a SAVE], key: "prop:ch11-save")[
   Evaluar con orden temporal atiende la adaptación, pero no demuestra

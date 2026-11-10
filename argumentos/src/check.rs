@@ -152,6 +152,68 @@ pub struct ArgumentResult {
 pub struct CheckReport {
     pub canonical_hash: String,
     pub results: BTreeMap<String, ArgumentResult>,
+    /// Estado por claim, no solo por argumento. Los huérfanos son
+    /// explícitamente Pending y nunca desaparecen del reporte (F06).
+    pub claim_states: BTreeMap<String, ClaimState>,
+}
+
+#[derive(Debug, Clone, PartialEq)]
+pub enum ClaimState {
+    Closed,
+    Conditional { open: Vec<String> },
+    Pending { reason: String },
+    Rejected { reason: String },
+}
+
+fn compute_claim_states(
+    kernel: &Kernel,
+    results: &BTreeMap<String, ArgumentResult>,
+) -> BTreeMap<String, ClaimState> {
+    let mut states = BTreeMap::new();
+    for claim in &kernel.claims {
+        let support: Vec<_> = kernel
+            .arguments
+            .iter()
+            .filter(|a| a.conclusion == claim.id)
+            .filter_map(|a| results.get(&a.id))
+            .collect();
+        let state = if support.is_empty() {
+            ClaimState::Pending {
+                reason: "claim sin argumento".into(),
+            }
+        } else if support
+            .iter()
+            .any(|r| matches!(r.decision, Decision::Accepted))
+        {
+            ClaimState::Closed
+        } else if support
+            .iter()
+            .any(|r| matches!(r.decision, Decision::AcceptedConditional { .. }))
+        {
+            let mut open = Vec::new();
+            for r in support {
+                if let Decision::AcceptedConditional { open: current } = &r.decision {
+                    open.extend(current.iter().cloned());
+                }
+            }
+            open.sort();
+            open.dedup();
+            ClaimState::Conditional { open }
+        } else if support
+            .iter()
+            .any(|r| matches!(r.decision, Decision::Pending { .. }))
+        {
+            ClaimState::Pending {
+                reason: "sin evidencia validada".into(),
+            }
+        } else {
+            ClaimState::Rejected {
+                reason: "todos los argumentos rechazados".into(),
+            }
+        };
+        states.insert(claim.id.clone(), state);
+    }
+    states
 }
 
 pub struct CheckInput<'a> {
@@ -173,11 +235,16 @@ pub fn check(input: &CheckInput) -> CheckReport {
         .iter()
         .map(|s| (s.id.as_str(), s))
         .collect();
-    let by_spec: HashMap<&str, &Receipt> = input
-        .receipts
-        .iter()
-        .map(|r| (r.spec_id.as_str(), r))
-        .collect();
+    // F05: conservar TODOS los recibos. El antiguo Map<&str, &Receipt>
+    // seleccionaba silenciosamente el último y hacía depender la decisión
+    // del orden de lectura.
+    let mut by_spec: HashMap<&str, Vec<&Receipt>> = HashMap::new();
+    for receipt in input.receipts {
+        by_spec
+            .entry(receipt.spec_id.as_str())
+            .or_default()
+            .push(receipt);
+    }
 
     let mut results: BTreeMap<String, ArgumentResult> = BTreeMap::new();
     for arg in &input.kernel.arguments {
@@ -189,9 +256,11 @@ pub fn check(input: &CheckInput) -> CheckReport {
     propagate_stale(input, &mut results);
     let canonical = canonical_serialization(&results);
     let canonical_hash = format!("{:x}", sha2::Sha256::digest(canonical.as_bytes()));
+    let claim_states = compute_claim_states(input.kernel, &results);
     CheckReport {
         canonical_hash,
         results,
+        claim_states,
     }
 }
 
@@ -199,7 +268,7 @@ fn check_argument(
     arg: &Argument,
     claims: &HashMap<&str, &Claim>,
     specs: &HashMap<&str, &EvidenceSpec>,
-    by_spec: &HashMap<&str, &Receipt>,
+    by_spec: &HashMap<&str, Vec<&Receipt>>,
     input: &CheckInput,
 ) -> ArgumentResult {
     // N06: resolución de IDs (conclusión, premisas y specs).
@@ -279,7 +348,7 @@ fn check_argument(
     // claves, nunca cambiar las existentes.
     if arg.rule == Rule::ConditionalApplication {
         for p in &premise_claims {
-            if let Some((k, ev, af)) = scope_mismatch(&p.scope, &conclusion.scope) {
+            if let Some((k, ev, af)) = conditional_scope_mismatch(&p.scope, &conclusion.scope) {
                 return rejected(
                     arg,
                     Rejection::ScopeMismatch {
@@ -345,9 +414,30 @@ fn check_argument(
             &mut obligations,
             &mut diagnostics,
         ),
-        Rule::LeanApply => lean_apply(arg, &evidence_specs, by_spec, &mut obligations),
-        Rule::AndIntro => and_intro(arg, conclusion, &premise_claims, &mut obligations),
-        Rule::ModusPonens => modus_ponens(arg, conclusion, &premise_claims, &mut obligations),
+        Rule::LeanApply => lean_apply(
+            arg,
+            conclusion,
+            &premise_claims,
+            &evidence_specs,
+            by_spec,
+            &mut obligations,
+        ),
+        Rule::AndIntro => and_intro(
+            arg,
+            conclusion,
+            &premise_claims,
+            &evidence_specs,
+            by_spec,
+            &mut obligations,
+        ),
+        Rule::ModusPonens => modus_ponens(
+            arg,
+            conclusion,
+            &premise_claims,
+            &evidence_specs,
+            by_spec,
+            &mut obligations,
+        ),
         Rule::EmpiricalRecord => empirical_record(
             conclusion,
             &evidence_specs,
@@ -356,7 +446,14 @@ fn check_argument(
             &mut diagnostics,
         ),
         Rule::ConditionalApplication => conditional(conclusion, &premise_claims, &mut obligations),
-        Rule::AliasExact => alias_exact(arg, conclusion, &premise_claims, &mut obligations),
+        Rule::AliasExact => alias_exact(
+            arg,
+            conclusion,
+            &premise_claims,
+            &evidence_specs,
+            by_spec,
+            &mut obligations,
+        ),
     };
     let (structure, formal, empirical, editorial) = axes(&decision, &evidence_specs);
     // Unión de obligaciones (docs/04): sin duplicados, preservando el
@@ -377,6 +474,128 @@ fn check_argument(
     }
 }
 
+// --- Confianza y recibos ---------------------------------------------------
+
+/// Procedencia mínima exigible a un recibo local/atestado. El ejecutor es
+/// quien produce el comprobante: el checker valida que el formulario tenga
+/// los elementos auditables y no un mero campo booleano de aprobación.
+fn provenance_ok(receipt: &Receipt, kind: EvidenceKind) -> bool {
+    let commit_ok = receipt.source_commit.len() == 40
+        && receipt.source_commit.chars().all(|c| c.is_ascii_hexdigit());
+    let environment_ok = receipt.environment_hash.len() == 64
+        && receipt
+            .environment_hash
+            .chars()
+            .all(|c| c.is_ascii_hexdigit());
+    let observed_ok = match kind {
+        EvidenceKind::Lean => receipt.observed_checks.iter().any(|c| {
+            c.id.starts_with("lean_provenance") && c.status == crate::receipt::CheckStatus::Pass
+        }),
+        EvidenceKind::Python => receipt.observed_checks.iter().any(|c| {
+            c.id.starts_with("criterion")
+                && matches!(
+                    c.status,
+                    crate::receipt::CheckStatus::Pass | crate::receipt::CheckStatus::Fail
+                )
+        }),
+    };
+    commit_ok && environment_ok && !receipt.input_hashes.is_empty() && observed_ok
+}
+
+fn trusted_execution(receipt: &Receipt) -> bool {
+    receipt.execution_passed
+        && receipt.termination == crate::receipt::Termination::Completed
+        && receipt.exit_status == Some(0)
+        && matches!(
+            receipt.trust_mode,
+            crate::receipt::TrustMode::LocallyReproduced
+                | crate::receipt::TrustMode::AttestedByConfiguredPolicy
+        )
+}
+
+/// Decisión de una spec con política explícita de duplicados (F05): un
+/// único resultado válido gana si todos los candidatos válidos son byte
+/// equivalentes salvo el ID; dos válidos contradictorios quedan pendientes
+/// de atestación, nunca se resuelven por orden o nombre de archivo.
+fn evidence_decision(spec: &EvidenceSpec, by_spec: &HashMap<&str, Vec<&Receipt>>) -> Decision {
+    let receipts = match by_spec.get(spec.id.as_str()) {
+        Some(rs) => rs,
+        None => {
+            return Decision::Pending {
+                reason: "spec sin recibo".into(),
+            }
+        }
+    };
+    let mut valid = Vec::new();
+    for r in receipts {
+        if r.spec_hash == spec_hash(spec) && trusted_execution(r) && provenance_ok(r, spec.kind) {
+            valid.push(*r);
+        }
+    }
+    if valid.is_empty() {
+        if receipts.iter().any(|r| r.spec_hash != spec_hash(spec)) {
+            return Decision::Rejected {
+                reason: Rejection::StaleEvidence {
+                    spec: spec.id.clone(),
+                },
+            };
+        }
+        return Decision::Pending {
+            reason: "recibo no válido: reproducción local o atestación y procedencia insuficientes"
+                .into(),
+        };
+    }
+    let mut fingerprints = BTreeSet::new();
+    for r in &valid {
+        let mut canonical = (*r).clone();
+        canonical.id.clear(); // el nombre del recibo no cambia su contenido
+        if let Ok(text) = serde_json::to_string(&canonical) {
+            fingerprints.insert(text);
+        }
+    }
+    if fingerprints.len() > 1 {
+        Decision::Pending {
+            reason: "recibos válidos contradictorios para la misma spec; atestación requerida"
+                .into(),
+        }
+    } else {
+        Decision::Accepted
+    }
+}
+
+fn finish_with_obligations(obligations: &[String]) -> Decision {
+    if obligations.is_empty() {
+        Decision::Accepted
+    } else {
+        Decision::AcceptedConditional {
+            open: open_of(obligations),
+        }
+    }
+}
+
+/// Toda spec aportada tiene que ser válida. Una regla proposicional válida
+/// no convierte una evidencia pendiente en LeanChecked (F01/F14).
+fn composition_decision(
+    arg: &Argument,
+    specs: &[&EvidenceSpec],
+    by_spec: &HashMap<&str, Vec<&Receipt>>,
+    obligations: &[String],
+) -> Decision {
+    for spec in specs {
+        let decision = evidence_decision(spec, by_spec);
+        if !matches!(decision, Decision::Accepted) {
+            return decision;
+        }
+    }
+    if arg.evidence_specs.is_empty() {
+        Decision::AcceptedConditional {
+            open: open_of(obligations),
+        }
+    } else {
+        finish_with_obligations(obligations)
+    }
+}
+
 // --- Reglas ----------------------------------------------------------------
 
 /// LEAN_ANCHOR (docs/04.1): spec lean apuntando a la conclusión, alcance
@@ -384,7 +603,7 @@ fn check_argument(
 fn lean_anchor(
     conclusion: &Claim,
     specs: &[&EvidenceSpec],
-    by_spec: &HashMap<&str, &Receipt>,
+    by_spec: &HashMap<&str, Vec<&Receipt>>,
     obligations: &mut Vec<String>,
     diagnostics: &mut Vec<String>,
 ) -> Decision {
@@ -412,7 +631,7 @@ fn lean_anchor(
             },
         };
     }
-    if let Some((k, ev, af)) = scope_mismatch(&spec.scope, &conclusion.scope) {
+    if let Some((k, ev, af)) = evidence_scope_mismatch(&spec.scope, &conclusion.scope) {
         return Decision::Rejected {
             reason: Rejection::ScopeMismatch {
                 clave: k,
@@ -433,26 +652,12 @@ fn lean_anchor(
         };
     }
     obligations.extend(conclusion.assumptions.iter().cloned());
-    match by_spec.get(spec.id.as_str()) {
-        Some(r)
-            if r.execution_passed
-                && r.trust_mode == crate::receipt::TrustMode::LocallyReproduced =>
-        {
-            diagnostics.push(format!("recibo {} reproducido localmente con exit 0", r.id));
-            Decision::Accepted
-        }
-        Some(r) => {
-            diagnostics.push(format!(
-                "recibo {} no descarga la obligación (fallo o importado sin atestación)",
-                r.id
-            ));
-            Decision::Pending {
-                reason: "recibo no válido".into(),
-            }
-        }
-        None => Decision::Pending {
-            reason: "spec sin recibo".into(),
-        },
+    let decision = evidence_decision(spec, by_spec);
+    if matches!(decision, Decision::Accepted) {
+        diagnostics.push("recibo válido con producción local o atestación verificable".into());
+        finish_with_obligations(obligations)
+    } else {
+        decision
     }
 }
 
@@ -460,10 +665,20 @@ fn lean_anchor(
 /// aprobar solo porque `lean` compiló otro teorema del archivo.
 fn lean_apply(
     arg: &Argument,
+    conclusion: &Claim,
+    premises: &[&Claim],
     specs: &[&EvidenceSpec],
-    by_spec: &HashMap<&str, &Receipt>,
+    by_spec: &HashMap<&str, Vec<&Receipt>>,
     obligations: &mut Vec<String>,
 ) -> Decision {
+    if conclusion.kind != crate::model::ClaimKind::Formal {
+        return Decision::Rejected {
+            reason: Rejection::KindMismatch {
+                regla: "LEAN_APPLY",
+                detalle: "la conclusión debe ser formal".into(),
+            },
+        };
+    }
     let spec = match specs.iter().find(|s| s.kind == EvidenceKind::Lean) {
         Some(s) => *s,
         None => {
@@ -472,6 +687,32 @@ fn lean_apply(
             }
         }
     };
+    if spec.claim_id != conclusion.id {
+        return Decision::Rejected {
+            reason: Rejection::UnknownReference {
+                id: spec.claim_id.clone(),
+            },
+        };
+    }
+    if let Some((k, ev, af)) = evidence_scope_mismatch(&spec.scope, &conclusion.scope) {
+        return Decision::Rejected {
+            reason: Rejection::ScopeMismatch {
+                clave: k,
+                evidencia: ev,
+                afirmacion: af,
+            },
+        };
+    }
+    let fuera: Vec<String> = declared_axioms(&spec.scope)
+        .iter()
+        .filter(|a| !STANDARD_AXIOMS.contains(&a.as_str()))
+        .cloned()
+        .collect();
+    if !fuera.is_empty() {
+        return Decision::Rejected {
+            reason: Rejection::NonStandardAxioms { axiomas: fuera },
+        };
+    }
     // El objetivo del wrapper declarado en el spec debe coincidir con la
     // conclusión del argumento (N16: mismo nombre con otro tipo también se
     // rechaza aquí, pues el spec declara el objetivo exacto).
@@ -487,19 +728,15 @@ fn lean_apply(
         };
     }
     obligations.extend(arg.premises.iter().cloned());
-    match by_spec.get(spec.id.as_str()) {
-        Some(r)
-            if r.execution_passed
-                && r.trust_mode == crate::receipt::TrustMode::LocallyReproduced =>
-        {
-            Decision::Accepted
-        }
-        Some(_) => Decision::Pending {
-            reason: "recibo no válido".into(),
-        },
-        None => Decision::Pending {
-            reason: "spec sin recibo".into(),
-        },
+    obligations.extend(conclusion.assumptions.iter().cloned());
+    for premise in premises {
+        obligations.extend(premise.assumptions.iter().cloned());
+    }
+    let decision = evidence_decision(spec, by_spec);
+    if matches!(decision, Decision::Accepted) {
+        finish_with_obligations(obligations)
+    } else {
+        decision
     }
 }
 
@@ -509,6 +746,8 @@ fn and_intro(
     arg: &Argument,
     conclusion: &Claim,
     premises: &[&Claim],
+    specs: &[&EvidenceSpec],
+    by_spec: &HashMap<&str, Vec<&Receipt>>,
     obligations: &mut Vec<String>,
 ) -> Decision {
     if premises.len() < 2 {
@@ -530,13 +769,8 @@ fn and_intro(
         };
     }
     obligations.extend(premises.iter().flat_map(|c| c.assumptions.iter().cloned()));
-    if arg.evidence_specs.is_empty() {
-        Decision::AcceptedConditional {
-            open: open_of(obligations),
-        }
-    } else {
-        Decision::Accepted
-    }
+    obligations.extend(conclusion.assumptions.iter().cloned());
+    composition_decision(arg, specs, by_spec, obligations)
 }
 
 /// MODUS_PONENS (docs/04.4): solo sobre AST exacta P e Implies(P,Q) → Q.
@@ -545,6 +779,8 @@ fn modus_ponens(
     arg: &Argument,
     conclusion: &Claim,
     premises: &[&Claim],
+    specs: &[&EvidenceSpec],
+    by_spec: &HashMap<&str, Vec<&Receipt>>,
     obligations: &mut Vec<String>,
 ) -> Decision {
     if premises.len() != 2 {
@@ -575,13 +811,8 @@ fn modus_ponens(
         };
     }
     obligations.extend(premises.iter().flat_map(|c| c.assumptions.iter().cloned()));
-    if arg.evidence_specs.is_empty() {
-        Decision::AcceptedConditional {
-            open: open_of(obligations),
-        }
-    } else {
-        Decision::Accepted
-    }
+    obligations.extend(conclusion.assumptions.iter().cloned());
+    composition_decision(arg, specs, by_spec, obligations)
 }
 
 /// EMPIRICAL_RECORD (docs/04.5): respalda la afirmación acotada de que E
@@ -590,7 +821,7 @@ fn modus_ponens(
 fn empirical_record(
     conclusion: &Claim,
     specs: &[&EvidenceSpec],
-    by_spec: &HashMap<&str, &Receipt>,
+    by_spec: &HashMap<&str, Vec<&Receipt>>,
     obligations: &mut Vec<String>,
     diagnostics: &mut Vec<String>,
 ) -> Decision {
@@ -616,7 +847,7 @@ fn empirical_record(
             },
         };
     }
-    if let Some((k, ev, af)) = scope_mismatch(&spec.scope, &conclusion.scope) {
+    if let Some((k, ev, af)) = evidence_scope_mismatch(&spec.scope, &conclusion.scope) {
         return Decision::Rejected {
             reason: Rejection::ScopeMismatch {
                 clave: k,
@@ -626,23 +857,48 @@ fn empirical_record(
         };
     }
     obligations.extend(conclusion.assumptions.iter().cloned());
-    match by_spec.get(spec.id.as_str()) {
-        Some(r)
-            if r.execution_passed
-                && r.trust_mode == crate::receipt::TrustMode::LocallyReproduced =>
-        {
-            diagnostics.push(format!(
-                "recibo {} reproduce el criterio preregistrado",
-                r.id
-            ));
-            Decision::Accepted
+    let decision = evidence_decision(spec, by_spec);
+    if !matches!(decision, Decision::Accepted) {
+        return decision;
+    }
+    let negative_claim = matches!(
+        conclusion.scope.get("claim_polarity").map(String::as_str),
+        Some("negative")
+    );
+    let criterion_failed = by_spec.get(spec.id.as_str()).is_some_and(|rs| {
+        rs.iter()
+            .filter(|r| trusted_execution(r))
+            .any(|r| r.scientific_criterion_met == Some(false))
+    });
+    if negative_claim {
+        if criterion_failed {
+            diagnostics.push("resultado negativo compatible con la afirmación acotada".into());
+            finish_with_obligations(obligations)
+        } else {
+            Decision::Pending {
+                reason: "la afirmación negativa requiere su criterio fallido registrado".into(),
+            }
         }
-        Some(_) => Decision::Pending {
-            reason: "recibo no válido".into(),
-        },
-        None => Decision::Pending {
-            reason: "spec sin recibo".into(),
-        },
+    } else if criterion_failed {
+        // F03: nunca promover el fracaso del criterio a la afirmación
+        // positiva incompatible. No se infiere la negación tampoco.
+        Decision::Rejected {
+            reason: Rejection::EmpiricalPromotion,
+        }
+    } else {
+        let met = by_spec.get(spec.id.as_str()).is_some_and(|rs| {
+            rs.iter()
+                .filter(|r| trusted_execution(r))
+                .any(|r| r.scientific_criterion_met == Some(true))
+        });
+        if met {
+            diagnostics.push("criterio preregistrado y resultado enlazados".into());
+            finish_with_obligations(obligations)
+        } else {
+            Decision::Pending {
+                reason: "criterio preregistrado no resuelto por el recibo".into(),
+            }
+        }
     }
 }
 
@@ -670,6 +926,8 @@ fn alias_exact(
     arg: &Argument,
     conclusion: &Claim,
     premises: &[&Claim],
+    specs: &[&EvidenceSpec],
+    by_spec: &HashMap<&str, Vec<&Receipt>>,
     obligations: &mut Vec<String>,
 ) -> Decision {
     if premises.len() != 1 {
@@ -700,13 +958,7 @@ fn alias_exact(
     }
     obligations.extend(origen.assumptions.iter().cloned());
     obligations.extend(conclusion.assumptions.iter().cloned());
-    if arg.evidence_specs.is_empty() {
-        Decision::AcceptedConditional {
-            open: open_of(obligations),
-        }
-    } else {
-        Decision::Accepted
-    }
+    composition_decision(arg, specs, by_spec, obligations)
 }
 
 // --- Utilidades --------------------------------------------------------------
@@ -731,6 +983,35 @@ fn scope_mismatch(
         .filter_map(|(k, v)| claim_scope.get(k).map(|vc| (k, v, vc)))
         .find(|(_, v, vc)| v != vc)
         .map(|(k, v, vc)| (k.clone(), v.clone(), vc.clone()))
+}
+
+/// Evidencia/conclusión: toda clave del alcance de la conclusión debe
+/// aparecer en la spec con el mismo valor. La spec puede añadir metadatos
+/// de ejecución (`lean_axioms`, criterio), nunca borrar especializaciones.
+fn evidence_scope_mismatch(
+    spec_scope: &BTreeMap<String, String>,
+    claim_scope: &BTreeMap<String, String>,
+) -> Option<(String, String, String)> {
+    if let Some(diff) = scope_mismatch(spec_scope, claim_scope) {
+        return Some(diff);
+    }
+    if let Some(missing) = claim_scope.keys().find(|k| !spec_scope.contains_key(*k)) {
+        return Some((
+            missing.clone(),
+            "(ausente en la evidencia)".into(),
+            claim_scope[missing].clone(),
+        ));
+    }
+    None
+}
+
+/// Alcance condicional: puede especializar añadiendo claves, pero no
+/// eliminar ni cambiar las ya establecidas.
+fn conditional_scope_mismatch(
+    premise_scope: &BTreeMap<String, String>,
+    conclusion_scope: &BTreeMap<String, String>,
+) -> Option<(String, String, String)> {
+    evidence_scope_mismatch(conclusion_scope, premise_scope)
 }
 
 /// Axiomas declarados en el alcance del spec (clave `lean_axioms`, coma-separada).
@@ -789,33 +1070,107 @@ fn axes(
 /// el hash canónico del spec actual marca stale ese spec y el argumento que
 /// lo usa (los descendientes se propagan por el grafo de soporte).
 fn propagate_stale(input: &CheckInput, results: &mut BTreeMap<String, ArgumentResult>) {
-    let stale: BTreeSet<&str> = input
-        .receipts
-        .iter()
-        .filter(|r| {
-            input
-                .kernel
-                .evidence_specs
-                .iter()
-                .any(|s| s.id == r.spec_id && r.spec_hash != spec_hash(s))
-        })
-        .map(|r| r.spec_id.as_str())
-        .collect();
-    if stale.is_empty() {
-        return;
-    }
+    // 1) Los recibos con spec_hash obsoleto invalidan directamente solo
+    // los argumentos que los usan.
     for res in results.values_mut() {
-        if let Some(used) = res
-            .evidence_used
-            .iter()
-            .find(|e| stale.contains(e.as_str()))
-        {
+        if res.evidence_used.iter().any(|spec_id| {
+            input.receipts.iter().any(|r| {
+                input.kernel.evidence_specs.iter().any(|s| {
+                    s.id == spec_id.as_str() && s.id == r.spec_id && r.spec_hash != spec_hash(s)
+                })
+            })
+        }) {
+            let used = res
+                .evidence_used
+                .iter()
+                .find(|spec_id| {
+                    input.receipts.iter().any(|r| {
+                        input.kernel.evidence_specs.iter().any(|s| {
+                            s.id == spec_id.as_str()
+                                && s.id == r.spec_id
+                                && r.spec_hash != spec_hash(s)
+                        })
+                    })
+                })
+                .cloned()
+                .unwrap_or_default();
             res.decision = Decision::Rejected {
-                reason: Rejection::StaleEvidence { spec: used.clone() },
+                reason: Rejection::StaleEvidence { spec: used },
             };
             res.formal = FormalState::Stale;
             res.empirical = EmpiricalState::Stale;
             res.editorial = EditorialState::Stale;
+        }
+    }
+
+    // 2) Punto fijo (F02). Un claim falla solo si todos sus argumentos
+    // posibles fallaron. Los argumentos que concluyen lo mismo por otra
+    // vía no se contaminan: así se conservan las alternativas del diamante.
+    loop {
+        let mut supported: HashMap<&str, bool> = HashMap::new();
+        for arg in &input.kernel.arguments {
+            let ok = results.get(&arg.id).is_some_and(|r| {
+                matches!(
+                    r.decision,
+                    Decision::Accepted | Decision::AcceptedConditional { .. }
+                )
+            });
+            supported
+                .entry(arg.conclusion.as_str())
+                .and_modify(|v| *v |= ok)
+                .or_insert(ok);
+        }
+
+        let mut changed = false;
+        let claims_with_arguments: BTreeSet<&str> = input
+            .kernel
+            .arguments
+            .iter()
+            .map(|a| a.conclusion.as_str())
+            .collect();
+        for arg in &input.kernel.arguments {
+            let already_supported = results.get(&arg.id).is_some_and(|r| {
+                matches!(
+                    r.decision,
+                    Decision::Accepted | Decision::AcceptedConditional { .. }
+                )
+            });
+            if !already_supported {
+                continue;
+            }
+            let conclusion_claim = input.kernel.claims.iter().find(|c| c.id == arg.conclusion);
+            let dependencies = arg.premises.iter().chain(
+                conclusion_claim
+                    .map(|c| c.assumptions.iter())
+                    .into_iter()
+                    .flatten(),
+            );
+            let failed = dependencies
+                .filter(|dep| {
+                    claims_with_arguments.contains(dep.as_str())
+                        && !supported.get(dep.as_str()).copied().unwrap_or(false)
+                })
+                .cloned()
+                .collect::<Vec<_>>();
+            if let Some(first) = failed.first() {
+                if let Some(res) = results.get_mut(&arg.id) {
+                    res.decision = Decision::Rejected {
+                        reason: Rejection::StaleEvidence {
+                            spec: format!("soporte invalidado transitivamente: {first}"),
+                        },
+                    };
+                    res.formal = FormalState::Stale;
+                    res.empirical = EmpiricalState::Stale;
+                    res.editorial = EditorialState::Stale;
+                    res.diagnostics.push(format!(
+                        "invalidación transitiva por {first}; no afecta alternativas válidas"
+                    ));
+                    changed = true;
+                }
+            }
+        }
+        if !changed {
+            break;
         }
     }
 }

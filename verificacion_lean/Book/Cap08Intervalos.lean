@@ -26,7 +26,7 @@ open intervalIntegral
 
 /-! ## prop:ch11-baseline — centrado y varianza -/
 
-/-- book: capitulos/cap08_intervalos.typ:467 (key: prop:ch11-baseline) —
+/-- book: capitulos/cap08_intervalos.typ:469 (key: prop:ch11-baseline) —
 baseline: si `b_t` depende del historial anterior a actuar pero no de la
 acción muestreada, `E[z_t b_t] = 0` bajo la propiedad de score
 `∑_a π(a|s) z(s,a) = 0`; puede reemplazarse `G_t` por `G_t − b_t` sin
@@ -51,7 +51,7 @@ theorem ch11_baseline (π : Bool → Bool → ℝ) (z : Bool → Bool → ℝ)
     rw [Finset.sum_congr rfl (fun a _ => hring a), ← Finset.sum_mul, hscore s', zero_mul,
       Finset.sum_eq_zero (fun a _ => mul_zero _)]
 
-/-- book: capitulos/cap08_intervalos.typ:483 (key: ex:ssch-drl-cap11) —
+/-- book: capitulos/cap08_intervalos.typ:485 (key: ex:ssch-drl-cap11) —
 SSCH: baseline con cálculo exacto: `A` Bernoulli con `p = 3/4`, `R = A`,
 score `A − p`, gradiente verdadero `p(1−p) = 3/16`. Sin baseline la
 contribución `A(A−p)` tiene varianza `3/256 = 0.01171875`; la baseline
@@ -228,7 +228,7 @@ theorem ex_ch5_cadena_varianza_finita :
 
 /-! ## ex:ch11-pg-ssch — estado continuo y gradiente verificable -/
 
-/-- book: capitulos/cap08_intervalos.typ:529 (key: ex:ch11-pg-ssch) —
+/-- book: capitulos/cap08_intervalos.typ:531 (key: ex:ch11-pg-ssch) —
 estado continuo y gradiente verificable: `S` uniforme en `[−1,1]`,
 `π_θ(1|s) = 1/(1+exp(−θs))` y recompensa abstracta `R = A·S`. En
 `θ = 0`, `p = 1/2` y el score es `S(A−1/2)`; el gradiente verdadero es

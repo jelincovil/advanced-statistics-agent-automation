@@ -186,81 +186,131 @@ fn run_evidence(repo: &Path, out: Option<&Path>) -> i32 {
     // 4) Parsear el JSONL del exporter para extraer info por objetivo.
     let lean_lines: Vec<&str> = lean_out.lines().filter(|l| !l.trim().is_empty()).collect();
 
-    // 5) Generar un recibo por spec.
+    // 5) Generar un recibo por spec. La procedencia se mide, no se declara.
+    let source_commit = match current_commit(repo) {
+        Some(c) => c,
+        None => {
+            eprintln!("error: no se pudo obtener un commit Git real");
+            return exit::FALLO_EJECUCION;
+        }
+    };
+    let source_hashes = lean_source_hashes(repo);
+    let lean_environment = lean_environment_text();
     let now = chrono_like_now();
     let mut count = 0;
     for spec in &kernel.evidence_specs {
-        let (stdout_sha, checks) = if spec.kind == argumentos::model::EvidenceKind::Lean {
-            // Buscar la línea del exporter que corresponde a este target.
-            let target = &spec.target;
-            let found = lean_lines
-                .iter()
-                .find(|l| l.contains(&format!("\"name\": \"{}\"", target)));
-            match found {
-                Some(line) => {
-                    let v: serde_json::Value = match serde_json::from_str(line) {
-                        Ok(v) => v,
-                        Err(e) => {
-                            eprintln!("error parseando línea del exporter: {}", e);
+        let (stdout_sha, scientific_criterion_met, checks) =
+            if spec.kind == argumentos::model::EvidenceKind::Lean {
+                // Buscar la línea del exporter que corresponde a este target.
+                let target = &spec.target;
+                let found = lean_lines
+                    .iter()
+                    .find(|l| l.contains(&format!("\"name\": \"{}\"", target)));
+                match found {
+                    Some(line) => {
+                        let v: serde_json::Value = match serde_json::from_str(line) {
+                            Ok(v) => v,
+                            Err(e) => {
+                                eprintln!("error parseando línea del exporter: {}", e);
+                                return exit::FALLO_EJECUCION;
+                            }
+                        };
+                        let axioms = v["axioms"].as_array().map(|a| a.len()).unwrap_or(0);
+                        let deps = v["dependencies"].as_array().map(|a| a.len()).unwrap_or(0);
+                        let axiom_list: Vec<String> = v["axioms"]
+                            .as_array()
+                            .map(|a| {
+                                a.iter()
+                                    .filter_map(|x| x.as_str().map(String::from))
+                                    .collect()
+                            })
+                            .unwrap_or_default();
+                        if axiom_list
+                            .iter()
+                            .any(|a| !argumentos::check::STANDARD_AXIOMS.contains(&a.as_str()))
+                        {
+                            eprintln!(
+                                "error: axiomas no permitidos en {}: {:?}",
+                                target, axiom_list
+                            );
                             return exit::FALLO_EJECUCION;
                         }
-                    };
-                    let axioms = v["axioms"].as_array().map(|a| a.len()).unwrap_or(0);
-                    let deps = v["dependencies"].as_array().map(|a| a.len()).unwrap_or(0);
-                    (
-                        lean_stdout_sha.clone(),
-                        vec![argumentos::receipt::ObservedCheck {
-                            id: format!("target_encontrado:{}", target),
-                            status: argumentos::receipt::CheckStatus::Pass,
-                            detail: format!("{} axiomas, {} dependencias", axioms, deps),
-                        }],
-                    )
+                        let type_sha = format!(
+                            "{:x}",
+                            Sha256::digest(v["type"].as_str().unwrap_or("").as_bytes())
+                        );
+                        (
+                            lean_stdout_sha.clone(),
+                            Some(true),
+                            vec![
+                                argumentos::receipt::ObservedCheck {
+                                    id: format!("target_encontrado:{}", target),
+                                    status: argumentos::receipt::CheckStatus::Pass,
+                                    detail: format!("{} axiomas, {} dependencias", axioms, deps),
+                                },
+                                argumentos::receipt::ObservedCheck {
+                                    id: format!("lean_provenance:{}", target),
+                                    status: argumentos::receipt::CheckStatus::Pass,
+                                    detail: format!(
+                                        "type_sha256={}; commit={}; toolchain={}",
+                                        type_sha, source_commit, lean_environment
+                                    ),
+                                },
+                            ],
+                        )
+                    }
+                    None => {
+                        eprintln!("error: target {} no encontrado en el exporter", target);
+                        return exit::FALLO_EJECUCION;
+                    }
                 }
-                None => {
-                    eprintln!("error: target {} no encontrado en el exporter", target);
-                    return exit::FALLO_EJECUCION;
-                }
-            }
-        } else {
-            // Python: parsear el JSON del SSCH.
-            let v: serde_json::Value = match serde_json::from_str(&ssch_out) {
-                Ok(v) => v,
-                Err(e) => {
-                    eprintln!("error parseando salida SSCH: {}", e);
-                    return exit::FALLO_EJECUCION;
-                }
-            };
-            let status = if v["criterio"]["status"] == "pass" {
-                argumentos::receipt::CheckStatus::Pass
             } else {
-                argumentos::receipt::CheckStatus::Fail
+                // Python: parsear el JSON del SSCH.
+                let v: serde_json::Value = match serde_json::from_str(&ssch_out) {
+                    Ok(v) => v,
+                    Err(e) => {
+                        eprintln!("error parseando salida SSCH: {}", e);
+                        return exit::FALLO_EJECUCION;
+                    }
+                };
+                let status = if v["criterio"]["status"] == "pass" {
+                    argumentos::receipt::CheckStatus::Pass
+                } else {
+                    argumentos::receipt::CheckStatus::Fail
+                };
+                (
+                    ssch_stdout_sha.clone(),
+                    Some(status == argumentos::receipt::CheckStatus::Pass),
+                    vec![argumentos::receipt::ObservedCheck {
+                        id: format!(
+                            "criterion:{}",
+                            v["criterio"]["id"].as_str().unwrap_or("criterio")
+                        ),
+                        status,
+                        detail: format!(
+                            "esperado={}, observado={}",
+                            v["criterio"]["esperado"].as_str().unwrap_or("?"),
+                            v["criterio"]["observado"].as_str().unwrap_or("?")
+                        ),
+                    }],
+                )
             };
-            (
-                ssch_stdout_sha.clone(),
-                vec![argumentos::receipt::ObservedCheck {
-                    id: v["criterio"]["id"]
-                        .as_str()
-                        .unwrap_or("criterio")
-                        .to_string(),
-                    status,
-                    detail: format!(
-                        "esperado={}, observado={}",
-                        v["criterio"]["esperado"].as_str().unwrap_or("?"),
-                        v["criterio"]["observado"].as_str().unwrap_or("?")
-                    ),
-                }],
-            )
-        };
 
         let receipt = argumentos::receipt::Receipt {
             schema_version: "1.0".into(),
             id: format!("R.{}", spec.id),
             spec_id: spec.id.clone(),
             spec_hash: argumentos::check::spec_hash(spec),
-            source_commit: "local".into(),
+            source_commit: source_commit.clone(),
             environment_hash: format!(
                 "{:x}",
-                Sha256::digest(format!("{}|{}", lean_stdout_sha, ssch_stdout_sha).as_bytes())
+                Sha256::digest(
+                    format!(
+                        "{}|{}|{}",
+                        lean_stdout_sha, ssch_stdout_sha, lean_environment
+                    )
+                    .as_bytes()
+                )
             ),
             checker_version: CHECKER_VERSION.into(),
             command_argv: if spec.kind == argumentos::model::EvidenceKind::Lean {
@@ -274,19 +324,16 @@ fn run_evidence(repo: &Path, out: Option<&Path>) -> i32 {
             working_directory: repo.display().to_string(),
             input_hashes: {
                 let mut m = std::collections::BTreeMap::new();
-                let exporter_path = repo.join("argumentos/evidence/lean_export.lean");
-                if let Ok(b) = std::fs::read(&exporter_path) {
-                    m.insert(
-                        "lean_export.lean".into(),
-                        format!("{:x}", Sha256::digest(&b)),
-                    );
+                for (name, hash) in &source_hashes {
+                    m.insert(name.clone(), hash.clone());
                 }
-                let runner_path = repo.join("argumentos/runners/ssch_bayes_racional.py");
-                if let Ok(b) = std::fs::read(&runner_path) {
-                    m.insert(
-                        "ssch_bayes_racional.py".into(),
-                        format!("{:x}", Sha256::digest(&b)),
-                    );
+                for rel in [
+                    "argumentos/evidence/lean_export.lean",
+                    "argumentos/runners/ssch_bayes_racional.py",
+                ] {
+                    if let Some(hash) = sha256_file(&repo.join(rel)) {
+                        m.insert(rel.into(), hash);
+                    }
                 }
                 m
             },
@@ -298,7 +345,7 @@ fn run_evidence(repo: &Path, out: Option<&Path>) -> i32 {
             stderr_sha256: format!("{:x}", Sha256::digest(b"")),
             artifacts: vec![],
             execution_passed: true,
-            scientific_criterion_met: Some(true),
+            scientific_criterion_met,
             observed_checks: checks,
             trust_mode: argumentos::receipt::TrustMode::LocallyReproduced,
         };
@@ -329,10 +376,100 @@ fn chrono_like_now() -> String {
         .unwrap_or_else(|| "unknown".into())
 }
 
+fn current_commit(repo: &Path) -> Option<String> {
+    let output = Command::new("git")
+        .args(["rev-parse", "HEAD"])
+        .current_dir(repo)
+        .output()
+        .ok()?;
+    if !output.status.success() {
+        return None;
+    }
+    let text = String::from_utf8_lossy(&output.stdout).trim().to_string();
+    if text.len() == 40 && text.chars().all(|c| c.is_ascii_hexdigit()) {
+        Some(text)
+    } else {
+        None
+    }
+}
+
+fn commit_is_ancestor(repo: &Path, commit: &str) -> bool {
+    Command::new("git")
+        .args(["merge-base", "--is-ancestor", commit, "HEAD"])
+        .current_dir(repo)
+        .status()
+        .is_ok_and(|s| s.success())
+}
+
+fn sha256_file(path: &Path) -> Option<String> {
+    std::fs::read(path)
+        .ok()
+        .map(|bytes| format!("{:x}", Sha256::digest(bytes)))
+}
+
+fn attest_receipt_from_current_inputs(repo: &Path, receipt: &mut argumentos::receipt::Receipt) {
+    if receipt.trust_mode != argumentos::receipt::TrustMode::UntrustedImport {
+        return;
+    }
+    if !commit_is_ancestor(repo, &receipt.source_commit) {
+        return;
+    }
+    let inputs_match = receipt.input_hashes.iter().all(|(name, expected)| {
+        argumentos::check::guard_path(repo, Path::new(name))
+            .ok()
+            .and_then(|path| sha256_file(&path))
+            .is_some_and(|actual| &actual == expected)
+    });
+    if inputs_match {
+        // Atestación explícita: ejecutor local + commit ancestral + cada
+        // input actual idéntico. Si cambia fuente o tipo, el hash deja de
+        // coincidir y el recibo permanece no confiable hasta reproducirse.
+        receipt.trust_mode = argumentos::receipt::TrustMode::AttestedByConfiguredPolicy;
+    }
+}
+
+fn lean_source_hashes(repo: &Path) -> std::collections::BTreeMap<String, String> {
+    let mut hashes = std::collections::BTreeMap::new();
+    let book = repo.join("verificacion_lean/Book");
+    if let Ok(entries) = std::fs::read_dir(book) {
+        for entry in entries.flatten() {
+            let path = entry.path();
+            if path.extension().is_some_and(|e| e == "lean") {
+                if let Ok(rel) = path.strip_prefix(repo) {
+                    if let Some(hash) = sha256_file(&path) {
+                        hashes.insert(rel.to_string_lossy().to_string(), hash);
+                    }
+                }
+            }
+        }
+    }
+    hashes
+}
+
+fn lean_environment_text() -> String {
+    let version = Command::new("lean")
+        .arg("--version")
+        .output()
+        .map(|o| String::from_utf8_lossy(&o.stdout).trim().to_string())
+        .unwrap_or_default();
+    let toolchain = std::fs::read_to_string("/opt/mathlib/lean-toolchain").unwrap_or_default();
+    format!("{}|{}", version, toolchain.trim())
+}
+
 /// `argumentos check`: carga kernel y recibos (estricto), ejecuta el checker
 /// y reporta. Exit 0 si todo argumento es aceptado (posiblemente condicional);
 /// 3 si hay rechazos o pendientes; 2 si la entrada viola el contrato.
 fn run_check(kernel_path: &Path, receipts_path: Option<&Path>) -> i32 {
+    let repo = kernel_path
+        .canonicalize()
+        .ok()
+        .and_then(|p| {
+            p.parent()
+                .and_then(Path::parent)
+                .and_then(Path::parent)
+                .map(Path::to_path_buf)
+        })
+        .unwrap_or_else(|| Path::new(".").to_path_buf());
     let kernel = match argumentos::model::load_kernel(kernel_path) {
         Ok(k) => k,
         Err(e) => {
@@ -358,7 +495,13 @@ fn run_check(kernel_path: &Path, receipts_path: Option<&Path>) -> i32 {
         };
         for f in files {
             match argumentos::receipt::load_receipt(&f) {
-                Ok(r) => receipts.push(r),
+                Ok(mut r) => {
+                    // Una importación nunca se confía por el valor de
+                    // trust_mode. Se atestigua solo cuando el ejecutor
+                    // local puede validar procedencia e inputs actuales.
+                    attest_receipt_from_current_inputs(&repo, &mut r);
+                    receipts.push(r)
+                }
                 Err(e) => {
                     eprintln!("error de contrato en {}: {}", f.display(), e);
                     return exit::ENTRADA_INVALIDA;
@@ -777,21 +920,21 @@ fn run_audit(kernel_path: &Path, book: &Path) -> i32 {
         }
     };
     let hallazgos = argumentos::book::audit_structural(&kernel, &inv);
-    if hallazgos.is_empty() {
-        println!(
-            "auditoría estructural: sin discrepancias ({} claims vs {} bloques)",
-            kernel.claims.len(),
-            inv.blocks.len()
-        );
+    let referencias: Vec<_> = hallazgos
+        .iter()
+        .filter(|h| !h.starts_with("COBERTURA:") && !h.starts_with("AUXILIAR:"))
+        .collect();
+    let cobertura = hallazgos.len() - referencias.len();
+    println!(
+        "auditoría bidireccional: {} referencias inválidas, {} bloques sin claim (cobertura visible)",
+        referencias.len(), cobertura
+    );
+    for h in &hallazgos {
+        println!("  - {}", h);
+    }
+    if referencias.is_empty() {
         exit::OK
     } else {
-        println!(
-            "auditoría estructural: {} discrepancia(s):",
-            hallazgos.len()
-        );
-        for h in &hallazgos {
-            println!("  - {}", h);
-        }
         exit::DEPENDENCIA_BLOQUEANTE
     }
 }

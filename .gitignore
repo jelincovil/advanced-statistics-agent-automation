@@ -35,3 +35,9 @@ verificacion_lean/build/
 
 # Rust build artifacts del workspace argumentos/
 argumentos/target/
+
+__pycache__/
+
+# Herramientas locales de agente: no forman parte del libro ni del kernel.
+.skill/lean-workflow/
+.skill/lean-statement-audit/

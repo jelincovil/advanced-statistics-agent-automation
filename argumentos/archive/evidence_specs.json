@@ -1,0 +1,18 @@
+{
+  "schema_version": "evidence-archive/1",
+  "reason": "Duplicado auxiliar con target inexistente Book.Cap04Ch2.suficiencia_politicas; la misma afirmación queda cubierta por Book.BarridoM16.suf_suficiencia_politicas, verificada. No se elimina el claim ni la prueba, solo se archiva el spec no válido.",
+  "replacement_spec": "E.prop:ch2-suficiencia-politicas",
+  "replacement_target": "Book.BarridoM16.suf_suficiencia_politicas",
+  "spec": {
+    "id": "E.prop:ch2-suficiencia-politicas.suficiencia_politicas",
+    "kind": "lean",
+    "claim_id": "C.prop:ch2-suficiencia-politicas",
+    "runner_id": "lean-export",
+    "target": "Book.Cap04Ch2.suficiencia_politicas",
+    "scope": {
+      "domain": "finite",
+      "lean_axioms": "propext,Classical.choice,Quot.sound"
+    },
+    "availability": "candidate"
+  }
+}

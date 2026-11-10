@@ -1,0 +1,52 @@
+{
+  "proyecto": "argumentos",
+  "version": "0.1.0",
+  "fecha": "2026-11-06",
+  "estado": {
+    "SOFTWARE_READY": true,
+    "CORPUS_INDEXED": true,
+    "PILOT_VERIFIED": true,
+    "CORPUS_CLOSED": false
+  },
+  "cobertura": {
+    "bloques_totales": 394,
+    "afirmaciones_objetivas": 219,
+    "claims_en_kernel": 218,
+    "con_respaldo_lean": 35,
+    "pendientes_no_formal_proof": 183,
+    "pendientes_semantic_mapping_unresolved": 1,
+    "argumentos_en_kernel": 35,
+    "recibos_generados": 6,
+    "claims_verificados_end_to_end": 6
+  },
+  "herramientas": {
+    "rust": "1.99.1 (rustup, perfil minimal + rustfmt + clippy)",
+    "typst": "0.15.1",
+    "lean": "4.33.1",
+    "python": "3.12.14",
+    "dependencias_rust": 103
+  },
+  "artefactos": {
+    "kernel_piloto": "kernel/piloto_ch5_ssch.json",
+    "kernel_completo": "kernel/libro_completo.json",
+    "pendientes": "kernel/pendientes.json",
+    "inventario_libro": "inventory/libro.json",
+    "inventario_lean": "inventory/lean_to_book.json",
+    "recibos_piloto": "receipts/",
+    "fichas_generadas": "generated/",
+    "exporter_lean": "evidence/lean_export.lean",
+    "runner_ssch": "runners/ssch_bayes_racional.py"
+  },
+  "pruebas": {
+    "total": 65,
+    "por_modulo": {
+      "strict_json": 13,
+      "model": 4,
+      "receipt": 4,
+      "check": 21,
+      "contracts": 5,
+      "extractor": 10,
+      "aspic": 8
+    }
+  }
+}

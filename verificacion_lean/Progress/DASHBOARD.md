@@ -426,31 +426,31 @@ Generado por `Progress/gen_dashboard.py` el 2026-11-10 desde `Book/*.lean` y `bu
 | `ch11_impacto_numeros` (`Cap08Ch11M10.lean`) | `prop:ch11-impacto` @ capitulos/cap08_intervalos.typ:140 | ? | `propext, Classical.choice, Quot.sound` | OK |
 | `ch11_ic_studentizacion` (`Cap08Ch11M10.lean`) | `cor:ch11-ic` @ capitulos/cap08_intervalos.typ:243 | ? | `propext, Classical.choice, Quot.sound` | OK |
 | `ch11_ic_escala_episodios` (`Cap08Ch11M10.lean`) | `cor:ch11-ic` @ capitulos/cap08_intervalos.typ:243 | ? | `propext, Classical.choice, Quot.sound` | OK |
-| `ch11_n_condicion` (`Cap08Ch11M10.lean`) | `thm:ch11-n` @ capitulos/cap08_intervalos.typ:377 | ? | `propext, Classical.choice, Quot.sound` | OK |
-| `ch11_n_minimo` (`Cap08Ch11M10.lean`) | `thm:ch11-n` @ capitulos/cap08_intervalos.typ:377 | ? | `propext, Classical.choice, Quot.sound` | OK |
-| `ch11_n_ejemplos` (`Cap08Ch11M10.lean`) | `thm:ch11-n` @ capitulos/cap08_intervalos.typ:377 | ? | `propext, Classical.choice, Quot.sound` | OK |
-| `ch11_reinforce_if` (`Cap08Ch11M10.lean`) | `prop:ch11-reinforce-if` @ capitulos/cap08_intervalos.typ:517 | ? | `propext, Classical.choice, Quot.sound` | OK |
-| `ch11_ssch_objetivo` (`Cap08Ch11M10.lean`) | `ex:ssch-cap11` @ capitulos/cap08_intervalos.typ:602 | ? | `propext, Classical.choice, Quot.sound` | OK |
-| `ch11_ssch_pareado` (`Cap08Ch11M10.lean`) | `ex:ssch-cap11` @ capitulos/cap08_intervalos.typ:602 | ? | `propext, Classical.choice, Quot.sound` | OK |
+| `ch11_n_condicion` (`Cap08Ch11M10.lean`) | `thm:ch11-n` @ capitulos/cap08_intervalos.typ:379 | ? | `propext, Classical.choice, Quot.sound` | OK |
+| `ch11_n_minimo` (`Cap08Ch11M10.lean`) | `thm:ch11-n` @ capitulos/cap08_intervalos.typ:379 | ? | `propext, Classical.choice, Quot.sound` | OK |
+| `ch11_n_ejemplos` (`Cap08Ch11M10.lean`) | `thm:ch11-n` @ capitulos/cap08_intervalos.typ:379 | ? | `propext, Classical.choice, Quot.sound` | OK |
+| `ch11_reinforce_if` (`Cap08Ch11M10.lean`) | `prop:ch11-reinforce-if` @ capitulos/cap08_intervalos.typ:519 | ? | `propext, Classical.choice, Quot.sound` | OK |
+| `ch11_ssch_objetivo` (`Cap08Ch11M10.lean`) | `ex:ssch-cap11` @ capitulos/cap08_intervalos.typ:604 | ? | `propext, Classical.choice, Quot.sound` | OK |
+| `ch11_ssch_pareado` (`Cap08Ch11M10.lean`) | `ex:ssch-cap11` @ capitulos/cap08_intervalos.typ:604 | ? | `propext, Classical.choice, Quot.sound` | OK |
 | `ch11_ergodico_mixing` (`Cap08Ch11M10.lean`) | `prop:ch11-ergodico` @ capitulos/cap08_intervalos.typ:91 | ? | `propext, Classical.choice, Quot.sound` | OK |
 | `ch11_ergodico_geometrico` (`Cap08Ch11M10.lean`) | `prop:ch11-ergodico` @ capitulos/cap08_intervalos.typ:91 | ? | `propext, Classical.choice, Quot.sound` | OK |
-| `ch11_pg_identidad` (`Cap08Ch11M10.lean`) | `thm:ch11-pg-theorem` @ capitulos/cap08_intervalos.typ:440 | ? | `propext, Classical.choice, Quot.sound` | OK |
-| `ch11_pg_causalidad` (`Cap08Ch11M10.lean`) | `thm:ch11-pg-theorem` @ capitulos/cap08_intervalos.typ:440 | ? | `propext, Classical.choice, Quot.sound` | OK |
+| `ch11_pg_identidad` (`Cap08Ch11M10.lean`) | `thm:ch11-pg-theorem` @ capitulos/cap08_intervalos.typ:442 | ? | `propext, Classical.choice, Quot.sound` | OK |
+| `ch11_pg_causalidad` (`Cap08Ch11M10.lean`) | `thm:ch11-pg-theorem` @ capitulos/cap08_intervalos.typ:442 | ? | `propext, Classical.choice, Quot.sound` | OK |
 | `ch11_clt_mixing_var` (`Cap08Ch11M10.lean`) | `thm:ch11-clt-mixing` @ capitulos/cap08_intervalos.typ:180 | ? | `propext, Classical.choice, Quot.sound` | OK |
 | `dPhi_sum_eq_zero` (`Cap08Estimadores.lean`) | `def:ch11-var-if` @ capitulos/cap08_intervalos.typ:259 | enjambre smw82qi6q, m11 | `propext, Classical.choice, Quot.sound` | OK |
 | `abs_hac_le` (`Cap08Estimadores.lean`) | `def:ch11-hac` @ capitulos/cap08_intervalos.typ:270 | enjambre smw82qi6q, m11 | `propext, Classical.choice, Quot.sound` | OK |
-| `save_separacion` (`Cap08Estimadores.lean`) | `ex:ch11-ej5` @ capitulos/cap08_intervalos.typ:672 | enjambre smw82qi6q, m11 | `propext, Classical.choice, Quot.sound` | OK |
-| `save_separacion_no_nula` (`Cap08Estimadores.lean`) | `ex:ch11-ej5` @ capitulos/cap08_intervalos.typ:672 | enjambre smw82qi6q, m11 | `propext, Classical.choice, Quot.sound` | OK |
-| `save_separacion_pos` (`Cap08Estimadores.lean`) | `ex:ch11-ej5` @ capitulos/cap08_intervalos.typ:672 | enjambre smw82qi6q, m11 | `propext, Classical.choice, Quot.sound` | OK |
+| `save_separacion` (`Cap08Estimadores.lean`) | `ex:ch11-ej5` @ capitulos/cap08_intervalos.typ:674 | enjambre smw82qi6q, m11 | `propext, Classical.choice, Quot.sound` | OK |
+| `save_separacion_no_nula` (`Cap08Estimadores.lean`) | `ex:ch11-ej5` @ capitulos/cap08_intervalos.typ:674 | enjambre smw82qi6q, m11 | `propext, Classical.choice, Quot.sound` | OK |
+| `save_separacion_pos` (`Cap08Estimadores.lean`) | `ex:ch11-ej5` @ capitulos/cap08_intervalos.typ:674 | enjambre smw82qi6q, m11 | `propext, Classical.choice, Quot.sound` | OK |
 | `ex_ch8_frozenlake` (`Cap08FrozenLake.lean`) | `ex:ch8-frozenlake` @ capitulos/cap03_mdp.typ:260 | ? | `propext, Classical.choice, Quot.sound` | OK |
-| `ch11_baseline` (`Cap08Intervalos.lean`) | `prop:ch11-baseline` @ capitulos/cap08_intervalos.typ:467 | F3 2026-11-05 (nuevo) | `propext, Classical.choice, Quot.sound` | OK |
-| `ch11_baseline_ejemplo` (`Cap08Intervalos.lean`) | `ex:ssch-drl-cap11` @ capitulos/cap08_intervalos.typ:483 | F3 2026-11-05 (nuevo) | `propext, Classical.choice, Quot.sound` | OK |
+| `ch11_baseline` (`Cap08Intervalos.lean`) | `prop:ch11-baseline` @ capitulos/cap08_intervalos.typ:469 | F3 2026-11-05 (nuevo) | `propext, Classical.choice, Quot.sound` | OK |
+| `ch11_baseline_ejemplo` (`Cap08Intervalos.lean`) | `ex:ssch-drl-cap11` @ capitulos/cap08_intervalos.typ:485 | F3 2026-11-05 (nuevo) | `propext, Classical.choice, Quot.sound` | OK |
 | `ex_ch5_cadena` (`Cap08Intervalos.lean`) | `ex:ch5-cadena` @ capitulos/cap06_fallos.typ:343 | F3 2026-11-05 (nuevo) | `propext, Classical.choice, Quot.sound` | OK |
 | `ex_ch5_cadena_varianza_finita` (`Cap08Intervalos.lean`) | `ex:ch5-cadena` @ capitulos/cap06_fallos.typ:343 | t28 2026-11-06 (nuevo; la referencia a este teorema quedaba | `propext, Classical.choice, Quot.sound` | OK |
-| `ex_ch11_pg_ssch` (`Cap08Intervalos.lean`) | `ex:ch11-pg-ssch` @ capitulos/cap08_intervalos.typ:529 | F3 2026-11-05 (nuevo) | `propext, Classical.choice, Quot.sound` | OK |
+| `ex_ch11_pg_ssch` (`Cap08Intervalos.lean`) | `ex:ch11-pg-ssch` @ capitulos/cap08_intervalos.typ:531 | F3 2026-11-05 (nuevo) | `propext, Classical.choice, Quot.sound` | OK |
 | `ch11_tasa_tabular` (`Cap08Intervalos.lean`) | `thm:ch11-tasa-tabular` @ capitulos/cap08_intervalos.typ:110 | F3 2026-11-05 (nuevo) | `propext, Classical.choice, Quot.sound` | OK |
-| `planificacion_poder` (`Cap08Poder.lean`) | `ex:ch11-ej3` @ capitulos/cap08_intervalos.typ:660 | enjambre smw82qi6q, m11 | `propext, Classical.choice, Quot.sound` | OK |
-| `planificacion_dos_grupos` (`Cap08Poder.lean`) | `ex:ch11-ej3` @ capitulos/cap08_intervalos.typ:660 | enjambre smw82qi6q, m11 | `propext, Classical.choice, Quot.sound` | OK |
+| `planificacion_poder` (`Cap08Poder.lean`) | `ex:ch11-ej3` @ capitulos/cap08_intervalos.typ:662 | enjambre smw82qi6q, m11 | `propext, Classical.choice, Quot.sound` | OK |
+| `planificacion_dos_grupos` (`Cap08Poder.lean`) | `ex:ch11-ej3` @ capitulos/cap08_intervalos.typ:662 | enjambre smw82qi6q, m11 | `propext, Classical.choice, Quot.sound` | OK |
 | `prop_ch10_dm_bias` (`Cap10OPE.lean`) | `prop:ch10-dm` @ capitulos/cap07_ope.typ:179 | ? | `propext, Classical.choice, Quot.sound` | OK |
 | `prop_ch10_dm` (`Cap10OPE.lean`) | `prop:ch10-dm` @ capitulos/cap07_ope.typ:179 | ? | `propext, Classical.choice, Quot.sound` | OK |
 | `cor_ch10_curse` (`Cap10OPE.lean`) | `cor:ch10-curse` @ capitulos/cap07_ope.typ:277 | ? | `propext, Classical.choice, Quot.sound` | OK |
@@ -463,10 +463,10 @@ Generado por `Progress/gen_dashboard.py` el 2026-11-10 desde `Book/*.lean` y `bu
 | `ex_ch10_shift_ssch` (`Cap10OPE.lean`) | `ex:ch10-shift-ssch` @ capitulos/cap07_ope.typ:393 | ? | `propext, Classical.choice, Quot.sound` | OK |
 | `ex_ch10_pipeline` (`Cap10OPE.lean`) | `ex:ch10-pipeline` @ capitulos/cap07_ope.typ:658 | ? | `propext, Classical.choice, Quot.sound` | OK |
 | `ex_ssch_cap10` (`Cap10OPE.lean`) | `ex:ssch-cap10` @ capitulos/cap07_ope.typ:715 | ? | `propext, Classical.choice, Quot.sound` | OK |
-| `ch11_cuantizacion_ejemplo` (`Cap11Despliegue.lean`) | `cap11-cuantizacion` @ capitulos/cap11_despliegue.typ:101 | F3 2026-11-05 (nuevo) | `propext, Classical.choice, Quot.sound` | OK |
-| `ch11_truncamiento` (`Cap11Despliegue.lean`) | `cap11-truncamiento` @ capitulos/cap11_despliegue.typ:165 | F3 2026-11-05 (nuevo) | `propext` | OK |
-| `ch11_monitoreo` (`Cap11Despliegue.lean`) | `cap11-monitoreo` @ capitulos/cap11_despliegue.typ:607 | F3 2026-11-05 (nuevo) | `propext, Classical.choice, Quot.sound` | OK |
-| `ch11_mdp_validacion` (`Cap11Despliegue.lean`) | `def:appE-mdp-test` @ capitulos/cap11_despliegue.typ:269 | F3 2026-11-05 (nuevo) | `propext, Classical.choice, Quot.sound` | OK |
+| `ch11_cuantizacion_ejemplo` (`Cap11Despliegue.lean`) | `cap11-cuantizacion` @ capitulos/cap11_despliegue.typ:97 | F3 2026-11-05 (nuevo) | `propext, Classical.choice, Quot.sound` | OK |
+| `ch11_truncamiento` (`Cap11Despliegue.lean`) | `cap11-truncamiento` @ capitulos/cap11_despliegue.typ:167 | F3 2026-11-05 (nuevo) | `propext` | OK |
+| `ch11_monitoreo` (`Cap11Despliegue.lean`) | `cap11-monitoreo` @ capitulos/cap11_despliegue.typ:611 | F3 2026-11-05 (nuevo) | `propext, Classical.choice, Quot.sound` | OK |
+| `ch11_mdp_validacion` (`Cap11Despliegue.lean`) | `def:appE-mdp-test` @ capitulos/cap11_despliegue.typ:273 | F3 2026-11-05 (nuevo) | `propext, Classical.choice, Quot.sound` | OK |
 | `ch11_margen_elemental` (`Cap11Despliegue.lean`) | `cap11-margen` @ capitulos/cap08_intervalos.typ:353 | F3 2026-11-05 (nuevo) | `propext, Classical.choice, Quot.sound` | OK |
 | `hac_error_bound` (`Cap11HacM1.lean`) | `thm:ch11-var-consistente` @ capitulos/cap08_intervalos.typ:282 | ? | `propext, Classical.choice, Quot.sound` | OK |
 | `taper_tendsto_zero` (`Cap11HacM1.lean`) | `thm:ch11-var-consistente` @ capitulos/cap08_intervalos.typ:282 | ? | `propext, Classical.choice, Quot.sound` | OK |

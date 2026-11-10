@@ -51,7 +51,7 @@ noncomputable def z80 : ℝ := 841621 / 1000000
 /-- Cuantil normal `z_{0.90}` redondeado a seis decimales. -/
 noncomputable def z90 : ℝ := 1281552 / 1000000
 
-/-- book: capitulos/cap08_intervalos.typ:660 (key: ex:ch11-ej3) —
+/-- book: capitulos/cap08_intervalos.typ:662 (key: ex:ch11-ej3) —
 planificación de poder, nivel bilateral `α = 0.05`: con `σ_D = 2` y
 efecto relevante `δ = 0.5` hacen falta `126` unidades independientes para
 poder `80%` y `169` para poder `90%`; con `n = 100` el efecto detectable
@@ -86,7 +86,7 @@ theorem planificacion_poder :
   · norm_num
   · norm_num
 
-/-- book: capitulos/cap08_intervalos.typ:660 (key: ex:ch11-ej3) —
+/-- book: capitulos/cap08_intervalos.typ:662 (key: ex:ch11-ej3) —
 la media de dos grupos independientes de igual tamaño `n` tiene varianza
 `2σ²/n`, por lo que el plan por grupo es el doble del de una sola media
 con la misma varianza por unidad (`σ_D² = 2σ²`); el cálculo exacto para

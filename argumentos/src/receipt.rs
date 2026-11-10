@@ -118,12 +118,18 @@ pub fn receipt_from_str(text: &str) -> Result<Receipt, ReceiptError> {
         }
         return Err(ReceiptError::Schema(report));
     }
-    let receipt: Receipt = serde_json::from_value(value)?;
+    let mut receipt: Receipt = serde_json::from_value(value)?;
     // Consistencia en código (docs/12): no basta confiar en el esquema.
     if receipt.execution_passed
         && (receipt.termination != Termination::Completed || receipt.exit_status != Some(0))
     {
         return Err(ReceiptError::Inconsistent);
+    }
+    // F04: importar JSON no equivale a ejecutar. La validación que inventa
+    // LocallyReproduced dentro de un runner confiable se distingue de la
+    // cadena de texto entrante, que siempre entra como UntrustedImport.
+    if receipt.trust_mode == TrustMode::LocallyReproduced {
+        receipt.trust_mode = TrustMode::UntrustedImport;
     }
     Ok(receipt)
 }

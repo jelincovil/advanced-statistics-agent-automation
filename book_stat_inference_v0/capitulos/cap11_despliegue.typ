@@ -94,13 +94,15 @@ el resto y la diferencia de influencias: no basta una etiqueta de precisión
 «8 bits». Con registro conocido y un auxiliar fijo distinto puede mantenerse
 un CLT para las nuevas contribuciones sin mantener la varianza eficiente.
 
-*Ejemplo verificable.* Tome una acción binaria, $b(1)=0.5$, $pi(1)=0.75$,
-$R=A$ y $hat(m)=(0.2,0.8)$. Las contribuciones DR son $0.55$ y $0.95$,
-con media $0.75$. Una perturbación $(0.01,-0.01)$ las cambia en
-$(-0.01,0.01)$. La media permanece igual, pero la dispersión aumenta.
-La cota anterior es $0.01(1+1.5)=0.025$. El programa al final del capítulo
-comprueba estas identidades. Una alteración pequeña de números no significa
-que deba conservarse sin cambios el error estándar anterior.
+#thm-env("example", key: "cap11-cuantizacion")[
+  *Ejemplo verificable.* Tome una acción binaria, $b(1)=0.5$, $pi(1)=0.75$,
+  $R=A$ y $hat(m)=(0.2,0.8)$. Las contribuciones DR son $0.55$ y $0.95$,
+  con media $0.75$. Una perturbación $(0.01,-0.01)$ las cambia en
+  $(-0.01,0.01)$. La media permanece igual, pero la dispersión aumenta.
+  La cota anterior es $0.01(1+1.5)=0.025$. El programa al final del capítulo
+  comprueba estas identidades. Una alteración pequeña de números no significa
+  que deba conservarse sin cambios el error estándar anterior.
+]
 
 *Transferencia de un intervalo mediante una cota.* Suponga que el intervalo
 original $[hat(J)-h,hat(J)+h]$ tiene la cobertura afirmada y que
@@ -162,14 +164,16 @@ con una implementación equivalente. El cambio estadístico aparece cuando
 se reduce el horizonte, se aproxima una recursión, se descartan datos o se
 seleccionan resultados según su tiempo de respuesta.
 
-*Truncamiento de horizonte.* Si $abs(R_t)<=R_max$ y $0<gamma<1$, el error
-entre el retorno infinito y el truncado después de $H$ recompensas se acota
-por
-$ B_H=frac(R_max gamma^H,1-gamma). $
-Para garantizar $B_H<=epsilon.alt$ basta escoger el menor entero no negativo
-que cumpla la desigualdad. Con $R_max=1.2$, $gamma=0.9$ y tolerancia $0.1$,
-se necesita $H>=46$. Veinte o cinco pasos definen aproximaciones distintas;
-un IC válido para el retorno truncado no cubre automáticamente el infinito.
+#thm-env("example", key: "cap11-truncamiento")[
+  *Truncamiento de horizonte.* Si $abs(R_t)<=R_max$ y $0<gamma<1$, el error
+  entre el retorno infinito y el truncado después de $H$ recompensas se acota
+  por
+  $ B_H=frac(R_max gamma^H,1-gamma). $
+  Para garantizar $B_H<=epsilon.alt$ basta escoger el menor entero no negativo
+  que cumpla la desigualdad. Con $R_max=1.2$, $gamma=0.9$ y tolerancia $0.1$,
+  se necesita $H>=46$. Veinte o cinco pasos definen aproximaciones distintas;
+  un IC válido para el retorno truncado no cubre automáticamente el infinito.
+]
 
 *Planificación interrumpida.* Para un operador de Bellman contractivo con
 factor $gamma$, el residuo $e=norm(cal(T)V-V)_infinity$ da la cota
@@ -604,20 +608,22 @@ o nuevas réplicas, manteniendo visibles las decisiones tomadas.
     [Cambio temporal],[Población, política, medición o dinámica diferentes.],[Localizar el cambio y reevaluar la garantía pertinente.],
     [Fallo de registro],[Probabilidades, versiones o resultados incompletos.],[Corregir procedencia; abstenerse cuando no pueda reconstruirse.],hl()))
 
-*Monitoreo y multiplicidad temporal.* Revisar cada día un IC ordinario hasta
-que sea favorable no conserva su nivel. Una opción elemental, para datos
-independientes de media fija y contribuciones acotadas en $[a,b]$, consiste
-en prefijar tamaños $n_m$ y asignar
-$ alpha_m=frac(alpha,m(m+1)). $
-La suma de los niveles es $alpha$. Por Hoeffding, los límites inferiores
-$ L_m=overline(D)_(n_m)-(b-a)sqrt(frac(log(1/alpha_m),2n_m)) $
-satisfacen $Prob(exists m: L_m>J)<=alpha$ por la unión de eventos.
-No se requiere independencia entre revisiones, pero sí las condiciones de
-cada desigualdad y el objetivo fijo. En DR deben acotarse las contribuciones
-con sus pesos, no solo las recompensas. Si cambia la política objetivo o
-se ajusta el estimador adaptativamente, este argumento no se traslada sin
-revisión. Para construcciones más eficientes, véase
-#link("https://arxiv.org/abs/1810.08240")[Howard et al. (2021), sobre secuencias de confianza].
+#thm-env("example", key: "cap11-monitoreo")[
+  *Monitoreo y multiplicidad temporal.* Revisar cada día un IC ordinario hasta
+  que sea favorable no conserva su nivel. Una opción elemental, para datos
+  independientes de media fija y contribuciones acotadas en $[a,b]$, consiste
+  en prefijar tamaños $n_m$ y asignar
+  $ alpha_m=frac(alpha,m(m+1)). $
+  La suma de los niveles es $alpha$. Por Hoeffding, los límites inferiores
+  $ L_m=overline(D)_(n_m)-(b-a)sqrt(frac(log(1/alpha_m),2n_m)) $
+  satisfacen $Prob(exists m: L_m>J)<=alpha$ por la unión de eventos.
+  No se requiere independencia entre revisiones, pero sí las condiciones de
+  cada desigualdad y el objetivo fijo. En DR deben acotarse las contribuciones
+  con sus pesos, no solo las recompensas. Si cambia la política objetivo o
+  se ajusta el estimador adaptativamente, este argumento no se traslada sin
+  revisión. Para construcciones más eficientes, véase
+  #link("https://arxiv.org/abs/1810.08240")[Howard et al. (2021), sobre secuencias de confianza].
+]
 
 Las alarmas técnicas, como ausencia de una versión o datos mal formados,
 no necesitan fingir ser tests estadísticos. Las alarmas de degradación de

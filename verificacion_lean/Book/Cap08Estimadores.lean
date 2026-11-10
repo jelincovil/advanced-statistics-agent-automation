@@ -245,7 +245,7 @@ theorem abs_hac_le (φ : ℕ → ℝ) (T K : ℕ) :
 
 /-! ## ex:ch11-ej5 — SAVE: término de separación entre bloques -/
 
-/-- book: capitulos/cap08_intervalos.typ:672 (key: ex:ch11-ej5) —
+/-- book: capitulos/cap08_intervalos.typ:674 (key: ex:ch11-ej5) —
 SAVE y orden de aprendizaje: si `a_k` son pesos predeterminados con
 `Σ_k a_k = 1` y `J(π_k)` es el valor de la política entrenada antes del
 bloque `k`, el promedio ponderado se descompone como
@@ -266,7 +266,7 @@ theorem save_separacion {K : ℕ} (a J : Fin K → ℝ) (Jf : ℝ) (ha : ∑ k, 
   rw [h]
   ring
 
-/-- book: capitulos/cap08_intervalos.typ:672 (key: ex:ch11-ej5) —
+/-- book: capitulos/cap08_intervalos.typ:674 (key: ex:ch11-ej5) —
 el término de separación de SAVE no se anula en general: con dos bloques
 igualmente ponderados (`a = (1/2, 1/2)`), valores de bloque `J(π_0)=0`,
 `J(π_1)=2` y política final de valor `J(π_f)=0`, el promedio ponderado
@@ -282,7 +282,7 @@ theorem save_separacion_no_nula :
   · rw [Fin.sum_univ_two]; norm_num
   · rw [Fin.sum_univ_two]; norm_num
 
-/-- book: capitulos/cap08_intervalos.typ:672 (key: ex:ch11-ej5) —
+/-- book: capitulos/cap08_intervalos.typ:674 (key: ex:ch11-ej5) —
 con pesos estrictamente positivos y bloques cuyo valor supera
 estrictamente al de la política final, el término de separación es
 estrictamente positivo: el orden temporal no lo cancela.
