@@ -47,3 +47,17 @@ posteriores y con `C01–C12` + `G1–G10` en PASS. La falta de esa reproducció
 está consignada en `STATE.json`.
 
 La documentación F8 conservada en `argumentos/reports/historico-2026-11-06/` no mide esta entrega y no se usa como prueba importada.
+
+## Resultado de la reproducción limpia — COMPLETE_VERIFIED
+
+Commit de implementación verificado: **01a6c9b97fb0d725f0b04c62afcc4ed746b30c3d**.
+Se ejecutó desde el checkout limpio `../checkout-repair-clean2`, con evidencia fuera en `evidencia/repair/final_A2/`.
+
+- `git diff --exit-code HEAD`: limpio también después de regenerar inventarios y fichas.
+- `cargo fmt --check`, `cargo clippy --all-targets --locked -- -D warnings`, `cargo test --locked`: **exit 0**.
+- `bash verificar.sh`: **exit 0**, 66 módulos activos y 2699 teoremas, cero axiomas no permitidos.
+- Probe externo C01/C02/C03/C06: **exit 0**.
+- `repair_acceptance/verify.py`: C01–C12 y G1–G10 **PASS**.
+- Orquestador original `verify_delivery.py`: **COMPLETE_VERIFIED**, sin reglas relajadas ni `DEVIATIONS.md`.
+
+Después se registra esta evidencia en un commit de documentación; los datos matemáticos y las puertas no cambian. Deuda científica restante, no un defecto del checker: conclusión distribucional de Ibragimov y CLT funcional de Gordin, como se explica arriba.

@@ -1,22 +1,143 @@
 {
   "baseline_commit": "94b79cbd867de5fb9f49d3c1b717fa9e8b3271d7",
-  "current_commit": "94b79cbd867de5fb9f49d3c1b717fa9e8b3271d7",
-  "status": "IN_PROGRESS",
+  "current_commit": "01a6c9b97fb0d725f0b04c62afcc4ed746b30c3d",
+  "status": "COMPLETE_VERIFIED",
   "findings": [
-    {"id":"F01","status":"fixed","evidence":["argumentos/src/check.rs: composition_decision", "argumentos/tests/kernel_repair.rs: C01–C03; initial regression log"]},
-    {"id":"F02","status":"fixed","evidence":["argumentos/src/check.rs: propagate_stale fixed point", "C04 chain/diamond; initial regression log"]},
-    {"id":"F03","status":"fixed","evidence":["EMPIRICAL_RECORD uses scientific_criterion_met", "C05 positive/negative compatibility"]},
-    {"id":"F04","status":"fixed","evidence":["receipt_from_str downgrades local imports", "attest_receipt_from_current_inputs", "C07"]},
-    {"id":"F05","status":"fixed","evidence":["receipts grouped by spec, contradictions Pending", "C06 permutations/renames"]},
-    {"id":"F06","status":"fixed","evidence":["CheckReport.claim_states", "repair_acceptance/claim_review.json"]},
-    {"id":"F07","status":"fixed","evidence":["book.audit_structural libro -> kernel", "four cap11 boxes + bidirectional audit"]},
-    {"id":"F08","status":"fixed","evidence":["C.der:appD-ibragimov-cuantitativo", "C.thm:appD-ibragimov remains NO_FORMAL_PROOF"]},
-    {"id":"F09","status":"fixed","evidence":["source_commit real, Lean source/type hashes", "G7 provenance recomputation"]},
-    {"id":"F10","status":"fixed","evidence":["verificar.sh includes Book/ApendiceDHac_m1.lean", "module census"]},
-    {"id":"F11","status":"fixed","evidence":["lean-toolchain v4.35.0", "lakefile rev 56a005855ea17e0b0958f73ec801ae140b0a1679"]},
-    {"id":"F12","status":"fixed","evidence":["73 corpus links, all specs used", "auxiliary invalid spec archived with replacement"]},
-    {"id":"F13","status":"fixed","evidence":["argumentos/README.md", "reports/historico-2026-11-06", "reports/ARCHIVE.md"]},
-    {"id":"F14","status":"fixed","evidence":["missing scope keys rejected, obligations preserved in LeanAnchor/LeanApply", "C11"]}
+    {
+      "id": "F01",
+      "status": "fixed",
+      "evidence": [
+        "argumentos/src/check.rs: composition_decision",
+        "argumentos/tests/kernel_repair.rs: C01–C03; initial regression log"
+      ]
+    },
+    {
+      "id": "F02",
+      "status": "fixed",
+      "evidence": [
+        "argumentos/src/check.rs: propagate_stale fixed point",
+        "C04 chain/diamond; initial regression log"
+      ]
+    },
+    {
+      "id": "F03",
+      "status": "fixed",
+      "evidence": [
+        "EMPIRICAL_RECORD uses scientific_criterion_met",
+        "C05 positive/negative compatibility"
+      ]
+    },
+    {
+      "id": "F04",
+      "status": "fixed",
+      "evidence": [
+        "receipt_from_str downgrades local imports",
+        "attest_receipt_from_current_inputs",
+        "C07"
+      ]
+    },
+    {
+      "id": "F05",
+      "status": "fixed",
+      "evidence": [
+        "receipts grouped by spec, contradictions Pending",
+        "C06 permutations/renames"
+      ]
+    },
+    {
+      "id": "F06",
+      "status": "fixed",
+      "evidence": [
+        "CheckReport.claim_states",
+        "repair_acceptance/claim_review.json"
+      ]
+    },
+    {
+      "id": "F07",
+      "status": "fixed",
+      "evidence": [
+        "book.audit_structural libro -> kernel",
+        "four cap11 boxes + bidirectional audit"
+      ]
+    },
+    {
+      "id": "F08",
+      "status": "fixed",
+      "evidence": [
+        "C.der:appD-ibragimov-cuantitativo",
+        "C.thm:appD-ibragimov remains NO_FORMAL_PROOF"
+      ]
+    },
+    {
+      "id": "F09",
+      "status": "fixed",
+      "evidence": [
+        "source_commit real, Lean source/type hashes",
+        "G7 provenance recomputation"
+      ]
+    },
+    {
+      "id": "F10",
+      "status": "fixed",
+      "evidence": [
+        "verificar.sh includes Book/ApendiceDHac_m1.lean",
+        "module census"
+      ]
+    },
+    {
+      "id": "F11",
+      "status": "fixed",
+      "evidence": [
+        "lean-toolchain v4.35.0",
+        "lakefile rev 56a005855ea17e0b0958f73ec801ae140b0a1679"
+      ]
+    },
+    {
+      "id": "F12",
+      "status": "fixed",
+      "evidence": [
+        "73 corpus links, all specs used",
+        "auxiliary invalid spec archived with replacement"
+      ]
+    },
+    {
+      "id": "F13",
+      "status": "fixed",
+      "evidence": [
+        "argumentos/README.md",
+        "reports/historico-2026-11-06",
+        "reports/ARCHIVE.md"
+      ]
+    },
+    {
+      "id": "F14",
+      "status": "fixed",
+      "evidence": [
+        "missing scope keys rejected, obligations preserved in LeanAnchor/LeanApply",
+        "C11"
+      ]
+    }
   ],
-  "blockers": ["Final clean worktree reproduction pending; current_commit is updated only after that commit exists"]
+  "blockers": [],
+  "verification": {
+    "implementation_commit": "01a6c9b97fb0d725f0b04c62afcc4ed746b30c3d",
+    "clean_checkout": "../checkout-repair-clean2",
+    "report": "evidencia/repair/final_A2/verification.json",
+    "acceptance_report": "evidencia/repair/final_A2/acceptance.json",
+    "status_orchestrator": "COMPLETE_VERIFIED",
+    "cases": "C01-C12 PASS",
+    "gates": "G1-G10 PASS",
+    "claims": 245,
+    "arguments": 283,
+    "specs": 286,
+    "receipts": 286,
+    "lean_modules": 66,
+    "lean_theorems_audited": 2699,
+    "book_blocks": 398,
+    "unclaimed_visible": 174,
+    "scientific_debt": [
+      "C.thm:appD-ibragimov",
+      "C.thm:appD-gordin"
+    ]
+  }
 }
