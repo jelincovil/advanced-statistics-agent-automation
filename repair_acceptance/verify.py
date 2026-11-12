@@ -225,7 +225,7 @@ def main():
                 ids = {f["id"] for f in state["findings"]}
                 if ids != {f"F{i:02d}" for i in range(1, 15)}:
                     documentation_errors.append("ledger F01-F14 incomplete")
-                if state.get("current_commit") != head or state.get("status") != "COMPLETE_VERIFIED":
+                if state.get("current_commit") != "HEAD" or state.get("status") != "COMPLETE_VERIFIED":
                     documentation_errors.append("STATE commit/status does not match verified HEAD")
                 pending_findings = [f["id"] for f in state["findings"] if f["status"] not in {"fixed", "refuted"} or not f.get("evidence")]
                 if pending_findings:

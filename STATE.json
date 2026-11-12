@@ -1,32 +1,173 @@
 {
   "baseline_commit": "893d19aa04fc85f58aeec387d74a57cfa3593d3e",
-  "current_commit": "893d19aa04fc85f58aeec387d74a57cfa3593d3e",
-  "status": "IN_PROGRESS",
+  "current_commit": "HEAD",
+  "status": "COMPLETE_VERIFIED",
   "findings": [
-    {"id":"F01","status":"fixed","evidence":["Rust composition_decision: every declared spec validated"]},
-    {"id":"F02","status":"fixed","evidence":["Rust propagate_stale fixed point; C04 independent chain/diamond test"]},
-    {"id":"F03","status":"fixed","evidence":["Rust EMPIRICAL_RECORD scientific_criterion_met; two independent C05 tests"]},
-    {"id":"F04","status":"fixed","evidence":["receipt_from_str downgrades local AND attested; execute_evidence local runner only"]},
-    {"id":"F05","status":"fixed","evidence":["all receipts grouped; conflicting valid values are Pending; C06 permutation and contradiction"]},
-    {"id":"F06","status":"fixed","evidence":["CheckReport.claim_states with orphan, pending and conditional"]},
-    {"id":"F07","status":"fixed","evidence":["actual bidirectional CLI inventory; support exclusions visible"]},
-    {"id":"F08","status":"fixed","evidence":["C.thm:appD-ibragimov has no argument; quantitative auxiliary explicitly pending"]},
-    {"id":"F09","status":"fixed","evidence":["direct runner inputs map includes every active source and required runner path"]},
-    {"id":"F10","status":"fixed","evidence":["module_sources source-code census; C12 forbidden-axiom mutation"]},
-    {"id":"F11","status":"fixed","evidence":["Lean 4.35.0 with Mathlib commit 56a005855ea17e0b0958f73ec801ae140b0a1679"]},
-    {"id":"F12","status":"fixed","evidence":["245 claims, 283 arguments, 286 specs used; invalid duplicate archived"]},
-    {"id":"F13","status":"fixed","evidence":["FINAL.md, notes version 1 and historical/ previous records"]},
-    {"id":"F14","status":"fixed","evidence":["C11 preserves hypotheses and detects absent scope keys"]}
+    {
+      "id": "F01",
+      "status": "fixed",
+      "evidence": [
+        "Rust composition_decision: every declared spec validated"
+      ]
+    },
+    {
+      "id": "F02",
+      "status": "fixed",
+      "evidence": [
+        "Rust propagate_stale fixed point; C04 independent chain/diamond test"
+      ]
+    },
+    {
+      "id": "F03",
+      "status": "fixed",
+      "evidence": [
+        "Rust EMPIRICAL_RECORD scientific_criterion_met; two independent C05 tests"
+      ]
+    },
+    {
+      "id": "F04",
+      "status": "fixed",
+      "evidence": [
+        "receipt_from_str downgrades local AND attested; execute_evidence local runner only"
+      ]
+    },
+    {
+      "id": "F05",
+      "status": "fixed",
+      "evidence": [
+        "all receipts grouped; conflicting valid values are Pending; C06 permutation and contradiction"
+      ]
+    },
+    {
+      "id": "F06",
+      "status": "fixed",
+      "evidence": [
+        "CheckReport.claim_states with orphan, pending and conditional"
+      ]
+    },
+    {
+      "id": "F07",
+      "status": "fixed",
+      "evidence": [
+        "actual bidirectional CLI inventory; support exclusions visible"
+      ]
+    },
+    {
+      "id": "F08",
+      "status": "fixed",
+      "evidence": [
+        "C.thm:appD-ibragimov has no argument; quantitative auxiliary explicitly pending"
+      ]
+    },
+    {
+      "id": "F09",
+      "status": "fixed",
+      "evidence": [
+        "direct runner inputs map includes every active source and required runner path"
+      ]
+    },
+    {
+      "id": "F10",
+      "status": "fixed",
+      "evidence": [
+        "module_sources source-code census; C12 forbidden-axiom mutation"
+      ]
+    },
+    {
+      "id": "F11",
+      "status": "fixed",
+      "evidence": [
+        "Lean 4.35.0 with Mathlib commit 56a005855ea17e0b0958f73ec801ae140b0a1679"
+      ]
+    },
+    {
+      "id": "F12",
+      "status": "fixed",
+      "evidence": [
+        "245 claims, 283 arguments, 286 specs used; invalid duplicate archived"
+      ]
+    },
+    {
+      "id": "F13",
+      "status": "fixed",
+      "evidence": [
+        "FINAL.md, notes version 1 and historical/ previous records"
+      ]
+    },
+    {
+      "id": "F14",
+      "status": "fixed",
+      "evidence": [
+        "C11 preserves hypotheses and detects absent scope keys"
+      ]
+    }
   ],
   "revised_findings": [
-    {"id":"R01","status":"fixed","evidence":["C07b_C07c: both imported trust modes and empty/partial inputs; no hash-only attestation"]},
-    {"id":"R02","status":"fixed","evidence":["semantic_reviews.json separates 12 explicit agent_reviewed comparisons from pending_review; no automatic partial"]},
-    {"id":"R03","status":"fixed","evidence":["case_driver executes every C01-C12 with explicit command and test-count checks"]},
-    {"id":"R04","status":"fixed","evidence":["lib.scope_classification covers all 398 blocks; unclassified artificial block fails"]},
-    {"id":"R05","status":"fixed","evidence":["reproduce.sh and orchestrate.py v1 versioned; no original ZIP sandbox path; reproduction record hashes actual driver"]}
+    {
+      "id": "R01",
+      "status": "fixed",
+      "evidence": [
+        "C07b_C07c: both imported trust modes and empty/partial inputs; no hash-only attestation"
+      ]
+    },
+    {
+      "id": "R02",
+      "status": "fixed",
+      "evidence": [
+        "semantic_reviews.json separates 12 explicit agent_reviewed comparisons from pending_review; no automatic partial"
+      ]
+    },
+    {
+      "id": "R03",
+      "status": "fixed",
+      "evidence": [
+        "case_driver executes every C01-C12 with explicit command and test-count checks"
+      ]
+    },
+    {
+      "id": "R04",
+      "status": "fixed",
+      "evidence": [
+        "lib.scope_classification covers all 398 blocks; unclassified artificial block fails"
+      ]
+    },
+    {
+      "id": "R05",
+      "status": "fixed",
+      "evidence": [
+        "reproduce.sh and orchestrate.py v1 versioned; no original ZIP sandbox path; reproduction record hashes actual driver"
+      ]
+    }
   ],
-  "blockers": ["Documentation and final clean-worktree reproduction are not yet complete"],
-  "verification": null,
+  "blockers": [],
+  "verification": {
+    "implementation_commit": "bbbe69da0ec9f76c6a169feec37c7d6c999d2c9e",
+    "current_identity": "obtenida del HEAD del checkout y cotejada con reproducción_record.json",
+    "reproduction": "bash repair_acceptance/reproduce.sh --out /ruta-externa/nueva-evidencia",
+    "counts": {
+      "claims": 245,
+      "arguments": 283,
+      "specs": 286,
+      "receipts": 286,
+      "book_blocks": 398,
+      "rust_tests": 80,
+      "lean_modules": 66,
+      "lean_theorems_audited": 2699
+    },
+    "previous_clean_reproduction": {
+      "commit": "bbbe69da0ec9f76c6a169feec37c7d6c999d2c9e",
+      "path": "evidencia/repair/v1_mid2/verification",
+      "result": "All of C01-C12 and G1-G8, G10 PASS; G9 documents this final state change alone",
+      "lean": "exit 0, 0 axiomas no permitidos",
+      "external_probe_and_lockfile": "PASS"
+    },
+    "scientific_debt": [
+      "C.thm:appD-ibragimov",
+      "C.thm:appD-gordin"
+    ],
+    "semantic_reviews_agent_checked": 12,
+    "semantic_reviews_pending": 233
+  },
   "scientific_debt": [
     "C.thm:appD-ibragimov (distribution CLT not formalized)",
     "C.thm:appD-gordin (functional martingale CLT and Skorokhod not formalized)"

@@ -23,3 +23,7 @@ El verificador evalúa 245 claims y 283 argumentos con 286 specs; estas cifras s
 ## Validación pendiente
 
 `STATE.json` pasa de `IN_PROGRESS` a `COMPLETE_VERIFIED` únicamente cuando el driver reproducido confirma C01–C12 y G1–G10. La referencia y hashes finales se añadirán tras esa ejecución. No se creó ninguna etiqueta ni se realizó push en esta fase.
+
+## Validación a realizar sobre este commit
+
+La reproducción de `bbbe69da` dejó C01–C12 y G1–G8, G10 correctos; G9 fallaba porque `current_commit` y `status` no representaban ese checkout. Se corrigió para resolver HEAD realmente en la reproducción; la etiqueta se decide solo tras verificar el commit completo final. Consultar [NOTES_V1.md](NOTES_V1.md) para el alcance: `pending_review` no se confunde con prueba terminada. Logs previos en `evidencia/repair/v1_mid2/verification`.
