@@ -1,143 +1,34 @@
 {
-  "baseline_commit": "94b79cbd867de5fb9f49d3c1b717fa9e8b3271d7",
-  "current_commit": "01a6c9b97fb0d725f0b04c62afcc4ed746b30c3d",
-  "status": "COMPLETE_VERIFIED",
+  "baseline_commit": "893d19aa04fc85f58aeec387d74a57cfa3593d3e",
+  "current_commit": "893d19aa04fc85f58aeec387d74a57cfa3593d3e",
+  "status": "IN_PROGRESS",
   "findings": [
-    {
-      "id": "F01",
-      "status": "fixed",
-      "evidence": [
-        "argumentos/src/check.rs: composition_decision",
-        "argumentos/tests/kernel_repair.rs: C01–C03; initial regression log"
-      ]
-    },
-    {
-      "id": "F02",
-      "status": "fixed",
-      "evidence": [
-        "argumentos/src/check.rs: propagate_stale fixed point",
-        "C04 chain/diamond; initial regression log"
-      ]
-    },
-    {
-      "id": "F03",
-      "status": "fixed",
-      "evidence": [
-        "EMPIRICAL_RECORD uses scientific_criterion_met",
-        "C05 positive/negative compatibility"
-      ]
-    },
-    {
-      "id": "F04",
-      "status": "fixed",
-      "evidence": [
-        "receipt_from_str downgrades local imports",
-        "attest_receipt_from_current_inputs",
-        "C07"
-      ]
-    },
-    {
-      "id": "F05",
-      "status": "fixed",
-      "evidence": [
-        "receipts grouped by spec, contradictions Pending",
-        "C06 permutations/renames"
-      ]
-    },
-    {
-      "id": "F06",
-      "status": "fixed",
-      "evidence": [
-        "CheckReport.claim_states",
-        "repair_acceptance/claim_review.json"
-      ]
-    },
-    {
-      "id": "F07",
-      "status": "fixed",
-      "evidence": [
-        "book.audit_structural libro -> kernel",
-        "four cap11 boxes + bidirectional audit"
-      ]
-    },
-    {
-      "id": "F08",
-      "status": "fixed",
-      "evidence": [
-        "C.der:appD-ibragimov-cuantitativo",
-        "C.thm:appD-ibragimov remains NO_FORMAL_PROOF"
-      ]
-    },
-    {
-      "id": "F09",
-      "status": "fixed",
-      "evidence": [
-        "source_commit real, Lean source/type hashes",
-        "G7 provenance recomputation"
-      ]
-    },
-    {
-      "id": "F10",
-      "status": "fixed",
-      "evidence": [
-        "verificar.sh includes Book/ApendiceDHac_m1.lean",
-        "module census"
-      ]
-    },
-    {
-      "id": "F11",
-      "status": "fixed",
-      "evidence": [
-        "lean-toolchain v4.35.0",
-        "lakefile rev 56a005855ea17e0b0958f73ec801ae140b0a1679"
-      ]
-    },
-    {
-      "id": "F12",
-      "status": "fixed",
-      "evidence": [
-        "73 corpus links, all specs used",
-        "auxiliary invalid spec archived with replacement"
-      ]
-    },
-    {
-      "id": "F13",
-      "status": "fixed",
-      "evidence": [
-        "argumentos/README.md",
-        "reports/historico-2026-11-06",
-        "reports/ARCHIVE.md"
-      ]
-    },
-    {
-      "id": "F14",
-      "status": "fixed",
-      "evidence": [
-        "missing scope keys rejected, obligations preserved in LeanAnchor/LeanApply",
-        "C11"
-      ]
-    }
+    {"id":"F01","status":"fixed","evidence":["Rust composition_decision: every declared spec validated"]},
+    {"id":"F02","status":"fixed","evidence":["Rust propagate_stale fixed point; C04 independent chain/diamond test"]},
+    {"id":"F03","status":"fixed","evidence":["Rust EMPIRICAL_RECORD scientific_criterion_met; two independent C05 tests"]},
+    {"id":"F04","status":"fixed","evidence":["receipt_from_str downgrades local AND attested; execute_evidence local runner only"]},
+    {"id":"F05","status":"fixed","evidence":["all receipts grouped; conflicting valid values are Pending; C06 permutation and contradiction"]},
+    {"id":"F06","status":"fixed","evidence":["CheckReport.claim_states with orphan, pending and conditional"]},
+    {"id":"F07","status":"fixed","evidence":["actual bidirectional CLI inventory; support exclusions visible"]},
+    {"id":"F08","status":"fixed","evidence":["C.thm:appD-ibragimov has no argument; quantitative auxiliary explicitly pending"]},
+    {"id":"F09","status":"fixed","evidence":["direct runner inputs map includes every active source and required runner path"]},
+    {"id":"F10","status":"fixed","evidence":["module_sources source-code census; C12 forbidden-axiom mutation"]},
+    {"id":"F11","status":"fixed","evidence":["Lean 4.35.0 with Mathlib commit 56a005855ea17e0b0958f73ec801ae140b0a1679"]},
+    {"id":"F12","status":"fixed","evidence":["245 claims, 283 arguments, 286 specs used; invalid duplicate archived"]},
+    {"id":"F13","status":"fixed","evidence":["FINAL.md, notes version 1 and historical/ previous records"]},
+    {"id":"F14","status":"fixed","evidence":["C11 preserves hypotheses and detects absent scope keys"]}
   ],
-  "blockers": [],
-  "verification": {
-    "implementation_commit": "01a6c9b97fb0d725f0b04c62afcc4ed746b30c3d",
-    "clean_checkout": "../checkout-repair-clean2",
-    "report": "evidencia/repair/final_A2/verification.json",
-    "acceptance_report": "evidencia/repair/final_A2/acceptance.json",
-    "status_orchestrator": "COMPLETE_VERIFIED",
-    "cases": "C01-C12 PASS",
-    "gates": "G1-G10 PASS",
-    "claims": 245,
-    "arguments": 283,
-    "specs": 286,
-    "receipts": 286,
-    "lean_modules": 66,
-    "lean_theorems_audited": 2699,
-    "book_blocks": 398,
-    "unclaimed_visible": 174,
-    "scientific_debt": [
-      "C.thm:appD-ibragimov",
-      "C.thm:appD-gordin"
-    ]
-  }
+  "revised_findings": [
+    {"id":"R01","status":"fixed","evidence":["C07b_C07c: both imported trust modes and empty/partial inputs; no hash-only attestation"]},
+    {"id":"R02","status":"fixed","evidence":["semantic_reviews.json separates 12 explicit agent_reviewed comparisons from pending_review; no automatic partial"]},
+    {"id":"R03","status":"fixed","evidence":["case_driver executes every C01-C12 with explicit command and test-count checks"]},
+    {"id":"R04","status":"fixed","evidence":["lib.scope_classification covers all 398 blocks; unclassified artificial block fails"]},
+    {"id":"R05","status":"fixed","evidence":["reproduce.sh and orchestrate.py v1 versioned; no original ZIP sandbox path; reproduction record hashes actual driver"]}
+  ],
+  "blockers": ["Documentation and final clean-worktree reproduction are not yet complete"],
+  "verification": null,
+  "scientific_debt": [
+    "C.thm:appD-ibragimov (distribution CLT not formalized)",
+    "C.thm:appD-gordin (functional martingale CLT and Skorokhod not formalized)"
+  ]
 }

@@ -479,7 +479,8 @@ fn check_argument(
 /// Procedencia mínima exigible a un recibo local/atestado. El ejecutor es
 /// quien produce el comprobante: el checker valida que el formulario tenga
 /// los elementos auditables y no un mero campo booleano de aprobación.
-fn provenance_ok(receipt: &Receipt, kind: EvidenceKind) -> bool {
+fn provenance_ok(receipt: &Receipt, spec: &crate::model::EvidenceSpec) -> bool {
+    let kind = spec.kind;
     let commit_ok = receipt.source_commit.len() == 40
         && receipt.source_commit.chars().all(|c| c.is_ascii_hexdigit());
     let environment_ok = receipt.environment_hash.len() == 64
@@ -499,7 +500,10 @@ fn provenance_ok(receipt: &Receipt, kind: EvidenceKind) -> bool {
                 )
         }),
     };
-    commit_ok && environment_ok && !receipt.input_hashes.is_empty() && observed_ok
+    commit_ok
+        && environment_ok
+        && crate::receipt::required_inputs_present(receipt, spec)
+        && observed_ok
 }
 
 fn trusted_execution(receipt: &Receipt) -> bool {
@@ -528,7 +532,7 @@ fn evidence_decision(spec: &EvidenceSpec, by_spec: &HashMap<&str, Vec<&Receipt>>
     };
     let mut valid = Vec::new();
     for r in receipts {
-        if r.spec_hash == spec_hash(spec) && trusted_execution(r) && provenance_ok(r, spec.kind) {
+        if r.spec_hash == spec_hash(spec) && trusted_execution(r) && provenance_ok(r, spec) {
             valid.push(*r);
         }
     }

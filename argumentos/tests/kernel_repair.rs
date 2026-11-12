@@ -244,6 +244,9 @@ fn recibo_con_proveniencia(spec: &EvidenceSpec) -> Receipt {
     let mut r = recibo(spec);
     r.source_commit = "a".repeat(40);
     r.input_hashes.insert("fixture".into(), "f".repeat(64));
+    for required in argumentos::receipt::required_input_paths(spec) {
+        r.input_hashes.insert(required, "f".repeat(64));
+    }
     r.observed_checks.push(argumentos::receipt::ObservedCheck {
         id: match spec.kind {
             EvidenceKind::Lean => "lean_provenance".into(),
@@ -510,4 +513,83 @@ fn f10_modulo_hac_activo_no_desaparece_del_runner() {
         script.contains("Book/ApendiceDHac_m1.lean"),
         "el módulo HAC debe estar ejecutado o registrado como archivo: ver F10"
     );
+}
+
+#[test]
+fn c07b_ni_local_ni_attested_importado_es_confiable() {
+    // Incluye recibo completo, con hashes correctos. El campo importado no
+    // autentica ejecución y nunca sustituye un runner autorizado.
+    for mode in ["locally_reproduced", "attested_by_configured_policy"] {
+        let c = claim("P", ClaimKind::Formal, atom("p"), &[], &[]);
+        let e = spec(
+            "E",
+            EvidenceKind::Lean,
+            "P",
+            "p",
+            &[],
+            Availability::Candidate,
+        );
+        let r = recibo_con_proveniencia(&e);
+        let mut text = serde_json::to_string(&r).unwrap();
+        text = text.replace("\"locally_reproduced\"", &format!("\"{mode}\""));
+        let imported = argumentos::receipt::receipt_from_str(&text).unwrap();
+        assert_eq!(imported.trust_mode, TrustMode::UntrustedImport);
+        assert!(argumentos::receipt::required_inputs_present(&imported, &e));
+        assert!(matches!(
+            report_of(
+                &kernel(
+                    vec![c],
+                    vec![argument("A", "P", &[], Rule::LeanAnchor, &["E"])],
+                    vec![e]
+                ),
+                &[imported]
+            )
+            .results["A"]
+                .decision,
+            Decision::Pending { .. }
+        ));
+    }
+}
+
+#[test]
+fn c07c_input_vacio_o_parcial_nunca_completa_proveniencia() {
+    let e = spec(
+        "E",
+        EvidenceKind::Lean,
+        "P",
+        "p",
+        &[],
+        Availability::Candidate,
+    );
+    let mut r = recibo_con_proveniencia(&e);
+    r.input_hashes.clear();
+    assert!(!argumentos::receipt::required_inputs_present(&r, &e));
+    for path in argumentos::receipt::required_input_paths(&e) {
+        let mut r = recibo_con_proveniencia(&e);
+        r.input_hashes.remove(&path);
+        assert!(!argumentos::receipt::required_inputs_present(&r, &e));
+    }
+}
+
+#[test]
+fn c10b_ibragimov_es_auxiliar_no_clt() {
+    let k = argumentos::model::load_kernel(std::path::Path::new(concat!(
+        env!("CARGO_MANIFEST_DIR"),
+        "/kernel/libro_completo.json"
+    )))
+    .unwrap();
+    let pending = std::fs::read_to_string(concat!(
+        env!("CARGO_MANIFEST_DIR"),
+        "/kernel/pendientes.json"
+    ))
+    .unwrap();
+    assert!(pending.contains("n^-1/2 sum X_t ->d N(0,sigma_LR^2)"));
+    assert!(k
+        .claims
+        .iter()
+        .any(|c| c.id == "C.der:appD-ibragimov-cuantitativo"));
+    assert!(!k
+        .arguments
+        .iter()
+        .any(|a| a.conclusion == "C.thm:appD-ibragimov"));
 }

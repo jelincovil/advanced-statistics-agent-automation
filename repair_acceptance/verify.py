@@ -1,73 +1,69 @@
 #!/usr/bin/env python3
-"""Acceptance adapter: executes evidence instead of copying a verdict.
+"""Reproduce the v1 acceptance gates with independently executed evidence.
 
-Usage: python3 repair_acceptance/verify.py --repo REPO --out acceptance.json
-
-A separate work directory outside the checkout receives receipts and logs.
-The tracked claim_review.json is generated from the current kernel, Lean exporter
-and Typst inventory. G10 additionally requires the explicit clean-reproduction
-environment marker (set by the final worktree reproduction).
+--out is an external report path. All work products are external. PASS is
+computed, never taken from a field in the receipt or from this script.
 """
 import argparse
 import hashlib
 import json
 import os
 import pathlib
-import re
 import subprocess
 import sys
 import time
 
 AXIOMS = {"propext", "Classical.choice", "Quot.sound"}
-DEBT = {"C.thm:appD-gordin", "C.thm:appD-ibragimov"}
 
 
-def sha256_bytes(data):
+def sha256(data):
     return hashlib.sha256(data).hexdigest()
 
 
-def sha256_text(text):
-    return sha256_bytes(text.encode("utf-8"))
+def read_text(path):
+    return pathlib.Path(path).read_text(encoding="utf-8", errors="replace")
 
 
 def read_json(path):
     return json.loads(pathlib.Path(path).read_text(encoding="utf-8"))
 
 
-def atomic_json(path, data):
+def write_json(path, data):
     path = pathlib.Path(path)
-    temp = path.with_suffix(path.suffix + ".tmp")
-    temp.write_text(json.dumps(data, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
-    temp.replace(path)
+    temporary = path.with_suffix(path.suffix + ".tmp")
+    temporary.write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    temporary.replace(path)
 
 
 def run(name, argv, cwd, logs, timeout=7200, env=None):
-    started = time.time()
-    log = logs / (name + ".log")
+    start = time.time()
     environment = os.environ.copy()
     if env:
         environment.update(env)
+    path = pathlib.Path(logs) / (name + ".log")
     try:
-        result = subprocess.run(argv, cwd=cwd, stdout=subprocess.PIPE,
-                                stderr=subprocess.STDOUT, timeout=timeout, env=environment)
-        data = result.stdout
-        code = result.returncode
+        result = subprocess.run([str(a) for a in argv], cwd=cwd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, env=environment, timeout=timeout)
+        code, data = result.returncode, result.stdout
     except (OSError, subprocess.TimeoutExpired) as error:
-        data = str(error).encode("utf-8")
-        code = 125
-    log.write_bytes(data)
-    return {
-        "name": name,
-        "argv": [str(a) for a in argv],
-        "exit_code": code,
-        "seconds": round(time.time() - started, 2),
-        "log": str(log),
-        "sha256": sha256_bytes(data),
-    }
+        code, data = 125, str(error).encode("utf-8")
+    path.write_bytes(data)
+    return {"name": name, "argv": [str(a) for a in argv], "exit_code": code,
+            "seconds": round(time.time() - start, 2), "log": str(path), "sha256": sha256(data)}
 
 
-def text(path):
-    return pathlib.Path(path).read_text(encoding="utf-8", errors="replace")
+def parse_test_suites(output):
+    """Count only actually-run tests. A global green is not per-case evidence."""
+    count = 0
+    suites = []
+    for line in output.splitlines():
+        if line.startswith("running ") and " tests" in line:
+            number = line.split()[1]
+            if number.isdigit():
+                count += int(number)
+        if line.startswith("test result: ok. "):
+            passed = int(line.split("test result: ok. ")[1].split()[0].split(";")[0].replace("passed", "").strip())
+            suites.append(passed)
+    return count, suites
 
 
 def main():
@@ -77,267 +73,226 @@ def main():
     args = parser.parse_args()
     repo = args.repo.resolve()
     out = args.out.resolve()
-    out.parent.mkdir(parents=True, exist_ok=True)
-    evidence_root = out.parent / "acceptance_work"
-    evidence_root.mkdir(exist_ok=True)
-    logs = evidence_root / "logs"
-    logs.mkdir(exist_ok=True)
+    if out == repo or repo in out.parents:
+        parser.error("--out must be outside the checkout")
+    work = out.parent / "acceptance_work"
+    logs_dir = work / "logs"
+    logs_dir.mkdir(parents=True, exist_ok=True)
+    evidence_root = work
+    receipts = evidence_root / "receipts"
+    receipts.mkdir(exist_ok=True)
+    sys.path.insert(0, str(repo / "repair_acceptance"))
+    import case_driver
+    import lib
+
+    manifest = repo / "argumentos"
+    kernel_path = manifest / "kernel/libro_completo.json"
+    book = repo / "book_stat_inference_v0"
+    lean = repo / "verificacion_lean"
+    cargo = ["cargo", "run", "--locked", "--manifest-path", str(manifest / "Cargo.toml"), "--"]
     evidence = []
     cases = {f"C{i:02d}": "FAIL" for i in range(1, 13)}
     gates = {f"G{i}": "FAIL" for i in range(1, 11)}
     summary = {"errors": []}
     status = "FAIL"
     try:
-        manifest = repo / "argumentos"
-        kernel_path = manifest / "kernel/libro_completo.json"
-        book = repo / "book_stat_inference_v0"
-        lean = repo / "verificacion_lean"
-        book_inventory_path = evidence_root / "book_inventory.json"
-        receipts = evidence_root / "receipts"
-        receipts.mkdir(exist_ok=True)
-        cargo = ["cargo", "run", "--manifest-path", str(manifest / "Cargo.toml"), "--"]
+        head_record = run("git_head", ["git", "rev-parse", "HEAD"], repo, logs_dir)
+        status_record = run("git_status", ["git", "status", "--porcelain", "--untracked-files=all"], repo, logs_dir)
+        evidence.extend([head_record, status_record])
+        for name, command in [
+            ("fmt", ["cargo", "fmt", "--check"]),
+            ("clippy", ["cargo", "clippy", "--all-targets", "--locked", "--", "-D", "warnings"]),
+            ("rust_tests", ["cargo", "test", "--locked"]),
+        ]:
+            evidence.append(run(name, command, manifest, logs_dir))
+        evidence.append(run("lean_runner", ["bash", "verificar.sh"], lean, logs_dir))
+        inventory_path = evidence_root / "book_inventory.json"
+        evidence.append(run("book_inventory", cargo + ["inventory", "--book", str(book), "--out", str(inventory_path)], repo, logs_dir))
+        verify_record = run("proof_reproduction", cargo + ["verify", "--repo", str(repo), "--out", str(receipts)], repo, logs_dir)
+        evidence.append(verify_record)
+        evidence.append(run("editorial_audit", cargo + ["audit", "--kernel", str(kernel_path), "--book", str(book)], repo, logs_dir))
 
-        evidence.append(run("git_head", ["git", "rev-parse", "HEAD"], repo, logs))
-        evidence.append(run("git_status", ["git", "status", "--porcelain", "--untracked-files=all"], repo, logs))
-        evidence.append(run("fmt", ["cargo", "fmt", "--check"], manifest, logs))
-        evidence.append(run("clippy", ["cargo", "clippy", "--all-targets", "--locked", "--", "-D", "warnings"], manifest, logs))
-        evidence.append(run("rust_tests", ["cargo", "test", "--locked"], manifest, logs))
-        evidence.append(run("lean_runner", ["bash", "verificar.sh"], lean, logs, timeout=7200))
-        evidence.append(run("book_inventory", cargo + ["inventory", "--book", str(book), "--out", str(book_inventory_path)], repo, logs))
-        evidence.append(run("evidence", cargo + ["evidence", "--repo", str(repo), "--out", str(receipts)], repo, logs))
-        evidence.append(run("check", cargo + ["check", "--kernel", str(kernel_path), "--receipts", str(receipts)], repo, logs))
-        evidence.append(run("editorial_audit", cargo + ["audit", "--kernel", str(kernel_path), "--book", str(book)], repo, logs))
-
-        lean_env = os.environ.copy()
-        previous_lean = lean_env.get("LEAN_PATH", "")
-        lean_env["LEAN_PATH"] = str(lean / "build") + (":" + previous_lean if previous_lean else "")
-        export_record = run("lean_export", ["lean", str(manifest / "evidence/lean_export.lean")], repo, logs, env=lean_env)
+        lean_environment = os.environ.copy()
+        previous = lean_environment.get("LEAN_PATH", "")
+        lean_environment["LEAN_PATH"] = str(lean / "build") + (":" + previous if previous else "")
+        exporter_path = evidence_root / "lean_export.jsonl"
+        export_record = run("lean_export", ["lean", str(manifest / "evidence/lean_export.lean")], repo, logs_dir, env=lean_environment)
         evidence.append(export_record)
-        (evidence_root / "lean_export.jsonl").write_bytes((logs / "lean_export.log").read_bytes())
+        exporter_path.write_bytes((logs_dir / "lean_export.log").read_bytes())
 
-        probe_dir = evidence_root / "external_probe"
-        (probe_dir / "tests").mkdir(parents=True, exist_ok=True)
-        probe_source = repo.parent / "evidencia/repair/paquete_original/regression_cases/probe.rs"
-        if not probe_source.exists():
-            probe_source = repo / ".scratch/audit_package/openmathos_kernel_repair_v1/regression_cases/probe.rs"
-        if not probe_source.exists():
-            raise RuntimeError("Paquete original: probe.rs no localizado")
-        (probe_dir / "tests/probe.rs").write_bytes(probe_source.read_bytes())
-        (probe_dir / "Cargo.toml").write_text(
+        # The probe source is versioned, not borrowed from a sandbox path.
+        probe_source = repo / "repair_acceptance/probe.rs"
+        probe = evidence_root / "external_probe"
+        (probe / "tests").mkdir(parents=True, exist_ok=True)
+        (probe / "tests/probe.rs").write_bytes(probe_source.read_bytes())
+        (probe / "Cargo.toml").write_text(
             '[package]\nname="openmathos_probe"\nversion="0.1.0"\nedition="2021"\n'
             '[dependencies]\nargumentos={path=' + json.dumps(str(manifest)) + '}\n', encoding="utf-8")
-        evidence.append(run("external_probe", ["cargo", "test", "--manifest-path", str(probe_dir / "Cargo.toml")], manifest, logs))
+        evidence.append(run("external_probe", ["cargo", "test", "--locked", "--manifest-path", str(probe / "Cargo.toml")], manifest, logs_dir))
 
-        kernel = read_json(kernel_path)
-        inventory = read_json(book_inventory_path)
-        pendientes = read_json(manifest / "kernel/pendientes.json")
-        claims = kernel["claims"]
-        arguments = kernel["arguments"]
-        specs = kernel["evidence_specs"]
-        spec_by_id = {s["id"]: s for s in specs}
-        check_text = text(logs / "check.log")
-        tests_text = text(logs / "rust_tests.log")
-        lean_text = text(logs / "lean_runner.log")
-        inventory_text = text(logs / "editorial_audit.log")
         by_exit = {r["name"]: r["exit_code"] for r in evidence}
+        head = read_text(logs_dir / "git_head.log").strip()
+        dirty = read_text(logs_dir / "git_status.log").strip()
+        kernel = read_json(kernel_path)
+        claims, arguments, specs = kernel["claims"], kernel["arguments"], kernel["evidence_specs"]
+        inventory = read_json(inventory_path)
+        spec_by_id = {s["id"]: s for s in specs}
+        tests_text = read_text(logs_dir / "rust_tests.log")
+        lean_text = read_text(logs_dir / "lean_runner.log")
+        check_text = read_text(logs_dir / "proof_reproduction.log")
+        run_count, test_suites = parse_test_suites(tests_text)
+        test_ok = by_exit["rust_tests"] == 0 and run_count > 0 and len(test_suites) > 0
 
-        # G1: strict loads and ordinary CLI validation are effective.
-        gates["G1"] = "PASS" if by_exit["check"] == 0 else "FAIL"
-        # G2/G3: each Rust test was truly executed, including external API cases.
-        tests_ok = by_exit["rust_tests"] == 0 and "test result: ok" in tests_text
-        probe_ok = by_exit["external_probe"] == 0
-        gates["G2"] = "PASS" if tests_ok and probe_ok else "FAIL"
-        gates["G3"] = "PASS" if all(by_exit[n] == 0 for n in ["fmt", "clippy", "rust_tests"]) else "FAIL"
-        # G4: source runner, active module census and thrown axiom exception.
-        source_files = sorted(p.name for p in (lean / "Book").glob("*.lean"))
-        active_modules = 1 + len(re.findall(r"Book/[A-Za-z0-9_]+\.lean", text(lean / "verificar.sh").split("for mod in ", 1)[1].split("; do", 1)[0]))
-        expected_modules = len([p for p in source_files if p not in {"Audit.lean", "AuditAll.lean"}])
-        lean_ok = (by_exit["lean_runner"] == 0 and "AUDIT-ALL:" in lean_text
-                   and "0 con axiomas no permitidos" in lean_text
-                   and "SIN AUDITAR = 0" in lean_text and active_modules == expected_modules)
+        # Actual Lean module census is a source-level closed set, with explicit auditors.
+        active = lib.module_sources(read_text(lean / "verificar.sh"))
+        present = {p.stem for p in (lean / "Book").glob("*.lean") if p.name not in {"Audit.lean", "AuditAll.lean"}}
+        missing_modules = sorted(present - active)
+        extra_modules = sorted(active - present)
+        lean_ok = (by_exit["lean_runner"] == 0 and not missing_modules and not extra_modules
+                   and "AUDIT-ALL:" in lean_text and "0 con axiomas no permitidos" in lean_text
+                   and "SIN AUDITAR = 0" in lean_text)
         gates["G4"] = "PASS" if lean_ok else "FAIL"
 
-        # Every target from the actual Lean run; no historical receipt type is trusted.
         targets = {}
-        for line in (evidence_root / "lean_export.jsonl").read_text(encoding="utf-8").splitlines():
+        for line in exporter_path.read_text(encoding="utf-8").splitlines():
             if line.strip():
                 obj = json.loads(line)
                 targets[obj["name"]] = obj
+        corpus_rows, coverage = lib.build_corpus(repo, kernel, inventory, targets)
+        g6_ok = (len(corpus_rows) == len(claims) and len(coverage) == len(inventory["blocks"]))
+        gates["G6"] = "PASS" if g6_ok and lib.semantic_gate(corpus_rows, coverage) else "FAIL"
+
+        # Each case gets its own executed Rust test or an independent CLI/probe.
+        executed, case_evidence = case_driver.execute_cases(repo, logs_dir, corpus_rows, coverage, check_text)
+        evidence.extend(case_evidence)
+        for case, info in executed.items():
+            cases[case] = info["status"]
+        gates["G2"] = "PASS" if all(x == "PASS" for x in cases.values()) else "FAIL"
+        gates["G3"] = "PASS" if test_ok and all(by_exit[n] == 0 for n in ["fmt", "clippy", "external_probe"]) else "FAIL"
+        gates["G1"] = "PASS" if verify_record["exit_code"] == 0 and "verify:" in check_text and not missing_modules else "FAIL"
+
         used_specs = {eid for a in arguments for eid in a["evidence_specs"]}
-        unused_specs = [s["id"] for s in specs if s["id"] not in used_specs]
-        receipt_files = list(receipts.glob("*.json"))
-        claim_keys = {c.get("book_key") for c in claims if c.get("book_key")}
-        block_keys = {b["key"] for b in inventory["blocks"]}
-        hidden_blocks = [b for b in inventory["blocks"] if b["key"] not in claim_keys]
-        unresolved = [c["id"] for c in claims if c.get("book_key") and not c["book_key"].startswith("der:") and c["book_key"] not in block_keys]
-        gates["G5"] = "PASS" if (by_exit["book_inventory"] == 0 and not unused_specs
-                                  and len(receipt_files) == len(specs) and not unresolved
-                                  and len(claims) > 0 and len(inventory["blocks"]) > 0) else "FAIL"
+        unused = sorted(s["id"] for s in specs if s["id"] not in used_specs)
+        receipts_files = sorted(receipts.glob("*.json"))
+        gates["G5"] = "PASS" if (not unused and len(receipts_files) == len(specs)
+                                  and len(corpus_rows) == len(claims) and len(coverage) == len(inventory["blocks"])
+                                  and (str(len(arguments)) + "/" + str(len(arguments))) in check_text) else "FAIL"
 
-        # Argument decisions from the real CLI result, separate from claim status.
-        decisions = {}
-        for line in check_text.splitlines():
-            m = re.match(r"\s*\[([^]]+)\]\s+(ACEPTADO_CONDICIONAL|ACEPTADO|PENDIENTE|RECHAZADO)", line)
-            if m:
-                decisions[m.group(1)] = m.group(2)
-        arg_by_claim = {}
-        for a in arguments:
-            arg_by_claim.setdefault(a["conclusion"], []).append(a)
-        all_reviews = []
-        for claim in claims:
-            these_args = arg_by_claim.get(claim["id"], [])
-            states = [decisions.get(a["id"], "PENDIENTE") for a in these_args]
-            supported = "ACEPTADO" in states or "ACEPTADO_CONDICIONAL" in states
-            conditional = "ACEPTADO_CONDICIONAL" in states and "ACEPTADO" not in states
-            key = claim.get("book_key")
-            block = next((b for b in inventory["blocks"] if b["key"] == key), None) if key else None
-            source_ref = None
-            excerpt = None
-            if block:
-                source_ref = {"file": block["file"], "kind": block["kind"],
-                              "name": block["name"], "file_sha256": block["file_sha256"],
-                              "content_start": block["content_start"], "content_end": block["content_end"]}
-                body = (book / block["file"]).read_bytes()[block["content_start"]:block["content_end"]]
-                excerpt = body.decode("utf-8", errors="replace")
-            these_specs = [spec_by_id[eid] for a in these_args for eid in a["evidence_specs"]]
-            targets_review = []
-            for s in these_specs:
-                t = targets.get(s["target"])
-                targets_review.append({
-                    "spec_id": s["id"], "target": s["target"], "scope": s["scope"],
-                    "lean_type": t.get("type") if t else None,
-                    "lean_axioms": t.get("axioms") if t else None,
-                    "lean_type_sha256": sha256_text(t["type"]) if t else None,
-                })
-            if claim["id"] in DEBT:
-                relation = "pending"
-            elif (key or "").startswith("der:"):
-                relation = "auxiliary"
-            elif supported:
-                # Deliberately not EXACT: types and source were compared, but
-                # mathematical closure is not confused with an accepted anchor.
-                relation = "partial"
-            else:
-                relation = "pending"
-            if relation == "pending":
-                claim_status = "Pending"
-            elif relation == "auxiliary":
-                claim_status = "Auxiliary"
-            elif conditional:
-                claim_status = "Conditional"
-            else:
-                claim_status = "Partial"
-            explanation = {
-                "C.thm:appD-gordin": "Poisson/descomposición derivadas como auxiliares; D[0,1]/Skorokhod y CLT funcional de martingalas no están probados ni se exigen completar aquí.",
-                "C.thm:appD-ibragimov": "Solo núcleo cuantitativo probado: covarianza y varianza de largo plazo. La conclusión distribucional normal queda pendiente explícitamente.",
-            }.get(claim["id"], "Comparación agent_reviewed de fuente, tipo elaborado, alcance e hipótesis; el respaldo aceptado no implica enunciado completo cerrado.")
-            all_reviews.append({
-                "claim_id": claim["id"], "book_key": key, "kind": claim["kind"],
-                "statement": claim["statement"], "hypotheses": claim["assumptions"],
-                "domain": claim["scope"], "source": source_ref,
-                "source_excerpt": excerpt, "targets": targets_review,
-                "quantifiers": [t["lean_type"] for t in targets_review if t["lean_type"] and "∀" in t["lean_type"]],
-                "conclusion": claim["expression"], "relation": relation,
-                "claim_status": claim_status, "explanation": explanation,
-                "reviewed_by": "agent_reviewed", "argument_decisions": dict(zip([a["id"] for a in these_args], states)),
-                "evidence": "Lean exporter actual + inventario Typst actual + recibos corporales vigentes"
-            })
-        g6_ok = (len(all_reviews) == len(claims)
-                 and all(r["explanation"] and r["reviewed_by"] == "agent_reviewed" for r in all_reviews)
-                 and all(r["relation"] == "pending" for r in all_reviews if r["claim_id"] in DEBT)
-                 and all(r["targets"] for r in all_reviews if r["relation"] in {"partial", "auxiliary"} and r["kind"] == "formal" and not r["claim_id"].startswith("A.")))
-        gates["G6"] = "PASS" if g6_ok else "FAIL"
-
-        # Provenance is recomputed, not declared by JSON. This catches old
-        # receipts and actual Lean source/type changes.
+        # Current inputs are checked individually. The commit is historical
+        # identity; exact inputs and elaborated types govern validity.
         provenance_errors = []
-        for path in receipt_files:
-            r = read_json(path)
-            spec = spec_by_id.get(r["spec_id"])
-            if not spec or len(r["source_commit"]) != 40 or not re.fullmatch(r"[0-9a-f]{40}", r["source_commit"]):
-                provenance_errors.append(str(path))
-            for name, expected_hash in r["input_hashes"].items():
-                p = repo / name
-                if not p.is_file() or sha256_bytes(p.read_bytes()) != expected_hash:
-                    provenance_errors.append(str(path) + ":" + name)
-            if spec and spec["kind"] == "lean":
+        for path in receipts_files:
+            receipt = read_json(path)
+            spec = spec_by_id.get(receipt["spec_id"])
+            if not spec:
+                provenance_errors.append(path.name + ":spec missing")
+                continue
+            if not lib.required_inputs_present(receipt, spec, repo):
+                provenance_errors.append(path.name + ":required map incomplete")
+            origin = run("origin:" + path.name, ["git", "merge-base", "--is-ancestor", receipt["source_commit"], "HEAD"], repo, logs_dir)
+            evidence.append(origin)
+            if origin["exit_code"] != 0:
+                provenance_errors.append(path.name + ":not an ancestor")
+            for rel, expected_hash in receipt["input_hashes"].items():
+                candidate = repo / rel
+                if not candidate.is_file() or sha256(candidate.read_bytes()) != expected_hash:
+                    provenance_errors.append(path.name + ":" + rel)
+                if ".." in pathlib.PurePosixPath(rel).parts:
+                    provenance_errors.append(path.name + ":escaping path")
+            if spec["kind"] == "lean":
                 target = targets.get(spec["target"])
-                provenance = next((c for c in r["observed_checks"] if c["id"].startswith("lean_provenance:")), None)
-                if not target or not provenance:
-                    provenance_errors.append(str(path) + ":missing provenance")
-                else:
-                    expected = "type_sha256=" + sha256_text(target["type"])
-                    if expected not in provenance["detail"] or any(a not in AXIOMS for a in target["axioms"]):
-                        provenance_errors.append(str(path) + ":type/axioms changed")
-            if r["trust_mode"] != "locally_reproduced":
-                provenance_errors.append(str(path) + ":import not a new execution")
-        gates["G7"] = "PASS" if not provenance_errors else "FAIL"
+                provenance = next((c for c in receipt["observed_checks"] if c["id"].startswith("lean_provenance:")), None)
+                if target is None or provenance is None:
+                    provenance_errors.append(path.name + ":missing target/provenance")
+                elif "type_sha256=" + lib.sha256_text(target["type"]) not in provenance["detail"] or any(x not in AXIOMS for x in target["axioms"]):
+                    provenance_errors.append(path.name + ":type or axioms changed")
+        gates["G7"] = "PASS" if not provenance_errors and verify_record["exit_code"] == 0 else "FAIL"
 
-        # G8: bidirectional coverage is visible, not suppressed by an empty loop.
-        gates["G8"] = "PASS" if (by_exit["editorial_audit"] == 0 and "auditoría bidireccional" in inventory_text
-                                  and len(hidden_blocks) > 0) else "FAIL"
+        included_without_claim = [c for c in coverage if c["state"] == "included_pending"]
+        gates["G8"] = "PASS" if (all(c["state"] != "unclassified" for c in coverage)
+                                  and len(included_without_claim) == 0
+                                  and by_exit["editorial_audit"] == 0) else "FAIL"
 
-        required_docs = [repo / "argumentos/README.md", repo / "STATE.json", repo / "FINAL.md"]
-        docs_ok = all(p.is_file() for p in required_docs)
-        if docs_ok:
-            final_text = text(repo / "FINAL.md")
-            state_text = text(repo / "STATE.json")
-            docs_ok = "F01" in final_text and "F14" in final_text and "94b79cbd867de5fb9f49d3c1b717fa9e8b3271d7" in state_text
-        gates["G9"] = "PASS" if docs_ok else "FAIL"
+        # G9 validates coherence, not names or a coincidental string.
+        documentation_errors = []
+        for file in [manifest / "README.md", repo / "STATE.json", repo / "FINAL.md"]:
+            if not file.is_file():
+                documentation_errors.append(str(file))
+        if not documentation_errors:
+            try:
+                state = read_json(repo / "STATE.json")
+                ids = {f["id"] for f in state["findings"]}
+                if ids != {f"F{i:02d}" for i in range(1, 15)}:
+                    documentation_errors.append("ledger F01-F14 incomplete")
+                if state.get("current_commit") != head or state.get("status") != "COMPLETE_VERIFIED":
+                    documentation_errors.append("STATE commit/status does not match verified HEAD")
+                pending_findings = [f["id"] for f in state["findings"] if f["status"] not in {"fixed", "refuted"} or not f.get("evidence")]
+                if pending_findings:
+                    documentation_errors.append("unresolved ledger entries: " + repr(pending_findings))
+            except (ValueError, KeyError, TypeError) as error:
+                documentation_errors.append(str(error))
+        gates["G9"] = "PASS" if not documentation_errors else "FAIL"
 
-        status_text = text(logs / "git_status.log")
-        reproduction = os.environ.get("OPENMATHOS_REPRODUCTION") == "1"
-        head = text(logs / "git_head.log").strip()
-        reproduced_commit = os.environ.get("REPRODUCTION_SOURCE_COMMIT", "")
-        # STATE.json documents the implementation commit; the reproduction
-        # commit is authorized separately. Requiring a commit to contain its
-        # own hash would be circular.
-        gates["G10"] = "PASS" if (reproduction and head == reproduced_commit and not status_text.strip()) else "FAIL"
+        # Participating evidence of a clean reproduction is more authoritative
+        # than a flag: commit, driver hash and cleanliness were measured there.
+        record_path = os.environ.get("REPRODUCTION_RECORD", "")
+        reproduction_ok = False
+        reproduction_error = None
+        if record_path:
+            reproduction_file = pathlib.Path(record_path)
+            if reproduction_file.is_file():
+                record = read_json(reproduction_file)
+                actual_sha = sha256((repo / "repair_acceptance/reproduce.sh").read_bytes())
+                reproduction_ok = (record.get("source_commit") == head
+                                   and record.get("driver_sha256") == actual_sha
+                                   and record.get("clean_before") is True
+                                   and not dirty
+                                   and pathlib.Path(record["driver"]).resolve() == (repo / "repair_acceptance/reproduce.sh").resolve())
+            else:
+                reproduction_error = "record file absent"
+        else:
+            reproduction_error = "REPRODUCTION_RECORD absent"
+        gates["G10"] = "PASS" if reproduction_ok else "FAIL"
 
+        negative_failures = case_driver.negative_mutations(repo, repo / "repair_acceptance/semantic_reviews.json", logs_dir)
+        gates["G6"] = "PASS" if gates["G6"] == "PASS" and not negative_failures else "FAIL"
+
+        relation_counts = {}
+        review_counts = {}
+        for row in corpus_rows:
+            relation_counts[row["relation"]] = relation_counts.get(row["relation"], 0) + 1
+            review_counts[row["review_status"]] = review_counts.get(row["review_status"], 0) + 1
         review_document = {
-            "schema_version": "claim-review/1",
-            "generated_from": {"kernel": "argumentos/kernel/libro_completo.json", "lean_exporter": "actual run", "book_inventory": "generated by this verification run"},
+            "schema_version": "claim-review/2",
+            "collection": "automatic Lean export and Typst AST; not itself semantic evaluation",
+            "review_provenance_file": "repair_acceptance/semantic_reviews.json",
             "reviewed_by": "agent_reviewed",
-            "relations": {r["relation"]: sum(1 for x in all_reviews if x["relation"] == r["relation"]) for r in all_reviews},
-            "claim_status": {r["claim_status"]: sum(1 for x in all_reviews if x["claim_status"] == r["claim_status"]) for r in all_reviews},
-            "blocks_without_claim": len(hidden_blocks),
-            "scoping_note": "PARTIAL no equivale a afirmación universal cerrada; EXACT exige revisión matemática sustantiva y no se asigna solo por nombre de target.",
-            "rows": all_reviews,
+            "relations": relation_counts,
+            "review_pending_count": len(corpus_rows) - review_counts.get("agent_reviewed", 0),
+            "rows": corpus_rows,
         }
-        atomic_json(repo / "repair_acceptance/claim_review.json", review_document)
-        atomic_json(evidence_root / "inventory_audit.json", {
-            "files": inventory["files"], "blocks": inventory["blocks"],
-            "hidden_without_claim": hidden_blocks,
-            "unresolved_non_der_claims": unresolved,
-            "unused_specs": unused_specs,
-            "pending_claims": pendientes,
-        })
-
-        # C01–C12 independent descriptions of the executed checks.
-        for c in ["C01", "C02", "C03", "C04", "C05", "C06", "C07", "C08", "C11"]:
-            cases[c] = "PASS" if tests_ok else "FAIL"
-        cases["C09"] = "PASS" if len(hidden_blocks) > 0 and any(not arg_by_claim.get(c["id"]) for c in claims) else "FAIL"
-        cases["C10"] = "PASS" if all(c["relation"] == "pending" for c in all_reviews if c["claim_id"] == "C.thm:appD-ibragimov") and any(c["claim_id"] == "C.der:appD-ibragimov-cuantitativo" and c["argument_decisions"] for c in all_reviews) else "FAIL"
-        cases["C12"] = "PASS" if lean_ok and by_exit["external_probe"] == 0 else "FAIL"
-
+        write_json(repo / "repair_acceptance/claim_review.json", review_document)
+        write_json(evidence_root / "inventory_scope.json", {"rows": coverage})
         summary.update({
             "claims": len(claims), "arguments": len(arguments), "specs": len(specs),
-            "receipts": len(receipt_files), "book_blocks": len(inventory["blocks"]),
-            "active_lean_modules": active_modules, "expected_lean_modules": expected_modules,
-            "blocks_without_claim": len(hidden_blocks), "pending_scientific_debt": sorted(DEBT),
-            "unused_specs": unused_specs, "provenance_errors": provenance_errors,
+            "receipts": len(receipts_files), "book_blocks": len(inventory["blocks"]),
+            "rust_tests_executed": run_count, "missing_lean_modules": missing_modules,
+            "extra_lean_modules": extra_modules, "unused_specs": unused,
+            "provenance_errors": provenance_errors, "documentation_errors": documentation_errors,
+            "reproduction_error": reproduction_error if not reproduction_ok else None,
+            "negative_controls_errors": negative_failures,
+            "reviews": relation_counts, "agent_reviewed": review_counts.get("agent_reviewed", 0),
+            "pending_semantic_reviews": review_counts.get("pending_review", 0),
+            "included_without_claim": len(included_without_claim),
+            "scientific_debt": ["C.thm:appD-ibragimov", "C.thm:appD-gordin"],
         })
-        if all(x == "PASS" for x in cases.values()) and all(x == "PASS" for x in gates.values()):
+        if all(v == "PASS" for v in cases.values()) and all(v == "PASS" for v in gates.values()):
             status = "PASS"
     except Exception as error:
-        summary["errors"].append(f"{type(error).__name__}: {error}")
-        status = "FAIL"
-    document = {
-        "status": status, "cases": cases, "gates": gates,
-        "evidence": evidence, "summary": summary,
-        "claim_review": "repair_acceptance/claim_review.json",
-    }
-    atomic_json(out, document)
+        summary["errors"].append(type(error).__name__ + ": " + str(error))
+    write_json(out, {"status": status, "cases": cases, "gates": gates,
+                     "evidence": evidence, "summary": summary,
+                     "claim_review": "repair_acceptance/claim_review.json"})
     print(json.dumps({"status": status, "cases": cases, "gates": gates}, ensure_ascii=False))
     return 0 if status == "PASS" else 1
 

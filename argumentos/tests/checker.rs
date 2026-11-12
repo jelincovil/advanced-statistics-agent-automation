@@ -105,7 +105,7 @@ fn kernel(
 
 /// Recibo válido y reproducido localmente para `spec`.
 fn recibo(spec: &EvidenceSpec) -> Receipt {
-    Receipt {
+    let mut r = Receipt {
         schema_version: "1.0".into(),
         id: format!("R.{}", spec.id),
         spec_id: spec.id.clone(),
@@ -134,7 +134,11 @@ fn recibo(spec: &EvidenceSpec) -> Receipt {
             detail: "fixture aceptable".into(),
         }],
         trust_mode: TrustMode::LocallyReproduced,
+    };
+    for path in argumentos::receipt::required_input_paths(spec) {
+        r.input_hashes.insert(path, "f".repeat(64));
     }
+    r
 }
 
 fn report_of(k: &Kernel, receipts: &[Receipt]) -> argumentos::check::CheckReport {

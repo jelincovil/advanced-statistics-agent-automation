@@ -106,6 +106,35 @@ pub fn load_receipt(path: &Path) -> Result<Receipt, ReceiptError> {
     receipt_from_str(&text)
 }
 
+/// Inputs requeridos por el runner autorizado y la spec, no por el recibo.
+/// Las fuentes del libro son cerradas por `lean_export.lean`, por lo que se
+/// exigen completas para revalidar el entorno. Un mapa vacío o incompleto
+/// nunca se acepta como procedencia suficiente.
+pub fn required_input_paths(
+    spec: &crate::model::EvidenceSpec,
+) -> std::collections::BTreeSet<String> {
+    let mut required = std::collections::BTreeSet::new();
+    match spec.kind {
+        crate::model::EvidenceKind::Lean => {
+            required.insert("argumentos/evidence/lean_export.lean".into());
+            required.insert("verificacion_lean/verificar.sh".into());
+        }
+        crate::model::EvidenceKind::Python => {
+            required.insert("argumentos/runners/ssch_bayes_racional.py".into());
+        }
+    }
+    required
+}
+
+/// Comprueba el conjunto obligatorio, sin exigir que el recibo enumere la
+/// lista de fuentes (que deriva de la especificación permitida).
+pub fn required_inputs_present(receipt: &Receipt, spec: &crate::model::EvidenceSpec) -> bool {
+    !receipt.input_hashes.is_empty()
+        && required_input_paths(spec)
+            .iter()
+            .all(|path| receipt.input_hashes.contains_key(path))
+}
+
 pub fn receipt_from_str(text: &str) -> Result<Receipt, ReceiptError> {
     let value = parse_strict(text)?;
     let schema = parse_strict(RECEIPT_SCHEMA)?;
@@ -125,10 +154,10 @@ pub fn receipt_from_str(text: &str) -> Result<Receipt, ReceiptError> {
     {
         return Err(ReceiptError::Inconsistent);
     }
-    // F04: importar JSON no equivale a ejecutar. La validación que inventa
-    // LocallyReproduced dentro de un runner confiable se distingue de la
-    // cadena de texto entrante, que siempre entra como UntrustedImport.
-    if receipt.trust_mode == TrustMode::LocallyReproduced {
+    // Imported JSON is always untrusted, regardless of its declared trust
+    // mode. Only direct execution inside a permitted runner can produce a
+    // trusted in-memory receipt. Hashes authenticate content, not execution.
+    if receipt.trust_mode != TrustMode::UntrustedImport {
         receipt.trust_mode = TrustMode::UntrustedImport;
     }
     Ok(receipt)

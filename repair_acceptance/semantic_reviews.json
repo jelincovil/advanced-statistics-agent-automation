@@ -1,0 +1,80 @@
+{
+  "schema_version": "semantic-input/1",
+  "reviewed_at": "2026-11-10T00:00:00Z",
+  "reviewer": "Open Math OS agent",
+  "politica": "La recopilación automática de tipos, fuentes y fragmentos no es revisión semántica. Solo las filas aquí enumeradas llevan una comparación sustantiva agent_reviewed; el resto se listará explícitamente como pending_review. No se usa respaldo como sinónimo de exactitud.",
+  "revisiones": [
+    {
+      "claim_id": "C.thm:ch9-isomorfismo",
+      "relation": "exact",
+      "justificacion": "El pasaje define J_theta(pi_delta) = -R(theta,delta) al copiar la regla y tomar la recompensa opuesta. La declaración ch9_isomorfismo prueba exactamente mdpReturn P L theta delta = -risk P L theta delta por sumas finitas, sin sustituir objetos ni cuantificar sobre estados adicionales.",
+      "limitacion": "La prueba restringe X a Fintype; el pasaje admite también un espacio numerable general. La cobertura exacta es dentro del dominio finito declarado, no una equivalencia de categorías ni un protocolo de aprendizaje."
+    },
+    {
+      "claim_id": "C.cor:ch9-bayes",
+      "relation": "exact",
+      "justificacion": "La identidad que promedia el retorno bajo nu es la misma identidad de la regla del libro, ponderada término a término: ch9_bayes demuestra sum_theta nu theta * mdpReturn = -(sum_theta nu theta * risk), sin afirmar propiedades de los conjuntos de optimizadores.",
+      "limitacion": "Dominio finito de Theta y X; no se demuestra quién es el Bayes ni una condición variacional adicional."
+    },
+    {
+      "claim_id": "C.thm:ch9-admisibilidad",
+      "relation": "exact",
+      "justificacion": "La equivalencia de dominancia débil con alguna mejora estricta aparece componente a componente; dominates y returnDominates se relacionan usando la igualdad de riesgo y retorno copiados, no por igualdad de nombres.",
+      "limitacion": "Modelo y observación finitos. No se extrae ninguna propiedad secuencial ni se compone ninguna regla."
+    },
+    {
+      "claim_id": "C.thm:appE-convergencia-dominada",
+      "relation": "partial",
+      "justificacion": "La prueba obtiene las dos conclusiones del pasaje: integrabilidad de F y convergencia de la integral, por dominación y el teorema de Lebesgue de Mathlib.",
+      "limitacion": "Se usa AEStronglyMeasurable y dominación y convergencia a.e., más la formalización real de funciones integrables. El texto dice simplemente medibles y c.s.; la especialización de sucesion real debe considerarse una formalización correcta pero no letra idéntica."
+    },
+    {
+      "claim_id": "C.thm:appE-radon-nikodym",
+      "relation": "partial",
+      "justificacion": "El ancla existencia/unicidad usa la derivada rnDeriv y la descomposición de Lebesgue, no una hipótesis inventada, y formaliza la identidad sobre conjuntos medibles con unicidad a.e.",
+      "limitacion": "La clase completa de condiciones incluye sigma-finitud de la medida dominante y probabilidad; la clasificación general de Marshal/Dunford no se desarrolla aquí. Contraejemplo de contar documentado separadamente."
+    },
+    {
+      "claim_id": "C.thm:appE-proyeccion",
+      "relation": "partial",
+      "justificacion": "Existencia y unicidad del minimizador en un subespacio cerrado y ortogonalidad del residual se comparan con las dos cláusulas del pasaje.",
+      "limitacion": "Solo Hilbert real, que cubre el L2(P) usado en el libro, no la variante compleja; el pasaje no pide explícitamente completitud separada del subespacio cerrado, que se obtiene de IsClosed."
+    },
+    {
+      "claim_id": "C.ex:appE-l2",
+      "relation": "partial",
+      "justificacion": "Las cuatro propiedades editoriales (producto interno, norma, identificación a.e. y completitud) están probadas para Lp Real 2 mu.",
+      "limitacion": "Los elementos son clases Lp, no funciones puntuales: la identificación a.e. queda en la equivalencia toLp, no en identidad literal de funciones. El espacio es real."
+    },
+    {
+      "claim_id": "C.ex:appE-gaussiano",
+      "relation": "partial",
+      "justificacion": "Densidad gaussiana explícita, positividad, normalización y absoluta continuidad respecto de Lebesgue se relacionan con la familia del pasaje.",
+      "limitacion": "La varianza Real positiva se convierte en NNReal como exige Mathlib; dominación se expresa con withDensity gaussianPDF y no se calculan momentos superiores."
+    },
+    {
+      "claim_id": "C.thm:appD-ibragimov",
+      "relation": "pending",
+      "justificacion": "El enunciado del libro exige límite distribucional normal; solo covarianza, sumabilidad y varianza a largo plazo están probadas en estados finitos.",
+      "limitacion": "No hay CLT para sucesiones mezclantes ni prueba de Lindeberg sobre bloques de Bernstein. Si se construye en adelante, el límite funcional debe ser explícitamente separado de lo cuantitativo."
+    },
+    {
+      "claim_id": "C.der:appD-ibragimov-cuantitativo",
+      "relation": "auxiliary",
+      "justificacion": "El target prueba Summable |gamma|, n^-1 Var(S_n) -> sigma_LR y sigma_LR >= 0 bajo estacionariedad de segundo orden y mezcla geométrica acotada.",
+      "limitacion": "Es un auxiliar del CLT y no implica convergencia en distribución a N(0,sigma_LR^2); no se marca exacto del teorema Ibragimov."
+    },
+    {
+      "claim_id": "C.thm:appD-gordin",
+      "relation": "pending",
+      "justificacion": "Poisson, descomposición, borde e incremento condicional se revisan como piezas auxiliares, mientras el enunciado final no se infiere de la estructura Chain sin aperiodicidad.",
+      "limitacion": "D[0,1]/Skorokhod, tightness, bracket c.s. y CLT funcional de martingalas no están probados. La identificación de la serie de covarianzas requiere hipótesis extra, con contraejemplo periódico documentado en el informe."
+    },
+    {
+      "claim_id": "C.ex:ch1-medible-intuicion",
+      "relation": "pending",
+      "justificacion": "Continuidad Borel, map de medida e integrabilidad están formalizados, pero las hipótesis ambientes explícitas A.medible-borel y A.probabilidad-datos no están desarrolladas como claims cerrados.",
+      "limitacion": "Queda condicional a esas hipótesis: no se interpreta como toda esperanza de un estadístico general sin espacio de medida especificado."
+    }
+  ]
+}

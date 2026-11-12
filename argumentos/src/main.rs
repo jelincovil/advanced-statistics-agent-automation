@@ -111,6 +111,14 @@ enum Command_ {
         #[arg(long)]
         out: Option<PathBuf>,
     },
+    /// Reproduce localmente evidencia permitida y verifica sus argumentos.
+    /// Solo esta ejecución directa produce confianza, nunca un JSON importado.
+    Verify {
+        #[arg(long)]
+        repo: PathBuf,
+        #[arg(long)]
+        out: PathBuf,
+    },
 }
 
 fn main() {
@@ -119,6 +127,7 @@ fn main() {
         Command_::Doctor { repo } => doctor(repo.as_deref().unwrap_or(Path::new("."))),
         Command_::Check { kernel, receipts } => run_check(&kernel, receipts.as_deref()),
         Command_::Evidence { repo, out } => run_evidence(&repo, out.as_deref()),
+        Command_::Verify { repo, out } => run_verify(&repo, &out),
         Command_::Argue { kernel, preferred } => run_argue(&kernel, preferred),
         Command_::Propose {
             inventory,
@@ -146,6 +155,14 @@ fn main() {
 /// recibos con hashes SHA-256 y los escribe a `receipts/`. Luego el
 /// checker valida contra el kernel del piloto.
 fn run_evidence(repo: &Path, out: Option<&Path>) -> i32 {
+    execute_evidence(repo, out, false)
+}
+
+fn run_verify(repo: &Path, out: &Path) -> i32 {
+    execute_evidence(repo, Some(out), true)
+}
+
+fn execute_evidence(repo: &Path, out: Option<&Path>, verify: bool) -> i32 {
     let out_dir = out
         .map(|p| p.to_path_buf())
         .unwrap_or_else(|| repo.join("argumentos/receipts"));
@@ -198,6 +215,7 @@ fn run_evidence(repo: &Path, out: Option<&Path>) -> i32 {
     let lean_environment = lean_environment_text();
     let now = chrono_like_now();
     let mut count = 0;
+    let mut receipts_for_check = Vec::new();
     for spec in &kernel.evidence_specs {
         let (stdout_sha, scientific_criterion_met, checks) =
             if spec.kind == argumentos::model::EvidenceKind::Lean {
@@ -330,6 +348,7 @@ fn run_evidence(repo: &Path, out: Option<&Path>) -> i32 {
                 for rel in [
                     "argumentos/evidence/lean_export.lean",
                     "argumentos/runners/ssch_bayes_racional.py",
+                    "verificacion_lean/verificar.sh",
                 ] {
                     if let Some(hash) = sha256_file(&repo.join(rel)) {
                         m.insert(rel.into(), hash);
@@ -354,6 +373,7 @@ fn run_evidence(repo: &Path, out: Option<&Path>) -> i32 {
         match serde_json::to_string_pretty(&receipt) {
             Ok(json) => {
                 std::fs::write(&path, json).unwrap();
+                receipts_for_check.push(receipt.clone());
                 count += 1;
             }
             Err(e) => {
@@ -364,7 +384,48 @@ fn run_evidence(repo: &Path, out: Option<&Path>) -> i32 {
     }
 
     eprintln!("{} recibos generados en {}", count, out_dir.display());
-    exit::OK
+    if verify {
+        let report = argumentos::check::check(&argumentos::check::CheckInput {
+            kernel: &kernel,
+            receipts: &receipts_for_check,
+        });
+        let aceptados = report
+            .results
+            .values()
+            .filter(|r| {
+                matches!(
+                    r.decision,
+                    argumentos::check::Decision::Accepted
+                        | argumentos::check::Decision::AcceptedConditional { .. }
+                )
+            })
+            .count();
+        eprintln!(
+            "verify: {aceptados}/{} argumentos con respaldo local (incluye condicionales)",
+            report.results.len()
+        );
+        for (id, res) in &report.results {
+            if !matches!(
+                res.decision,
+                argumentos::check::Decision::Accepted
+                    | argumentos::check::Decision::AcceptedConditional { .. }
+            ) {
+                eprintln!("  [{id}] {:?}", res.decision);
+            }
+        }
+        for (claim, state) in &report.claim_states {
+            if !matches!(state, argumentos::check::ClaimState::Closed) {
+                eprintln!("  [claim:{claim}] {state:?}");
+            }
+        }
+        if aceptados == report.results.len() {
+            exit::OK
+        } else {
+            exit::DEPENDENCIA_BLOQUEANTE
+        }
+    } else {
+        exit::OK
+    }
 }
 
 fn chrono_like_now() -> String {
@@ -393,39 +454,10 @@ fn current_commit(repo: &Path) -> Option<String> {
     }
 }
 
-fn commit_is_ancestor(repo: &Path, commit: &str) -> bool {
-    Command::new("git")
-        .args(["merge-base", "--is-ancestor", commit, "HEAD"])
-        .current_dir(repo)
-        .status()
-        .is_ok_and(|s| s.success())
-}
-
 fn sha256_file(path: &Path) -> Option<String> {
     std::fs::read(path)
         .ok()
         .map(|bytes| format!("{:x}", Sha256::digest(bytes)))
-}
-
-fn attest_receipt_from_current_inputs(repo: &Path, receipt: &mut argumentos::receipt::Receipt) {
-    if receipt.trust_mode != argumentos::receipt::TrustMode::UntrustedImport {
-        return;
-    }
-    if !commit_is_ancestor(repo, &receipt.source_commit) {
-        return;
-    }
-    let inputs_match = receipt.input_hashes.iter().all(|(name, expected)| {
-        argumentos::check::guard_path(repo, Path::new(name))
-            .ok()
-            .and_then(|path| sha256_file(&path))
-            .is_some_and(|actual| &actual == expected)
-    });
-    if inputs_match {
-        // Atestación explícita: ejecutor local + commit ancestral + cada
-        // input actual idéntico. Si cambia fuente o tipo, el hash deja de
-        // coincidir y el recibo permanece no confiable hasta reproducirse.
-        receipt.trust_mode = argumentos::receipt::TrustMode::AttestedByConfiguredPolicy;
-    }
 }
 
 fn lean_source_hashes(repo: &Path) -> std::collections::BTreeMap<String, String> {
@@ -460,16 +492,6 @@ fn lean_environment_text() -> String {
 /// y reporta. Exit 0 si todo argumento es aceptado (posiblemente condicional);
 /// 3 si hay rechazos o pendientes; 2 si la entrada viola el contrato.
 fn run_check(kernel_path: &Path, receipts_path: Option<&Path>) -> i32 {
-    let repo = kernel_path
-        .canonicalize()
-        .ok()
-        .and_then(|p| {
-            p.parent()
-                .and_then(Path::parent)
-                .and_then(Path::parent)
-                .map(Path::to_path_buf)
-        })
-        .unwrap_or_else(|| Path::new(".").to_path_buf());
     let kernel = match argumentos::model::load_kernel(kernel_path) {
         Ok(k) => k,
         Err(e) => {
@@ -495,13 +517,7 @@ fn run_check(kernel_path: &Path, receipts_path: Option<&Path>) -> i32 {
         };
         for f in files {
             match argumentos::receipt::load_receipt(&f) {
-                Ok(mut r) => {
-                    // Una importación nunca se confía por el valor de
-                    // trust_mode. Se atestigua solo cuando el ejecutor
-                    // local puede validar procedencia e inputs actuales.
-                    attest_receipt_from_current_inputs(&repo, &mut r);
-                    receipts.push(r)
-                }
+                Ok(r) => receipts.push(r),
                 Err(e) => {
                     eprintln!("error de contrato en {}: {}", f.display(), e);
                     return exit::ENTRADA_INVALIDA;

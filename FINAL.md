@@ -1,63 +1,25 @@
-# Reparación del checker / reconciliación del kernel — registro
+# Kernel de argumentos — versión 1, estado de trabajo
 
-Base auditada: **94b79cbd867de5fb9f49d3c1b717fa9e8b3271d7**. Paquete original conservado fuera del árbol en `evidencia/repair/paquete_original/` (copia del ZIP adjunto).
-Cómo reproducir: `python3 evidencia/repair/paquete_original/verify_delivery.py --repo <checkout-limpio> --out <nueva-carpeta-externa>`. El `IN_PROGRESS` actual no es aceptación de entrega.
+**Base:** `893d19aa04fc85f58aeec387d74a57cfa3593d3e`. El informe anterior está en `repair_acceptance/historical/`; no se reutilizan sus afirmaciones globales de cierre.
 
-## Hallazgos
+## Mejoras aplicadas y reproducción
 
-| id | situación y reparación evidenciada |
-|---|---|
-| F01 | AND/MP/ALIAS recibían specs sin validar recibo. Toda regla compuesta ahora exige respaldo de cada spec. C01–C03 fallaban en base y pasan. |
-| F02 | Invalidación directa → propagación transitiva por dependencias, conservando alternativas acíclicas con soporte válido. C04 cadena/diamante. |
-| F03 | Registro empírico y ejecución ya no confunden criterio. `scientific_criterion_met` determina compatibilidad acotada; no promueve positiva. C05. |
-| F04 | `receipt_from_str` rebaja `locally_reproduced` a `UntrustedImport`; el CLI solo atestigua con commit ancestral e inputs actuales. C07. |
-| F05 | Se conserva cada recibo; válidos contradictorios son ambiguos/pendientes, no selección por orden; renames no alteran decisión. C06. |
-| F06 | `CheckReport.claim_states` separa ejecución del cierre de claims, incluyendo huérfanos, condicionales, parciales y pendientes. |
-| F07 | Auditoría bidireccional; bloques sin claim son explícitos. Cuatro cajas `cap11-*` añadidas sin alterar su texto matemático. |
-| F08 | `C.der:appD-ibragimov-cuantitativo` conserva covarianza/sumabilidad/varianza probadas; el CLT completo queda NO_FORMAL_PROOF sin argumento principal. |
-| F09 | Recibo actualizado a commit real, commit ancestral, hash de librerías y fuentes Lean, tipo elaborado y axiomas efectivos. |
-| F10 | `Book/ApendiceDHac_m1.lean` ahora compila dentro del runner normal; no se eliminó ni se sustituyó silenciosamente. |
-| F11 | `lean-toolchain` y `lakefile.toml` reconocen efectivamente Lean/Mathlib 4.35.0, commit `56a005855ea17e0b0958f73ec801ae140b0a1679`. |
-| F12 | 73 anclas reales conectan claims/spectra antes no enlazados; el spec duplicado inválido está archivado con sustituto válido; los 2 pendientes científicos quedan visibles. |
-| F13 | `argumentos/README.md`, `STATE.json` y `FINAL.md` son vigentes. F8 queda íntegro en `argumentos/reports/historico-2026-11-06/`, con sustitución documentada. |
-| F14 | Claves de alcance ausentes se rechazan; LEAN_APPLY contrasta objetivo, tipo, alcance y obligaciones; hipótesis abiertas pasan a condicional, no desaparecen. |
+- **Confianza:** `receipt_from_str` rebaja ambos `locally_reproduced` y `attested_by_configured_policy`. Un JSON con aspecto completo y hashes correctos sigue no confiable. Se retiró la atestación por commit ancestral y hashes autodeclarados. `argumentos verify` reejecuta la evidencia con los runners permitidos y evalúa en memoria.
+- **Entradas obligatorias:** `required_input_paths` deriva las del runner/spec. El mapa vacío o una omisión bloquea; no se creen confianza por el campo importado. Fuentes Lean, tipo elaborado y axiomas se comprueban contra la ejecución actual. Cambios documentales independientes no invalidan por sí mismos la identidad de ejecución.
+- **Revisión corpus:** `repair_acceptance/semantic_reviews.json` documenta las comparaciones sustantivas hechas, limitación y fecha. `claim_review.json` se regenera con Typst, hash, pasaje, tipo elaborado, alcance, dependencias, hipótesis y próxima revisión. No se asigna `partial` por tener respaldo.
+- **Casos:** C01–C12 tienen comandos y conteos de prueba explícitos en `case_driver.py`. Se implementaron mutantes negativos de importación autoconfiada, inputs incompletos, soporte perdido, tipo/fuente cambiado, experimento opuesto, módulo activo omitido y axioma prohibido.
+- **Cobertura:** los 398 bloques tienen clasificación explícita. Las 174 no incluidas son definiciones/notas/problemas de apoyo editorial, no objetivos de prueba borrados. Un bloque teorema sin claim queda `included_pending`; un tipo desconocido falla.
+- **Reproducción:** el driver versionado `reproduce.sh` comprueba estado limpio, HEAD y hash propio. Ver [REPRODUCE.md](REPRODUCE.md). La evidencia va afuera del checkout.
 
-## Evidence of reproduction
+## Alcance y deudas
 
-- `evidencia/repair/inicial/verification.json`: BASELINE_ONLY. `external_probe.log` falla C01/C02/C03/C06; `acceptance.log` falta el adaptador.
-- `evidencia/repair/regresion_inicial.log`: mismas pruebas añadidas, 10 fallos y 2 casos ya válidos en base (invalidación de spec y compatibilidad negativa).
-- Nuevas pruebas ejecutan la API real del paquete, no reproducciones históricas. El probe externo se conserva sin cambios.
-- Recibo actual: generado por `cargo run -- evidence --repo . --out <evidencia-externa>/receipts`; `check` debe aceptar todos los argumentos solo con archivos/commit coincidentes.
+Se admiten pendientes explícitos, no se presentan como pruebas cerradas. La cuantificación exacta se evalúa por claim, no por nombre de target.
 
-## Correspondencia matemática y deuda
+- **Ibragimov:** covarianza, sumabilidad y varianza de largo plazo están probadas en estado finito como `auxiliary`. No se demuestra la conclusión distribucional normal del CLT completo, que queda `pending`.
+- **Gordin:** Poisson, descomposición y borde son auxiliares. No se demuestran el CLT funcional de martingalas en D[0,1], tightness/Skorokhod ni la bracket c.s. La serie de covarianzas no se sigue sin aperiodicidad adicional.
 
-`repair_acceptance/claim_review.json` incluye cada claim con texto Typst, hash, tipo elaborado Lean, alcance, hipótesis, targets y revisión `agent_reviewed`. `PARTIAL` no se confunde con `EXACT`, que no se concede por nombre.
+El verificador evalúa 245 claims y 283 argumentos con 286 specs; estas cifras son inventario actual, **no** contadores de teoremas del libro cerrados. La matriz distingue `exact`, `partial`, `auxiliary` y `pending`, junto a `agent_reviewed` o `pending_review`, y cuantifica la revisión pendiente en vez de disimularla.
 
-**Deuda científica (no software oculto):**
+## Validación pendiente
 
-- `thm:appD-gordin`: Poisson, descomposición, borde e incrementos como derivados auxiliares; falta D[0,1]/Skorokhod, tightness y CLT funcional de martingalas. No se exige resolver Skorokhod en esta entrega.
-- `thm:appD-ibragimov`: núcleo covarianza/varianza probado; el límite distribucional normal sigue pendiente. La varianza HAC y los demás resultados cuantitativos no se debilitan ni eliminan.
-
-## Validación pendiente de cierre
-
-El orquestador de aceptación ejecuta `fmt`, `clippy`, suite, Lean, probe,
-cobertura editorial y `repair_acceptance/verify.py`. El `COMPLETE_VERIFIED`
-solo se registra después de reproducción desde commit limpio sin cambios
-posteriores y con `C01–C12` + `G1–G10` en PASS. La falta de esa reproducción
-está consignada en `STATE.json`.
-
-La documentación F8 conservada en `argumentos/reports/historico-2026-11-06/` no mide esta entrega y no se usa como prueba importada.
-
-## Resultado de la reproducción limpia — COMPLETE_VERIFIED
-
-Commit de implementación verificado: **01a6c9b97fb0d725f0b04c62afcc4ed746b30c3d**.
-Se ejecutó desde el checkout limpio `../checkout-repair-clean2`, con evidencia fuera en `evidencia/repair/final_A2/`.
-
-- `git diff --exit-code HEAD`: limpio también después de regenerar inventarios y fichas.
-- `cargo fmt --check`, `cargo clippy --all-targets --locked -- -D warnings`, `cargo test --locked`: **exit 0**.
-- `bash verificar.sh`: **exit 0**, 66 módulos activos y 2699 teoremas, cero axiomas no permitidos.
-- Probe externo C01/C02/C03/C06: **exit 0**.
-- `repair_acceptance/verify.py`: C01–C12 y G1–G10 **PASS**.
-- Orquestador original `verify_delivery.py`: **COMPLETE_VERIFIED**, sin reglas relajadas ni `DEVIATIONS.md`.
-
-Después se registra esta evidencia en un commit de documentación; los datos matemáticos y las puertas no cambian. Deuda científica restante, no un defecto del checker: conclusión distribucional de Ibragimov y CLT funcional de Gordin, como se explica arriba.
+`STATE.json` pasa de `IN_PROGRESS` a `COMPLETE_VERIFIED` únicamente cuando el driver reproducido confirma C01–C12 y G1–G10. La referencia y hashes finales se añadirán tras esa ejecución. No se creó ninguna etiqueta ni se realizó push en esta fase.
