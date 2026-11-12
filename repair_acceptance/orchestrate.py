@@ -36,7 +36,8 @@ def main():
     (probe / "Cargo.toml").write_text(
         '[package]\nname="openmathos_probe"\nversion="0.1.0"\nedition="2021"\n'
         '[dependencies]\nargumentos={path=' + json.dumps(str(manifest)) + '}\n', encoding="utf-8")
-    records.append(run("external_probe", ["cargo", "test", "--locked", "--manifest-path", str(probe / "Cargo.toml")], manifest, out))
+    records.append(run("external_lockfile", ["cargo", "generate-lockfile", "--offline", "--manifest-path", str(probe / "Cargo.toml")], manifest, out))
+    records.append(run("external_probe", ["cargo", "test", "--locked", "--offline", "--manifest-path", str(probe / "Cargo.toml")], manifest, out))
     records.append(run("acceptance", [sys.executable, str(HERE / "verify.py"), "--repo", str(repo), "--out", str(out / "acceptance.json")], repo, out))
     complete = all(r["exit_code"] == 0 for r in records) and not (out / "git_status.log").read_text().strip()
     try:

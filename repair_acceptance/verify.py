@@ -128,7 +128,8 @@ def main():
         (probe / "Cargo.toml").write_text(
             '[package]\nname="openmathos_probe"\nversion="0.1.0"\nedition="2021"\n'
             '[dependencies]\nargumentos={path=' + json.dumps(str(manifest)) + '}\n', encoding="utf-8")
-        evidence.append(run("external_probe", ["cargo", "test", "--locked", "--manifest-path", str(probe / "Cargo.toml")], manifest, logs_dir))
+        evidence.append(run("external_lockfile", ["cargo", "generate-lockfile", "--offline", "--manifest-path", str(probe / "Cargo.toml")], manifest, logs_dir))
+        evidence.append(run("external_probe", ["cargo", "test", "--locked", "--offline", "--manifest-path", str(probe / "Cargo.toml")], manifest, logs_dir))
 
         by_exit = {r["name"]: r["exit_code"] for r in evidence}
         head = read_text(logs_dir / "git_head.log").strip()

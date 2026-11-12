@@ -26,7 +26,6 @@ en `Book/` y de 174 a 2699 teoremas auditados:
    enunciados de 2026-11-06, que es semántica y no se puede regenerar sola.
 """
 import argparse
-import datetime
 import re
 import sys
 from collections import Counter, defaultdict
@@ -132,7 +131,8 @@ def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--check", action="store_true",
                     help="sale 1 si alguna fila no está auditada o no es limpia")
-    ap.add_argument("--fecha", default=datetime.date.today().isoformat())
+    ap.add_argument("--fecha", default="")
+
     args = ap.parse_args()
 
     filas, sin_clave = extrae_filas()
@@ -161,7 +161,7 @@ def main() -> int:
     teoremas_auditados = set(completos)
 
     out = ["# DASHBOARD — verificacion_lean", "",
-           f"Generado por `Progress/gen_dashboard.py` el {args.fecha} desde "
+           f"Generado por `Progress/gen_dashboard.py` desde "
            "`Book/*.lean` y `build/axioms.log`. No editar a mano.", "",
            "## Resumen", "",
            f"- Ficheros en `Book/`: {len(list(BOOK.glob('*.lean')))} `*.lean` "
@@ -227,7 +227,7 @@ def main() -> int:
     for nombre, clave, sitio, modulo, _, axs, estado in registros:
         por_clave[clave].append((nombre, modulo, sitio, estado))
     cob = ["# AUDITORÍA DE COBERTURA — claves del libro en `Book/*.lean`", "",
-           f"Generado por `Progress/gen_dashboard.py` el {args.fecha}. Censo "
+           f"Generado por `Progress/gen_dashboard.py`. Censo "
            "mecánico: para cada clave `book:`, qué teoremas la formalizan y si "
            "están auditados. La auditoría **semántica** (¿el enunciado Lean dice "
            "lo que dice el libro?) es `AUDITORIA_ENUNCIADOS_*.md` y no se "

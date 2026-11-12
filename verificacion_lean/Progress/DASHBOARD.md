@@ -1,6 +1,6 @@
 # DASHBOARD — verificacion_lean
 
-Generado por `Progress/gen_dashboard.py` el 2026-11-10 desde `Book/*.lean` y `build/axioms.log`. No editar a mano.
+Generado por `Progress/gen_dashboard.py` desde `Book/*.lean` y `build/axioms.log`. No editar a mano.
 
 ## Resumen
 

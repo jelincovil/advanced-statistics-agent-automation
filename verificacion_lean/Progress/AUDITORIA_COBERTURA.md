@@ -1,6 +1,6 @@
 # AUDITORÍA DE COBERTURA — claves del libro en `Book/*.lean`
 
-Generado por `Progress/gen_dashboard.py` el 2026-11-10. Censo mecánico: para cada clave `book:`, qué teoremas la formalizan y si están auditados. La auditoría **semántica** (¿el enunciado Lean dice lo que dice el libro?) es `AUDITORIA_ENUNCIADOS_*.md` y no se regenera sola.
+Generado por `Progress/gen_dashboard.py`. Censo mecánico: para cada clave `book:`, qué teoremas la formalizan y si están auditados. La auditoría **semántica** (¿el enunciado Lean dice lo que dice el libro?) es `AUDITORIA_ENUNCIADOS_*.md` y no se regenera sola.
 
 - Claves con al menos un teorema: 216
 - Teoremas con clave: 682
