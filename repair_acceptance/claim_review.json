@@ -1,6 +1,6 @@
 {
   "schema_version": "claim-review/2",
-  "collection": "actual Lean export and Typst AST; not itself semantic evaluation",
+  "collection": "automatic Lean export and Typst AST; not itself semantic evaluation",
   "review_provenance_file": "repair_acceptance/semantic_reviews.json",
   "reviewed_by": "agent_reviewed",
   "relations": {
