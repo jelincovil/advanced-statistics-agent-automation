@@ -1292,15 +1292,21 @@
       "claim_id": "A.medible-borel",
       "book_key": "der:medible-borel-hipotesis",
       "relation": "pending",
-      "justificacion": "Fila de hipotesis ambiente, no de enunciado del libro: source=null y la frase registrada ('SampleSpace = Fin n -> R con su sigma-algebra de Borel y T : Omega -> R medible, independiente del parametro') no aparece literalmente en book_stat_inference_v0 (grep sin aciertos, tambien por 'Borel'). No hay bloque Typst contra el que cotejar y lean_declarations=[] : no existe target Lean que pueda soportar la fila. El censo de los 299 targets reales muestra que la hipotesis solo esta representada como typeclass ambiente en 10 targets de 8 claims (Measurable/AEMeasurable) y en 0 targets para BorelSpace. Al no existir ni caja ni target, no procede exact/partial/auxiliary.",
+      "justificacion": "Fila de hipotesis ambiente, no de enunciado del libro: source=null y la frase registrada ('SampleSpace = Fin n -> R con su sigma-algebra de Borel y T : Omega -> R medible, independiente del parametro') no aparece literalmente en book_stat_inference_v0 la frase concreta con `Fin n -> R` y 'T independiente del parametro' no tiene coincidencia literal; 'Borel' sí aparece en el corpus y la ancla pertinente es capitulos/cap04_herramientas.typ:185, en el propio ejemplo consumidor. No hay bloque Typst contra el que cotejar y lean_declarations=[] : no existe target Lean que pueda soportar la fila. El censo de los 299 targets reales muestra que la hipotesis solo esta representada como typeclass ambiente en 10 targets de 8 claims (Measurable/AEMeasurable) y en 0 targets para BorelSpace. Al no existir ni caja ni target, no procede exact/partial/auxiliary.",
       "limitacion": "No es formalizable como claim cerrado con el material actual: no hay enunciado localizado en el libro ni declaracion Lean dedicada. Su unico consumidor registrado (C.ex:ch1-medible-intuicion, ya agent_reviewed) la declara explicitamente condicional a esta hipotesis. Queda condicional a la convencion de espacios estandar de Borel que el libro usa en prosa (cap04_herramientas.typ:601, cap09_verificacion.typ:228, apendice_demostraciones.typ:91) sin axiomatizarla.",
       "reviewed_at": "2026-11-15",
       "source_file": null,
       "source_block_info": "sin bloque Typst: claim_review.json source=null, source_excerpt=null; busqueda en book_stat_inference_v0 (capitulos/, apendices/) sin coincidencia literal",
       "lean_targets": [],
       "lean_types": [],
-      "actual_support_evidence": "auditoria de maquina completa: 299/299 declared_target existen y tipan (lean 4.35.0, 66 modulos compilados de verificacion_lean/Book); 0 targets son Mathlib-native; censo de la hipotesis en los tipos reales: Measurable=10 targets/8 claims, BorelSpace=0, IsProbabilityMeasure=9/8, Fintype=127/108. Ver targets_index.tsv, audit_summary.json.",
-      "reader_note": "Veredicto esperado: pending/condicional, no exact. La representacion de la hipotesis es ambiente y dispersa (~3% de los targets), asi que no puede elevarse a claim cerrado. Cobertura: la direccion semantica de las 14 filas sin fuente la lleva d4 (m15); esta fila se aporta desde la capa de auditoria y se solapa de forma declarada."
+      "actual_support_evidence": "auditoria de maquina completa: 299/299 declared_target existen y tipan (lean 4.35.0, 66 modulos compilados de verificacion_lean/Book); 0 targets son Mathlib-native; censo de la hipotesis en los tipos reales: censo sobre los 299 lean_type de la revisión original: Measurable=32 targets/28 claims; excluyendo MeasurableSpace, 11/9; excluyendo además la consumidora, 8/8, BorelSpace=0, IsProbabilityMeasure=9/8, Fintype=127/108. Ver targets_index.tsv, audit_summary.json.",
+      "reader_note": "Veredicto esperado: pending/condicional, no exact. La representacion de la hipotesis es ambiente y dispersa (~3% de los targets), asi que no puede elevarse a claim cerrado. Cobertura: la direccion semantica de las 14 filas sin fuente la lleva d4 (m15); esta fila se aporta desde la capa de auditoria y se solapa de forma declarada.",
+      "evidence_correction": {
+        "at": "2026-11-15",
+        "member": "m8",
+        "relation_unchanged": "pending",
+        "note": "corrección factual de evidencia, no de juicio matemático"
+      }
     },
     {
       "claim_id": "A.probabilidad-datos",
@@ -5466,6 +5472,91 @@
       "swarm": "smwh97qkh",
       "direction": "d4",
       "dedup": "no existe en semantic_reviews.json (ni el claim_id ni el book_key): no se duplica ningún campo"
+    },
+    {
+      "claim_id": "C.prop:ch3-info-aditiva",
+      "book_key": "prop:ch3-info-aditiva",
+      "relation": "partial",
+      "justificacion": "Se demuestra I_n = n·I₁ en el modelo producto de n copias idénticas sobre un espacio finito: derivada de la ley producto, score total y anulación de cruces por independencia. fisherInfo_jointLaw_fin_nsmul da la identidad buscada; cor_ch3_cr_iid_joint la deriva sin suponerla, y Bernoulli(θ), 0<θ<1, es una instancia no vacía. Reelaboración propia: 25 teoremas con los axiomas permitidos.",
+      "limitacion": "Especialización finita exacta, no el caso continuo/numerable general. Se exigen densidades positivas en el θ del cálculo, normalización, derivabilidad global y ley conjunta producto, no iIndepFun/Fubini generales. El target aritmético previo queda como puente, no como prueba sustantiva.",
+      "reviewed_at": "2026-11-15T17:03:45.471628+00:00",
+      "source_file": "book_stat_inference_v0/capitulos/cap04_herramientas.typ",
+      "lean_targets": [
+        "Book.Cap04InfoAditivaM1.fisherInfo_jointLaw_fin_nsmul",
+        "Book.Cap04InfoAditivaM1.cor_ch3_cr_iid_joint"
+      ],
+      "auxiliary_evidence": []
+    },
+    {
+      "claim_id": "C.ex:ch1-medible-intuicion",
+      "book_key": "ex:ch1-medible-intuicion",
+      "relation": "partial",
+      "justificacion": "Los módulos original y Cap04MedibleIntuicionM10Ext prueban continuidad⇒medibilidad, ley imagen/probabilidad, fórmula de masas, transporte de integrales y momentos, acotación y un contraejemplo probabilístico con μ=volume↾(0,1) y T(x)=x⁻¹. Los supuestos ambiente se consumen explícitamente, no como axiomas ni objetivos autónomos. Base+extensión: 35 teoremas auditados.",
+      "limitacion": "A.* siguen condicionales. SampleSpace=Fin n→ℝ, no espacio arbitrario ni n=∞; «todos los estadísticos de interés» es una convención, sólo se prueba su clausura operativa. Measure.map define la ley sin Kolmogorov; núcleo de momentos sobre ℝ y ley/integración en codominios medibles.",
+      "reviewed_at": "2026-11-15T17:03:45.471628+00:00",
+      "source_file": "book_stat_inference_v0/capitulos/cap04_herramientas.typ",
+      "lean_targets": [
+        "Book.Cap04MedibleIntuicionM10Ext.esperanza_funcion_del_estadistico",
+        "Book.Cap04MedibleIntuicionM10Ext.medible_no_implica_integrable_probabilidad"
+      ],
+      "auxiliary_evidence": []
+    },
+    {
+      "claim_id": "C.thm:ch5-clt-agentes",
+      "book_key": "thm:ch5-clt-agentes",
+      "relation": "partial",
+      "justificacion": "Cesàro/Toeplitz con covarianzas absolutamente sumables lleva T·Var_p(X̄_T) a lrVariance γ; Ch11CovPuente instancia capítulo 11, y book_interval_coverage_sq demuestra cobertura studentizada sólo bajo la premisa explícita del CLT central y consistencia. La cadena se certifica con aritmética exacta y su corrección numérica.",
+      "limitacion": "No se demuestra Ibragimov ni el límite distribucional de mezcla. La sumabilidad es hipótesis, y el intervalo requiere explícitamente hclt y consistencia. Trabajo finito sobre Ω con pesos; las evidencias candidatas no descargan la deuda externa.",
+      "reviewed_at": "2026-11-15T17:03:45.471628+00:00",
+      "source_file": "book_stat_inference_v0/capitulos/cap06_fallos.typ",
+      "lean_targets": [
+        "BookCh5CltAgentesCov.ch5_var_media_limite",
+        "BookCh5CltAgentesCov.cov_doble_limite",
+        "Ch5StudentizadoM6.book_interval_coverage_sq"
+      ],
+      "auxiliary_evidence": []
+    },
+    {
+      "claim_id": "C.thm:ch5-clt",
+      "book_key": "thm:ch5-clt",
+      "relation": "exact",
+      "justificacion": "omit [Fintype Ω] in retira un binder que el cuerpo no usa sin cambiar argumentos: el tipo general compila. Coincide con el CLT del libro por funciones características/Lévy, media/varianza integrales e iid. ch5_clt_estudentizado_norm1 demuestra la segunda cláusula con un testigo N(0,1); el producto infinito de gaussianas aporta Var=1>0. Verificados 15 targets auxiliares y la igualdad del tipo parcheado con el auxiliar.",
+      "limitacion": "La primera forma permite Var=0 (más general); la studentización exige v>0. Las dos cláusulas se prueban por separado, no como un si y sólo si. Mezcla y Gordin no se tocan. El argumento informal de degeneración sobre Ω finito queda sólo como antecedente.",
+      "reviewed_at": "2026-11-15T17:03:45.471628+00:00",
+      "source_file": "book_stat_inference_v0/capitulos/cap04_herramientas.typ",
+      "lean_targets": [
+        "BookCap05.ch5_clt",
+        "BookCap05M2.ch5_clt_estudentizado_norm1"
+      ],
+      "auxiliary_evidence": []
+    },
+    {
+      "claim_id": "C.der:ch8-ucb1-esqueleto",
+      "book_key": "der:ch8-ucb1-esqueleto",
+      "relation": "auxiliary",
+      "justificacion": "Cap08Ucb1M7 prueba conteo real, descomposición del pseudorregret, comparación de índices y cotas para Δ>0. Corrige la inaplicabilidad de ucb1_cota_regret cuando existe brazo óptimo y aporta E[R]≤B+T·μ(Gᶜ). Compilación y 19 controles de axiomas (incluidos tres targets previos), todos permitidos.",
+      "limitacion": "No construye la ley del bandido, Hoeffding/unión ni la constante fina de Auer. Confident, IndexMax e hvis son hipótesis; esperanza e integrabilidad supuestas. C.thm:ch8-ucb1 sigue pending: esta fila sólo registra el fragmento determinista y la frontera.",
+      "reviewed_at": "2026-11-15T17:03:45.471628+00:00",
+      "source_file": "book_stat_inference_v0/capitulos/cap03_mdp.typ",
+      "lean_targets": [
+        "Cap08Ucb1M7.pseudoRegret_eq_gap_sum",
+        "Cap08Ucb1M7.ucb1_selection_bound",
+        "Cap08Ucb1M7.book_bound_on_good_event",
+        "Cap08Ucb1M7.expectation_le_of_good_event"
+      ],
+      "auxiliary_evidence": []
+    },
+    {
+      "claim_id": "C.der:gordin-doeblin",
+      "book_key": "der:gordin-doeblin",
+      "relation": "auxiliary",
+      "justificacion": "Doeblin: pow_sum_one e inv_pow preparan matrices e invariantes; doeblin_contraction construye pesos no negativos de suma 1-m; center_mulVec conserva centralidad; contraction_iterate obtiene (1-m)^n·B. Matrix.IsPrimitive aporta una potencia positiva, y exists_geometric_decay empaqueta el resultado. Reproducción propia: seis módulos compilados y 20 controles de axiomas permitidos.",
+      "limitacion": "Pieza auxiliar, no Gordin: no incluye sumabilidad ∑P^k f, representación de Poisson, telescopaje de covarianzas, bracket, D[0,1], Skorokhod ni CLT. La π invariante es un supuesto y los testigos k,m no son canónicos ni óptimos. C.thm:appD-gordin sigue pending.",
+      "reviewed_at": "2026-11-15T17:10:15.513402+00:00",
+      "source_file": "book_stat_inference_v0/apendices/apendice_regularidad.typ",
+      "lean_targets": [
+        "ApendiceDGordinDoeblin.exists_geometric_decay_of_primitive"
+      ]
     }
   ]
 }

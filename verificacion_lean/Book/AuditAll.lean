@@ -63,6 +63,15 @@ import Book.SSCHCap03M7
 import Book.SSCHCap0405M7
 import Book.SSCHCap06M7
 import Book.SSCHEjemplosM7
+import Book.Cap04InfoAditivaM1
+import Book.Cap04MedibleIntuicionM10Ext
+import Book.Cap05CltStudentizedM2
+import Book.Cap08Ucb1M7
+import Book.Ch11CovarianzaPuente
+import Book.Ch5CltAgentesCovarianza
+import Book.Ch5StudentizadoM6
+import Book.IbraComplexM5
+import Book.GordinDoeblin
 
 /-!
 # Auditoría exhaustiva de `Book/*` — `AuditAll.lean`

@@ -15,8 +15,9 @@ los sumandos son diferencias de martingala acotadas, la variación cuadrática
 condicional normalizada converge por ergodicidad, y el término de borde es
 uniformemente despreciable.
 
-Este módulo formaliza **todos los pasos internos de esa prueba** que no requieren
-el CLT de martingalas (que el libro invoca como herramienta externa). En detalle:
+Este módulo formaliza varias **piezas auxiliares** de esa prueba que no requieren
+el CLT de martingalas (que el libro invoca como herramienta externa). La condición
+de bracket queda explícitamente fuera. En detalle:
 
 * `Chain` — la matriz estocástica `P`, la ley estacionaria `π` (invariante,
   `∑_y π_y P_{y x} = π_x`) y la irreducibilidad como alcanzabilidad por caminos
@@ -38,11 +39,11 @@ el CLT de martingalas (que el libro invoca como herramienta externa). En detalle
 * `Chain.condVar` / `Chain.sigmaSq` — la varianza condicional del incremento
   `v(x) = ∑_y P_{x y} (h(y) - P h(x))²` y el parámetro
   `σ² = π(v) = E[d_1²]` de la aproximación de martingalas.
-* `Chain.cesaro_condVar` — **la variación cuadrática condicional normalizada
-  converge**: `(1/n) ∑_{t<n} v(S_t) → σ²` para toda trayectoria, con tasa
-  `O(1/n)`. La prueba es una *segunda* ecuación de Poisson (para `v - σ²`), no
-  el teorema ergódico: es exactamente el paso que el libro atribuye a la
-  ergodicidad y aquí sale elemental porque el estado es finito.
+* La convergencia de la variación cuadrática condicional **no está formalizada**:
+  `(1/n) ∑_{t<n} v(S_t) → σ²`. Necesita hipótesis de ergodicidad/aperiodicidad y
+  la identificación de la variación cuadratica. El nombre `Chain.cesaro_condVar`
+  no debe leerse como una declaración disponible: no forma parte de este módulo,
+  es deuda explícita, como documenta `DEUDA.md`.
 * `Chain.martingale_increment_mean` — `∑_y P_{x y} (h(y) - P h(x)) = 0`: el
   incremento tiene media condicional cero (diferencia de martingala).
 

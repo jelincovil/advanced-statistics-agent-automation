@@ -56,7 +56,7 @@
       "id": "F08",
       "status": "fixed",
       "evidence": [
-        "C.thm:appD-ibragimov has no argument; quantitative auxiliary explicitly pending"
+        "C.thm:appD-ibragimov remains pending with no distributional CLT; C.der:appD-ibragimov-cuantitativo remains auxiliary, not a CLT proof"
       ]
     },
     {
@@ -145,14 +145,14 @@
     "current_identity": "obtenida del HEAD del checkout y cotejada con reproducción_record.json",
     "reproduction": "bash repair_acceptance/reproduce.sh --out /ruta-externa/nueva-evidencia",
     "counts": {
-      "claims": 245,
-      "arguments": 283,
-      "specs": 299,
-      "receipts": 299,
+      "claims": 247,
+      "arguments": 289,
+      "specs": 317,
+      "receipts": 317,
       "book_blocks": 398,
       "rust_tests": 80,
-      "lean_modules": 66,
-      "lean_theorems_audited": 2699
+      "lean_modules": 75,
+      "lean_theorems_audited": 2956
     },
     "previous_clean_reproduction": {
       "commit": "bbbe69da0ec9f76c6a169feec37c7d6c999d2c9e",
@@ -165,14 +165,22 @@
       "C.thm:appD-ibragimov",
       "C.thm:appD-gordin"
     ],
-    "semantic_reviews_agent_checked": 245,
+    "semantic_reviews_agent_checked": 247,
     "semantic_reviews_pending": 0,
-    "semantic_pending_relation": 9,
+    "semantic_pending_relation": 6,
     "semantic_relations": {
-      "exact": 74,
-      "partial": 137,
-      "pending": 9,
-      "auxiliary": 25
+      "exact": 75,
+      "partial": 139,
+      "pending": 6,
+      "auxiliary": 27
+    },
+    "latest_local_evidence": {
+      "out": "evidencia/repair/smwi1z2xl/precommit-receipts",
+      "receipts": 317,
+      "arguments_backed": "289/289",
+      "lean_modules": 75,
+      "lean_theorems_audited": 2956,
+      "scope": "precommit local runner; a clean-checkout reproduction remains required"
     }
   },
   "scientific_debt": [

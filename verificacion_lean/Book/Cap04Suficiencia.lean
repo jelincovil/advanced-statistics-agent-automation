@@ -911,8 +911,10 @@ experimento de tamaño `n` es aditiva, `I_n(θ) = n·I_1(θ)` (véase
 escribe `(d/dθ E_θ[δ])² / (n·I_1(θ)) ≤ Var_θ(δ)`.
 
 Fidelidad declarada: la aditividad `I_n = n·I_1` se toma como hipótesis
-(no se construye el modelo producto de `n` copias independientes); es
-exactamente el contenido de `prop:ch3-info-aditiva`, ya formalizada.
+(no se construye el modelo producto aquí). La demostración del caso finito
+está en `Book.Cap04InfoAditivaM1.fisherInfo_jointLaw_fin_nsmul`, y la cota
+sin esa hipótesis suplementaria está en `cor_ch3_cr_iid_joint`.
+El viejo lema aritmético `prop_ch3_info_aditiva` no es el teorema probabilístico.
 Origen: enjambre smw82qi6q, dirección d4 (formalización de pendiente). -/
 theorem cor_ch3_cr_iid (p pd : ℝ → X → ℝ)
     (hp : ∀ x θ, HasDerivAt (fun ξ => p ξ x) (pd θ x) θ)

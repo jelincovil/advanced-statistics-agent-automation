@@ -173,3 +173,30 @@ La matriz regenerada desde el inventario Tipst, el exporter y `semantic_reviews.
 Se contrastó que, salvo las filas recién integradas, las anteriores conservan idénticas fuente, fragmento, targets, tipo y fecha de revisión. El exporter tiene 324 entradas/315 nombres únicos, con 299 vinculados por specs Lean actualmente; no se añadieron recibos para las pruebas auxiliares externas de m1 ni para los complementos qdelta mencionados, pues hacerlo requeriría decidir y registrar su evidencia, no afirmarla en un comentario.
 
 Este estado describe revisión semántica completa del lote, **no demostración matemática completa del libro**. `smwh97qkh` quedó `solved` con cuatro soluciones aceptadas individualmente. Ese cierre y `semantic_gate` no son la aceptación de software ni la reproducción limpia del commit final, que se comprueban aparte. En el árbol de trabajo quedaron verdes `cargo fmt`, Clippy con `-D warnings`, las 80 pruebas Rust y `verificar.sh`: 66 módulos activos, 2699 teoremas auditados sin axiomas prohibidos, y dashboard 35/35. `argumentos verify` elaboró los targets actuales y produjo 299 recibos, 283/283 argumentos respaldados, sin convertir en aprobados los claims ambientales ni Ibragimov/Gordin. Falta repetir la puerta completa en el worktree limpio del commit.
+
+## Avance de pruebas y reparaciones (`smwi1z2xl`)
+
+Se juzgaron las ocho direcciones y se integró un lote independiente, sin aplicar automáticamente los JSON propuestos por los miembros. Cada módulo se leyó, re-elaboró y audió contra Mathlib 4.35.0; después se repitió todo en el repositorio real.
+
+- **Fisher aditiva:** `Cap04InfoAditivaM1` demuestra la identidad `I_n = n·I₁` para densidades positivas, normalizadas y derivables sobre un espacio finito. La ley conjunta producto hace explícita la independencia; las cruces se anulan y hay un testigo Bernoulli. `cor_ch3_cr_iid_joint` deriva la aditividad en vez de suponerla. No se promete el caso continuo ni independencia general. El antiguo `prop_ch3_info_aditiva` queda documentado como identidad aritmética auxiliar, no como prueba probabilística.
+- **CLT iid:** se retiró `[Fintype Ω]` con `omit [Fintype Ω] in`, sin cambiar el cuerpo. `BookCap05M2` demuestra la variante studentizada, incluida la conclusión con un solo testigo standard normal, y da una instancia gaussiana con varianza 1. El dominio del claim y del spec es ahora probabilístico, no finite. Esto no altera Ibragimov ni ningún CLT de mezcla.
+- **Medibilidad:** `Cap04MedibleIntuicionM10Ext` añade transporte de momentos, ley por composición y un contraejemplo en un espacio de probabilidad. Los supuestos `A.medible-borel` y `A.probabilidad-datos` permanecen como obligaciones abiertas y no se promueven a auxiliary sin evidencia autónoma.
+- **Covarianza temporal e intervalos:** `Ch5CltAgentesCovarianza` demuestra Toeplitz/Cesàro bajo covarianzas absolutamente sumables y `Ch5StudentizadoM6` demuestra cobertura studentizada bajo `hclt` y consistencia explícitas. Los dos claims de la contribución estacionaria/autocovarianzas no obtienen el CLT de mezcla por ello. El alcance de las evidencias de intervalo marca esa premisa externa y no descargada.
+- **α-mixing finito:** `IbraComplexM5` prueba la desigualdad y el lema de bloqueo complejos, útiles para funciones características. También refuta la subaditividad sobre joins mediante el acoplamiento XOR. `DEUDA.md` ya no prescribe esa vía inválida; la monotonía sólo queda demostrada en el caso finito de coordenada producto.
+- **UCB1:** `Cap08Ucb1M7` reduce el esqueleto determinista a conteo, índices y brechas positivas, y deja explícita la interfaz de esperanza con μ(Gᶜ)≤p. La fila auxiliar `C.der:ch8-ucb1-esqueleto` contiene cuatro evidencias con el mismo alcance declared (`domain`, `carriers`) que su claim. El teorema citado de Auer sigue `pending` y no se demostró la ley del bandido ni la desigualdad de concentración.
+- **Gordin:** `GordinDoeblin` demuestra el decaimiento geométrico de una potencia primitiva sobre funciones π-centradas. Es auxiliar, no la identificación de σ² ni Skorokhod. `GordinCoreM8.lean` ya no presenta como declarada la convergencia de bracket que no prueba. Gordin e Ibragimov distribucionales siguen en deuda.
+
+La matriz resultante leída con `lib.build_corpus` es **75 exact / 139 partial / 27 auxiliary / 6 pending**, sobre 247 claims actuales, con `semantic_gate=True` y 398 bloques Tipst. Los pending son UCB1, el CLT de mezcla de capítulo 11, Ibragimov, Gordin y los dos supuestos ambientales. La nueva auxiliary de UCB1 y la de Doeblin no los eliminan ni cambian sus fundamentos.
+
+Se preservaron las revisiones previas en `repair_acceptance/historical/progreso_smwi1z2xl.json`; las nuevas revisiones se añaden cronológicamente, y `build_corpus` utiliza la más reciente por claim_id. Los conteos de listas de revisiones históricas no se confunden con el número de claims activos.
+
+### Validación integrada antes del commit
+
+- Runner real en `verificacion_lean`: 75 módulos active, **2956 teoremas**, 0 con axiomas no permitidos; dashboard 727/727, 35/35.
+- Rust: formato, clippy y **80 pruebas**.
+- Exportación real: 341 entradas / 332 nombres únicos; los 17 nuevos targets de la integración están presentes.
+- `argumentos verify`: **317 recibos** generados, **289/289 argumentos** respaldados localmente. Las dos hipótesis ambientales permanecen condicionales; Gordin e Ibragimov siguen pendientes.
+- `lakefile.toml` quedó con comentarios TOML válidos y fue leído con `tomllib`; Mathlib sigue fijada en `56a005855ea17e0b0958f73ec801ae140b0a1679`. No se aplicó `lake build` sobre `/opt/mathlib`.
+- El dashboard incluye la relación semántica de cada fila para que OK sólo signifique axiomas permitidos, no que la afirmación sea exacta.
+
+No se realizó push ni se reasignó una etiqueta. Queda repetir el adapter `repair_acceptance/reproduce.sh` completo desde un worktree limpio del commit integrado; el estado `COMPLETE_VERIFIED` no certifica equivalencia matemática general.

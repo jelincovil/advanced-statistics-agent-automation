@@ -523,9 +523,12 @@ end ExpFam
 /-! ### Batch cap04 rápido (info-aditiva + MLR) -/
 
 /-- book: capitulos/cap04_herramientas.typ:1027 (key: prop:ch3-info-aditiva) —
-Aditividad de la Información de Fisher iid: `Iₙ(θ)=n·I₁(θ)`.
-En versión finita es suma de `n` copias idénticas.
-Origen: F-correction 2026-11-07. -/
+
+**AUXILIAR aritmético**, no la aditividad de Fisher. Este teorema sólo prueba
+`∑_{i<n} I₁ = n • I₁` (`Finset.sum_const`), sin scores, leyes ni independencia.
+La demostración finita de la proposición es
+`Book.Cap04InfoAditivaM1.fisherInfo_jointLaw_fin_nsmul`.
+Origen: F-correction 2026-11-07; papel auxiliar precisado en 2026-11-15. -/
 theorem prop_ch3_info_aditiva {n : ℕ} (I₁ : ℝ) :
     (∑ _i ∈ (Finset.range n), I₁) = n • I₁ := by
   rw [Finset.sum_const, Finset.card_range, nsmul_eq_mul]

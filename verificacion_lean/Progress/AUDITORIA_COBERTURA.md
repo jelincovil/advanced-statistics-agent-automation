@@ -3,7 +3,7 @@
 Generado por `Progress/gen_dashboard.py`. Censo mecánico: para cada clave `book:`, qué teoremas la formalizan y si están auditados. La auditoría **semántica** (¿el enunciado Lean dice lo que dice el libro?) es `AUDITORIA_ENUNCIADOS_*.md` y no se regenera sola.
 
 - Claves con al menos un teorema: 216
-- Teoremas con clave: 682
+- Teoremas con clave: 727
 - Claves con teorema sin auditar: 0
 
 | Clave | Teoremas | Módulos | Estados |
@@ -49,7 +49,7 @@ Generado por `Progress/gen_dashboard.py`. Censo mecánico: para cada clave `book
 | `ex:ch1-estadisticos-fundamentales` | 2 | 1 | OK: 2 |
 | `ex:ch1-gamma-poisson` | 1 | 1 | OK: 1 |
 | `ex:ch1-gumbel` | 2 | 1 | OK: 2 |
-| `ex:ch1-medible-intuicion` | 18 | 1 | OK: 18 |
+| `ex:ch1-medible-intuicion` | 35 | 2 | OK: 35 |
 | `ex:ch1-mezcla-normal` | 2 | 1 | OK: 2 |
 | `ex:ch1-normal` | 2 | 1 | OK: 2 |
 | `ex:ch1-normal-gamma` | 5 | 1 | OK: 5 |
@@ -81,7 +81,7 @@ Generado por `Progress/gen_dashboard.py`. Censo mecánico: para cada clave `book
 | `ex:ch4-no-parametrico` | 6 | 2 | OK: 6 |
 | `ex:ch4-regularidad` | 6 | 1 | OK: 6 |
 | `ex:ch5-bandas` | 3 | 1 | OK: 3 |
-| `ex:ch5-cadena` | 2 | 1 | OK: 2 |
+| `ex:ch5-cadena` | 9 | 2 | OK: 9 |
 | `ex:ch5-cociente` | 2 | 1 | OK: 2 |
 | `ex:ch5-qdelta` | 8 | 1 | OK: 8 |
 | `ex:ch6-aipw-intro` | 1 | 1 | OK: 1 |
@@ -142,7 +142,7 @@ Generado por `Progress/gen_dashboard.py`. Censo mecánico: para cada clave `book
 | `prop:ch12-logprobs` | 2 | 1 | OK: 2 |
 | `prop:ch12-sesgo-disc` | 3 | 1 | OK: 3 |
 | `prop:ch2-suficiencia-politicas` | 2 | 2 | OK: 2 |
-| `prop:ch3-info-aditiva` | 1 | 1 | OK: 1 |
+| `prop:ch3-info-aditiva` | 6 | 2 | OK: 6 |
 | `prop:ch3-rb-q` | 2 | 1 | OK: 2 |
 | `prop:ch3-valor-cr` | 2 | 1 | OK: 2 |
 | `prop:ch4-multiplicidad` | 1 | 1 | OK: 1 |
@@ -158,7 +158,7 @@ Generado por `Progress/gen_dashboard.py`. Censo mecánico: para cada clave `book
 | `prop:ch8-perdida` | 1 | 1 | OK: 1 |
 | `prop:ch8-thompson` | 4 | 2 | OK: 4 |
 | `thm:appD-hac-consistencia` | 2 | 1 | OK: 2 |
-| `thm:appD-ibragimov` | 1 | 1 | OK: 1 |
+| `thm:appD-ibragimov` | 4 | 2 | OK: 4 |
 | `thm:appE-convergencia-dominada` | 9 | 1 | OK: 9 |
 | `thm:appE-funcion-implicita` | 4 | 1 | OK: 4 |
 | `thm:appE-proyeccion` | 3 | 1 | OK: 3 |
@@ -171,7 +171,7 @@ Generado por `Progress/gen_dashboard.py`. Censo mecánico: para cada clave `book
 | `thm:ch10-identificacion` | 3 | 1 | OK: 3 |
 | `thm:ch10-is-insesgado` | 2 | 1 | OK: 2 |
 | `thm:ch10-truncamiento` | 2 | 1 | OK: 2 |
-| `thm:ch11-clt-mixing` | 1 | 1 | OK: 1 |
+| `thm:ch11-clt-mixing` | 2 | 2 | OK: 2 |
 | `thm:ch11-n` | 3 | 1 | OK: 3 |
 | `thm:ch11-pg-theorem` | 2 | 1 | OK: 2 |
 | `thm:ch11-tasa-tabular` | 1 | 1 | OK: 1 |
@@ -195,8 +195,8 @@ Generado por `Progress/gen_dashboard.py`. Censo mecánico: para cada clave `book
 | `thm:ch4-neyman-pearson` | 1 | 1 | OK: 1 |
 | `thm:ch4-umpu` | 4 | 1 | OK: 4 |
 | `thm:ch5-bootstrap-media` | 1 | 1 | OK: 1 |
-| `thm:ch5-clt` | 1 | 1 | OK: 1 |
-| `thm:ch5-clt-agentes` | 6 | 1 | OK: 6 |
+| `thm:ch5-clt` | 5 | 2 | OK: 5 |
+| `thm:ch5-clt-agentes` | 14 | 3 | OK: 14 |
 | `thm:ch5-delta` | 1 | 1 | OK: 1 |
 | `thm:ch5-delta-multi` | 1 | 1 | OK: 1 |
 | `thm:ch5-donsker` | 1 | 1 | OK: 1 |

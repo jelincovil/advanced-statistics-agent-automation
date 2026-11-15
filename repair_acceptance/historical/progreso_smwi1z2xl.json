@@ -1,0 +1,90 @@
+{
+  "schema": "semantic-advance/1",
+  "base_commit": "4ec012ea4ff363b47f6d61b59bd2ae7d9d90036a",
+  "swarm": "smwi1z2xl",
+  "preserved_previous_reviews": [
+    {
+      "claim_id": "C.ex:ch1-medible-intuicion",
+      "relation": "pending",
+      "justificacion": "Continuidad Borel, map de medida e integrabilidad están formalizados, pero las hipótesis ambientes explícitas A.medible-borel y A.probabilidad-datos no están desarrolladas como claims cerrados.",
+      "limitacion": "Queda condicional a esas hipótesis: no se interpreta como toda esperanza de un estadístico general sin espacio de medida especificado."
+    },
+    {
+      "claim_id": "C.prop:ch3-info-aditiva",
+      "book_key": "prop:ch3-info-aditiva",
+      "relation": "pending",
+      "justificacion": "El enunciado: si X1,…,Xn son iid con información de Fisher I1(θ) por observación, la información total es In(θ) = n·I1(θ); la prueba del libro suma scores (independencia) y suma varianzas. El único target declarado, prop_ch3_info_aditiva, tiene tipo ∀ {n : ℕ} (I1 : ℝ), Σ_{i ∈ range n} I1 = n • I1: es la identidad de una suma de constantes (Finset.sum_const) sobre un real no interpretado. No contiene información de Fisher, ni score, ni independencia, ni varianza, ni las variables Xi. Además Book.Cap04Suficiencia.cor_ch3_cr_iid (clave cor:ch3-cr-iid) recibe fisherInfo p pd θ = n·I1 como HIPÓTESIS, y su docstring atribuye esa aditividad a prop:ch3-info-aditiva: el repositorio, por tanto, no deriva la aditividad, la supone. Comparación hecha; respaldo insuficiente.",
+      "limitacion": "No hay correspondencia sustantiva que aprobar, ni siquiera como caso especializado: la igualdad que el target prueba es la sombra aritmética de la conclusión (si todas las contribuciones valen lo mismo, su suma es n·I1), verdadera para cualquier real y sin contenido probabilístico. Para cubrir el enunciado haría falta el modelo producto X^n, el score de la muestra como suma de scores, la covarianza nula por independencia y Var(S_i) = I1; nada de eso está formalizado. Se deja en pending y NO se propone como deuda cerrada.",
+      "source_file": "book_stat_inference_v0/capitulos/cap04_herramientas.typ",
+      "source_block_info": "book_stat_inference_v0/capitulos/cap04_herramientas.typ:1027-1031 = thm-env(\"proposition\") key::prop:ch3-info-aditiva; span de bytes contenido en content_start/content_end del registro; sha256 del archivo ad2f2fb885187a4b… coincide con source.file_sha256",
+      "lean_targets": [
+        "prop_ch3_info_aditiva",
+        "Book.Cap04Suficiencia.cor_ch3_cr_iid"
+      ],
+      "lean_types": [
+        "∀ {n : ℕ} (I₁ : ℝ), ∑ _i ∈ Finset.range n, I₁ = n • I₁",
+        "∀ {X : Type} [Fintype X] (p pd : ℝ → X → ℝ), (∀ (x : X) (θ : ℝ), HasDerivAt (fun ξ => p ξ x) (pd θ x) θ) → (∀ (θ : ℝ) (x : X), 0 < p θ x) → (∀ (θ : ℝ), ∑ x, p θ x = 1) → ∀ (δ : X → ℝ) (θ : ℝ) {n : ℕ}, 0 < n → ∀ {I₁ : ℝ}, 0 < I₁ → Book.Cap04Suficiencia.fisherInfo p pd θ = ↑n * I₁ → (∑ x, δ x * pd θ x) ^ 2 / (↑n * I₁) ≤ Book.Cap04Suficiencia.variance p δ θ"
+      ],
+      "actual_support_evidence": "Lectura completa del bloque Typst y de Book/Cap04Herramientas.lean:519-542 y Book/Cap04Suficiencia.lean:760-930 (definición fisherInfo, cota de Cramér-Rao y su versión iid con hI como hipótesis); compilado work/axiomas_check.lean (LEAN_PATH=verificacion_lean/build): el target consta en axiomas_check.raw.log con «depends on axioms: [propext, Classical.choice, Quot.sound]»; tipos reales en work/tipos_check*.raw.log; cifras reproducidas en work/numeros_check.out.",
+      "reader_note": "Aviso para quien revise cor:ch3-cr-iid: allí la aditividad es hipótesis (hI), no teorema. No aprobar cor:ch3-cr-iid como si esta clave probara la aditividad. Esta fila ES una revisión hecha: el veredicto es que no hay respaldo sustantivo.",
+      "auxiliary_evidence": "cor_ch3_cr_iid usa hI : fisherInfo p pd θ = n * I₁; es la evidencia de que la aditividad se postula.",
+      "reviewed_at": "2026-11-15T02:56:08.912953+00:00"
+    },
+    {
+      "claim_id": "C.thm:ch5-clt-agentes",
+      "book_key": "thm:ch5-clt-agentes",
+      "relation": "pending",
+      "justificacion": "El bloque (lineas 324-335) enuncia el CLT de mezcla: bajo def:ch5-mixing-clt (momentos de orden 2+delta y suma de alpha(k)^{delta/(2+delta)} finita), sqrt(T)(overline(X)_T - mu) converge en distribucion a N(0, sigma^2_LR) con sigma^2_LR = Var(X_0) + 2 suma_{k>=1} Cov(X_0,X_k) absolutamente convergente; con sigma^2_LR > 0 y sigma-hat^2 -> P sigma^2_LR el intervalo asintotico es valido; la varianza de la media es aproximadamente sigma^2_LR/T. El target declarado, BookCh5CltAgentesM5.lr_cadena2_libro, solo prueba lrVariance (24*(1/2)^k) = 72, una instancia numerica de la definicion de sigma^2_LR. El modulo aporta ademas lr_covarianzas_sumables (sumabilidad absoluta de la cola bajo Summable |gamma|), lr_varianza_finita, lr_varianza_media y lr_semiancho. Ninguna declaracion enuncia convergencia en distribucion ni la consistencia de sigma-hat^2, que son las clausulas principales de la proposicion.",
+      "limitacion": "Falta el limite distribucional (el propio libro lo declara externo: notas de Shalizi, teorema 355) y la validez del intervalo asintotico: sin CLT no hay intervalo que heredar. La sumabilidad absoluta entra como hipotesis Summable |gamma|, no derivada de la condicion de mezcla, y def:ch5-mixing-clt no se formaliza. Es la deuda Ibragimov/mezcla: queda abierta; no se cierra con este target ni con las identidades auxiliares.",
+      "reviewed_at": "2026-11-15T02:56:04.092877+00:00",
+      "source_file": "book_stat_inference_v0/capitulos/cap06_fallos.typ",
+      "source_block_info": "capitulos/cap06_fallos.typ (relativo a book_stat_inference_v0) = book_stat_inference_v0/capitulos/cap06_fallos.typ; lineas 324-335; seccion === Condiciones de Regularidad para Dependencia Temporal; declaracion #thm-env con la clave en la linea 324; rango de bytes [18513, 19082); sha256 del archivo cfb56320933b0b534237c8a0108b1c8131ca4dd45db407b87ad3d1b2bc4b4003",
+      "lean_targets": [
+        "BookCh5CltAgentesM5.lr_cadena2_libro",
+        "BookCh5CltAgentesM5.lr_varianza_finita",
+        "BookCh5CltAgentesM5.lr_varianza_media",
+        "BookCh5CltAgentesM5.lr_semiancho",
+        "BookCh5CltAgentesM5.lr_covarianzas_sumables"
+      ],
+      "actual_support_evidence": "Lei Ch5CltAgentesM5.lean completo (224 lineas). Su docstring declara literalmente: «No se reproduce el limite distribucional sqrt(T)(overline(X)_T - mu) -> N(0,sigma_LR^2) (es el CLT de Ibragimov, externo al libro), ni el paso de la serie de covarianzas a tau^2 como limite de T*Var(overline(X)_T)». lr_semiancho solo prueba z*sigma-hat/sqrt(T) -> 0 con sigma-hat acotado, no la cobertura del intervalo. Axiomas de las cinco declaraciones: los tres permitidos.",
+      "auxiliary_evidence": [
+        "BookCh5CltAgentesM5.lrVariance es una definicion (gamma 0 + 2*suma' gamma(k+1)); lr_geometrico prueba lrVariance(v*(1/2)^k) = 3v.",
+        "C.thm:appD-ibragimov sigue pending en semantic_reviews.json por la misma razon (limite distribucional normal no formalizado); esta fila no lo reabre ni lo cierra."
+      ],
+      "reader_note": "pending: insuficiente. Hay identidades algebraicas correctas alrededor de sigma^2_LR, pero la afirmacion central (normalidad asintotica e intervalo valido) no tiene respaldo formal; no debe contarse como parcialmente certificada.",
+      "lean_types": [
+        "(BookCh5CltAgentesM5.lrVariance fun k => 24 * (1 / 2) ^ k) = 72",
+        "{Ω : Type u_1} [Fintype Ω] {T : ℕ} (p : Ω → ℝ) (Z : ℕ → Ω → ℝ) (γ : ℕ → ℝ)\n  (hcov : ∀ (i j : Fin T), BookCh5CltAgentesM5.fcov p (Z ↑i) (Z ↑j) = γ (if ↑i ≤ ↑j then ↑j - ↑i else ↑i - ↑j)) :\n  (BookCh5CltAgentesM5.fvar p fun ω => ∑ i, Z (↑i) ω) = ∑ i, ∑ j, γ (if ↑i ≤ ↑j then ↑j - ↑i else ↑i - ↑j)",
+        "{Ω : Type u_1} [Fintype Ω] {T : ℕ} (hT : ↑T ≠ 0) (p : Ω → ℝ) (Z : ℕ → Ω → ℝ)\n  (γ : ℕ → ℝ)\n  (hcov : ∀ (i j : Fin T), BookCh5CltAgentesM5.fcov p (Z ↑i) (Z ↑j) = γ (if ↑i ≤ ↑j then ↑j - ↑i else ↑i - ↑j)) :\n  (BookCh5CltAgentesM5.fvar p fun ω => (↑T)⁻¹ * ∑ i, Z (↑i) ω) =\n    (∑ i, ∑ j, γ (if ↑i ≤ ↑j then ↑j - ↑i else ↑i - ↑j)) / ↑T ^ 2",
+        "{σhat : ℕ → ℝ} {z C : ℝ} (hC : 0 ≤ C) (hσ : ∀ (T : ℕ), |σhat T| ≤ C) :\n  Filter.Tendsto (fun T => z * σhat T / √↑T) Filter.atTop (nhds 0)",
+        "{γ : ℕ → ℝ} (h : Summable fun k => |γ k|) :\n  (Summable fun k => |γ (k + 1)|) ∧ Summable fun k => γ (k + 1)"
+      ]
+    },
+    {
+      "claim_id": "C.thm:ch5-clt",
+      "book_key": "thm:ch5-clt",
+      "relation": "partial",
+      "justificacion": "Pasaje leído completo (líneas 1464-1470, bytes 79482-79762; sha256 ad2f2fb885187a4b…): «Sea X_1,X_2,… iid con EE[X_i]=μ y 0<Var(X_i)=σ²<∞. Entonces √n(X̄_n−μ)→d N(0,σ²), o equivalentemente (X̄_n−μ)/(σ/√n)→d N(0,1)»; el proof-env 1475-1491 la prueba por funciones características y continuidad de Lévy. BookCap05.ch5_clt (Cap05Asintotica.lean:131; el módulo abre `variable {Ω : Type*} [Fintype Ω]` en :34) tiene tipo ∀ {Ω} [Fintype Ω] {Ω'} [MeasurableSpace Ω] [MeasurableSpace Ω'] (P) [IsProbabilityMeasure P] (P') [IsProbabilityMeasure P'] (X : ℕ → Ω → ℝ) (Y), HasLaw Y (gaussianReal 0 Var[X 0;P].toNNReal) P' → MemLp (X 0) 2 P → iIndepFun X P → (∀ i, IdentDistrib (X i) (X 0) P P) → TendstoInDistribution (fun n ω ↦ (√n)⁻¹(∑_{k<n} X k ω − n·∫X 0 dP)) atTop Y (fun _↦P) P'. Coincidencias de contenido verificadas una a una: (i) misma normalización, (√n)⁻¹(S_n−nμ)=√n(X̄_n−μ); (ii) misma ley límite gaussianReal 0 σ² con σ²=Var(X 0;P) y media μ=∫X 0 dP, que bajo IdentDistrib es la media común del libro (no se postula: se calcula, con lo que la hipótesis EE[X_i]=μ queda absorbida sin pérdida); (iii) MemLp 2 ⟺ σ²<∞ más integrabilidad; (iv) iid = iIndepFun + IdentDistrib; (v) la prueba es la del libro (funciones características + continuidad de Lévy): el cuerpo es tendstoInDistribution_inv_sqrt_mul_sum_sub de Mathlib (Mathlib/Probability/CentralLimitTheorem.lean:122, leído entero, sin [Fintype Ω] y con el caso Var=0 tratado aparte). 0<σ² no se pide, de modo que en ese punto el target es más fuerte que el libro. DEFECTO de alcance: el binder [Fintype Ω], ajeno al libro y que Lean mismo marca como «automatically included section variable(s) unused in theorem `BookCap05.ch5_clt`», proponiendo omitirlo (warnings_cap05.log), restringe el portador del teorema a un tipo finito.",
+      "limitacion": "El portador finito no es un caso especial inocuo: sobre Ω finito el paquete de hipótesis fuerza Var(X 0;P)=0, así que el caso 0<σ² del libro no es instancia del target registrado. Argumento (matemático, NO formalizado en Lean; queda como deuda): la ley de X 0 tiene soporte finito porque Ω es finito; si hubiera dos valores a≠b con masa positiva, para cada n y cada σ : Fin n → {a,b} el conjunto ⋂_{i<n} {X_i = σ_i} tendría medida ∏_i P{X_0=σ_i} > 0 por iIndepFun (lema iIndepFun.meas_iInter), luego sería no vacío, y dos σ distintos dan conjuntos disjuntos; por tanto 2^n ≤ |Ω| para todo n, absurdo. Consecuencia: el target es verdadero (es un caso del teorema general de Mathlib) pero no cubre el teorema del libro tal como está registrado; de ahí partial y no exact (a diferencia de otras filas exact «dentro del alcance finito declarado», aquí el alcance finito no es un caso particular del enunciado sino que vacía su hipótesis 0<σ²). El binder es un artefacto reparable: `omit [Fintype Ω] in` sobre la misma declaración y la misma prueba produce el tipo sin [Fintype Ω] y compila (propuesta_ch5_clt_sin_fintype.lean, lean 4.35.0; axiomas.log); las declaraciones vecinas que usan el mismo CLT (Cap04Ch6.lean:459 prop_ch6_ral, Cap04Ch6DmlM5.lean:162 ch6_dml_clt) llevan binders explícitos y no tienen Fintype. Además la forma studentizada «equivalentemente» del libro no se enuncia: con σ>0 es un reescalado trivial, pero el target no supone σ>0, de modo que no se sigue de él y no está formalizada. No hay deuda Ibragimov/Gordin aquí: es un CLT iid, no de mezcla.",
+      "reviewed_at": "2026-11-15T03:17:34+00:00",
+      "source_file": "book_stat_inference_v0/capitulos/cap04_herramientas.typ",
+      "source_block_info": "#thm-env(\"theorem\", name: [CLT Clásico de Lindeberg-Lévy], key: \"thm:ch5-clt\", aliases: (\"thm:ch5-clt-ll\",)); §sec:ch5-clt; líneas 1464-1470 (contenido bytes 79482-79762) + proof-env 1475-1491; sha256 del archivo ad2f2fb885187a4b247b67ef360c716889fe9115259111261825854438fc084f = source.file_sha256 de claim_review.json",
+      "lean_targets": [
+        "BookCap05.ch5_clt"
+      ],
+      "lean_types": [
+        "∀ {Ω : Type u_1} [Fintype Ω] {Ω' : Type u_2} [inst : MeasurableSpace Ω] [inst_1 : MeasurableSpace Ω'] (P : MeasureTheory.Measure Ω) [inst_2 : MeasureTheory.IsProbabilityMeasure P] (P' : MeasureTheory.Measure Ω') [inst_3 : MeasureTheory.IsProbabilityMeasure P'] (X : ℕ → Ω → ℝ) (Y : Ω' → ℝ),\n  ProbabilityTheory.HasLaw Y (ProbabilityTheory.gaussianReal 0 (ProbabilityTheory.variance (X 0) P).toNNReal) P' →\n    MeasureTheory.MemLp (X 0) 2 P →\n      ProbabilityTheory.iIndepFun X P →\n        (∀ (i : ℕ), ProbabilityTheory.IdentDistrib (X i) (X 0) P P) →\n          MeasureTheory.TendstoInDistribution\n            (fun n ω => (√↑n)⁻¹ * (∑ k ∈ Finset.range n, X k ω - ↑n * ∫ (x : Ω), X 0 x ∂P)) Filter.atTop Y (fun x => P)\n            P'"
+      ],
+      "complementos": [
+        "Mathlib: ProbabilityTheory.tendstoInDistribution_inv_sqrt_mul_sum_sub (Mathlib/Probability/CentralLimitTheorem.lean:122, sin [Fintype Ω])",
+        "propuesta local verificada fuera del repo: ch5_clt_omit / ch5_clt_sin_fintype (mismo enunciado y misma prueba, sin [Fintype Ω])"
+      ],
+      "actual_support_evidence": "Leídos el bloque 1464-1470 y el proof-env 1475-1491 completos; Cap05Asintotica.lean:17-141 (docstring :117-130, variable de sección :34, declaración :131-140) y Mathlib/Probability/CentralLimitTheorem.lean:1-160 (enunciado y prueba completos de tendstoInDistribution_inv_sqrt_mul_sum_sub). Con lean 4.35.0 y LEAN_PATH=<repo>/verificacion_lean/build, check_m3.lean imprime el tipo elaborado de BookCap05.ch5_clt (coincide término a término con el lean_type de claim_review.json salvo la notación Var[·;·]) y `#print axioms BookCap05.ch5_clt` = [propext, Classical.choice, Quot.sound] (axiomas.log). Los axiomas se registran como control de higiene, NO como certificado de fidelidad. propuesta_ch5_clt_sin_fintype.lean compila el mismo enunciado sin [Fintype Ω]; sonda_seccion_variable.lean muestra el mecanismo y el aviso del linter. Además, `lean --root=. Book/Cap05Asintotica.lean` (sin -o, no escribe olean) emite en :131 «automatically included section variable(s) unused in theorem `BookCap05.ch5_clt`: [Fintype Ω] ... omit [Fintype Ω] in theorem ...» (warnings_cap05.log): Lean certifica que el binder es ajeno al enunciado.",
+      "reader_note": "Deduplicación: C.thm:ch5-clt no tiene review previa en semantic_reviews.json. BookCap05.ch5_clt aparece como target auxiliar de C.prop:ch5-clt-retornos (partial) con la nota «CLT iid general disponible en el mismo módulo»: correcta en la forma del enunciado, pero no contabiliza esta clave ni menciona el portador finito; no se reescribe esa review. Con la reparación `omit [Fintype Ω] in` (una línea) la fila pasaría a exact: entonces enunciado y prueba coinciden con el libro y la forma studentizada sale como corolario para σ>0. Sin tocar repo/.",
+      "reviewer": "Open Math OS agent (swarm smwh97qkh, m3, dirección d3)",
+      "swarm": "smwh97qkh",
+      "direction": "d3"
+    }
+  ],
+  "note": "Nuevas revisiones añadidas cronológicamente tras evidencia nueva; build_corpus usa la última por claim_id. No se eliminan las anteriores."
+}

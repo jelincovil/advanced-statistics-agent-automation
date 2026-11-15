@@ -54,7 +54,7 @@
   "thm:ch4-bonferroni": "ch4_bonferroni",
   "thm:ch2-neyman-fisher": "ch2_neyman_fisher",
   "thm:ch2-completitud-exponencial": "ch2_completitud_exponencial",
-  "prop:ch3-info-aditiva": "prop_ch3_info_aditiva",
+  "prop:ch3-info-aditiva": "Book.Cap04InfoAditivaM1.fisherInfo_jointLaw_fin_nsmul",
   "cor:ch4-exp-mlr": "cor_ch4_exp_mlr",
   "thm:ch4-inversion": "thm_ch4_inversion_simple",
   "cor:ch4-ic-z": "cor_ch4_ic_z_simple",
@@ -104,5 +104,7 @@
   "ex:ch2-traslaciones": "Book.Cap04Ejemplos.ch2_traslaciones_media",
   "ex:ch2-escala": "Book.Cap04Ejemplos.ch2_escala_media",
   "ex:ch4-mp-normal": "Book.Cap04Ejemplos.ch4_mp_normal_forma_factorizada",
-  "ex:ch5-cociente": "Book.Cap04Ejemplos.ch5_cociente_delta"
+  "ex:ch5-cociente": "Book.Cap04Ejemplos.ch5_cociente_delta",
+  "thm:ch5-clt-agentes": "BookCh5CltAgentesCov.ch5_var_media_limite",
+  "thm:ch11-clt-mixing": "Ch11CovPuente.ch11_var_media_limite"
 }

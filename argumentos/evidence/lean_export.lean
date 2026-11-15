@@ -8,7 +8,7 @@
   elaborado vía las APIs públicas de Lean; nada de regex sobre mensajes de
   consola ajenos.
 
-  La lista actual exporta 324 entradas, con 315 nombres únicos; al construir
+  La lista actual exporta 341 entradas, con 332 nombres únicos; al construir
   el mapa por nombre se deduplican las entradas repetidas. Incluye los targets
   de los evidence_specs y complementos, no un conteo de afirmaciones cerradas.
 -/
@@ -75,6 +75,15 @@ import Book.ApendiceDIbragimov
 import Book.GordinCoreM8
 import Book.Cap04Ch6Motivacion
 import Book.ApendiceEHilbert
+import Book.Cap04InfoAditivaM1
+import Book.Cap04MedibleIntuicionM10Ext
+import Book.Cap05CltStudentizedM2
+import Book.Cap08Ucb1M7
+import Book.Ch11CovarianzaPuente
+import Book.Ch5CltAgentesCovarianza
+import Book.Ch5StudentizadoM6
+import Book.IbraComplexM5
+import Book.GordinDoeblin
 import Lean.Util.CollectAxioms
 import Lean.Util.FoldConsts
 
@@ -410,7 +419,24 @@ def objetivos : List Name := [
   `Book.Cap04MedibleIntuicionM10.ley_apply ,
   `Book.Cap04MedibleIntuicionM10.esperanza_finita_iff_integrable ,
   `Book.AppERNM3.appE_rn_existe_unico ,
-  `Book.ApendiceEMedidoDctM5.appE_convergencia_dominada
+  `Book.ApendiceEMedidoDctM5.appE_convergencia_dominada,
+  `BookCap05M2.ch5_clt_estudentizado_norm1,
+  `Book.Cap04InfoAditivaM1.fisherInfo_jointLaw_fin_nsmul,
+  `Book.Cap04InfoAditivaM1.cor_ch3_cr_iid_joint,
+  `Book.Cap04MedibleIntuicionM10Ext.esperanza_funcion_del_estadistico,
+  `Book.Cap04MedibleIntuicionM10Ext.medible_no_implica_integrable_probabilidad,
+  `BookCh5CltAgentesCov.ch5_var_media_limite,
+  `BookCh5CltAgentesCov.cov_doble_limite,
+  `BookCh5CltAgentesCov.cadena2_var_media_libro,
+  `Ch11CovPuente.ch11_var_media_limite,
+  `Book.IbraComplexM5.abs_integral_prod_sub_prod_le_C,
+  `Ch5StudentizadoM6.studentized_tendsto_gaussianReal,
+  `Ch5StudentizadoM6.book_interval_coverage_sq,
+  `Cap08Ucb1M7.pseudoRegret_eq_gap_sum,
+  `Cap08Ucb1M7.ucb1_selection_bound,
+  `Cap08Ucb1M7.book_bound_on_good_event,
+  `Cap08Ucb1M7.expectation_le_of_good_event,
+  `ApendiceDGordinDoeblin.exists_geometric_decay_of_primitive,
 ]
 
 /-- Escapa una cadena para incluirla como literal JSON. -/

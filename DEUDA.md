@@ -7,7 +7,7 @@ Registro de deudas con obstrucción precisa. Entregable de esta dirección
 runner propio `verificacion_lean/verificar_ibragimov.sh`).
 
 Regla aplicada: lo que no se pudo formalizar **no se enuncia** en Lean; queda aquí
-con la obstrucción concreta (qué falta en Mathlib v4.33.1 y por qué).
+con la obstrucción concreta (qué falta en Mathlib v4.35.0 y por qué).
 
 ---
 
@@ -57,17 +57,23 @@ a partir de la hipótesis `α(σ(Z_0,…,Z_{j−1}), σ(Z_j)) ≤ a_j` (coeficie
 bloque pasado completo contra el siguiente).
 
 Qué falta exactamente:
-1. **Subaditividad de α sobre joins** de σ-álgebras finitas
-   (`α(∨_{i<j}σ(Z_i), σ(Z_j)) ≤ ∑_{i<j} α(σ(Z_i),σ(Z_j))`), que es lo que permite
-   descargar esa hipótesis desde los coeficientes por pares. No está en Mathlib ni
-   en este archivo.
-2. Versión **ℂ-valuada** de la desigualdad de covarianza y del lema de bloques
-   (este archivo los prueba sólo para `ℝ`; para ℂ la misma prueba va con `‖·‖`,
-   pero no está hecha), que es la que se aplica a `exp(i t B_j)`.
-3. `charFun` de sumas de variables **dependientes**: Mathlib sólo da el producto de
-   funciones características en el caso iid
-   (`ProbabilityTheory.charFun_inv_sqrt_mul_sum`,
-   `Mathlib/Probability/CentralLimitTheorem.lean:44`).
+1. **Vía refutada: subaditividad de α sobre joins** de σ-álgebras finitas.
+   El acoplamiento XOR en `Book.IbraComplexM5` demuestra que una función conjunta puede
+   dar α=1/2 para el pasado completo aunque los coeficientes por pares sean cero.
+   Por tanto esa desigualdad **no** permite descargar la hipótesis de bloqueo: se debe
+   usar α del pasado completo, como exige el libro, o monotonía en las σ-álgebras.
+   El módulo demuestra esa monotonía para una coordenada producto
+   (`alphaCoef_comp_fst_le`), no para álgebras arbitrarias.
+2. **Caso finito ℂ-valuado, resuelto**: `IbraComplexM5.abs_cov_le_C` prueba la cota
+   de covarianza para datos finitos, y `abs_integral_prod_sub_prod_le_C` prueba el
+   lema de bloqueo con funciones complejas acotadas (`2 B^k ∑ a_j`). **No** incluye
+   momentos generales `2+δ` ni estados no acotados: es la pieza necesaria para
+   funciones características, no el CLT.
+3. `charFun` de sumas dependientes en estado finito: `charFun_sum_block_le` y
+   `charFun_map_sum_block_le` acotan la distancia entre la característica de una suma
+   y el producto de las características marginales, con coeficientes del pasado
+   completo como hipótesis. Falta su encadenamiento con la prueba distribucional:
+   no constituyen el teorema de Ibragimov.
 
 ### 1.4 Deuda (c): resto de Taylor de orden `2+δ`
 

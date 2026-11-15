@@ -114,6 +114,7 @@ theorem fvar_sum {ι : Type*} [Fintype ι] (p : Ω → ℝ) (X : ι → Ω → �
 
 /-! ### 1. `thm:ch5-clt` — CLT clásico de Lindeberg–Lévy -/
 
+omit [Fintype Ω] in
 /-- book: capitulos/cap04_herramientas.typ:1464 (key: thm:ch5-clt) —
 **CLT clásico de Lindeberg–Lévy.** Si `X : ℕ → Ω → ℝ` es iid con
 `E[X₀] = μ` y `0 < Var(X₀) = σ² < ∞`, entonces
@@ -126,8 +127,9 @@ usa el CLT de Mathlib (`ProbabilityTheory.tendstoInDistribution_inv_sqrt_mul_sum
 que es exactamente el teorema de continuidad de Lévy aplicado a la función
 característica, tal como el libro lo demuestra. Electo del libro: la
 normalización `1/√n` en lugar de `√n` en el numerador (misma afirmación).
-No se formaliza aquí la equivalencia con la forma studentizada porque es
-la misma sucesión reescalada. -/
+La variante studentizada se demuestra en `Book.Cap05CltStudentizedM2`,
+`BookCap05M2.ch5_clt_estudentizado_norm1`; aquí queda el CLT general.
+El binder finito de sección se retira explícitamente con `omit`. -/
 theorem ch5_clt {Ω' : Type*} [MeasurableSpace Ω] [MeasurableSpace Ω']
     (P : Measure Ω) [IsProbabilityMeasure P] (P' : Measure Ω') [IsProbabilityMeasure P']
     (X : ℕ → Ω → ℝ) (Y : Ω' → ℝ)

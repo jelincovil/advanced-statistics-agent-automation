@@ -517,8 +517,11 @@ theorem ucb_conteo (N : ℕ → ℕ) (D : ℝ) (hD : 0 < D)
 /-- book: capitulos/cap03_mdp.typ:145 (key: thm:ch8-ucb1) — suma de las cotas
 por brazo: con `N_a ≤ 8 log T/Δ_a² + 1` para cada brazo con `Δ_a>0`, el
 pseudorregret `Σ_a Δ_a N_a` queda acotado por `8 log T · Σ_a 1/Δ_a + Σ_a Δ_a`.
-Es la forma `8 Σ_{a:Δ_a>0} (log T)/Δ_a` del libro, sin el término de
-probabilidad `(1+π²/3)ΣΔ` (véase la fidelidad declarada). -/
+Es la fórmula formal de suma, pero **no** es aplicable al caso del libro con un
+brazo óptimo: `∀ a, 0 < Delta a` contradice que `muStar` se alcance. La versión
+aplicable, restringida a los brazos con brecha positiva, es
+`Cap08Ucb1M7.sum_gap_mul_count_le`. Este teorema se conserva sólo como lema
+aritmético bajo esa hipótesis fuerte, no como el paso final de UCB1. -/
 theorem ucb1_cota_regret {T : ℕ} (N : A → ℕ) (Delta : A → ℝ)
     (hD : ∀ a, 0 < Delta a)
     (hN : ∀ a, (N a : ℝ) ≤ 8 * Real.log T / (Delta a) ^ 2 + 1) :

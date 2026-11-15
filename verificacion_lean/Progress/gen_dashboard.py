@@ -26,6 +26,7 @@ en `Book/` y de 174 a 2699 teoremas auditados:
    enunciados de 2026-11-06, que es semántica y no se puede regenerar sola.
 """
 import argparse
+import json
 import re
 import sys
 from collections import Counter, defaultdict
@@ -137,6 +138,11 @@ def main() -> int:
 
     filas, sin_clave = extrae_filas()
     completos, cortos = carga_axiomas()
+    relaciones = {}
+    revision = ROOT.parent / "repair_acceptance" / "claim_review.json"
+    if revision.exists():
+        relaciones = {r["book_key"]: r["relation"]
+                      for r in json.loads(revision.read_text(encoding="utf-8"))["rows"]}
 
     registros = []
     for nombre, clave, sitio, modulo, origen in filas:
@@ -147,7 +153,8 @@ def main() -> int:
             estado = "OK"
         else:
             estado = "AXIOMA EXTRAÑO"
-        registros.append((nombre, clave, sitio, modulo, origen, axs, estado))
+        registros.append((nombre, clave, sitio, modulo, origen, axs, estado,
+                          relaciones.get(clave, "sin_relacion")))
 
     claves = {r[1] for r in registros}
     faltan = [c for cs in COMPLETADAS.values() for c in cs if c not in claves]
@@ -178,21 +185,27 @@ def main() -> int:
                 f"(no entran en la tabla): {len(sin_clave)} — " +
                 ", ".join(f"`{n}` (`{f}`)" for f, n, _ in sin_clave), ""]
 
+    relaciones_censo = Counter(r[7] for r in registros)
+    if relaciones:
+        out += ["", "- Relación de `claim_review.json` por target anotado (no es el conteo de claims): " + ", ".join(
+                    f"{k}: {relaciones_censo[k]}" for k in sorted(relaciones_censo)) +
+                ". `OK` sólo certifica los axiomas; no equivale a `exact`.", ""]
+
     out += ["## Teoremas verificados", "",
-            "| Teorema | Clave del libro | Origen | Axiomas | Estado |",
-            "|---|---|---|---|---|"]
-    for nombre, clave, sitio, modulo, origen, axs, estado in registros:
+            "| Teorema | Clave del libro | Origen | Axiomas | Estado | Relación |",
+            "|---|---|---|---|---|---|"]
+    for nombre, clave, sitio, modulo, origen, axs, estado, relacion in registros:
         axs_s = f"`{axs}`" if axs is not None else "—"
         out.append(f"| `{nombre}` (`{modulo}.lean`) | `{clave}` @ {sitio} | "
-                   f"{origen} | {axs_s} | {estado} |")
+                   f"{origen} | {axs_s} | {estado} | {relacion} |")
 
     if sin_auditar:
         out += ["", "## Teoremas sin auditar", ""]
-        for nombre, clave, sitio, modulo, _, _, _ in sin_auditar:
+        for nombre, clave, sitio, modulo, _, _, _, _relacion in sin_auditar:
             out.append(f"- `{nombre}` (`{modulo}.lean`) — `{clave}` @ {sitio}")
     if sucios:
         out += ["", "## Teoremas con axiomas fuera del conjunto permitido", ""]
-        for nombre, clave, _, modulo, _, axs, _ in sucios:
+        for nombre, clave, _, modulo, _, axs, _, _relacion in sucios:
             out.append(f"- `{nombre}` (`{modulo}.lean`) — `{clave}`: `{axs}`")
 
     por_modulo = defaultdict(lambda: [0, set()])
@@ -224,7 +237,7 @@ def main() -> int:
     # semántica (AUDITORIA_ENUNCIADOS_*.md) sigue siendo manual; esto le da el
     # censo exacto sobre el que aplicarse.
     por_clave = defaultdict(list)
-    for nombre, clave, sitio, modulo, _, axs, estado in registros:
+    for nombre, clave, sitio, modulo, _, axs, estado, _relacion in registros:
         por_clave[clave].append((nombre, modulo, sitio, estado))
     cob = ["# AUDITORÍA DE COBERTURA — claves del libro en `Book/*.lean`", "",
            f"Generado por `Progress/gen_dashboard.py`. Censo "
