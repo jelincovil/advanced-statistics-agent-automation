@@ -3649,7 +3649,9 @@
    "premises": [],
    "rule": "LEAN_ANCHOR",
    "evidence_specs": [
-    "E.cor:ch8-pi-finita"
+    "E.cor:ch8-pi-finita",
+    "E.cor:ch8-pi-finita.conteo",
+    "E.cor:ch8-pi-finita.optimo"
    ]
   },
   {
@@ -3685,7 +3687,8 @@
    "premises": [],
    "rule": "LEAN_ANCHOR",
    "evidence_specs": [
-    "E.thm:ch9-secuencial"
+    "E.thm:ch9-secuencial",
+    "E.thm:ch9-secuencial.alcanza"
    ]
   },
   {
@@ -3811,7 +3814,8 @@
    "premises": [],
    "rule": "LEAN_ANCHOR",
    "evidence_specs": [
-    "E.thm:ch10-identificacion"
+    "E.thm:ch10-identificacion",
+    "E.thm:ch10-identificacion.pdis"
    ]
   },
   {
@@ -3820,7 +3824,8 @@
    "premises": [],
    "rule": "LEAN_ANCHOR",
    "evidence_specs": [
-    "E.thm:ch10-is-insesgado"
+    "E.thm:ch10-is-insesgado",
+    "E.thm:ch10-is-insesgado.varianza"
    ]
   },
   {
@@ -3838,7 +3843,9 @@
    "premises": [],
    "rule": "LEAN_ANCHOR",
    "evidence_specs": [
-    "E.thm:ch10-dr"
+    "E.thm:ch10-dr",
+    "E.thm:ch10-dr.sesgo-m",
+    "E.thm:ch10-dr.sesgo-b"
    ]
   },
   {
@@ -4856,7 +4863,11 @@
    "premises": [],
    "rule": "LEAN_ANCHOR",
    "evidence_specs": [
-    "E.ex:ch6-horizonte-pesos"
+    "E.ex:ch6-horizonte-pesos",
+    "E.ex:ch6-horizonte-pesos.esperanza",
+    "E.ex:ch6-horizonte-pesos.b-mitad",
+    "E.ex:ch6-horizonte-pesos.b-quinto",
+    "E.ex:ch6-horizonte-pesos.explosion"
    ]
   },
   {
@@ -4874,7 +4885,8 @@
    "premises": [],
    "rule": "LEAN_ANCHOR",
    "evidence_specs": [
-    "E.thm:ch6-dml"
+    "E.thm:ch6-dml",
+    "E.thm:ch6-dml.resto-pequeno"
    ]
   },
   {
@@ -4982,7 +4994,8 @@
    "premises": [],
    "rule": "LEAN_ANCHOR",
    "evidence_specs": [
-    "E.ex:ssch-confound"
+    "E.ex:ssch-confound",
+    "E.ex:ssch-confound.sesgo-signo"
    ]
   },
   {
@@ -9443,6 +9456,162 @@
    "scope": {
     "lean_axioms": "propext,Classical.choice,Quot.sound",
     "domain": "measure"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.thm:ch9-secuencial.alcanza",
+   "kind": "lean",
+   "claim_id": "C.thm:ch9-secuencial",
+   "runner_id": "lean-export",
+   "target": "ch9_secuencial_alcanza",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.cor:ch8-pi-finita.conteo",
+   "kind": "lean",
+   "claim_id": "C.cor:ch8-pi-finita",
+   "runner_id": "lean-export",
+   "target": "ch8_pi_finita_conteo",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.cor:ch8-pi-finita.optimo",
+   "kind": "lean",
+   "claim_id": "C.cor:ch8-pi-finita",
+   "runner_id": "lean-export",
+   "target": "ch8_pi_finita_optimo",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.thm:ch10-identificacion.pdis",
+   "kind": "lean",
+   "claim_id": "C.thm:ch10-identificacion",
+   "runner_id": "lean-export",
+   "target": "ch10_identificacion_pdis",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.thm:ch10-dr.sesgo-m",
+   "kind": "lean",
+   "claim_id": "C.thm:ch10-dr",
+   "runner_id": "lean-export",
+   "target": "ch10_dr_sesgo_m",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.thm:ch10-dr.sesgo-b",
+   "kind": "lean",
+   "claim_id": "C.thm:ch10-dr",
+   "runner_id": "lean-export",
+   "target": "ch10_dr_sesgo_b",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.thm:ch10-is-insesgado.varianza",
+   "kind": "lean",
+   "claim_id": "C.thm:ch10-is-insesgado",
+   "runner_id": "lean-export",
+   "target": "ch10_is_varianza",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.ex:ssch-confound.sesgo-signo",
+   "kind": "lean",
+   "claim_id": "C.ex:ssch-confound",
+   "runner_id": "lean-export",
+   "target": "Book.Cap12ProblemasM8.confound_sesgo_cambia_de_signo",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.ex:ch6-horizonte-pesos.esperanza",
+   "kind": "lean",
+   "claim_id": "C.ex:ch6-horizonte-pesos",
+   "runner_id": "lean-export",
+   "target": "Cap06M5.ch6_horizonte_pesos_esperanza",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.ex:ch6-horizonte-pesos.b-mitad",
+   "kind": "lean",
+   "claim_id": "C.ex:ch6-horizonte-pesos",
+   "runner_id": "lean-export",
+   "target": "Cap06M5.ch6_horizonte_pesos_b_mitad",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.ex:ch6-horizonte-pesos.b-quinto",
+   "kind": "lean",
+   "claim_id": "C.ex:ch6-horizonte-pesos",
+   "runner_id": "lean-export",
+   "target": "Cap06M5.ch6_horizonte_pesos_b_quinto",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.ex:ch6-horizonte-pesos.explosion",
+   "kind": "lean",
+   "claim_id": "C.ex:ch6-horizonte-pesos",
+   "runner_id": "lean-export",
+   "target": "Cap06M5.ch6_horizonte_pesos_explosion",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
+   },
+   "availability": "candidate"
+  },
+  {
+   "id": "E.thm:ch6-dml.resto-pequeno",
+   "kind": "lean",
+   "claim_id": "C.thm:ch6-dml",
+   "runner_id": "lean-export",
+   "target": "Cap04Ch6M5.ch6_dml_resto_pequeno",
+   "scope": {
+    "domain": "finite",
+    "lean_axioms": "propext,Classical.choice,Quot.sound"
    },
    "availability": "candidate"
   }

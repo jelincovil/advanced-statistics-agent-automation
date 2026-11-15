@@ -1,0 +1,26 @@
+[
+  {
+    "member": "m4",
+    "claim_id": "C.ex:ch1-medible-intuicion",
+    "old_relation": "pending",
+    "candidate_relation": "exact",
+    "action": "preserved_original_no_overwrite",
+    "artifact": ".ultramath/smwh89c1q/m4/revisiones_nuevas.json"
+  },
+  {
+    "member": "m15",
+    "claim_id": "A.medible-borel",
+    "old_relation": "pending",
+    "candidate_relation": "auxiliary",
+    "action": "preserved_original_no_overwrite",
+    "artifact": ".ultramath/smwh89c1q/m15/revisiones_nuevas.json"
+  },
+  {
+    "member": "m15",
+    "claim_id": "A.probabilidad-datos",
+    "old_relation": "pending",
+    "candidate_relation": "auxiliary",
+    "action": "preserved_original_no_overwrite",
+    "artifact": ".ultramath/smwh89c1q/m15/revisiones_nuevas.json"
+  }
+]

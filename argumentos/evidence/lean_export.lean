@@ -8,8 +8,9 @@
   elaborado vía las APIs públicas de Lean; nada de regex sobre mensajes de
   consola ajenos.
 
-  Los objetivos son TODOS los teoremas con book_key en verificacion_lean
-  285 teoremas en total.
+  La lista actual exporta 324 entradas, con 315 nombres únicos; al construir
+  el mapa por nombre se deduplican las entradas repetidas. Incluye los targets
+  de los evidence_specs y complementos, no un conteo de afirmaciones cerradas.
 -/
 import Book.Cap02Wald
 import Book.Cap03MDP
@@ -151,8 +152,12 @@ def objetivos : List Name := [
   `ch2_completitud_exponencial,
   `ch10_curse,
   `ch10_dr,
+  `ch10_dr_sesgo_m,
+  `ch10_dr_sesgo_b,
   `ch10_identificacion,
+  `ch10_identificacion_pdis,
   `ch10_is_insesgado,
+  `ch10_is_varianza,
   `ch10_var_dr,
   `prop_ch4_test_decision,
   `prop_ch3_info_aditiva,
@@ -180,6 +185,8 @@ def objetivos : List Name := [
   `ch8_mejora,
   `ch8_parada,
   `ch8_pi_finita_sin_repeticion,
+  `ch8_pi_finita_conteo,
+  `ch8_pi_finita_optimo,
   `ch8_principio,
   `ch8_punto_fijo_unico,
   `ch8_vi_conv,
@@ -189,6 +196,7 @@ def objetivos : List Name := [
   `ch9_ic,
   `ch9_isomorfismo,
   `ch9_secuencial_cota,
+  `ch9_secuencial_alcanza,
   `cor_ch7_bayes_especificas,
   `ex_ch11_pg_ssch,
   `ex_ch5_cadena,
@@ -197,6 +205,7 @@ def objetivos : List Name := [
   `ex_ch9_confounding,
   `ex_ch9_fallo_mixing,
   `ex_ch9_fallo_overlap,
+  `Book.Cap12ProblemasM8.confound_sesgo_cambia_de_signo,
   `ex_ch9_observabilidad_parcial,
   `prop_ch8_VQ,
   `prop_ch8_acotacion,
@@ -327,8 +336,13 @@ def objetivos : List Name := [
   `Ch3MleM4.mle_normal_mean,
   `Ch3MleM4.bern_var_Tdiv,
   `Cap06M5.ch6_horizonte_pesos_varianza,
+  `Cap06M5.ch6_horizonte_pesos_esperanza,
+  `Cap06M5.ch6_horizonte_pesos_b_mitad,
+  `Cap06M5.ch6_horizonte_pesos_b_quinto,
+  `Cap06M5.ch6_horizonte_pesos_explosion,
   `Cap06M5.ch6_tasas_compatibles,
   `Cap04Ch6M5.ch6_dml_clt,
+  `Cap04Ch6M5.ch6_dml_resto_pequeno,
   `Cap06M6.ch9_state,
   `Cap06M6.ch9_estados_infinitos,
   `Cap06M6.ch9_horizonte_infinito,

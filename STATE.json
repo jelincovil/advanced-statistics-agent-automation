@@ -84,7 +84,7 @@
       "id": "F12",
       "status": "fixed",
       "evidence": [
-        "245 claims, 283 arguments, 286 specs used; invalid duplicate archived"
+        "245 claims, 283 arguments, 299 specs used; invalid duplicate archived"
       ]
     },
     {
@@ -147,8 +147,8 @@
     "counts": {
       "claims": 245,
       "arguments": 283,
-      "specs": 286,
-      "receipts": 286,
+      "specs": 299,
+      "receipts": 299,
       "book_blocks": 398,
       "rust_tests": 80,
       "lean_modules": 66,
@@ -165,8 +165,15 @@
       "C.thm:appD-ibragimov",
       "C.thm:appD-gordin"
     ],
-    "semantic_reviews_agent_checked": 12,
-    "semantic_reviews_pending": 233
+    "semantic_reviews_agent_checked": 245,
+    "semantic_reviews_pending": 0,
+    "semantic_pending_relation": 9,
+    "semantic_relations": {
+      "exact": 74,
+      "partial": 137,
+      "pending": 9,
+      "auxiliary": 25
+    }
   },
   "scientific_debt": [
     "C.thm:appD-ibragimov (distribution CLT not formalized)",

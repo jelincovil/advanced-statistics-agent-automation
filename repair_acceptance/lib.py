@@ -70,7 +70,7 @@ def build_corpus(repo, kernel, book_inventory, targets, semantic_file=None):
             status = "agent_reviewed"
             note = review["justificacion"]
             limitation = review["limitacion"]
-            reviewed_at = semantic["reviewed_at"]
+            reviewed_at = review.get("reviewed_at", semantic["reviewed_at"])
         else:
             # Honest pending outcome, never an automatically inferred partial.
             relation = "pending"

@@ -18,7 +18,7 @@ Se admiten pendientes explícitos, no se presentan como pruebas cerradas. La cua
 - **Ibragimov:** covarianza, sumabilidad y varianza de largo plazo están probadas en estado finito como `auxiliary`. No se demuestra la conclusión distribucional normal del CLT completo, que queda `pending`.
 - **Gordin:** Poisson, descomposición y borde son auxiliares. No se demuestran el CLT funcional de martingalas en D[0,1], tightness/Skorokhod ni la bracket c.s. La serie de covarianzas no se sigue sin aperiodicidad adicional.
 
-El verificador evalúa 245 claims y 283 argumentos con 286 specs; estas cifras son inventario actual, **no** contadores de teoremas del libro cerrados. La matriz distingue `exact`, `partial`, `auxiliary` y `pending`, junto a `agent_reviewed` o `pending_review`, y cuantifica la revisión pendiente en vez de disimularla.
+El verificador evalúa 245 claims y 283 argumentos con 299 specs; estas cifras son inventario actual, **no** contadores de teoremas del libro cerrados. La revisión semántica del lote quedó completa en 245 filas: 74 `exact` dentro del alcance declarado, 137 `partial`, 25 `auxiliary` y 9 `pending` científicos explícitos; ya no hay filas `pending_review`. Esto no elimina las limitaciones parciales ni las deudas conservadas.
 
 ## Validación pendiente
 
