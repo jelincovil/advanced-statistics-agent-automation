@@ -4,11 +4,11 @@ Generado por `Progress/gen_dashboard.py` desde `Book/*.lean` y `build/axioms.log
 
 ## Resumen
 
-- Ficheros en `Book/`: 77 `*.lean` (incluye los auditores y los módulos sin anotaciones `book:`).
+- Ficheros en `Book/`: 86 `*.lean` (incluye los auditores y los módulos sin anotaciones `book:`).
 - Módulos con teoremas anotados: 64.
 - Teoremas con docstring `book:`: 727 (216 claves distintas).
 - Auditados: 727 · **SIN AUDITAR: 0** · axioma extraño: 0.
-- Teoremas de `Book/*` en `build/axioms.log`: 2959.
+- Teoremas de `Book/*` en `build/axioms.log`: 3204.
 - Axiomas permitidos: `propext, Classical.choice, Quot.sound`.
 
 

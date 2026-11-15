@@ -104,12 +104,12 @@ infraestructura crítica (salvo 1.2/1.3.1/1.4, que hay que construir).
 
 ## 2. `C.thm:appD-gordin` — CLT funcional (martingala, `D[0,1]` Skorokhod)
 
-Estado: **deuda externa declarada**. La claim no se cierra. El argumento interno
-del libro está formalizado en `verificacion_lean/Book/GordinCoreM8.lean` y
-auditado; lo que falta no es volumen de análisis dentro del modelo del libro,
-sino (i) una hipótesis que el modelo formal **no** tiene y (ii) infraestructura
-que la Mathlib instalada no tiene. Las dos cosas se detallan abajo por separado
-porque tienen remedios distintos.
+Estado: **deuda externa declarada**. La claim no se cierra. Los argumentos
+auxiliares del libro están formalizados en `verificacion_lean/Book/GordinCoreM8.lean` y
+en los módulos indicados abajo. La estructura `Chain` **no incluye por sí misma**
+aperiodicidad: la identificación de covarianzas añade `Matrix.IsPrimitive` como
+premisa explícita. La deuda principal sigue siendo la infraestructura de
+martingalas y `D[0,1]` que Mathlib no tiene, no la serie de Poisson.
 
 ### 2.1 Verificado mecánicamente
 
@@ -140,7 +140,7 @@ a lo largo de trayectorias genéricas); su prueba necesita un LGN de
 martingalas, que no está. Es el único paso *interno* del libro que ni está
 formalizado ni es elemental con estado finito.
 
-### 2.2 La identificación `σ² = ∑_k Cov(f(S_0), f(S_k))` no se sigue de `Chain`
+### 2.2 Identificación con primitividad; `Chain` por sí sola no basta
 
 El enunciado del libro (`book_stat_inference_v0/apendices/apendice_regularidad.typ:137`)
 pide **cadena finita irreducible y aperiódica**. La estructura `Chain` de
@@ -173,15 +173,34 @@ camino es corto y no depende de nada ausente en Mathlib:
 `h = ∑_k P^k f` (serie geométrica de operadores), `h - P h = f`,
 `σ² = ⟨h,h⟩ - ⟨Ph,Ph⟩ = 2⟨f,h⟩ - ⟨f,f⟩ = γ(0) + 2∑_{k≥1} γ(k)`
 (producto interno `⟨u,v⟩ = ∑_x π_x u_x v_x` y Cauchy–Schwarz de `Finset`).
-Mientras la hipótesis no exista en `Chain`, **la claim no debe enunciarse**.
+No se modifica `Chain` para ocultar esta restricción: las versiones que
+identifican covarianzas exigen `Matrix.IsPrimitive D.toMatrix`.
 
 La **parte algebraica** de esa cadena, la que *no* necesita ninguna hipótesis
-adicional, ya está formalizada y auditada en
-`.ultramath/smwa5izeq/m1/GordinSigmaAlgebra.lean` (axiomas dentro de
-`{propext, Classical.choice, Quot.sound}`, 0 `sorry`, Lean 4.35.0), para toda
+adicional, está integrada en `Book/GordinSigmaAlgebraM1.lean` para toda
 `Chain` y toda `h`: `sigmaSq_eq` prueba `σ² = ⟨h,h⟩ - ⟨Ph,Ph⟩` y
 `sigmaSq_eq_two_avg` prueba `σ² = 2⟨f,h⟩ - ⟨f,f⟩` bajo la ecuación de Poisson.
-Queda la representación en serie y la telescopía de las covarianzas.
+
+**Avance integrado (`smwi7ezya`, Lean 4.35.0).** `Book/GordinDecayM1.lean`
+prueba la reducción de `(P^k)^q` a una cota para todo `t` y de ahí la
+sumabilidad, la serie `h = ∑_t P^t f`, su centralidad y la ecuación
+`h - Ph = f`. `Book/GordinSigmaSeriesM1.lean` prueba
+`Chain.exists_poisson_solution_sigmaSq_eq_gamma_series`: bajo primitividad y
+`π(f)=0`, existe una solución centrada con
+`σ² = γ(0)+2∑_{k≥1}γ(k)`, donde `γ(k)=⟨f,P^k f⟩_π`.
+`Book/GordinPrimitividadM4.lean` prueba `isIrreducible_of_chain`, la no
+implicación `Chain ⇒ IsPrimitive` y la existencia de una cadena primitiva;
+reutiliza el puente de m1 en vez de duplicarlo. `Book/GordinEigenM3.lean` y sus
+instancias verifican la fórmula espectral para autofunciones, cadenas de rango
+uno y la cadena general primitiva de dos estados.
+`Book/GordinCovarianzaM2.lean` añade marginales algebraicas de dos tiempos y
+`n⁻¹∑_{i,j<n}pairCov(i,j) → γ(0)+2∑_{k≥1}γ(k)` bajo sumabilidad absoluta.
+
+La identificación bilateral de la fuente se expone con esa equivalencia formal
+en retardo no negativo; no se afirma haber construido la medida del espacio de
+trayectorias. Los objetos `twoTime` y `pairCov` son definiciones algebraicas:
+para `i ≤ j`, la marginal usa la invariancia de `π`, y para `i > j` se conmutan
+los tiempos. Esto no formaliza bracket c.s. ni ningún límite distribucional.
 
 ### 2.3 Lo que falta en la Mathlib instalada (Lean 4.35.0)
 
@@ -240,30 +259,22 @@ Ya no es «CLT funcional de martingalas completo»: es
    **≈ 500–900 líneas**.
 4. Identificación del límite como `σW` (cierre del f.d.d. a ley en `D`) —
    **≈ 200–400 líneas**.
-5. `σ² = γ(0) + 2∑_{k≥1} γ(k)` con aperiodicidad añadida a `Chain`. La parte
-   algebraica **ya está hecha** (`GordinSigmaAlgebra.lean`: `sigmaSq_eq`,
-   `sigmaSq_eq_two_avg`); queda la representación `h = ∑_k P^k f` (sumabilidad
-   geométrica, `h - Ph = f`, `π(h) = 0`) y la telescopía
-   `⟨f,h⟩ = ∑_k γ(k)` — **≈ 100–150 líneas**. *Muy por debajo* de lo estimado
-   antes, porque no necesita nada de lo anterior (ver §2.2).
+5. ~~`σ² = γ(0) + 2∑_{k≥1} γ(k)` con primitividad explícita~~: **cerrado como
+   pieza auxiliar** en §2.2. No implica ninguno de los puntos 1–4.
 
-Orden recomendado: primero 5 (cierra una pieza real y fija la hipótesis
-correcta), después 1, luego 3, 4, 2.
+Orden recomendado: primero 1, luego 3, 4, 2. No debe usarse el cierre de la
+serie para reducir esta lista de deuda probabilística.
 
 ### 2.6 Lo que no se toca
 
-No se modifica `argumentos/kernel/{libro_completo,pendientes}.json` en esta
-deuda: `C.thm:appD-gordin` **no** se cierra. Los artefactos verificables son
-`verificacion_lean/Book/GordinCoreM8.lean`, `.ultramath/smwa5izeq/m1/GordinPeriodico.lean`,
-`.ultramath/smwa5izeq/m1/GordinSigmaAlgebra.lean` y las auditorías citadas.
-
-Nota de integración: los dos ficheros nuevos viven hoy en
-`.ultramath/smwa5izeq/m1/`, que está ignorado por git. Si se quieren conservar
-en el repositorio, el destino natural es `verificacion_lean/Book/`
-(`GordinPeriodico.lean` y `GordinSigmaAlgebra.lean`, ambos `import
-GordinCoreM8`) y añadirlos a la lista de módulos de `verificar.sh` antes de
-`Book/Audit.lean`; ninguno de los dos requiere `sorry` ni axiomas fuera de
-`{propext, Classical.choice, Quot.sound}`.
+`C.thm:appD-gordin` sigue `pending`, sin argumento que la cierre. En el kernel
+sólo se añaden los cuatro derivados auxiliares `C.der:gordin-serie-poisson`,
+`C.der:gordin-marginal-dos-tiempos`, `C.der:gordin-primitividad` y
+`C.der:gordin-autofuncion`, con sus 13 evidencias usadas y revisiones semánticas
+explícitas. Los módulos canónicos están en `verificacion_lean/Book/`, incluidos
+en `verificar.sh`, `Book/AuditAll.lean` y el exportador; la auditoría ya no
+depende de los artefactos locales de un enjambre. Ninguno contiene `sorry` o
+axiomas fuera de `{propext, Classical.choice, Quot.sound}`.
 
 ---
 

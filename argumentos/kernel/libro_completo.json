@@ -3462,6 +3462,62 @@
         "domain": "finite"
       },
       "assumptions": []
+    },
+    {
+      "id": "C.der:gordin-serie-poisson",
+      "book_key": "der:gordin-serie-poisson",
+      "kind": "formal",
+      "statement": "Auxiliar: bajo Matrix.IsPrimitive y f centrada, decaimiento geométrico en todo t, serie centrada de Poisson, unicidad para soluciones centradas y σ²=γ(0)+2∑_{k≥1}γ(k). No prueba CLT funcional ni Skorokhod.",
+      "expression": {
+        "op": "atom",
+        "id": "der:gordin-serie-poisson"
+      },
+      "scope": {
+        "domain": "finite"
+      },
+      "assumptions": []
+    },
+    {
+      "id": "C.der:gordin-marginal-dos-tiempos",
+      "book_key": "der:gordin-marginal-dos-tiempos",
+      "kind": "formal",
+      "statement": "Auxiliar: marginales algebraicas de dos tiempos de una Chain estacionaria, identidad de covarianzas por retardos y convergencia de su media doble bajo covarianzas absolutamente sumables. No construye la medida de trayectorias.",
+      "expression": {
+        "op": "atom",
+        "id": "der:gordin-marginal-dos-tiempos"
+      },
+      "scope": {
+        "domain": "finite"
+      },
+      "assumptions": []
+    },
+    {
+      "id": "C.der:gordin-primitividad",
+      "book_key": "der:gordin-primitividad",
+      "kind": "formal",
+      "statement": "Auxiliar: la alcanzabilidad de Chain implica Matrix.IsIrreducible para estados no triviales; Chain no implica primitividad; la primitividad es una hipótesis no vacua.",
+      "expression": {
+        "op": "atom",
+        "id": "der:gordin-primitividad"
+      },
+      "scope": {
+        "domain": "finite"
+      },
+      "assumptions": []
+    },
+    {
+      "id": "C.der:gordin-autofuncion",
+      "book_key": "der:gordin-autofuncion",
+      "kind": "formal",
+      "statement": "Auxiliar espectral: para una autofunción con |λ|<1, h=f/(1−λ) resuelve Poisson y σ²=γ(0)+2∑_{k≥1}γ(k); incluye la interfaz de rango uno y la cadena general de dos estados.",
+      "expression": {
+        "op": "atom",
+        "id": "der:gordin-autofuncion"
+      },
+      "scope": {
+        "domain": "finite"
+      },
+      "assumptions": []
     }
   ],
   "arguments": [
@@ -6098,6 +6154,51 @@
       "rule": "LEAN_ANCHOR",
       "evidence_specs": [
         "E.der:gordin-doeblin"
+      ]
+    },
+    {
+      "id": "A.der:gordin-serie-poisson",
+      "conclusion": "C.der:gordin-serie-poisson",
+      "premises": [],
+      "rule": "LEAN_ANCHOR",
+      "evidence_specs": [
+        "E.der:gordin-decaimiento-t",
+        "E.der:gordin-poisson-serie",
+        "E.der:gordin-poisson-unica",
+        "E.der:gordin-covarianza"
+      ]
+    },
+    {
+      "id": "A.der:gordin-marginal-dos-tiempos",
+      "conclusion": "C.der:gordin-marginal-dos-tiempos",
+      "premises": [],
+      "rule": "LEAN_ANCHOR",
+      "evidence_specs": [
+        "E.der:gordin-pair-cov",
+        "E.der:gordin-covarianza-doble",
+        "E.der:gordin-covarianza-limite"
+      ]
+    },
+    {
+      "id": "A.der:gordin-primitividad",
+      "conclusion": "C.der:gordin-primitividad",
+      "premises": [],
+      "rule": "LEAN_ANCHOR",
+      "evidence_specs": [
+        "E.der:gordin-irreducible",
+        "E.der:gordin-no-primitiva",
+        "E.der:gordin-primitiva-no-vacua"
+      ]
+    },
+    {
+      "id": "A.der:gordin-autofuncion",
+      "conclusion": "C.der:gordin-autofuncion",
+      "premises": [],
+      "rule": "LEAN_ANCHOR",
+      "evidence_specs": [
+        "E.der:gordin-autofuncion",
+        "E.der:gordin-rango-uno",
+        "E.der:gordin-dos-estados"
       ]
     }
   ],
@@ -9927,6 +10028,162 @@
       "claim_id": "C.der:gordin-doeblin",
       "runner_id": "lean-export",
       "target": "ApendiceDGordinDoeblin.exists_geometric_decay_of_primitive",
+      "scope": {
+        "domain": "finite",
+        "lean_axioms": "propext,Classical.choice,Quot.sound"
+      },
+      "availability": "candidate"
+    },
+    {
+      "id": "E.der:gordin-decaimiento-t",
+      "kind": "lean",
+      "claim_id": "C.der:gordin-serie-poisson",
+      "runner_id": "lean-export",
+      "target": "ApendiceDGordinM8.Chain.geom_decay_of_primitive",
+      "scope": {
+        "domain": "finite",
+        "lean_axioms": "propext,Classical.choice,Quot.sound"
+      },
+      "availability": "candidate"
+    },
+    {
+      "id": "E.der:gordin-poisson-serie",
+      "kind": "lean",
+      "claim_id": "C.der:gordin-serie-poisson",
+      "runner_id": "lean-export",
+      "target": "ApendiceDGordinM8.Chain.poissonSeries_poisson_of_primitive",
+      "scope": {
+        "domain": "finite",
+        "lean_axioms": "propext,Classical.choice,Quot.sound"
+      },
+      "availability": "candidate"
+    },
+    {
+      "id": "E.der:gordin-poisson-unica",
+      "kind": "lean",
+      "claim_id": "C.der:gordin-serie-poisson",
+      "runner_id": "lean-export",
+      "target": "ApendiceDGordinM8.Chain.eq_poissonSeries_of_poisson",
+      "scope": {
+        "domain": "finite",
+        "lean_axioms": "propext,Classical.choice,Quot.sound"
+      },
+      "availability": "candidate"
+    },
+    {
+      "id": "E.der:gordin-covarianza",
+      "kind": "lean",
+      "claim_id": "C.der:gordin-serie-poisson",
+      "runner_id": "lean-export",
+      "target": "ApendiceDGordinM8.Chain.exists_poisson_solution_sigmaSq_eq_gamma_series",
+      "scope": {
+        "domain": "finite",
+        "lean_axioms": "propext,Classical.choice,Quot.sound"
+      },
+      "availability": "candidate"
+    },
+    {
+      "id": "E.der:gordin-pair-cov",
+      "kind": "lean",
+      "claim_id": "C.der:gordin-marginal-dos-tiempos",
+      "runner_id": "lean-export",
+      "target": "ApendiceDGordinM8.Chain.pairCov_eq_covLag",
+      "scope": {
+        "domain": "finite",
+        "lean_axioms": "propext,Classical.choice,Quot.sound"
+      },
+      "availability": "candidate"
+    },
+    {
+      "id": "E.der:gordin-covarianza-doble",
+      "kind": "lean",
+      "claim_id": "C.der:gordin-marginal-dos-tiempos",
+      "runner_id": "lean-export",
+      "target": "ApendiceDGordinM8.Chain.doubleSum_eq",
+      "scope": {
+        "domain": "finite",
+        "lean_axioms": "propext,Classical.choice,Quot.sound"
+      },
+      "availability": "candidate"
+    },
+    {
+      "id": "E.der:gordin-covarianza-limite",
+      "kind": "lean",
+      "claim_id": "C.der:gordin-marginal-dos-tiempos",
+      "runner_id": "lean-export",
+      "target": "ApendiceDGordinM8.Chain.tendsto_pairCov_div",
+      "scope": {
+        "domain": "finite",
+        "lean_axioms": "propext,Classical.choice,Quot.sound"
+      },
+      "availability": "candidate"
+    },
+    {
+      "id": "E.der:gordin-irreducible",
+      "kind": "lean",
+      "claim_id": "C.der:gordin-primitividad",
+      "runner_id": "lean-export",
+      "target": "GordinPrimitividad.isIrreducible_of_chain",
+      "scope": {
+        "domain": "finite",
+        "lean_axioms": "propext,Classical.choice,Quot.sound"
+      },
+      "availability": "candidate"
+    },
+    {
+      "id": "E.der:gordin-no-primitiva",
+      "kind": "lean",
+      "claim_id": "C.der:gordin-primitividad",
+      "runner_id": "lean-export",
+      "target": "GordinPrimitividad.chain_not_imp_primitive",
+      "scope": {
+        "domain": "finite",
+        "lean_axioms": "propext,Classical.choice,Quot.sound"
+      },
+      "availability": "candidate"
+    },
+    {
+      "id": "E.der:gordin-primitiva-no-vacua",
+      "kind": "lean",
+      "claim_id": "C.der:gordin-primitividad",
+      "runner_id": "lean-export",
+      "target": "GordinPrimitividad.isPrimitive_unif",
+      "scope": {
+        "domain": "finite",
+        "lean_axioms": "propext,Classical.choice,Quot.sound"
+      },
+      "availability": "candidate"
+    },
+    {
+      "id": "E.der:gordin-autofuncion",
+      "kind": "lean",
+      "claim_id": "C.der:gordin-autofuncion",
+      "runner_id": "lean-export",
+      "target": "GordinEigenM3.Chain.sigmaSq_eq_gamma_tsum",
+      "scope": {
+        "domain": "finite",
+        "lean_axioms": "propext,Classical.choice,Quot.sound"
+      },
+      "availability": "candidate"
+    },
+    {
+      "id": "E.der:gordin-rango-uno",
+      "kind": "lean",
+      "claim_id": "C.der:gordin-autofuncion",
+      "runner_id": "lean-export",
+      "target": "GordinEigenM3.Chain.sigmaSq_eq_gamma_tsum_rankOne",
+      "scope": {
+        "domain": "finite",
+        "lean_axioms": "propext,Classical.choice,Quot.sound"
+      },
+      "availability": "candidate"
+    },
+    {
+      "id": "E.der:gordin-dos-estados",
+      "kind": "lean",
+      "claim_id": "C.der:gordin-autofuncion",
+      "runner_id": "lean-export",
+      "target": "GordinEigenTwoStateGen.sigmaSq_eq_gamma_tsum_gen",
       "scope": {
         "domain": "finite",
         "lean_axioms": "propext,Classical.choice,Quot.sound"

@@ -72,6 +72,15 @@ import Book.Ch5CltAgentesCovarianza
 import Book.Ch5StudentizadoM6
 import Book.IbraComplexM5
 import Book.GordinDoeblin
+import Book.GordinSigmaAlgebraM1
+import Book.GordinDecayM1
+import Book.GordinSigmaSeriesM1
+import Book.GordinCovarianzaM2
+import Book.GordinCovarianzaM2Ejemplo
+import Book.GordinPrimitividadM4
+import Book.GordinEigenM3
+import Book.GordinEigenTwoState
+import Book.GordinEigenTwoStateGen
 
 /-!
 # Auditoría exhaustiva de `Book/*` — `AuditAll.lean`

@@ -5557,6 +5557,63 @@
       "lean_targets": [
         "ApendiceDGordinDoeblin.exists_geometric_decay_of_primitive"
       ]
+    },
+    {
+      "claim_id": "C.der:gordin-serie-poisson",
+      "book_key": "der:gordin-serie-poisson",
+      "relation": "auxiliary",
+      "justificacion": "Se revisó desde Doeblin hasta la serie: abs_mulVec_pow_le descompone t=(t%k)+k(t/k) y aplica pow_mul a P^(kq)=(P^k)^q, preservando entradas no negativas y filas estocásticas. exists_geom_bound construye 1−m/(2k) por Bernoulli; sumabilidad y Fubini se derivan por comparación y tsum_finsetSum. La serie es centrada y toda solución centrada coincide con ella por harmonic_eq_zero; exists_poisson_solution_sigmaSq_eq_gamma_series concluye exactamente la identificación unilateral. La auditoría conjunta cubre los teoremas terminales con sólo propext, Classical.choice y Quot.sound.",
+      "limitacion": "Auxiliar para Chain con Fintype S, Nonempty S y Matrix.IsPrimitive (potencia estrictamente positiva), con π y centrado como datos; no se deriva primitividad de Chain. La forma bilateral ∑_{k∈Z}Cov y la medida de trayectorias no están formalizadas. No son bracket c.s., CLT funcional de martingalas, tightness ni Skorokhod: C.thm:appD-gordin sigue pending.",
+      "reviewed_at": "2026-11-15T19:38:18.878333+00:00",
+      "source_file": "book_stat_inference_v0/apendices/apendice_regularidad.typ",
+      "lean_targets": [
+        "ApendiceDGordinM8.Chain.geom_decay_of_primitive",
+        "ApendiceDGordinM8.Chain.poissonSeries_poisson_of_primitive",
+        "ApendiceDGordinM8.Chain.eq_poissonSeries_of_poisson",
+        "ApendiceDGordinM8.Chain.exists_poisson_solution_sigmaSq_eq_gamma_series"
+      ]
+    },
+    {
+      "claim_id": "C.der:gordin-marginal-dos-tiempos",
+      "book_key": "der:gordin-marginal-dos-tiempos",
+      "relation": "auxiliary",
+      "justificacion": "Se revisó el objeto real: para i≤j, twoTime suma sobre el estado inicial π(P^i) y aplica P^(j−i); para i>j pairCov conmuta los tiempos. twoTime_eq descarga la invariancia de π, pairCov_eq_covLag da γ(Nat.dist i j) y doubleSum_eq reutiliza Ch11M10.sum_dist_range. La convergencia es cov_doble_limite con ∑|γ| explícita en el tipo; no hay una hipótesis de sumabilidad eliminada ni una sustitución inválida de Z_i=P^i f en Ch5. El nuevo módulo reutiliza Chain.toMatrix y Chain.applyP_eq_mulVec, sin redeclararlos.",
+      "limitacion": "Es un puente auxiliar algebraico, no la medida del espacio de trayectorias ni una prueba de varianza de largo plazo para procesos generales. llamarlo covarianza exige f centrada para su lectura probabilística. La convergencia requiere ∑|γ|; no prueba stationary f.d.d. completos, CLT, tightness ni Skorokhod. C.thm:appD-gordin queda pending.",
+      "reviewed_at": "2026-11-15T19:38:18.878333+00:00",
+      "source_file": "book_stat_inference_v0/apendices/apendice_regularidad.typ",
+      "lean_targets": [
+        "ApendiceDGordinM8.Chain.pairCov_eq_covLag",
+        "ApendiceDGordinM8.Chain.doubleSum_eq",
+        "ApendiceDGordinM8.Chain.tendsto_pairCov_div"
+      ]
+    },
+    {
+      "claim_id": "C.der:gordin-primitividad",
+      "book_key": "der:gordin-primitividad",
+      "relation": "auxiliary",
+      "justificacion": "La integración conserva sólo las piezas no duplicadas de m4. Caminos positivos finitos se transportan a entradas de A^k; para x=x se componen dos caminos bajo [Nontrivial S]. flipChain tiene P^2=1, sus potencias alternan con entradas nulas y satisface Chain, incluida su irreducibilidad; prueba que no toda Chain es primitiva. unifChain tiene todas las entradas 1/2, luego P^1>0 y exhibe una instancia primitiva. Se comprobó el tipo de los tres teoremas en el exportador actual.",
+      "limitacion": "No hay una formalización general de períodos ni una equivalencia nueva que deduzca Matrix.IsPrimitive de Chain. isIrreducible_of_chain exige [Nontrivial S]; isPrimitive_unif sólo comprueba consistencia de la hipótesis, no un modelo de varianza positiva para todo observable. Sin identificación bilateral, CLT, D[0,1] o Skorokhod. La dirección duplicada con m1 no se integró.",
+      "reviewed_at": "2026-11-15T19:38:18.878333+00:00",
+      "source_file": "book_stat_inference_v0/apendices/apendice_regularidad.typ",
+      "lean_targets": [
+        "GordinPrimitividad.isIrreducible_of_chain",
+        "GordinPrimitividad.chain_not_imp_primitive",
+        "GordinPrimitividad.isPrimitive_unif"
+      ]
+    },
+    {
+      "claim_id": "C.der:gordin-autofuncion",
+      "book_key": "der:gordin-autofuncion",
+      "relation": "auxiliary",
+      "justificacion": "La identidad se probó sin convertir potencias espectrales en Potencia matricial: Ppow_succ_apply y Ppow_eigen iteran applyP, gamma_eigen produce λ^tγ(0), Poisson es f/(1−λ) con λ≠1 y la serie geométrica exige |λ|<1; sigmaSq_poisson_eigen entrega ((1+λ)/(1−λ))π(f²). Rango uno mantiene 0<α<2. Para Fin 2 eig_of_avg_zero usa una dimensión de las funciones π-centradas, π=(b,a)/(a+b), 0<a,b<1 y λ=1−a−b; sigmaSq_eq_gamma_tsum_gen descarga todos los supuestos sin postular una autofunción por observable.",
+      "limitacion": "Resultado auxiliar espectral: el caso general exige una autofunción con |λ|<1; el caso para todo observable centrado añade rango uno o el modelo Fin 2 con 0<a,b<1. No implica h general por eigenfunciones, una prueba para toda cadena finita, la medida de trayectorias, la suma bilateral o CLT. C.thm:appD-gordin sigue pending.",
+      "reviewed_at": "2026-11-15T19:38:18.878333+00:00",
+      "source_file": "book_stat_inference_v0/apendices/apendice_regularidad.typ",
+      "lean_targets": [
+        "GordinEigenM3.Chain.sigmaSq_eq_gamma_tsum",
+        "GordinEigenM3.Chain.sigmaSq_eq_gamma_tsum_rankOne",
+        "GordinEigenTwoStateGen.sigmaSq_eq_gamma_tsum_gen"
+      ]
     }
   ]
 }

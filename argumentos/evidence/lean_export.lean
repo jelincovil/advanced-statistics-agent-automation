@@ -8,7 +8,7 @@
   elaborado vía las APIs públicas de Lean; nada de regex sobre mensajes de
   consola ajenos.
 
-  La lista actual exporta 341 entradas, con 332 nombres únicos; al construir
+  La lista actual exporta 363 entradas, con 354 nombres únicos; al construir
   el mapa por nombre se deduplican las entradas repetidas. Incluye los targets
   de los evidence_specs y complementos, no un conteo de afirmaciones cerradas.
 -/
@@ -84,6 +84,15 @@ import Book.Ch5CltAgentesCovarianza
 import Book.Ch5StudentizadoM6
 import Book.IbraComplexM5
 import Book.GordinDoeblin
+import Book.GordinSigmaAlgebraM1
+import Book.GordinDecayM1
+import Book.GordinSigmaSeriesM1
+import Book.GordinCovarianzaM2
+import Book.GordinCovarianzaM2Ejemplo
+import Book.GordinPrimitividadM4
+import Book.GordinEigenM3
+import Book.GordinEigenTwoState
+import Book.GordinEigenTwoStateGen
 import Lean.Util.CollectAxioms
 import Lean.Util.FoldConsts
 
@@ -437,6 +446,28 @@ def objetivos : List Name := [
   `Cap08Ucb1M7.book_bound_on_good_event,
   `Cap08Ucb1M7.expectation_le_of_good_event,
   `ApendiceDGordinDoeblin.exists_geometric_decay_of_primitive,
+  `ApendiceDGordinBloques.abs_mulVec_pow_le,
+  `ApendiceDGordinBloques.exists_geom_bound,
+  `ApendiceDGordinBloques.poissonSeries_poisson,
+  `ApendiceDGordinM8.Chain.geom_decay_of_primitive,
+  `ApendiceDGordinM8.Chain.poissonSeries_poisson_of_primitive,
+  `ApendiceDGordinM8.Chain.avg_poissonSeries_of_primitive,
+  `ApendiceDGordinM8.Chain.eq_poissonSeries_of_poisson,
+  `ApendiceDGordinM8.Chain.summable_gamma,
+  `ApendiceDGordinM8.Chain.avg_mul_poissonSeries,
+  `ApendiceDGordinM8.Chain.sigmaSq_eq_gamma_series,
+  `ApendiceDGordinM8.Chain.exists_poisson_solution_sigmaSq_eq_gamma_series,
+  `ApendiceDGordinM8.Chain.pairCov_eq_covLag,
+  `ApendiceDGordinM8.Chain.doubleSum_eq,
+  `ApendiceDGordinM8.Chain.tendsto_pairCov_div,
+  `ApendiceDGordinM8.Chain.avg_mul_eq_tsum_covLag,
+  `GordinCovarianzaM2Ejemplo.tendsto_pairCov_fex,
+  `GordinPrimitividad.isIrreducible_of_chain,
+  `GordinPrimitividad.chain_not_imp_primitive,
+  `GordinPrimitividad.isPrimitive_unif,
+  `GordinEigenM3.Chain.sigmaSq_eq_gamma_tsum,
+  `GordinEigenM3.Chain.sigmaSq_eq_gamma_tsum_rankOne,
+  `GordinEigenTwoStateGen.sigmaSq_eq_gamma_tsum_gen,
 ]
 
 /-- Escapa una cadena para incluirla como literal JSON. -/

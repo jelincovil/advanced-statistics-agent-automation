@@ -16,9 +16,9 @@
 Se admiten pendientes explícitos, no se presentan como pruebas cerradas. La cuantificación exacta se evalúa por claim, no por nombre de target.
 
 - **Ibragimov:** covarianza, sumabilidad y varianza de largo plazo están probadas en estado finito como `auxiliary`. No se demuestra la conclusión distribucional normal del CLT completo, que queda `pending`.
-- **Gordin:** Poisson, descomposición y borde son auxiliares. No se demuestran el CLT funcional de martingalas en D[0,1], tightness/Skorokhod ni la bracket c.s. La serie de covarianzas no se sigue sin aperiodicidad adicional.
+- **Gordin:** Poisson, descomposición y borde son auxiliares. Bajo `Matrix.IsPrimitive` y centrado se formalizan ahora la serie centrada de Poisson, su unicidad, `σ²=γ(0)+2∑_{k≥1}γ(k)` y el límite de las marginales algebraicas de dos tiempos bajo covarianzas absolutamente sumables. Se incluyen pruebas de irreducibilidad/primitividad y modelos espectrales. La medida de trayectorias y la forma bilateral no se construyen. **No** se demuestran el CLT funcional de martingalas en D[0,1], tightness/Skorokhod ni la bracket c.s.; `C.thm:appD-gordin` sigue `pending`.
 
-El verificador evalúa 247 claims y 289 argumentos con 317 specs; estas cifras son inventario actual, **no** contadores de teoremas del libro cerrados. La revisión semántica del lote quedó completa en las 247 filas: 75 `exact` dentro del alcance declarado, 139 `partial`, 27 `auxiliary` y 6 `pending` científicos explícitos; no hay filas `pending_review`. Esto no elimina las limitaciones parciales ni las deudas conservadas.
+El verificador evalúa 251 claims y 293 argumentos con 330 specs; estas cifras son inventario actual, **no** contadores de teoremas del libro cerrados. La revisión semántica queda completa en las 251 filas: 75 `exact` dentro del alcance declarado, 139 `partial`, 31 `auxiliary` y 6 `pending` científicos explícitos; no hay filas `pending_review`. Esto no elimina las limitaciones parciales ni las deudas conservadas.
 
 ## Validación pendiente
 

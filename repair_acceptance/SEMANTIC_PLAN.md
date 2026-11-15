@@ -200,3 +200,53 @@ Se preservaron las revisiones previas en `repair_acceptance/historical/progreso_
 - El dashboard incluye la relación semántica de cada fila para que OK sólo signifique axiomas permitidos, no que la afirmación sea exacta.
 
 No se realizó push ni se reasignó una etiqueta. Queda repetir el adapter `repair_acceptance/reproduce.sh` completo desde un worktree limpio del commit integrado; el estado `COMPLETE_VERIFIED` no certifica equivalencia matemática general.
+
+## Lote Gordin: de Doeblin a series y covariogramas (`smwi7ezya`)
+
+Se juzgaron y aceptaron los cuatro miembros por separado. No se acepta una
+promoción de `C.thm:appD-gordin` ni una hipótesis de periodicidad eliminada.
+`m3` ya estaba aceptado como resultado espectral auxiliar; `m1` compila su runner
+real y 29 controles de axiomas; `m2` y `m4` recompilan su propio runner con 40
+controles cada uno. Después se integró selectivamente el contenido, sin paquetes
+`kernel_patch.json`.
+
+- `m1`: de bloques a decaimiento para todo `t`, serie centrada de Poisson,
+  identificación con la solución de Poisson única, sumabilidad del covariograma
+  y `σ²=γ(0)+2∑_{k≥1}γ(k)`. Se conservan la hipótesis `hP0` en el ámbito
+  matricial, `Matrix.IsPrimitive`, `π` dada, y funciones centradas; no se deriva
+  primitividad de `Chain`. La copia algebraica conserva las pruebas y cambia el
+  import a `Book.GordinCoreM8`, sin depender de `.ultramath/`.
+- `m2`: dos tiempos algebraicos, `pairCov(i,j)=γ(|i−j|)`, identidad finita de
+  conteo y convergencia Toeplitz bajo `∑|γ|`. La lectura probabilística de
+  covarianza exige centrado, pero no se construyó la medida de trayectorias.
+  No se usó la sustitución inválida `Z i=P^i f` (sólo vale bajo reversibilidad).
+- `m4`: se conservan irreducibilidad matricial desde caminos positivos,
+  `chain_not_imp_primitive` y una instancia primitiva. Su réplica de Poisson,
+  fubini y la matriz no se integra: el puente canónico de m1 es el único usado.
+- `m3`: autofunciones con `|λ|<1`, rango uno y la cadena no reversible general
+  de dos estados. Los casos `n≥3` bajo eigenfunciones no se presentan como
+  prueba general ni como CLT.
+
+Al importarlo conjuntamente, `AuditAll.lean` detectó una colisión en
+`Chain.applyP_eq_mulVec` entre m1 y m2. Se corrigió retirando el duplicado de m2;
+`GordinCovarianzaM2.lean` y su ejemplo usan `D.toMatrix` de m1. El ejemplo de dos
+estados usa `covLag` de m2, sin confundirlo con el operador `Ppow` del módulo
+espectral. La solución de Poisson principal se mantiene en `Chain.gamma` (m1).
+`GordinPrimitividadM4` no introduce `Pmat` ni `poissonH`.
+
+El kernel añade **cuatro claims auxiliares, cuatro argumentos y 13 specs usadas**:
+`C.der:gordin-serie-poisson`, `C.der:gordin-marginal-dos-tiempos`,
+`C.der:gordin-primitividad` y `C.der:gordin-autofuncion`. La revisión conserva
+los campos centrales de cada target; cada spec tiene `domain` y `lean_axioms` y
+está usada por un argumento. **Ningún claim original pendiente se retira.** La
+matriz regenerada es **75 exact / 139 partial / 31 auxiliary / 6 pending**, con
+**251 agent_reviewed / 0 pending_review** y `semantic_gate=True`; no equivale a
+equivalencia matemática general.
+
+Validación intermedia exportador vivo: **363 entradas / 354 nombres únicos**,
+el runner runner recopiló 84 módulos antes del enlace completo de auditoría,
+y después `AuditAll.lean importó los nueve módulos y auditó **3201 teoremas**
+sin axiomas no permitidos. `argumentos verify` produjo **330 recibos** y
+**293/293 argumentos** respaldados localmente. Queda la repetición integral
+del runner, el checkout limpio y la reproducción completa antes de presentar el
+commit como `COMPLETE_VERIFIED`.
