@@ -40,6 +40,13 @@ Fecha: 2026-11-06. Fase F0 (reconocer y preservar). Puerta F0: veredicto al fina
 | typst | 0.15.1 | coincide con la versión observada del paquete para `typst-syntax` — la alineación de docs/02 ya está dada |
 | lean | 4.33.1 | Mathlib precompilada en `LEAN_PATH` (`/opt/mathlib` read-only); runner `verificar.sh` con `lean` directo |
 | python3 | 3.12.14 | numpy 2.5.3, scipy 1.18.1, jsonschema disponible |
+
+> **Actualización 2026-11-17 (v1.1.0):** los pines declarados son Lean **4.35.0**
+> (`verificacion_lean/lean-toolchain` = `leanprover/lean4:v4.35.0`) y Mathlib 4.35.0
+> (rev `56a005855ea17e0b0958f73ec801ae140b0a1679` en `lakefile.toml`), que es lo que
+> `verificar.sh` compila vía `LEAN_PATH`. Las filas de esta tabla corresponden a la
+> fase F1 en la que se escribió; la fila «lean» quedó desactualizada y no describe el
+> cierre. Ver `REPRODUCE.md` y `STATE.json`.
 | red | disponible | crates.io accesible para F1 |
 | disco | 218 GB libres | `argumentos/target/` ignorado por git |
 

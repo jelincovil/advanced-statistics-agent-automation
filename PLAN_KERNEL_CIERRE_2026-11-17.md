@@ -103,3 +103,29 @@ con `--out` fuera del checkout, y `acceptance.json` PASS. Sin esto, nada se da p
 
 Sin (1)–(2) el kernel v1 seguirá siendo un commit local verde y reproducido, pero
 no publicado. Ningún paso de este plan empuja, etiqueta ni cierra claims sin tu instrucción.
+
+## 4. Registro de ejecución (2026-11-17)
+
+- **F1 ejecutado y confirmado.** `main` fast-forward `893d19a` → `520d207`;
+  `omm/main` confirmado en `520d207` (`github_push` → pushed; `github_fetch main`
+  → oid `520d207…`). Tag anotado local **`v1.1.0` → `520d207`** creado; pen de push
+  a cargo de Jaime (`git push omm v1.1.0`).
+- **Reproducción limpia de `520d207`: COMPLETE_VERIFIED** (job `jmwkpvxq5`,
+  `evidencia/repair/v1.1.0-520d207/`: `acceptance.json` PASS; C01–C12 y G1–G10 PASS;
+  `git_head` = `520d207`; árbol limpio; 3201 teoremas auditados, 0 axiomas no permitidos).
+- **F2 hecho** en `520d207` (banners históricos, changelog, REPRODUCE, plan).
+- **F3 ya hecho en los pines** (verificado hoy: `lean-toolchain` = v4.35.0,
+  mathlib rev `56a0058…`); este commit actualiza sólo la documentación obsoleta
+  (`BASELINE.md`, `DEUDA.md` §2.4). Verificación previa: ningún `.md` está entre
+  los `input_hashes` de los recibos.
+- **F4 hecho sin cambios en fuente**: el docstring de `GordinCoreM8.lean` ya
+  declara `Chain.cesaro_condVar` como deuda no disponible; re-verificado con
+  `#check @Chain.cesaro_condVar` → `Unknown identifier` (línea exacta: declara
+  que no forma parte del módulo). `DEUDA.md`/`pendientes.json` conservan la deuda.
+- **F7 (parcial) hecho**: `book_stat_inference_v0/main.pdf` desversionado
+  (`git rm --cached`, 6.9 MB de artefacto de compilación), ruta añadida a `.gitignore`;
+  el archivo se conserva en el disco local.
+- **Pendiente**: push de este commit D2 (lo decides tú). Observación no actada:
+  hay 89 archivos rastreados bajo `.scratch/` (se versionaron antes del ignore),
+  incluidos PDFs y un `upload_typst_app` `.tar.gz`; desversionarlos excedería lo
+  autorizado — decisión aparte.

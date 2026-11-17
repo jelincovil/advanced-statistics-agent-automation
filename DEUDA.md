@@ -245,6 +245,12 @@ ya no hace falta. Además el repositorio **declara** otra versión:
 se cita contra 4.35.0 y conviene alinear los pines (o documentar que es
 deliberado) para que el próximo `lake build` no cambie el conjunto de módulos.
 
+> **Actualización 2026-11-17 (v1.1.0):** pines ya alineados —
+> `lean-toolchain` = `leanprover/lean4:v4.35.0`, `lakefile.toml` fija mathlib
+> `56a005855ea17e0b0958f73ec801ae140b0a1679` (la 4.35.0) y `REPRODUCE.md`
+> documenta Lean 4.35.0 / Mathlib 4.35.0. La frase sobre «v4.33.1 declarado»
+> quedó obsoleta.
+
 ### 2.5 Estimación del trabajo restante
 
 Ya no es «CLT funcional de martingalas completo»: es

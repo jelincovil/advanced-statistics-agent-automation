@@ -41,3 +41,6 @@ __pycache__/
 # Herramientas locales de agente: no forman parte del libro ni del kernel.
 .skill/lean-workflow/
 .skill/lean-statement-audit/
+
+# Artefacto de compilación Typst, no versionado (decisión de 2026-11-17)
+book_stat_inference_v0/main.pdf
