@@ -1,6 +1,11 @@
 # Kernel de argumentos — versión 1, estado de trabajo
 
-**Base:** `893d19aa04fc85f58aeec387d74a57cfa3593d3e`. El informe anterior está en `repair_acceptance/historical/`; no se reutilizan sus afirmaciones globales de cierre.
+> **Documento histórico (fase de revisión v1).** El estado vigente está en `STATE.json`
+> (251/293/330, `COMPLETE_VERIFIED`), `repair_acceptance/claim_review.json`
+> (75 exact / 139 partial / 31 auxiliary / 6 pending, 0 `pending_review`) y en la
+> reproducción limpia de `1bbc20d` (`evidencia/repair/smwi7ezya/clean-reproduction/`,
+> C01–C12 y G1–G10 PASS, `source_commit=1bbc20d`). Ver `PLAN_KERNEL_CIERRE_2026-11-17.md`.
+> Las cifras y la base `893d19a` de esta página describen la fase en la que se escribió.
 
 ## Mejoras aplicadas y reproducción
 

@@ -1,5 +1,18 @@
 # CHANGELOG — argumentos
 
+## v1.1.0 — Cierre de la línea v1 (2026-11-17)
+
+- **Base verificada `1bbc20d`** `feat: formalize primitive Gordin covariance series`:
+  reproducción limpia PASS (C01–C12 y G1–G10), `source_commit=1bbc20d`,
+  251 claims / 293 argumentos / 330 specs / 330 recibos, 3201 teoremas Lean
+  auditados (axiomas dentro de `{propext, Classical.choice, Quot.sound}`).
+- **Revisión semántica completa**: 75 `exact` / 139 `partial` / 31 `auxiliary` /
+  6 `pending`, todas deliberadas (alcance UCB1/Hoeffding y CLT-mixing; ibragimov y
+  gordin; supuestos ambiente `A.*`). 0 `pending_review`.
+- **Publicación**: fast-forward de `main` a la línea v1 y push a `omm/main`;
+  tag `v1.1.0`. Pendientes y limitaciones conservadas y declaradas
+  (`DEUDA.md`, `argumentos/kernel/pendientes.json`), nada rebajado para pasar.
+
 ## F8 — Cierre reproducible (2026-11-06)
 
 - **Pipeline end-to-end completo**: doctor (12 sondas OK) → inventory

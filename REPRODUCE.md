@@ -30,3 +30,12 @@ bash repair_acceptance/reproduce.sh --out /ruta-externa/evidence-v1
 La confianza **solo** se computa dentro de `argumentos verify` al ejecutar el runner permitido. `argumentos check --receipts DIR` importa JSON como no confiable —incluso si declara `attested_by_configured_policy`— y conserva las obligaciones pendientes. No existe atestación automática por commit/hashes.
 
 El estado v1 **no** afirma que todo el libro esté demostrado ni que toda equivalencia esté revisada: `repair_acceptance/claim_review.json` distingue las comparaciones `agent_reviewed` y las `pending_review`. Sus pendientes y las dos deudas de Ibragimov/Gordin se enumeran, no se rebajan para pasar.
+
+## Cierre v1.1.0 (2026-11-17)
+
+El tag `v1.1.0` señala el commit de cierre verificado (`git show v1.1.0`). La
+reproducción de referencia corresponde a `1bbc20d`
+(`evidencia/repair/smwi7ezya/clean-reproduction/`: C01–C12 y G1–G10 PASS,
+`source_commit=1bbc20d`). `FINAL.md` (fase de revisión) y `ESTADO_CONGELADO.md`
+(2026-11-10) son históricos; el estado vigente está en `STATE.json`. Ibragimov y
+Gordin siguen siendo deuda científica declarada; no se cierran.

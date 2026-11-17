@@ -1,5 +1,10 @@
 # Estado Congelado — Proyecto de Formalización y Kernel de Argumentos
 
+> **Congelado el 2026-11-10 — documento histórico.** Las cifras de esta página
+> (241/210/287, 68 módulos, pendientes 1) corresponden a esa fecha y están
+> desactualizadas. Estado vigente: `STATE.json`, `FINAL.md` y
+> `PLAN_KERNEL_CIERRE_2026-11-17.md`.
+
 **Fecha de congelación:** 2026-11-10 04:19 UTC
 **Repositorio:** /workspace/nucleus/work/projects/p-f4a5f92c912f41d1b16c220e3d6eb24d/repo
 **Rama:** HEAD en `473a208`
